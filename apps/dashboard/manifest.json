@@ -1,0 +1,19 @@
+{
+  "application": {
+    "uri": "it.uniparthenope.fairwind.dashboard",
+    "name": {
+      "en":"Dashboard",
+      "it": "Cruscotto"
+    },
+    "author": {
+      "en": "The FairWind Team",
+      "it": "Il FairWind Team"
+    },
+    "description": {
+      "en": "Display diverse and different navigation data",
+      "it": "Visualizza i dati di navigazione"
+    },
+    "web": "http://fairwind.uniparthenope.it",
+    "email": "fairwind@uniparthenope.it"
+  }
+}
