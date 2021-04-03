@@ -10,7 +10,19 @@ set(QT_VERSION 5)
 set(REQUIRED_LIBS Core Gui Widgets WebEngineWidgets)
 set(REQUIRED_LIBS_QUALIFIED Qt5::Core Qt5::Gui Qt5::Widgets Qt5::WebEngineWidgets)
 
-add_executable(${PROJECT_NAME} main.cpp resources.qrc ui/MainWindow.ui ui/MainWindow.cpp ui/MainWindow.hpp App.cpp App.hpp ui/WebView.cpp ui/WebView.hpp ui/WebPage.cpp ui/WebPage.hpp ui/WebPopupWindow.cpp ui/WebPopupWindow.hpp apps/IApp.cpp include/IApp.hpp apps/dashboard/Dashboard.cpp apps/dashboard/Dashboard.hpp apps/web/Web.cpp apps/web/Web.hpp apps/native/Native.cpp apps/native/Native.hpp)
+add_library(Dashboard SHARED apps/dashboard/Dashboard.cpp)
+target_link_libraries(Dashboard PRIVATE Qt5::Widgets)
+target_compile_options(Dashboard PRIVATE ${COMPILE_OPTIONS})
+
+add_library(Web SHARED apps/web/Web.cpp)
+target_link_libraries(Web PRIVATE Qt5::Widgets Qt5::WebEngineWidgets)
+target_compile_options(Web PRIVATE ${COMPILE_OPTIONS})
+
+add_library(Native SHARED apps/native/Native.cpp)
+target_link_libraries(Native PRIVATE Qt5::Widgets)
+target_compile_options(Native PRIVATE ${COMPILE_OPTIONS})
+
+add_executable(${PROJECT_NAME} main.cpp resources.qrc ui/MainWindow.ui ui/MainWindow.cpp ui/MainWindow.hpp App.cpp App.hpp ui/WebView.cpp ui/WebView.hpp ui/WebPage.cpp ui/WebPage.hpp ui/WebPopupWindow.cpp ui/WebPopupWindow.hpp include/IFairWindApp.hpp  include/FairWindApp.hpp apps/FairWindApp.cpp apps/IFairWindApp.cpp)
 
 if (NOT CMAKE_PREFIX_PATH)
     message(WARNING "CMAKE_PREFIX_PATH is not defined, you may need to set it "
