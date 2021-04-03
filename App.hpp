@@ -31,10 +31,6 @@ public:
     std::string name;
     std::string icon;
     std::string url;
-
-private:
-    QWidget *m_gui;
-    QWidget *m_settings;
 };
 
 
