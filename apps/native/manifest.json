@@ -1,17 +1,17 @@
 {
-  "Name" : "Dashboard",
+  "Name" : "Native",
   "Version" : "0.0.1",
   "CompatVersion" : "0.0.1",
   "Vendor" : "University of Naples Parthenope",
   "Copyright" : "(C) 2021 The FairWind Team",
   "License" : "Apache 2.0",
   "Category" : "Apps",
-  "Description" : "A display utility for diverse and different navigation data",
-  "Url" : "http://fairwind.uniparthenope.it/",
+  "Description" : "A launcher for external programs",
+  "Url" : "http://fairwind.uniparthenope.it/fairwindplusplus/apps/native",
   "Email": "fairwind@uniparthenope.it",
   "FairWind": {
     "App": {
-      "Uri": "it.uniparthenope.fairwind.apps.dashboard"
+      "Uri": "it.uniparthenope.fairwind.apps.native"
     }
   }
 }
