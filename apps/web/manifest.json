@@ -1,0 +1,17 @@
+{
+  "Name" : "Web",
+  "Version" : "0.0.1",
+  "CompatVersion" : "0.0.1",
+  "Vendor" : "University of Naples Parthenope",
+  "Copyright" : "(C) 2021 The FairWind Team",
+  "License" : "Apache 2.0",
+  "Category" : "Apps",
+  "Description" : "A container for local or remote web applications",
+  "Url" : "http://fairwind.uniparthenope.it/fairwindplusplus/apps/web",
+  "Email": "fairwind@uniparthenope.it",
+  "FairWind": {
+    "App": {
+      "Uri": "it.uniparthenope.fairwind.apps.web"
+    }
+  }
+}
