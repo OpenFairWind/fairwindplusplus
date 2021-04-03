@@ -2,6 +2,7 @@
 #include <QPushButton>
 #include <QWebEngineSettings>
 #include <QWebEngineProfile>
+#include <QtPlugin>
 #include "ui/MainWindow.hpp"
 
 int main(int argc, char *argv[]) {
