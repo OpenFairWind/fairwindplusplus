@@ -3,3 +3,11 @@
 //
 
 #include "Native.hpp"
+
+#include <QDebug>
+
+
+
+QImage fairwind::apps::native::Native::getIcon() const {
+    return QImage();
+}

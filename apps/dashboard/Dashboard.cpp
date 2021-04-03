@@ -3,3 +3,12 @@
 //
 
 #include "Dashboard.hpp"
+
+#include <QDebug>
+
+
+
+QImage fairwind::apps::dashboard::Dashboard::getIcon() const {
+    return QImage();
+}
+
