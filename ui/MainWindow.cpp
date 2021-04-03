@@ -9,6 +9,8 @@
 #include <QToolButton>
 #include <QProcess>
 #include <QWebEngineView>
+#include <QPluginLoader>
+#include <QDir>
 #include "MainWindow.hpp"
 
 #include "ui_MainWindow.h"
@@ -20,6 +22,8 @@ MainWindow::MainWindow(QWidget *parent) :
         ui(new Ui::MainWindow)
 {
     m_profile = QWebEngineProfile::defaultProfile();
+
+    loadApps();
 
     ui->setupUi(this);
 
@@ -290,4 +294,35 @@ void MainWindow::toolButton_Apps_released()
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::loadApps()
+{
+    auto appsDir = QDir(QCoreApplication::applicationDirPath());
+
+    #if defined(Q_OS_WIN)
+    if (appsDir.dirName().toLower() == "debug" || appsDir.dirName().toLower() == "release")
+        appsDir.cdUp();
+    #elif defined(Q_OS_MAC)
+    if (appsDir.dirName() == "MacOS") {
+        appsDir.cdUp();
+        appsDir.cdUp();
+        appsDir.cdUp();
+    }
+    #endif
+    appsDir.cd("apps");
+    qDebug() << appsDir.absolutePath();
+    const auto entryList = appsDir.entryList(QDir::Files);
+    for (const QString &fileName : entryList) {
+        QString absoluteAppPath=appsDir.absoluteFilePath(fileName);
+        qDebug() << absoluteAppPath;
+        QPluginLoader loader(absoluteAppPath);
+        QObject *plugin = loader.instance();
+        qDebug() << plugin;
+        if (plugin) {
+            fairwind::apps::IFairWindApp *fairWindApp= dynamic_cast<fairwind::apps::IFairWindApp *>(plugin);
+            fairWindApps.emplace_back(fairWindApp);
+            qDebug() << "xxx";
+        }
+    }
 }

@@ -9,7 +9,11 @@
 #include <QMap>
 #include <QWebEngineProfile>
 
+#include <QDebug>
+#include <QPluginLoader>
+
 #include "../App.hpp"
+#include "../include/FairWindApp.hpp"
 
 namespace Ui {
     class MainWindow;
@@ -26,6 +30,9 @@ public:
 private:
     Ui::MainWindow *ui;
 
+    std::vector<fairwind::apps::IFairWindApp *> fairWindApps;
+    std::map<QString, fairwind::apps::IFairWindApp *> mapFairWindApps;
+
     std::vector<App> apps;
     std::map<QString, App> mapApps;
     std::map<QString, QWidget *> mapWidgets;
@@ -37,6 +44,8 @@ private:
     QWebEngineProfile *m_profile;
 
     void toolButton_WebApp_Button_clicked();
+
+    void loadApps();
 };
 
 
