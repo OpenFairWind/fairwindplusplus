@@ -1,0 +1,17 @@
+{
+  "Name" : "Chart",
+  "Version" : "0.0.1",
+  "CompatVersion" : "0.0.1",
+  "Vendor" : "University of Naples Parthenope",
+  "Copyright" : "(C) 2021 The FairWind Team",
+  "License" : "Apache 2.0",
+  "Category" : "Apps",
+  "Description" : "A charting navigation app",
+  "Url" : "http://fairwind.uniparthenope.it/",
+  "FairWind": {
+    "Extension": {
+      "Email": "fairwind@uniparthenope.it",
+      "Id": "it.uniparthenope.fairwind.apps.chart"
+    }
+  }
+}

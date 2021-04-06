@@ -1,27 +1,21 @@
 //
-// Created by Raffaele Montella on 01/04/21.
+// Created by Raffaele Montella on 04/04/21.
 //
 
 #ifndef FAIRWIND_FAIRWINDAPP_HPP
 #define FAIRWIND_FAIRWINDAPP_HPP
 
+#include "FairWindExtension.hpp"
 
-#include <QObject>
-#include <QJsonDocument>
-#include "IFairWindApp.hpp"
+namespace fairwind::extensions::apps {
+    class FairWindApp: public FairWindExtension {
 
-namespace fairwind {
-    namespace apps {
+    public:
 
-        class FairWindApp {
-        public:
+    private:
 
-            QSharedPointer<QJsonDocument> getSettings();
-
-        private:
-            QJsonDocument settings;
-        };
-    }
+    };
 }
+
 
 #endif //FAIRWIND_FAIRWINDAPP_HPP

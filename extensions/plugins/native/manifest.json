@@ -5,13 +5,13 @@
   "Vendor" : "University of Naples Parthenope",
   "Copyright" : "(C) 2021 The FairWind Team",
   "License" : "Apache 2.0",
-  "Category" : "Apps",
+  "Category" : "Plugins",
   "Description" : "A launcher for external programs",
   "Url" : "http://fairwind.uniparthenope.it/fairwindplusplus/apps/native",
-  "Email": "fairwind@uniparthenope.it",
   "FairWind": {
-    "App": {
-      "Uri": "it.uniparthenope.fairwind.apps.native"
+    "Extension": {
+      "Email": "fairwind@uniparthenope.it",
+      "Id": "it.uniparthenope.fairwind.plugins.native"
     }
   }
 }

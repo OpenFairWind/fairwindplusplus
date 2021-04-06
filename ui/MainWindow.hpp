@@ -12,8 +12,9 @@
 #include <QDebug>
 #include <QPluginLoader>
 
-#include "../App.hpp"
+#include "../core/App.hpp"
 #include "../include/FairWindApp.hpp"
+#include "../include/IFairWindPlugin.hpp"
 
 namespace Ui {
     class MainWindow;
@@ -29,13 +30,8 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    QMap<QString, QWidget *> mapWidgets;
 
-    std::vector<fairwind::apps::IFairWindApp *> fairWindApps;
-    std::map<QString, fairwind::apps::IFairWindApp *> mapFairWindApps;
-
-    std::vector<App> apps;
-    std::map<QString, App> mapApps;
-    std::map<QString, QWidget *> mapWidgets;
 
     void toolButton_App_released();
     void toolButton_Apps_released();
@@ -45,7 +41,7 @@ private:
 
     void toolButton_WebApp_Button_clicked();
 
-    void loadApps();
+
 };
 
 

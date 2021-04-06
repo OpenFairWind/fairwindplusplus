@@ -7,14 +7,11 @@
 #include <QPushButton>
 #include <QGridLayout>
 #include <QToolButton>
-#include <QProcess>
-#include <QWebEngineView>
-#include <QPluginLoader>
-#include <QDir>
 #include "MainWindow.hpp"
 
 #include "ui_MainWindow.h"
-#include "WebView.hpp"
+#include "../extensions/plugins/web/WebView.hpp"
+#include "../core/FairWind.hpp"
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -22,8 +19,6 @@ MainWindow::MainWindow(QWidget *parent) :
         ui(new Ui::MainWindow)
 {
     m_profile = QWebEngineProfile::defaultProfile();
-
-    loadApps();
 
     ui->setupUi(this);
 
@@ -138,37 +133,23 @@ MainWindow::MainWindow(QWidget *parent) :
     int row=0, col=0, page=0;
 
 
-    apps.emplace_back("Chart","chart.png","fairwind://chart.app");
-    apps.emplace_back("Sonar","sonar.png","fairwind://sonar.app");
-    apps.emplace_back("Radar","radar.png","fairwind://radar.app");
-    apps.emplace_back("Dashboard","dashboard.png","fairwind://dashboard.app");
-    apps.emplace_back("Audio","audio.png","fairwind://audio.app");
-    apps.emplace_back("Video","video.png","fairwind://video.app");
-    apps.emplace_back("UAV","uav.png","fairwind://uav.app");
-    apps.emplace_back("Signal K","signalk.png","http://192.168.1.199:3000");
-    apps.emplace_back("Freeboard","freeboard.png","http://192.168.1.199:3000/@signalk/freeboard-sk/");
-    apps.emplace_back("Instrument Panel","instrumentpanel.png","http://192.168.1.199:3000/@signalk/instrumentpanel/");
-    apps.emplace_back("OpenCPN","opencpn.png","system:///Applications/OpenCPN.app/Contents/MacOS/OpenCPN -fullscreen");
-    apps.emplace_back("Navionics Web App","navionics.png","https://webapp.navionics.com");
 
+    auto fairWind=fairwind::FairWind::getInstance();
+    auto apps=fairWind.getApps();
 
+    for (auto &hash : apps.keys()) {
+        auto app=apps[hash];
+        if (app->getActive()) {
+            auto *button = new QToolButton();
+            button->setObjectName("toolbutton_"+hash);
+            button->setText(app->getName());
+            button->setIcon(QPixmap::fromImage(app->getIcon()));
+            button->setIconSize(QSize(256,256));
+            button->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+            connect(button, &QToolButton::released, this, &MainWindow::toolButton_App_released);
 
-    for (auto & app : apps) {
-
-        QString id=QString(app.name.c_str()).replace(" ","_");
-        mapApps.insert( std::pair<QString,App>(id,app) );
-        QString name=QString(app.name.c_str());
-        QString icon=QString(("apps/"+app.icon).c_str());
-
-        auto *button = new QToolButton();
-        button->setObjectName("toolbutton_"+id);
-        button->setText(name);
-        button->setIcon(QIcon(icon));
-        button->setIconSize(QSize(256,256));
-        button->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-        connect(button, &QToolButton::released, this, &MainWindow::toolButton_App_released);
-
-        layout->addWidget(button,row,col);
+            layout->addWidget(button,row,col);
+        }
 
         row++;
         if (row==rows) {
@@ -186,98 +167,39 @@ MainWindow::MainWindow(QWidget *parent) :
 void MainWindow::toolButton_App_released()
 {
     QWidget *buttonWidget = qobject_cast<QWidget*>(sender());
-    if (!buttonWidget)
+    if (!buttonWidget) {
         return;
+    }
 
-    QString id=buttonWidget->objectName().replace("toolbutton_","");
+    QString hash=buttonWidget->objectName().replace("toolbutton_","");
 
-    App app=mapApps.at(id);
-    QString url(app.url.c_str());
-    QStringList args;
-
-    if (url.startsWith("system://")) {
-        url=url.replace("system://","");
-        QProcess::startDetached(url);
-        showMinimized();
-    } else if (url.startsWith("http://") || url.startsWith("https://")) {
-        QWidget *widgetWebApp;
-        if (mapWidgets.count(id)>0) {
-            widgetWebApp = mapWidgets.at(id);
+    auto fairWind = fairwind::FairWind::getInstance();
+    auto app=fairWind.getApps()[hash];
+    QWidget *widgetApp = nullptr;
+    if (mapWidgets.find(hash)!=mapWidgets.end()) {
+        widgetApp = mapWidgets[hash];
+    } else {
+        if (app->isPlugin()) {
+            fairwind::extensions::plugins::IFairWindPlugin *fairWindPlugin =
+                    fairWind.getPluginByExtensionId(app->getExtension());
+            widgetApp=fairWindPlugin->onGui(this, app->getArgs());
         } else {
-            widgetWebApp = new QWidget();
-
-            auto *webView = new WebView(widgetWebApp);
-            webView->setSizePolicy(QSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding));
-
-            auto *widgetWebApp_Buttons = new QWidget(widgetWebApp);
-
-            auto *pushButton_Home=new QPushButton(widgetWebApp_Buttons);
-            pushButton_Home->setText("Home");
-            pushButton_Home->setObjectName("toolbutton_WebApp_Button_home_"+id);
-            connect(pushButton_Home, &QToolButton::clicked, this, &MainWindow::toolButton_WebApp_Button_clicked);
-
-
-
-            auto *pushButton_Prev=new QPushButton(widgetWebApp_Buttons);
-            pushButton_Prev->setText("<");
-
-            auto *pushButton_Next=new QPushButton(widgetWebApp_Buttons);
-            pushButton_Next->setText(">");
-
-            auto *hBoxLayout = new QHBoxLayout();
-            widgetWebApp->setLayout(hBoxLayout);
-            hBoxLayout->addWidget(webView);
-            hBoxLayout->addWidget(widgetWebApp_Buttons);
-
-            auto *vBoxLayout = new QVBoxLayout();
-            vBoxLayout->setAlignment(Qt::AlignTop);
-            vBoxLayout->addWidget(pushButton_Home);
-            vBoxLayout->addWidget(pushButton_Prev);
-            vBoxLayout->addWidget(pushButton_Next);
-            widgetWebApp_Buttons->setLayout(vBoxLayout);
-
-
-            webView->load(QUrl(url));
-
-            ui->stackedWidget->addWidget(widgetWebApp);
-            mapWidgets.insert(std::pair<QString,QWidget *>(id,widgetWebApp));
+            fairwind::extensions::apps::IFairWindApp *fairWindApp =
+                    fairWind.getAppByExtensionId(app->getExtension());
+            widgetApp=fairWindApp->onGui(this, app->getArgs());
         }
-
-        ui->stackedWidget->setCurrentWidget(widgetWebApp);
+        if (widgetApp) {
+            ui->stackedWidget->addWidget(widgetApp);
+            mapWidgets.insert(hash,widgetApp);
+        }
+    }
+    if (widgetApp) {
+        ui->stackedWidget->setCurrentWidget(widgetApp);
     }
 
 }
 
-void MainWindow::toolButton_WebApp_Button_clicked()
-{
-    QWidget *buttonWidget = qobject_cast<QWidget*>(sender());
-    if (!buttonWidget)
-        return;
 
-    int action=0;
-    QString objectName=buttonWidget->objectName();
-    if (objectName.indexOf("_home_")>=0) {
-        objectName=objectName.replace("_home_","");
-        action=1;
-    } else if (objectName.indexOf("_prev_")>=0) {
-        objectName=objectName.replace("_prev_","");
-        action=2;
-    } else if (objectName.indexOf("_next_")>=0) {
-        objectName=objectName.replace("_next_","");
-        action=3;
-    }
-    QString id=objectName.replace("toolbutton_WebApp_Button","");
-
-    App app=mapApps.at(id);
-    QWidget *widgetWebApp = mapWidgets.at(id);
-
-    switch (action) {
-        case 1:
-            QString url(app.url.c_str());
-            ((WebView *)(widgetWebApp->children()[0]))->load(QUrl(url));
-            break;
-    }
-}
 
 void MainWindow::toolButton_Settings_released()
 {
@@ -296,33 +218,3 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::loadApps()
-{
-    auto appsDir = QDir(QCoreApplication::applicationDirPath());
-
-    #if defined(Q_OS_WIN)
-    if (appsDir.dirName().toLower() == "debug" || appsDir.dirName().toLower() == "release")
-        appsDir.cdUp();
-    #elif defined(Q_OS_MAC)
-    if (appsDir.dirName() == "MacOS") {
-        appsDir.cdUp();
-        appsDir.cdUp();
-        appsDir.cdUp();
-    }
-    #endif
-    appsDir.cd("apps");
-    qDebug() << appsDir.absolutePath();
-    const auto entryList = appsDir.entryList(QDir::Files);
-    for (const QString &fileName : entryList) {
-        QString absoluteAppPath=appsDir.absoluteFilePath(fileName);
-        qDebug() << absoluteAppPath;
-        QPluginLoader loader(absoluteAppPath);
-        QObject *plugin = loader.instance();
-        qDebug() << plugin;
-        if (plugin) {
-            fairwind::apps::IFairWindApp *fairWindApp= dynamic_cast<fairwind::apps::IFairWindApp *>(plugin);
-            fairWindApps.emplace_back(fairWindApp);
-            qDebug() << "xxx";
-        }
-    }
-}

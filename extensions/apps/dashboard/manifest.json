@@ -8,10 +8,10 @@
   "Category" : "Apps",
   "Description" : "A display utility for diverse and different navigation data",
   "Url" : "http://fairwind.uniparthenope.it/",
-  "Email": "fairwind@uniparthenope.it",
   "FairWind": {
-    "App": {
-      "Uri": "it.uniparthenope.fairwind.apps.dashboard"
+    "Extension": {
+      "Email": "fairwind@uniparthenope.it",
+      "Id": "it.uniparthenope.fairwind.apps.dashboard"
     }
   }
 }
