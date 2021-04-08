@@ -20,8 +20,6 @@ namespace fairwind {
 
         App(extensions::plugins::IFairWindPlugin *fairWindPlugin, QMap<QString, QString> args, bool active=true, int order=1);
 
-        App(QJsonObject jsonApp);
-
         App(const App &app);
 
         QString getHash();
