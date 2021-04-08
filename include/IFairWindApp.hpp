@@ -17,13 +17,16 @@ namespace fairwind::extensions::apps {
     class IFairWindApp {
     public:
         virtual ~IFairWindApp() = default;
-        virtual QString getUUID()  = 0;
-        virtual QString getId()  = 0;
-        virtual QString getName()  = 0;
-        virtual QString getDesc()  = 0;
-        virtual void setMetaData(QJsonObject &metaData) = 0;
-        virtual QImage getIcon()  = 0;
 
+        virtual void init(QJsonObject *metaData) = 0;
+
+
+        virtual QString getId() const = 0;
+        virtual QString getName() const = 0;
+        virtual QString getDesc() const  = 0;
+
+
+        virtual QImage getIcon() const = 0;
         virtual QWidget *onGui(QMainWindow *mainWindow, QMap<QString, QString> args) = 0;
     };
 

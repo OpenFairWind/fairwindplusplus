@@ -19,12 +19,13 @@ namespace fairwind::extensions::plugins {
     public:
         virtual ~IFairWindPlugin() = default;
 
+        virtual void init(QJsonObject *metaData) = 0;
+
         virtual QString getId() const = 0;
         virtual QString getName() const = 0;
         virtual QString getDesc() const = 0;
-        virtual void setMetaData(QJsonObject &metaData) = 0;
-        virtual QImage getIcon() const = 0;
 
+        virtual QImage getIcon() const = 0;
         virtual QWidget *onGui(QMainWindow *mainWindow, QMap<QString, QString> args) = 0;
 
     };
