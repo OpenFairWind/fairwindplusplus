@@ -13,16 +13,18 @@
 #include "App.hpp"
 
 namespace fairwind {
-    class FairWind {
+    class FairWind: public QObject {
+        Q_OBJECT
     public:
-        static FairWind &getInstance();
+        /*static FairWind &getInstance();*/
+        static FairWind *getInstance();
 
         void loadExtensions();
         extensions::apps::IFairWindApp *getAppByExtensionId(QString id);
         extensions::plugins::IFairWindPlugin *getPluginByExtensionId(QString id);
 
         void setApplicationDirPath(QString qString);
-        void loadConfig(QString configFile);
+        void loadConfig(const QString& configFile);
 
         QMap<QString, App *> getApps();
 
@@ -35,7 +37,7 @@ namespace fairwind {
 
         QString m_applicationDirPath;
         FairWind();
-
+        inline static FairWind *m_instance = nullptr;
 
     };
 }

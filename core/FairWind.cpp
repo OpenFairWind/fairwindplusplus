@@ -10,10 +10,12 @@
 #include <QJsonArray>
 #include "FairWind.hpp"
 
+/*
 fairwind::FairWind &fairwind::FairWind::getInstance() {
     static fairwind::FairWind instance;
     return instance;
 }
+ */
 
 void fairwind::FairWind::loadExtensions() {
     auto appsDir = QDir(QCoreApplication::applicationDirPath());
@@ -42,13 +44,10 @@ void fairwind::FairWind::loadExtensions() {
                 fairwind::extensions::apps::IFairWindApp *fairWindApp= qobject_cast<fairwind::extensions::apps::IFairWindApp *>(extension);
                 if (fairWindApp) {
                     QJsonObject metaData = loader.metaData()["MetaData"].toObject();
-                    qDebug() << metaData;
-                    fairWindApp->setMetaData(metaData);
+                    fairWindApp->init(&metaData);
                     QString appId = fairWindApp->getId();
                     if (!appId.isEmpty()) {
-                        m_mapFairWindApps.insert(appId, fairWindApp);
-                        //m_mapFairWindApps[fairWindApp->getId()]=fairWindApp;
-                        qDebug() << "app" << fairWindApp->getId();
+                        m_mapFairWindApps[fairWindApp->getId()]=fairWindApp;
                     }
                 } else {
                     loader.unload();
@@ -57,12 +56,10 @@ void fairwind::FairWind::loadExtensions() {
                 fairwind::extensions::plugins::IFairWindPlugin *fairWindPlugin= qobject_cast<fairwind::extensions::plugins::IFairWindPlugin *>(extension);
                 if (fairWindPlugin) {
                     QJsonObject metaData = loader.metaData()["MetaData"].toObject();
-                    fairWindPlugin->setMetaData(metaData);
+                    fairWindPlugin->init(metaData);
                     QString pluginId = fairWindPlugin->getId();
                     if (!pluginId.isEmpty()) {
-                        m_mapFairWindPlugins.insert(fairWindPlugin->getId(), fairWindPlugin);
-                        //m_mapFairWindPlugins[fairWindPlugin->getId()]=fairWindPlugin;
-                        qDebug() << "plugin" << fairWindPlugin->getId();
+                        m_mapFairWindPlugins[fairWindPlugin->getId()]=fairWindPlugin;
                     }
                 } else {
                     loader.unload();
@@ -75,21 +72,13 @@ void fairwind::FairWind::loadExtensions() {
 
 fairwind::FairWind::FairWind() {
     qDebug() << "FairWind constructor";
-
-
 }
 
 fairwind::extensions::apps::IFairWindApp *fairwind::FairWind::getAppByExtensionId(QString id) {
-    if (m_mapFairWindApps.find(id) == m_mapFairWindApps.end()) {
-        return nullptr;
-    }
     return m_mapFairWindApps[id];
 }
 
 fairwind::extensions::plugins::IFairWindPlugin *fairwind::FairWind::getPluginByExtensionId(QString id) {
-    if (m_mapFairWindPlugins.find(id) == m_mapFairWindPlugins.end()) {
-        return nullptr;
-    }
     return m_mapFairWindPlugins[id];
 }
 
@@ -97,8 +86,7 @@ void fairwind::FairWind::setApplicationDirPath(QString applicationDirPath) {
     m_applicationDirPath=std::move(applicationDirPath);
 }
 
-void fairwind::FairWind::loadConfig(QString configFile) {
-    qDebug() << "Configuration: " << configFile;
+void fairwind::FairWind::loadConfig(const QString& configFile) {
     QFile jsonFile(configFile);
     jsonFile.open(QFile::ReadOnly);
     QString jsonText=jsonFile.readAll();
@@ -111,15 +99,51 @@ void fairwind::FairWind::loadConfig(QString configFile) {
             QJsonArray jsonApps=jsonExtensions["Apps"].toArray();
 
             for (auto jsonApp:jsonApps) {
-                App app(jsonApp.toObject());
 
-                m_mapApps.insert(app.getHash(),&app);
+                QJsonObject jsonAppObject=jsonApp.toObject();
+
+                if (jsonAppObject.find("Extension")!=jsonAppObject.end()) {
+
+                    QString extension=jsonAppObject["Extension"].toString();
+                    App *app= nullptr;
+
+                    if (extension.startsWith(IID_FAIRWIND_APPS)) {
+
+                        auto fairWindApp = getAppByExtensionId(extension);
+                        if (fairWindApp) {
+                            app=new App(fairWindApp);
+                        }
+                    } else if (extension.startsWith(IID_FAIRWIND_PLUGINS)) {
+                        auto fairWindPlugin = getPluginByExtensionId(extension);
+                        if (fairWindPlugin) {
+                            QMap<QString,QString> args;
+
+                            if (jsonAppObject.find("Args") != jsonAppObject.end()) {
+                                QJsonObject jsonArgs = jsonAppObject["Args"].toObject();
+                                for (QString key: jsonArgs.keys()) {
+                                    args.insert(key, jsonArgs[key].toString());
+                                }
+                            }
+                            app = new App(fairWindPlugin,args);
+                        }
+                    }
+
+                    if (app!= nullptr) {
+                        m_mapApps[app->getHash()]=app;
+                    }
+                }
             }
-
         }
     }
 }
 
 QMap<QString, fairwind::App *> fairwind::FairWind::getApps() {
     return m_mapApps;
+}
+
+fairwind::FairWind *fairwind::FairWind::getInstance() {
+    if (m_instance== nullptr) {
+        m_instance = new FairWind();
+    }
+    return m_instance;
 }
