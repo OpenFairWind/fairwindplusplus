@@ -41,11 +41,16 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
     set(LIBQGEOVIEW ${EXTERNAL_INSTALL_LOCATION}/lib/libqgeoview.dylib)
 endif()
 
+set(CHART_RESOURCE extensions/apps/chart/resources.qrc)
+qt5_add_resources(CHART_RESOURCE_ADDED ${CHART_RESOURCE})
+
 add_library(Chart SHARED
-        extensions/apps/chart/Chart.cpp extensions/apps/chart/Chart.hpp
-        include/FairWindApp.hpp
-        extensions/apps/FairWindApp.cpp include/FairWindApp.hpp
-        extensions/FairWindExtension.cpp include/FairWindExtension.hpp
+        extensions/apps/chart/Chart.cpp
+        extensions/apps/chart/Chart.hpp
+        extensions/FairWindExtension.cpp
+        include/FairWindExtension.hpp
+        include/IFairWindApp.hpp
+        ${CHART_RESOURCE_ADDED}
         )
 
 add_dependencies(Chart QGeoView)
@@ -60,11 +65,17 @@ add_custom_command(
         $<TARGET_FILE_DIR:${PROJECT_NAME}>/extensions/$<TARGET_FILE_NAME:Chart>
 )
 
+set(DASHBOARD_RESOURCE extensions/apps/dashboard/resources.qrc)
+qt5_add_resources(DASHBOARD_RESOURCE_ADDED ${DASHBOARD_RESOURCE})
+
 add_library(Dashboard SHARED
-        extensions/apps/dashboard/Dashboard.cpp extensions/apps/dashboard/Dashboard.hpp
-        include/FairWindApp.hpp
-        extensions/apps/FairWindApp.cpp include/FairWindApp.hpp
-        extensions/FairWindExtension.cpp include/FairWindExtension.hpp)
+        extensions/apps/dashboard/Dashboard.cpp
+        extensions/apps/dashboard/Dashboard.hpp
+        extensions/FairWindExtension.cpp
+        include/FairWindExtension.hpp
+        include/IFairWindApp.hpp
+        ${DASHBOARD_RESOURCE_ADDED}
+        )
 target_link_libraries(Dashboard PRIVATE Qt5::Widgets)
 target_compile_options(Dashboard PRIVATE ${COMPILE_OPTIONS})
 
@@ -76,15 +87,20 @@ add_custom_command(
         $<TARGET_FILE_DIR:${PROJECT_NAME}>/extensions/$<TARGET_FILE_NAME:Dashboard>
 )
 
+set(WEB_RESOURCE extensions/plugins/web/resources.qrc)
+qt5_add_resources(WEB_RESOURCE_ADDED ${WEB_RESOURCE})
 
 add_library(Web SHARED
-        extensions/plugins/web/Web.cpp extensions/plugins/web/Web.hpp
-        include/FairWindPlugin.hpp
-        extensions/plugins/FairWindPlugin.cpp include/FairWindPlugin.hpp
-        extensions/FairWindExtension.cpp include/FairWindExtension.hpp
+        extensions/plugins/web/Web.cpp
+        extensions/plugins/web/Web.hpp
+        extensions/FairWindExtension.cpp
+        include/FairWindExtension.hpp
+        include/IFairWindPlugin.hpp
         extensions/plugins/web/WebView.cpp extensions/plugins/web/WebView.hpp
         extensions/plugins/web/WebPage.cpp extensions/plugins/web/WebPage.hpp
-        extensions/plugins/web/WebPopupWindow.cpp extensions/plugins/web/WebPopupWindow.hpp)
+        extensions/plugins/web/WebPopupWindow.cpp extensions/plugins/web/WebPopupWindow.hpp
+        ${WEB_RESOURCE_ADDED}
+        )
 target_link_libraries(Web PRIVATE Qt5::Widgets Qt5::WebEngineWidgets)
 target_compile_options(Web PRIVATE ${COMPILE_OPTIONS})
 
@@ -96,11 +112,17 @@ add_custom_command(
         $<TARGET_FILE_DIR:${PROJECT_NAME}>/extensions/$<TARGET_FILE_NAME:Web>
 )
 
+set(NATIVE_RESOURCE extensions/plugins/native/resources.qrc)
+qt5_add_resources(NATIVE_RESOURCE_ADDED ${NATIVE_RESOURCE})
+
 add_library(Native SHARED
-        extensions/plugins/native/Native.cpp extensions/plugins/native/Native.hpp
-        include/FairWindPlugin.hpp
-        extensions/plugins/FairWindPlugin.cpp include/FairWindPlugin.hpp
-        extensions/FairWindExtension.cpp include/FairWindExtension.hpp)
+        extensions/plugins/native/Native.cpp
+        extensions/plugins/native/Native.hpp
+        extensions/FairWindExtension.cpp
+        include/FairWindExtension.hpp
+        include/IFairWindPlugin.hpp
+        ${NATIVE_RESOURCE_ADDED}
+        )
 target_link_libraries(Native PRIVATE Qt5::Widgets)
 target_compile_options(Native PRIVATE ${COMPILE_OPTIONS})
 
@@ -118,13 +140,8 @@ add_executable(${PROJECT_NAME}
         core/App.cpp core/App.hpp
         include/IFairWindApp.hpp
         include/IFairWindPlugin.hpp
-        include/FairWindExtension.hpp
-        include/FairWindApp.hpp
-        include/FairWindPlugin.hpp
         core/FairWind.cpp core/FairWind.hpp
-        extensions/FairWindExtension.cpp
-        extensions/plugins/FairWindPlugin.cpp
-        extensions/apps/FairWindApp.cpp)
+        extensions/FairWindExtension.cpp include/FairWindExtension.hpp)
 
 target_link_libraries(${PROJECT_NAME} ${REQUIRED_LIBS_QUALIFIED})
 
