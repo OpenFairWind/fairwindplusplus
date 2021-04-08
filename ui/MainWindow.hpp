@@ -13,7 +13,6 @@
 #include <QPluginLoader>
 
 #include "../core/App.hpp"
-#include "../include/FairWindApp.hpp"
 #include "../include/IFairWindPlugin.hpp"
 
 namespace Ui {

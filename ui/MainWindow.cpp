@@ -10,7 +10,6 @@
 #include "MainWindow.hpp"
 
 #include "ui_MainWindow.h"
-#include "../extensions/plugins/web/WebView.hpp"
 #include "../core/FairWind.hpp"
 
 
@@ -135,7 +134,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     auto fairWind=fairwind::FairWind::getInstance();
-    auto apps=fairWind.getApps();
+    auto apps=fairWind->getApps();
+    qDebug() << "apps:" << apps.keys();
 
     for (auto &hash : apps.keys()) {
         auto app=apps[hash];
@@ -143,7 +143,8 @@ MainWindow::MainWindow(QWidget *parent) :
             auto *button = new QToolButton();
             button->setObjectName("toolbutton_"+hash);
             button->setText(app->getName());
-            button->setIcon(QPixmap::fromImage(app->getIcon()));
+            QImage icon=app->getIcon();
+            button->setIcon(QPixmap::fromImage(icon));
             button->setIconSize(QSize(256,256));
             button->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
             connect(button, &QToolButton::released, this, &MainWindow::toolButton_App_released);
@@ -174,18 +175,18 @@ void MainWindow::toolButton_App_released()
     QString hash=buttonWidget->objectName().replace("toolbutton_","");
 
     auto fairWind = fairwind::FairWind::getInstance();
-    auto app=fairWind.getApps()[hash];
+    auto app=fairWind->getApps()[hash];
     QWidget *widgetApp = nullptr;
     if (mapWidgets.find(hash)!=mapWidgets.end()) {
         widgetApp = mapWidgets[hash];
     } else {
         if (app->isPlugin()) {
             fairwind::extensions::plugins::IFairWindPlugin *fairWindPlugin =
-                    fairWind.getPluginByExtensionId(app->getExtension());
+                    fairWind->getPluginByExtensionId(app->getExtension());
             widgetApp=fairWindPlugin->onGui(this, app->getArgs());
         } else {
             fairwind::extensions::apps::IFairWindApp *fairWindApp =
-                    fairWind.getAppByExtensionId(app->getExtension());
+                    fairWind->getAppByExtensionId(app->getExtension());
             widgetApp=fairWindApp->onGui(this, app->getArgs());
         }
         if (widgetApp) {
