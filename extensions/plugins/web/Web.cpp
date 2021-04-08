@@ -16,27 +16,11 @@ QImage fairwind::extensions::plugins::web::Web::getIcon() const {
     return QImage(":/resources/images/icons/web_icon.png");
 }
 
-QString fairwind::extensions::plugins::web::Web::getId() const {
-    return FairWindExtension::getId();
-}
-
-QString fairwind::extensions::plugins::web::Web::getName() const {
-    return FairWindExtension::getName();
-}
-
-QString fairwind::extensions::plugins::web::Web::getDesc() const {
-    return FairWindExtension::getDesc();
-}
-
-void fairwind::extensions::plugins::web::Web::setMetaData(QJsonObject &metaData) {
-    FairWindExtension::setMetaData(metaData);
-}
-
 QWidget *fairwind::extensions::plugins::web::Web::onGui(QMainWindow *mainWindow, QMap<QString, QString> args) {
 
 
     if (args.find("Url")!=args.end()) {
-        m_url = args["Command"];
+        m_url = args["Url"];
 
         m_widgetWebApp = new QWidget();
 
@@ -81,4 +65,21 @@ void fairwind::extensions::plugins::web::Web::toolButton_home_clicked() {
         return;
 
     ((WebView *)(m_widgetWebApp->children()[0]))->load(QUrl(m_url));
+}
+
+
+QString fairwind::extensions::plugins::web::Web::getId() const {
+    return fairwind::extensions::FairWindExtension::getId();
+}
+
+QString fairwind::extensions::plugins::web::Web::getName() const {
+    return fairwind::extensions::FairWindExtension::getName();
+}
+
+QString fairwind::extensions::plugins::web::Web::getDesc() const {
+    return fairwind::extensions::FairWindExtension::getDesc();
+}
+
+void fairwind::extensions::plugins::web::Web::init(QJsonObject *metaData) {
+    FairWindExtension::init(metaData);
 }
