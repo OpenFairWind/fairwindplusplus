@@ -83,7 +83,7 @@
         "Args": {
           "Name": "Open CPN",
           "Icon": "apps/opencpn.png",
-          "Url": "system:///Applications/OpenCPN.app/Contents/MacOS/OpenCPN -fullscreen"
+          "Command": "/Applications/OpenCPN.app/Contents/MacOS/OpenCPN -fullscreen"
         }
       }
     ]
