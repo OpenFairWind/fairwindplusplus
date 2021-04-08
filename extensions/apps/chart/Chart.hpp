@@ -8,30 +8,42 @@
 
 #include <QObject>
 #include <QtPlugin>
+#include <QNetworkAccessManager>
+#include <QNetworkDiskCache>
+#include <QGeoView/QGVMap.h>
+#include <include/FairWindExtension.hpp>
 
 #include "../../../include/IFairWindApp.hpp"
-#include "../../../include/FairWindApp.hpp"
-
 
 namespace fairwind::extensions::apps::chart {
-    class Chart : public QObject, /*FairWindApp,*/ IFairWindApp {
+    class Chart : public QObject, FairWindExtension, IFairWindApp {
         Q_OBJECT
         Q_PLUGIN_METADATA(IID IID_FAIRWIND_APPS FILE "manifest.json")
         Q_INTERFACES(fairwind::extensions::apps::IFairWindApp)
 
     public:
-        [[nodiscard]] QString getUUID()   override;
-        [[nodiscard]] QString getId()  override;
-        [[nodiscard]] QString getName()  override;
-        [[nodiscard]] QString getDesc()  override ;
-        void setMetaData(QJsonObject &metaData) override;
-        [[nodiscard]] QImage getIcon()  override;
+        ~Chart() = default;
 
+        void init(QJsonObject *metaData) override;
+
+        QString getId() const override;
+        QString getName() const override;
+        QString getDesc() const override ;
+
+        QImage getIcon() const override;
         QWidget *onGui(QMainWindow *mainWindow, QMap<QString, QString> args) override;
 
+    //private Q_SLOTS:
+
+
     private:
-        QWidget *m_widgetMapApp= nullptr;
-        QJsonObject m_metaData;
+        void mapSetup();
+
+        QGVMap *m_widgetMapApp= nullptr;
+
+
+        QNetworkAccessManager* mManager;
+        QNetworkDiskCache* mCache;
     };
 }
 
