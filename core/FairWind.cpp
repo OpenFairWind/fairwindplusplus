@@ -56,7 +56,7 @@ void fairwind::FairWind::loadExtensions() {
                 fairwind::extensions::plugins::IFairWindPlugin *fairWindPlugin= qobject_cast<fairwind::extensions::plugins::IFairWindPlugin *>(extension);
                 if (fairWindPlugin) {
                     QJsonObject metaData = loader.metaData()["MetaData"].toObject();
-                    fairWindPlugin->init(metaData);
+                    fairWindPlugin->init(&metaData);
                     QString pluginId = fairWindPlugin->getId();
                     if (!pluginId.isEmpty()) {
                         m_mapFairWindPlugins[fairWindPlugin->getId()]=fairWindPlugin;
