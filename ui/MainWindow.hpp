@@ -13,7 +13,7 @@
 #include <QPluginLoader>
 
 #include "../core/App.hpp"
-#include "../include/IFairWindPlugin.hpp"
+
 
 namespace Ui {
     class MainWindow;
@@ -36,9 +36,6 @@ private:
     void toolButton_Apps_released();
     void toolButton_Settings_released();
 
-    QWebEngineProfile *m_profile;
-
-    void toolButton_WebApp_Button_clicked();
 
 
 };

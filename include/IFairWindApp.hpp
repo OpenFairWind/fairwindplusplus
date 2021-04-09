@@ -12,7 +12,7 @@
 
 #define IID_FAIRWIND_APPS "it.uniparthenope.fairwind.apps"
 
-namespace fairwind::extensions::apps {
+namespace fairwind::apps {
 
     class IFairWindApp {
     public:
@@ -32,7 +32,7 @@ namespace fairwind::extensions::apps {
 
 }
 
-Q_DECLARE_INTERFACE(fairwind::extensions::apps::IFairWindApp, IID_FAIRWIND_APPS)
+Q_DECLARE_INTERFACE(fairwind::apps::IFairWindApp, IID_FAIRWIND_APPS)
 
 
 

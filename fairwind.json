@@ -2,42 +2,42 @@
   "Extensions": {
     "Apps": [
       {
-        "Extension": "it.uniparthenope.fairwind.apps.chart",
+        "Id": "it.uniparthenope.fairwind.apps.chart",
         "Active": true,
         "Order": 1
       },
       {
-        "Extension": "it.uniparthenope.fairwind.apps.sonar",
+        "Id": "it.uniparthenope.fairwind.apps.sonar",
         "Active": false,
         "Order": 1
       },
       {
-        "Extension": "it.uniparthenope.fairwind.apps.radar",
+        "Id": "it.uniparthenope.fairwind.apps.radar",
         "Active": false,
         "Order": 1
       },
       {
-        "Extension": "it.uniparthenope.fairwind.apps.dashboard",
+        "Id": "it.uniparthenope.fairwind.apps.dashboard",
         "Active": true,
         "Order": 1
       },
       {
-        "Extension": "it.uniparthenope.fairwind.apps.audio",
+        "Id": "it.uniparthenope.fairwind.apps.audio",
         "Active": false,
         "Order": 1
       },
       {
-        "Extension": "it.uniparthenope.fairwind.apps.video",
+        "Id": "it.uniparthenope.fairwind.apps.video",
         "Active": false,
         "Order": 1
       },
       {
-        "Extension": "it.uniparthenope.fairwind.apps.uav",
+        "Id": "it.uniparthenope.fairwind.apps.uav",
         "Active": false,
         "Order": 1
       },
       {
-        "Extension": "it.uniparthenope.fairwind.plugins.web",
+        "Id": "it.uniparthenope.fairwind.apps.web",
         "Active": true,
         "Order": 1,
         "Args": {
@@ -47,7 +47,7 @@
         }
       },
       {
-        "Extension": "it.uniparthenope.fairwind.plugins.web",
+        "Id": "it.uniparthenope.fairwind.apps.web",
         "Active": true,
         "Order": 1,
         "Args": {
@@ -57,7 +57,7 @@
         }
       },
       {
-        "Extension": "it.uniparthenope.fairwind.plugins.web",
+        "Id": "it.uniparthenope.fairwind.apps.web",
         "Active": true,
         "Order": 1,
         "Args": {
@@ -67,7 +67,7 @@
         }
       },
       {
-        "Extension": "it.uniparthenope.fairwind.plugins.web",
+        "Id": "it.uniparthenope.fairwind.apps.web",
         "Active": true,
         "Order": 1,
         "Args": {
@@ -77,7 +77,7 @@
         }
       },
       {
-        "Extension": "it.uniparthenope.fairwind.plugins.native",
+        "Id": "it.uniparthenope.fairwind.apps.native",
         "Active": true,
         "Order": 1,
         "Args": {

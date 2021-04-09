@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent),
         ui(new Ui::MainWindow)
 {
-    m_profile = QWebEngineProfile::defaultProfile();
+
 
     ui->setupUi(this);
 
@@ -180,15 +180,11 @@ void MainWindow::toolButton_App_released()
     if (mapWidgets.find(hash)!=mapWidgets.end()) {
         widgetApp = mapWidgets[hash];
     } else {
-        if (app->isPlugin()) {
-            fairwind::extensions::plugins::IFairWindPlugin *fairWindPlugin =
-                    fairWind->getPluginByExtensionId(app->getExtension());
-            widgetApp=fairWindPlugin->onGui(this, app->getArgs());
-        } else {
-            fairwind::extensions::apps::IFairWindApp *fairWindApp =
-                    fairWind->getAppByExtensionId(app->getExtension());
-            widgetApp=fairWindApp->onGui(this, app->getArgs());
-        }
+
+        fairwind::apps::IFairWindApp *fairWindApp =
+                fairWind->getAppByExtensionId(app->getExtension());
+        widgetApp=fairWindApp->onGui(this, app->getArgs());
+
         if (widgetApp) {
             ui->stackedWidget->addWidget(widgetApp);
             mapWidgets.insert(hash,widgetApp);

@@ -22,22 +22,13 @@ fairwind::App::App(const fairwind::App &app) {
     generateHash();
 }
 
-fairwind::App::App(fairwind::extensions::apps::IFairWindApp *fairWindApp, bool active, int order) {
+
+
+fairwind::App::App(fairwind::apps::IFairWindApp *fairWindApp, QMap<QString, QString> args, bool active, int order) {
     m_extension=fairWindApp->getId();
     m_name=fairWindApp->getName();
     m_desc=fairWindApp->getDesc();
     m_icon=fairWindApp->getIcon();
-    m_order=order;
-    m_active=active;
-    m_args.empty();
-    generateHash();
-}
-
-fairwind::App::App(fairwind::extensions::plugins::IFairWindPlugin *fairWindPlugin, QMap<QString, QString> args, bool active, int order) {
-    m_extension=fairWindPlugin->getId();
-    m_name=fairWindPlugin->getName();
-    m_desc=fairWindPlugin->getDesc();
-    m_icon=fairWindPlugin->getIcon();
     m_order=order;
     m_active=active;
     m_args=std::move(args);
@@ -93,13 +84,6 @@ void fairwind::App::generateHash() {
 
     m_hash = QString(QCryptographicHash::hash((text.toUtf8()),QCryptographicHash::Md5).toHex());
 
-}
-
-bool fairwind::App::isPlugin() {
-    if (m_extension.startsWith(IID_FAIRWIND_PLUGINS)) {
-        return true;
-    }
-    return false;
 }
 
 QMap<QString, QString> fairwind::App::getArgs() {

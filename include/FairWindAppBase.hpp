@@ -2,16 +2,16 @@
 // Created by Raffaele Montella on 08/04/21.
 //
 
-#ifndef FAIRWIND_FAIRWINDEXTENSION_HPP
-#define FAIRWIND_FAIRWINDEXTENSION_HPP
+#ifndef FAIRWIND_FAIRWINDAPPBASE_HPP
+#define FAIRWIND_FAIRWINDAPPBASE_HPP
 
 
 #include <QJsonObject>
 
-namespace fairwind::extensions {
-    class FairWindExtension {
+namespace fairwind {
+    class FairWindAppBase {
     public:
-        ~FairWindExtension() = default;
+        ~FairWindAppBase() = default;
 
         virtual QString getId() const;
         virtual QString getName() const;
@@ -23,4 +23,4 @@ namespace fairwind::extensions {
     };
 }
 
-#endif //FAIRWIND_FAIRWINDEXTENSION_HPP
+#endif //FAIRWIND_FAIRWINDAPPBASE_HPP

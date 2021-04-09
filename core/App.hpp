@@ -7,8 +7,7 @@
 
 
 #include <QMap>
-#include "../include/IFairWindApp.hpp"
-#include "../include/IFairWindPlugin.hpp"
+#include "include/IFairWindApp.hpp"
 
 namespace fairwind {
     class App: QObject {
@@ -16,9 +15,7 @@ namespace fairwind {
     public:
         App();
 
-        App(extensions::apps::IFairWindApp *fairWindApp, bool active=true, int order=1);
-
-        App(extensions::plugins::IFairWindPlugin *fairWindPlugin, QMap<QString, QString> args, bool active=true, int order=1);
+        App(apps::IFairWindApp *fairWindApp, QMap<QString, QString> args, bool active=true, int order=1);
 
         App(const App &app);
 

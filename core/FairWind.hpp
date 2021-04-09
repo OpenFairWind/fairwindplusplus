@@ -8,20 +8,19 @@
 #include <QString>
 #include <map>
 #include <QJsonDocument>
-#include "../include/IFairWindApp.hpp"
-#include "../include/IFairWindPlugin.hpp"
+
 #include "App.hpp"
 
 namespace fairwind {
     class FairWind: public QObject {
         Q_OBJECT
     public:
-        /*static FairWind &getInstance();*/
+
         static FairWind *getInstance();
 
-        void loadExtensions();
-        extensions::apps::IFairWindApp *getAppByExtensionId(QString id);
-        extensions::plugins::IFairWindPlugin *getPluginByExtensionId(QString id);
+        void loadApps();
+        apps::IFairWindApp *getAppByExtensionId(QString id);
+
 
         void setApplicationDirPath(QString qString);
         void loadConfig(const QString& configFile);
@@ -29,9 +28,7 @@ namespace fairwind {
         QMap<QString, App *> getApps();
 
     private:
-        QMap<QString, fairwind::extensions::apps::IFairWindApp *> m_mapFairWindApps;
-        QMap<QString, fairwind::extensions::plugins::IFairWindPlugin *> m_mapFairWindPlugins;
-
+        QMap<QString, fairwind::apps::IFairWindApp *> m_mapFairWindApps;
 
         QMap<QString, App *> m_mapApps;
 

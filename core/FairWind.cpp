@@ -10,14 +10,7 @@
 #include <QJsonArray>
 #include "FairWind.hpp"
 
-/*
-fairwind::FairWind &fairwind::FairWind::getInstance() {
-    static fairwind::FairWind instance;
-    return instance;
-}
- */
-
-void fairwind::FairWind::loadExtensions() {
+void fairwind::FairWind::loadApps() {
     auto appsDir = QDir(QCoreApplication::applicationDirPath());
 
 #if defined(Q_OS_WIN)
@@ -30,18 +23,18 @@ void fairwind::FairWind::loadExtensions() {
         appsDir.cdUp();
     }
 #endif
-    appsDir.cd("extensions");
+    appsDir.cd("apps");
 
     const auto entryList = appsDir.entryList(QDir::Files);
     for (const QString &fileName : entryList) {
         QString absoluteAppPath=appsDir.absoluteFilePath(fileName);
         QPluginLoader loader(absoluteAppPath);
-        QObject *extension = loader.instance();
-        if (extension) {
+        QObject *plugin = loader.instance();
+        if (plugin) {
             auto iid=loader.metaData().value("IID").toString();
 
             if (iid == IID_FAIRWIND_APPS) {
-                fairwind::extensions::apps::IFairWindApp *fairWindApp= qobject_cast<fairwind::extensions::apps::IFairWindApp *>(extension);
+                fairwind::apps::IFairWindApp *fairWindApp= qobject_cast<fairwind::apps::IFairWindApp *>(plugin);
                 if (fairWindApp) {
                     QJsonObject metaData = loader.metaData()["MetaData"].toObject();
                     fairWindApp->init(&metaData);
@@ -52,34 +45,18 @@ void fairwind::FairWind::loadExtensions() {
                 } else {
                     loader.unload();
                 }
-            } else if (iid == IID_FAIRWIND_PLUGINS) {
-                fairwind::extensions::plugins::IFairWindPlugin *fairWindPlugin= qobject_cast<fairwind::extensions::plugins::IFairWindPlugin *>(extension);
-                if (fairWindPlugin) {
-                    QJsonObject metaData = loader.metaData()["MetaData"].toObject();
-                    fairWindPlugin->init(&metaData);
-                    QString pluginId = fairWindPlugin->getId();
-                    if (!pluginId.isEmpty()) {
-                        m_mapFairWindPlugins[fairWindPlugin->getId()]=fairWindPlugin;
-                    }
-                } else {
-                    loader.unload();
-                }
             }
         }
     }
-    qDebug() << m_mapFairWindApps.keys() << " " << m_mapFairWindPlugins.keys();
+    qDebug() << m_mapFairWindApps.keys();
 }
 
 fairwind::FairWind::FairWind() {
     qDebug() << "FairWind constructor";
 }
 
-fairwind::extensions::apps::IFairWindApp *fairwind::FairWind::getAppByExtensionId(QString id) {
+fairwind::apps::IFairWindApp *fairwind::FairWind::getAppByExtensionId(QString id) {
     return m_mapFairWindApps[id];
-}
-
-fairwind::extensions::plugins::IFairWindPlugin *fairwind::FairWind::getPluginByExtensionId(QString id) {
-    return m_mapFairWindPlugins[id];
 }
 
 void fairwind::FairWind::setApplicationDirPath(QString applicationDirPath) {
@@ -102,20 +79,15 @@ void fairwind::FairWind::loadConfig(const QString& configFile) {
 
                 QJsonObject jsonAppObject=jsonApp.toObject();
 
-                if (jsonAppObject.find("Extension")!=jsonAppObject.end()) {
+                if (jsonAppObject.find("Id")!=jsonAppObject.end()) {
 
-                    QString extension=jsonAppObject["Extension"].toString();
+                    QString appId=jsonAppObject["Id"].toString();
                     App *app= nullptr;
 
-                    if (extension.startsWith(IID_FAIRWIND_APPS)) {
+                    if (appId.startsWith(IID_FAIRWIND_APPS)) {
 
-                        auto fairWindApp = getAppByExtensionId(extension);
+                        auto fairWindApp = getAppByExtensionId(appId);
                         if (fairWindApp) {
-                            app=new App(fairWindApp);
-                        }
-                    } else if (extension.startsWith(IID_FAIRWIND_PLUGINS)) {
-                        auto fairWindPlugin = getPluginByExtensionId(extension);
-                        if (fairWindPlugin) {
                             QMap<QString,QString> args;
 
                             if (jsonAppObject.find("Args") != jsonAppObject.end()) {
@@ -124,7 +96,7 @@ void fairwind::FairWind::loadConfig(const QString& configFile) {
                                     args.insert(key, jsonArgs[key].toString());
                                 }
                             }
-                            app = new App(fairWindPlugin,args);
+                            app = new App(fairWindApp,args);
                         }
                     }
 

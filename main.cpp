@@ -13,7 +13,7 @@ int main(int argc, char *argv[]) {
 
     auto fairWind=fairwind::FairWind::getInstance();
     fairWind->setApplicationDirPath(QApplication::applicationDirPath().left(1));
-    fairWind->loadExtensions();
+    fairWind->loadApps();
     QSettings settings("fairwind.ini", QSettings::NativeFormat);
     QString configFile = settings.value("configFile", "fairwind.json").toString();
     settings.setValue("configFile",configFile);
