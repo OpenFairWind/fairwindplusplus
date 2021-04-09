@@ -2,24 +2,22 @@
 // Created by Raffaele Montella on 01/04/21.
 //
 
-#ifndef FAIRWIND_DASHBOARD_HPP
-#define FAIRWIND_DASHBOARD_HPP
-
-#include <QObject>
-#include <QtPlugin>
-#include <include/FairWindExtension.hpp>
-
-#include "../../../include/IFairWindApp.hpp"
+#ifndef FAIRWIND_WEB_HPP
+#define FAIRWIND_WEB_HPP
 
 
-namespace fairwind::extensions::apps::dashboard {
-    class Dashboard : public QObject, FairWindExtension, IFairWindApp {
+#include <IFairWindApp.hpp>
+#include <FairWindAppBase.hpp>
+#include <QWebEngineProfile>
+
+namespace fairwind::apps::web {
+    class Web : public QObject, FairWindAppBase, IFairWindApp {
         Q_OBJECT
         Q_PLUGIN_METADATA(IID IID_FAIRWIND_APPS FILE "manifest.json")
-        Q_INTERFACES(fairwind::extensions::apps::IFairWindApp)
+        Q_INTERFACES(fairwind::apps::IFairWindApp)
 
     public:
-        ~Dashboard() = default;
+        ~Web() = default;
 
         void init(QJsonObject *metaData) override;
 
@@ -31,9 +29,15 @@ namespace fairwind::extensions::apps::dashboard {
         QWidget *onGui(QMainWindow *mainWindow, QMap<QString, QString> args) override;
 
     private:
+        QWebEngineProfile *m_profile;
 
+        void toolButton_home_clicked();
+
+        QWidget *m_widgetWebApp= nullptr;
+        QString m_url;
     };
 }
 
 
-#endif //FAIRWIND_DASHBOARD_HPP
+
+#endif //FAIRWIND_WEB_HPP

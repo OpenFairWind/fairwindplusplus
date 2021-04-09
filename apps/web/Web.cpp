@@ -4,7 +4,6 @@
 
 #include "Web.hpp"
 #include "WebView.hpp"
-#include "../../../ui/MainWindow.hpp"
 
 #include <QWebEngineSettings>
 #include <QWebEngineProfile>
@@ -15,11 +14,11 @@
 #include <QHBoxLayout>
 
 
-QImage fairwind::extensions::plugins::web::Web::getIcon() const {
+QImage fairwind::apps::web::Web::getIcon() const {
     return QImage(":/resources/images/icons/web_icon.png");
 }
 
-QWidget *fairwind::extensions::plugins::web::Web::onGui(QMainWindow *mainWindow, QMap<QString, QString> args) {
+QWidget *fairwind::apps::web::Web::onGui(QMainWindow *mainWindow, QMap<QString, QString> args) {
 
 
     if (args.find("Url")!=args.end()) {
@@ -35,7 +34,7 @@ QWidget *fairwind::extensions::plugins::web::Web::onGui(QMainWindow *mainWindow,
         auto *pushButton_Home = new QPushButton(widgetWebApp_Buttons);
         pushButton_Home->setText("Home");
 
-        connect(pushButton_Home, &QPushButton::clicked, this, &fairwind::extensions::plugins::web::Web::toolButton_home_clicked);
+        connect(pushButton_Home, &QPushButton::clicked, this, &fairwind::apps::web::Web::toolButton_home_clicked);
 
         auto *pushButton_Prev = new QPushButton(widgetWebApp_Buttons);
         pushButton_Prev->setText("<");
@@ -62,7 +61,7 @@ QWidget *fairwind::extensions::plugins::web::Web::onGui(QMainWindow *mainWindow,
 
 
 
-void fairwind::extensions::plugins::web::Web::toolButton_home_clicked() {
+void fairwind::apps::web::Web::toolButton_home_clicked() {
     QWidget *buttonWidget = qobject_cast<QWidget*>(sender());
     if (!buttonWidget)
         return;
@@ -71,24 +70,24 @@ void fairwind::extensions::plugins::web::Web::toolButton_home_clicked() {
 }
 
 
-QString fairwind::extensions::plugins::web::Web::getId() const {
-    return fairwind::extensions::FairWindExtension::getId();
+QString fairwind::apps::web::Web::getId() const {
+    return fairwind::FairWindAppBase::getId();
 }
 
-QString fairwind::extensions::plugins::web::Web::getName() const {
-    return fairwind::extensions::FairWindExtension::getName();
+QString fairwind::apps::web::Web::getName() const {
+    return fairwind::FairWindAppBase::getName();
 }
 
-QString fairwind::extensions::plugins::web::Web::getDesc() const {
-    return fairwind::extensions::FairWindExtension::getDesc();
+QString fairwind::apps::web::Web::getDesc() const {
+    return fairwind::FairWindAppBase::getDesc();
 }
 
-void fairwind::extensions::plugins::web::Web::init(QJsonObject *metaData) {
+void fairwind::apps::web::Web::init(QJsonObject *metaData) {
     QWebEngineSettings::defaultSettings()->setAttribute(QWebEngineSettings::PluginsEnabled, true);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
     QWebEngineSettings::defaultSettings()->setAttribute(QWebEngineSettings::DnsPrefetchEnabled, true);
     QWebEngineProfile::defaultProfile()->setUseForGlobalCertificateVerification();
 #endif
-
-    FairWindExtension::init(metaData);
+    m_profile = QWebEngineProfile::defaultProfile();
+    FairWindAppBase::init(metaData);
 }

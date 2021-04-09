@@ -18,12 +18,12 @@
 #include <QGeoView/QGVDrawItem.h>
 #include <QGuiApplication>
 
-QImage fairwind::extensions::apps::chart::Chart::getIcon() const {
+QImage fairwind::apps::chart::Chart::getIcon() const {
     return QImage(":/resources/images/icons/chart_icon.png");
 }
 
 
-QWidget *fairwind::extensions::apps::chart::Chart::onGui(QMainWindow *mainWindow, QMap<QString, QString> args) {
+QWidget *fairwind::apps::chart::Chart::onGui(QMainWindow *mainWindow, QMap<QString, QString> args) {
     m_widgetMapApp = new QGVMap();
 
     auto actPosition = new QAction("Print position", this);
@@ -94,7 +94,7 @@ QWidget *fairwind::extensions::apps::chart::Chart::onGui(QMainWindow *mainWindow
     return m_widgetMapApp;
 }
 
-void fairwind::extensions::apps::chart::Chart::mapSetup() {
+void fairwind::apps::chart::Chart::mapSetup() {
     QDir("cacheDir").removeRecursively();
     mCache = new QNetworkDiskCache(this);
     mCache->setCacheDirectory("cacheDir");
@@ -150,20 +150,20 @@ void fairwind::extensions::apps::chart::Chart::mapSetup() {
 
 }
 
-QString fairwind::extensions::apps::chart::Chart::getId() const {
-    return fairwind::extensions::FairWindExtension::getId();
+QString fairwind::apps::chart::Chart::getId() const {
+    return FairWindAppBase::getId();
 }
 
-QString fairwind::extensions::apps::chart::Chart::getName() const {
-    return fairwind::extensions::FairWindExtension::getName();
+QString fairwind::apps::chart::Chart::getName() const {
+    return FairWindAppBase::getName();
 }
 
-QString fairwind::extensions::apps::chart::Chart::getDesc() const {
-    return fairwind::extensions::FairWindExtension::getDesc();
+QString fairwind::apps::chart::Chart::getDesc() const {
+    return FairWindAppBase::getDesc();
 }
 
-void fairwind::extensions::apps::chart::Chart::init(QJsonObject *metaData) {
-    FairWindExtension::init(metaData);
+void fairwind::apps::chart::Chart::init(QJsonObject *metaData) {
+    FairWindAppBase::init(metaData);
 }
 
 

@@ -1,17 +1,17 @@
 {
-  "Name" : "Native",
+  "Name" : "Web",
   "Version" : "0.0.1",
   "CompatVersion" : "0.0.1",
   "Vendor" : "University of Naples Parthenope",
   "Copyright" : "(C) 2021 The FairWind Team",
   "License" : "Apache 2.0",
   "Category" : "Plugins",
-  "Description" : "A launcher for external programs",
-  "Url" : "http://fairwind.uniparthenope.it/fairwindplusplus/apps/native",
+  "Description" : "A container for local or remote web applications",
+  "Url" : "http://fairwind.uniparthenope.it/fairwindplusplus/apps/web",
   "FairWind": {
-    "Extension": {
+    "App": {
       "Email": "fairwind@uniparthenope.it",
-      "Id": "it.uniparthenope.fairwind.plugins.native"
+      "Id": "it.uniparthenope.fairwind.apps.web"
     }
   }
 }

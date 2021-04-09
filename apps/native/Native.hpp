@@ -5,16 +5,14 @@
 #ifndef FAIRWIND_NATIVE_HPP
 #define FAIRWIND_NATIVE_HPP
 
+#include <FairWindAppBase.hpp>
+#include <IFairWindApp.hpp>
 
-#include "../../../include/IFairWindPlugin.hpp"
-#include "../../../include/FairWindExtension.hpp"
-
-
-namespace fairwind::extensions::plugins::native {
-    class Native : public QObject, FairWindExtension, IFairWindPlugin {
+namespace fairwind::apps::native {
+    class Native : public QObject, FairWindAppBase, IFairWindApp {
         Q_OBJECT
-        Q_PLUGIN_METADATA(IID IID_FAIRWIND_PLUGINS FILE "manifest.json")
-        Q_INTERFACES(fairwind::extensions::plugins::IFairWindPlugin)
+        Q_PLUGIN_METADATA(IID IID_FAIRWIND_APPS FILE "manifest.json")
+        Q_INTERFACES(fairwind::apps::IFairWindApp)
 
     public:
         ~Native() = default;

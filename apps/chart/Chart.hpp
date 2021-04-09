@@ -11,15 +11,15 @@
 #include <QNetworkAccessManager>
 #include <QNetworkDiskCache>
 #include <QGeoView/QGVMap.h>
-#include <include/FairWindExtension.hpp>
+#include <FairWindAppBase.hpp>
+#include <IFairWindApp.hpp>
 
-#include "../../../include/IFairWindApp.hpp"
 
-namespace fairwind::extensions::apps::chart {
-    class Chart : public QObject, FairWindExtension, IFairWindApp {
+namespace fairwind::apps::chart {
+    class Chart : public QObject, FairWindAppBase, IFairWindApp {
         Q_OBJECT
         Q_PLUGIN_METADATA(IID IID_FAIRWIND_APPS FILE "manifest.json")
-        Q_INTERFACES(fairwind::extensions::apps::IFairWindApp)
+        Q_INTERFACES(fairwind::apps::IFairWindApp)
 
     public:
         ~Chart() = default;
@@ -32,9 +32,6 @@ namespace fairwind::extensions::apps::chart {
 
         QImage getIcon() const override;
         QWidget *onGui(QMainWindow *mainWindow, QMap<QString, QString> args) override;
-
-    //private Q_SLOTS:
-
 
     private:
         void mapSetup();
