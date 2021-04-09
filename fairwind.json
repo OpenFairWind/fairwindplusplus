@@ -42,7 +42,7 @@
         "Order": 1,
         "Args": {
           "Name": "Signal K",
-          "Icon": "apps/signalk.png",
+          "Icon": "icons/signalk.png",
           "Url": "http:192.168.1.200:3000"
         }
       },
@@ -52,7 +52,7 @@
         "Order": 1,
         "Args": {
           "Name": "FreeBoard",
-          "Icon": "apps/freeboard.png",
+          "Icon": "icons/freeboard.png",
           "Url": "http://192.168.1.200:3000/@signalk/freeboard-sk/"
         }
       },
@@ -62,7 +62,7 @@
         "Order": 1,
         "Args": {
           "Name": "Instrument Panel",
-          "Icon": "apps/instrumentpanel.png",
+          "Icon": "icons/instrumentpanel.png",
           "Url": "http://192.168.1.200:3000/@signalk/instrumentpanel/"
         }
       },
@@ -72,7 +72,7 @@
         "Order": 1,
         "Args": {
           "Name": "Navionics",
-          "Icon": "apps/navionics.png",
+          "Icon": "icons/navionics.png",
           "Url": "https://webapp.navionics.com"
         }
       },
@@ -82,8 +82,18 @@
         "Order": 1,
         "Args": {
           "Name": "Open CPN",
-          "Icon": "apps/opencpn.png",
+          "Icon": "icons/opencpn.png",
           "Command": "/Applications/OpenCPN.app/Contents/MacOS/OpenCPN -fullscreen"
+        }
+      },
+      {
+        "Id": "it.uniparthenope.fairwind.apps.web",
+        "Active": true,
+        "Order": 1,
+        "Args": {
+          "Name":"Kip",
+          "Icon": "icons/kip.png",
+          "Url": "http://192.168.1.200:3000/@mxtommy/kip/#/page/0"
         }
       }
     ]
