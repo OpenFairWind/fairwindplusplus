@@ -53,7 +53,7 @@
         "Args": {
           "Name": "FreeBoard",
           "Icon": "apps/freeboard.png",
-          "Url": "http://192.168.1.199:3000/@signalk/freeboard-sk/"
+          "Url": "http://192.168.1.200:3000/@signalk/freeboard-sk/"
         }
       },
       {
@@ -63,7 +63,7 @@
         "Args": {
           "Name": "Instrument Panel",
           "Icon": "apps/instrumentpanel.png",
-          "Url": "http://192.168.1.199:3000/@signalk/instrumentpanel/"
+          "Url": "http://192.168.1.200:3000/@signalk/instrumentpanel/"
         }
       },
       {

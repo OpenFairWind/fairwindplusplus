@@ -6,6 +6,9 @@
 #include "WebView.hpp"
 #include "../../../ui/MainWindow.hpp"
 
+#include <QWebEngineSettings>
+#include <QWebEngineProfile>
+
 #include <QDebug>
 #include <QPushButton>
 #include <QAbstractButton>
@@ -81,5 +84,11 @@ QString fairwind::extensions::plugins::web::Web::getDesc() const {
 }
 
 void fairwind::extensions::plugins::web::Web::init(QJsonObject *metaData) {
+    QWebEngineSettings::defaultSettings()->setAttribute(QWebEngineSettings::PluginsEnabled, true);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
+    QWebEngineSettings::defaultSettings()->setAttribute(QWebEngineSettings::DnsPrefetchEnabled, true);
+    QWebEngineProfile::defaultProfile()->setUseForGlobalCertificateVerification();
+#endif
+
     FairWindExtension::init(metaData);
 }
