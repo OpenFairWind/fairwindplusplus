@@ -8,7 +8,7 @@
       },
       {
         "Id": "it.uniparthenope.fairwind.apps.sonar",
-        "Active": false,
+        "Active": true,
         "Order": 1
       },
       {

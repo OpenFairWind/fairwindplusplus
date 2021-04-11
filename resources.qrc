@@ -7,5 +7,7 @@
         <file>resources/images/icons/imagebutton_apps.png</file>
         <file>resources/images/icons/imagebutton_alarms.png</file>
         <file>resources/images/icons/imagebutton_settings.png</file>
+        <file>resources/images/icons/splash_logo.png</file>
+
     </qresource>
 </RCC>
