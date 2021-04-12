@@ -14,8 +14,31 @@
 #include <QHBoxLayout>
 
 
+
+QString fairwind::apps::web::Web::getId() const {
+    return fairwind::FairWindAppBase::getId();
+}
+
+QString fairwind::apps::web::Web::getName() const {
+    return fairwind::FairWindAppBase::getName();
+}
+
+QString fairwind::apps::web::Web::getDesc() const {
+    return fairwind::FairWindAppBase::getDesc();
+}
+
 QImage fairwind::apps::web::Web::getIcon() const {
     return QImage(":/resources/images/icons/web_icon.png");
+}
+
+void fairwind::apps::web::Web::onInit(QJsonObject *metaData) {
+    QWebEngineSettings::defaultSettings()->setAttribute(QWebEngineSettings::PluginsEnabled, true);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
+    QWebEngineSettings::defaultSettings()->setAttribute(QWebEngineSettings::DnsPrefetchEnabled, true);
+    QWebEngineProfile::defaultProfile()->setUseForGlobalCertificateVerification();
+#endif
+    m_profile = QWebEngineProfile::defaultProfile();
+    FairWindAppBase::init(metaData);
 }
 
 QWidget *fairwind::apps::web::Web::onGui(QMainWindow *mainWindow, QMap<QString, QString> args) {
@@ -70,24 +93,6 @@ void fairwind::apps::web::Web::toolButton_home_clicked() {
 }
 
 
-QString fairwind::apps::web::Web::getId() const {
-    return fairwind::FairWindAppBase::getId();
-}
-
-QString fairwind::apps::web::Web::getName() const {
-    return fairwind::FairWindAppBase::getName();
-}
-
-QString fairwind::apps::web::Web::getDesc() const {
-    return fairwind::FairWindAppBase::getDesc();
-}
-
-void fairwind::apps::web::Web::init(QJsonObject *metaData) {
-    QWebEngineSettings::defaultSettings()->setAttribute(QWebEngineSettings::PluginsEnabled, true);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
-    QWebEngineSettings::defaultSettings()->setAttribute(QWebEngineSettings::DnsPrefetchEnabled, true);
-    QWebEngineProfile::defaultProfile()->setUseForGlobalCertificateVerification();
-#endif
-    m_profile = QWebEngineProfile::defaultProfile();
-    FairWindAppBase::init(metaData);
+QWidget *fairwind::apps::web::Web::onSettings(QTabWidget *tabWidgets) {
+    return nullptr;
 }

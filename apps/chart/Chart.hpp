@@ -24,7 +24,7 @@ namespace fairwind::apps::chart {
     public:
         ~Chart() = default;
 
-        void init(QJsonObject *metaData) override;
+        void onInit(QJsonObject *metaData) override;
 
         QString getId() const override;
         QString getName() const override;
@@ -32,6 +32,7 @@ namespace fairwind::apps::chart {
 
         QImage getIcon() const override;
         QWidget *onGui(QMainWindow *mainWindow, QMap<QString, QString> args) override;
+        QWidget *onSettings(QTabWidget *tabWidgets) override;
 
     private:
         void mapSetup();

@@ -35,6 +35,10 @@ QString fairwind::apps::native::Native::getDesc() const {
     return fairwind::FairWindAppBase::getDesc();
 }
 
-void fairwind::apps::native::Native::init(QJsonObject *metaData) {
+void fairwind::apps::native::Native::onInit(QJsonObject *metaData) {
     FairWindAppBase::init(metaData);
+}
+
+QWidget *fairwind::apps::native::Native::onSettings(QTabWidget *tabWidgets) {
+    return nullptr;
 }

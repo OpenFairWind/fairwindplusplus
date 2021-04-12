@@ -162,8 +162,12 @@ QString fairwind::apps::chart::Chart::getDesc() const {
     return FairWindAppBase::getDesc();
 }
 
-void fairwind::apps::chart::Chart::init(QJsonObject *metaData) {
+void fairwind::apps::chart::Chart::onInit(QJsonObject *metaData) {
     FairWindAppBase::init(metaData);
+}
+
+QWidget *fairwind::apps::chart::Chart::onSettings(QTabWidget *tabWidget) {
+    return nullptr;
 }
 
 
