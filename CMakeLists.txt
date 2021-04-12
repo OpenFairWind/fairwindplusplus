@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 project(FairWind)
+#set(CMAKE_PREFIX_PATH "C:/Qt/5.15.2/mingw81_64/lib/cmake")
 
 if (NOT CMAKE_PREFIX_PATH)
     message(WARNING "CMAKE_PREFIX_PATH is not defined, you may need to set it "
