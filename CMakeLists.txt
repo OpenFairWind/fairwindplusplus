@@ -42,7 +42,10 @@ add_executable(${PROJECT_NAME}
         core/App.cpp core/App.hpp
         include/IFairWindApp.hpp
         core/FairWind.cpp core/FairWind.hpp
-        FairWindAppBase.cpp include/FairWindAppBase.hpp)
+        FairWindAppBase.cpp include/FairWindAppBase.hpp
+        ui/BottomBarIcon.cpp ui/BottomBarIcon.hpp
+        ui/TopBar.cpp ui/TopBar.hpp
+        ui/BottomBar.cpp ui/BottomBar.hpp)
 
 target_link_libraries(${PROJECT_NAME} ${REQUIRED_LIBS_QUALIFIED})
 
