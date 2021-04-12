@@ -11,6 +11,7 @@
 
 #include "App.hpp"
 
+
 namespace fairwind {
     class FairWind: public QObject {
         Q_OBJECT
@@ -24,6 +25,7 @@ namespace fairwind {
 
         void setApplicationDirPath(QString qString);
         void loadConfig(const QString& configFile);
+
 
         QMap<QString, App *> getApps();
 

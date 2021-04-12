@@ -37,7 +37,7 @@ void fairwind::FairWind::loadApps() {
                 fairwind::apps::IFairWindApp *fairWindApp= qobject_cast<fairwind::apps::IFairWindApp *>(plugin);
                 if (fairWindApp) {
                     QJsonObject metaData = loader.metaData()["MetaData"].toObject();
-                    fairWindApp->init(&metaData);
+                    fairWindApp->onInit(&metaData);
                     QString appId = fairWindApp->getId();
                     if (!appId.isEmpty()) {
                         m_mapFairWindApps[fairWindApp->getId()]=fairWindApp;
