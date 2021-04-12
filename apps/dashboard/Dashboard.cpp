@@ -5,16 +5,6 @@
 #include "Dashboard.hpp"
 #include <QDebug>
 
-
-
-QImage fairwind::apps::dashboard::Dashboard::getIcon() const {
-    return QImage(":/resources/images/icons/dashboard_icon.png");
-}
-
-QWidget *fairwind::apps::dashboard::Dashboard::onGui(QMainWindow *mainWindow, QMap<QString, QString> args) {
-    return nullptr;
-}
-
 QString fairwind::apps::dashboard::Dashboard::getId() const {
     return fairwind::FairWindAppBase::getId();
 }
@@ -27,6 +17,29 @@ QString fairwind::apps::dashboard::Dashboard::getDesc() const {
     return fairwind::FairWindAppBase::getDesc();
 }
 
-void fairwind::apps::dashboard::Dashboard::init(QJsonObject *metaData) {
+QImage fairwind::apps::dashboard::Dashboard::getIcon() const {
+    return QImage(":/resources/images/icons/dashboard_icon.png");
+}
+
+void fairwind::apps::dashboard::Dashboard::onInit(QJsonObject *metaData) {
     fairwind::FairWindAppBase::init(metaData);
+}
+
+QWidget *fairwind::apps::dashboard::Dashboard::onGui(QMainWindow *mainWindow, QMap<QString, QString> args) {
+    QWidget *widget=new QWidget();
+    ui=new Ui::Dashboard();
+
+    ui->setupUi(widget);
+    return widget;
+}
+
+QWidget *fairwind::apps::dashboard::Dashboard::onSettings(QTabWidget *tabWidgets) {
+    QWidget *widget=new QWidget();
+    uiSettings=new Ui::dashboard_Settings();
+
+    uiSettings->setupUi(widget);
+    return widget;
+}
+
+fairwind::apps::dashboard::Dashboard::~Dashboard() {
 }

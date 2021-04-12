@@ -9,7 +9,8 @@
 #include <QtPlugin>
 #include <FairWindAppBase.hpp>
 #include <IFairWindApp.hpp>
-
+#include "ui_Dashboard.h"
+#include "ui_Dashboard_Settings.h"
 
 namespace fairwind::apps::dashboard {
     class Dashboard : public QObject, FairWindAppBase, IFairWindApp {
@@ -18,9 +19,9 @@ namespace fairwind::apps::dashboard {
         Q_INTERFACES(fairwind::apps::IFairWindApp)
 
     public:
-        ~Dashboard() = default;
+        ~Dashboard();
 
-        void init(QJsonObject *metaData) override;
+        void onInit(QJsonObject *metaData) override;
 
         QString getId() const override;
         QString getName() const override;
@@ -28,9 +29,11 @@ namespace fairwind::apps::dashboard {
 
         QImage getIcon() const override;
         QWidget *onGui(QMainWindow *mainWindow, QMap<QString, QString> args) override;
+        QWidget *onSettings(QTabWidget *tabWidgets) override;
 
     private:
-
+        Ui::Dashboard *ui;
+        Ui::dashboard_Settings *uiSettings;
     };
 }
 
