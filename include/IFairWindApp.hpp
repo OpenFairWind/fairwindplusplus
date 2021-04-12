@@ -18,7 +18,7 @@ namespace fairwind::apps {
     public:
         virtual ~IFairWindApp() = default;
 
-        virtual void init(QJsonObject *metaData) = 0;
+        virtual void onInit(QJsonObject *metaData) = 0;
 
 
         virtual QString getId() const = 0;
@@ -28,6 +28,7 @@ namespace fairwind::apps {
 
         virtual QImage getIcon() const = 0;
         virtual QWidget *onGui(QMainWindow *mainWindow, QMap<QString, QString> args) = 0;
+        virtual QWidget *onSettings(QTabWidget *tabWidget) = 0;
     };
 
 }
