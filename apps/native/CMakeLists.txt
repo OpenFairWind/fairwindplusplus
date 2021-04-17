@@ -6,7 +6,7 @@ qt5_add_resources(NATIVE_RESOURCE_ADDED ${NATIVE_RESOURCE})
 add_library(Native SHARED
         Native.cpp
         Native.hpp
-        ../../FairWindAppBase.cpp
+        ../../lib/src/FairWindAppBase.cpp
         ../../include/FairWindAppBase.hpp
         ${NATIVE_RESOURCE_ADDED}
         )
