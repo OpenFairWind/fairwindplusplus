@@ -18,9 +18,9 @@ qt5_add_resources(CHART_RESOURCE_ADDED ${CHART_RESOURCE})
 add_library(Chart SHARED
         Chart.cpp
         Chart.hpp
-        ../../FairWindAppBase.cpp
+        ../../lib/src/FairWindAppBase.cpp
         ../../include/FairWindAppBase.hpp
-        ${PROJECT_SOURCE_DIR}/include/IFairWindApp.hpp
+        ../../include/IFairWindApp.hpp
         ${CHART_RESOURCE_ADDED}
         )
 
