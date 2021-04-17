@@ -11,8 +11,8 @@
 
 
 #include "../core/App.hpp"
-#include "Apps.hpp"
-#include "Settings.hpp"
+#include "ui/apps/Apps.hpp"
+#include "ui/settings/Settings.hpp"
 
 
 class BottomBar;

@@ -8,8 +8,8 @@
 #include <QGridLayout>
 #include <QToolButton>
 #include "MainWindow.hpp"
-#include "TopBar.hpp"
-#include "BottomBar.hpp"
+#include "ui/topbar/TopBar.hpp"
+#include "ui/bottombar/BottomBar.hpp"
 #include "ui_MainWindow.h"
 #include "../core/FairWind.hpp"
 

@@ -44,9 +44,8 @@ add_executable(${PROJECT_NAME}
         include/IFairWindApp.hpp
         core/FairWind.cpp core/FairWind.hpp
         FairWindAppBase.cpp include/FairWindAppBase.hpp
-        ui/BottomBarIcon.cpp ui/BottomBarIcon.hpp
-        ui/TopBar.cpp ui/TopBar.hpp
-        ui/BottomBar.cpp ui/BottomBar.hpp ui/Apps.cpp ui/Apps.hpp ui/Settings.cpp ui/Settings.hpp)
+        ui/topbar/TopBar.cpp ui/topbar/TopBar.hpp
+        ui/bottombar/BottomBar.cpp ui/bottombar/BottomBar.hpp ui/apps/Apps.cpp ui/apps/Apps.hpp ui/settings/Settings.cpp ui/settings/Settings.hpp)
 
 target_link_libraries(${PROJECT_NAME} ${REQUIRED_LIBS_QUALIFIED})
 
