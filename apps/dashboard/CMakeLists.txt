@@ -10,9 +10,9 @@ qt5_add_resources(DASHBOARD_RESOURCE_ADDED ${DASHBOARD_RESOURCE})
 add_library(Dashboard SHARED
         Dashboard.cpp
         Dashboard.hpp
-        ../../FairWindAppBase.cpp
+        ../../lib/src/FairWindAppBase.cpp
         ../../include/FairWindAppBase.hpp
-        ${PROJECT_SOURCE_DIR}/include/IFairWindApp.hpp
+        ../../include/IFairWindApp.hpp
         ${DASHBOARD_RESOURCE_ADDED}
         )
 target_link_libraries(Dashboard PRIVATE Qt5::Widgets)
