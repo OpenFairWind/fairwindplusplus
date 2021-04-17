@@ -41,11 +41,17 @@ add_executable(${PROJECT_NAME}
         main.cpp resources.qrc
         ui/MainWindow.ui ui/MainWindow.cpp ui/MainWindow.hpp
         core/App.cpp core/App.hpp
-        include/IFairWindApp.hpp
         core/FairWind.cpp core/FairWind.hpp
-        FairWindAppBase.cpp include/FairWindAppBase.hpp
+        include/IFairWindApp.hpp
+        include/QcGaugeWidget.hpp
+        include/FairWindAppBase.hpp
         ui/topbar/TopBar.cpp ui/topbar/TopBar.hpp
-        ui/bottombar/BottomBar.cpp ui/bottombar/BottomBar.hpp ui/apps/Apps.cpp ui/apps/Apps.hpp ui/settings/Settings.cpp ui/settings/Settings.hpp)
+        ui/bottombar/BottomBar.cpp ui/bottombar/BottomBar.hpp
+        ui/apps/Apps.cpp ui/apps/Apps.hpp
+        ui/settings/Settings.cpp ui/settings/Settings.hpp
+        lib/src/FairWindAppBase.cpp
+        lib/src/QcGaugeWidget.cpp
+        )
 
 target_link_libraries(${PROJECT_NAME} ${REQUIRED_LIBS_QUALIFIED})
 
