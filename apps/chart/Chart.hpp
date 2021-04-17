@@ -34,8 +34,11 @@ namespace fairwind::apps::chart {
         QWidget *onGui(QMainWindow *mainWindow, QMap<QString, QString> args) override;
         QWidget *onSettings(QTabWidget *tabWidgets) override;
 
-    private:
+    public slots:
         void mapSetup();
+
+    private:
+
 
         QGVMap *m_widgetMapApp= nullptr;
 

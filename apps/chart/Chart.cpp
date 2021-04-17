@@ -89,8 +89,8 @@ QWidget *fairwind::apps::chart::Chart::onGui(QMainWindow *mainWindow, QMap<QStri
     });
 
 
-    //QMetaObject::invokeMethod(this, "mapSetup", Qt::QueuedConnection);
-    mapSetup();
+    QMetaObject::invokeMethod(this, "mapSetup", Qt::QueuedConnection);
+
     return m_widgetMapApp;
 }
 
