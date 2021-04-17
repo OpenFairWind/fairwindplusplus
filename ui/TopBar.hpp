@@ -5,23 +5,21 @@
 #ifndef FAIRWIND_TOPBAR_HPP
 #define FAIRWIND_TOPBAR_HPP
 
-
-#include <QToolBar>
-
-class MainWindow;
+#include <QWidget>
 
 namespace Ui {
     class TopBar;
 }
 
-class TopBar : QObject {
-    Q_OBJECT
+class TopBar: public QWidget {
+Q_OBJECT
 
 public:
-    TopBar(MainWindow *mainWindow);
+    explicit TopBar(QWidget *parent = 0);
+    ~TopBar();
 
 private:
-    MainWindow *m_mainWindow;
+    Ui::TopBar *ui;
 };
 
 

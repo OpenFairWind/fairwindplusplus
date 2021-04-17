@@ -11,6 +11,8 @@
 
 
 #include "../core/App.hpp"
+#include "Apps.hpp"
+#include "Settings.hpp"
 
 
 class BottomBar;
@@ -30,12 +32,18 @@ public:
 
     Ui::MainWindow *getUi();
 
-    void toolButton_App_released();
+public slots:
+    void setForegroundApp(QString hash);
+    void onApps();
+    void onSettings();
+
 
 private:
     Ui::MainWindow *ui;
     QMap<QString, QWidget *> mapWidgets;
 
+    Apps *m_apps = nullptr;
+    Settings *m_settings = nullptr;
     TopBar *m_topBar = nullptr;
     BottomBar *m_bottonBar = nullptr;
 };

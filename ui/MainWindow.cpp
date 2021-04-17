@@ -21,69 +21,73 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     ui->setupUi(this);
-    m_topBar = new TopBar(this);
-    m_bottonBar = new BottomBar(this);
+
+    m_apps = new Apps(ui->stackedWidget_Center);
+    ui->stackedWidget_Center->addWidget(m_apps);
+
+    m_settings = new Settings(ui->stackedWidget_Center);
+    ui->stackedWidget_Center->addWidget(m_settings);
 
 
-    QGridLayout *layout = new QGridLayout(ui->scrollAreaWidgetContents_Apps);
-    ui->scrollAreaWidgetContents_Apps->setLayout(layout);
-
-    int cols=4,rows=2;
-
-    for(int col=0;col<cols;col++) {
-        layout->setColumnMinimumWidth(col, 64);
-    }
-    for(int row=0;row<rows;row++) {
-        layout->setRowMinimumHeight(row, 64);
-    }
+    m_topBar = new TopBar(ui->widget_Top);
+    m_bottonBar = new BottomBar(ui->widget_Bottom);
 
 
-    int row=0, col=0, page=0;
+    setCentralWidget(ui->centralwidget);
+    ui->stackedWidget_Center->setCurrentWidget(m_apps);
+
+    QObject::connect(m_apps, &Apps::foregroundAppChanged, this, &MainWindow::setForegroundApp);
+
+
+    QObject::connect(m_bottonBar, &BottomBar::setApps, this, &MainWindow::onApps);
+    QObject::connect(m_bottonBar, &BottomBar::setSettings, this, &MainWindow::onSettings);
 
 
 
-    auto fairWind=fairwind::FairWind::getInstance();
-    auto apps=fairWind->getApps();
-    qDebug() << "apps:" << apps.keys();
-
-    for (auto &hash : apps.keys()) {
-        auto app=apps[hash];
-        if (app->getActive()) {
-            auto *button = new QToolButton();
-            button->setObjectName("toolbutton_"+hash);
-            button->setText(app->getName());
-            QImage icon=app->getIcon();
-            button->setIcon(QPixmap::fromImage(icon));
-            button->setIconSize(QSize(256,256));
-            button->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-            connect(button, &QToolButton::released, this, &MainWindow::toolButton_App_released);
-
-            layout->addWidget(button,row,col);
-        }
-
-        row++;
-        if (row==rows) {
-            row=0;
-            col++;
-        }
-    }
-
-    this->setCentralWidget(ui->stackedWidget);
-    ui->stackedWidget->setCurrentIndex(0);
 
     QTimer::singleShot(0, this, SLOT(showFullScreen()));
 }
 
-void MainWindow::toolButton_App_released()
+
+
+
+MainWindow::~MainWindow()
 {
-    QWidget *buttonWidget = qobject_cast<QWidget*>(sender());
-    if (!buttonWidget) {
-        return;
+    if (m_settings) {
+        delete m_settings;
+        m_settings = nullptr;
+    }
+    if (m_apps) {
+        delete m_apps;
+        m_apps= nullptr;
     }
 
-    QString hash=buttonWidget->objectName().replace("toolbutton_","");
+    if (m_bottonBar) {
+        delete m_bottonBar;
+        m_bottonBar = nullptr;
+    }
 
+    if (m_topBar) {
+        delete m_topBar;
+        m_topBar = nullptr;
+    }
+
+    if (ui) {
+        delete ui;
+        ui = nullptr;
+    }
+}
+
+Ui::MainWindow *MainWindow::getUi() {
+    return ui;
+}
+
+
+
+void MainWindow::setForegroundApp(QString hash) {
+    qDebug() << "MainWindow hash:" << hash;
     auto fairWind = fairwind::FairWind::getInstance();
+
     auto app=fairWind->getApps()[hash];
     QWidget *widgetApp = nullptr;
     if (mapWidgets.find(hash)!=mapWidgets.end()) {
@@ -95,25 +99,20 @@ void MainWindow::toolButton_App_released()
         widgetApp=fairWindApp->onGui(this, app->getArgs());
 
         if (widgetApp) {
-            ui->stackedWidget->addWidget(widgetApp);
+            ui->stackedWidget_Center->addWidget(widgetApp);
             mapWidgets.insert(hash,widgetApp);
         }
     }
     if (widgetApp) {
-        ui->stackedWidget->setCurrentWidget(widgetApp);
+        ui->stackedWidget_Center->setCurrentWidget(widgetApp);
     }
-
 }
 
-
-MainWindow::~MainWindow()
-{
-    delete m_bottonBar;
-    delete m_topBar;
-    delete ui;
+void MainWindow::onApps() {
+    ui->stackedWidget_Center->setCurrentWidget(m_apps);
 }
 
-Ui::MainWindow *MainWindow::getUi() {
-    return ui;
+void MainWindow::onSettings() {
+    ui->stackedWidget_Center->setCurrentWidget(m_settings);
 }
 

@@ -5,28 +5,29 @@
 #ifndef FAIRWIND_BOTTOMBAR_HPP
 #define FAIRWIND_BOTTOMBAR_HPP
 
-
-#include <ui/BottomBarIcon.hpp>
-#include "MainWindow.hpp"
-
-class MainWindow;
+#include <QWidget>
 
 namespace Ui {
     class BottomBar;
 }
 
-class BottomBar : public QObject {
+class BottomBar : public QWidget {
     Q_OBJECT
 public:
-    BottomBar(MainWindow *mainWindow);
+    explicit BottomBar(QWidget *parent = 0);
+    ~BottomBar();
 
 public slots:
-    void settings_released();
-    void apps_released();
+    void settings_clicked();
+    void apps_clicked();
+
+signals:
+    void setApps();
+    void setSettings();
+
 
 private:
-    MainWindow *m_mainWindow;
-    QVector<BottomBarIcon> m_bottombarIcons;
+    Ui::BottomBar *ui;
 
 
 };
