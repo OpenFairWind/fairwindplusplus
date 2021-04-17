@@ -6,7 +6,7 @@ qt5_add_resources(WEB_RESOURCE_ADDED ${WEB_RESOURCE})
 add_library(Web SHARED
         Web.cpp
         Web.hpp
-        ../../FairWindAppBase.cpp
+        ../../lib/src/FairWindAppBase.cpp
         ../../include/FairWindAppBase.hpp
         WebView.cpp WebView.hpp
         WebPage.cpp WebPage.hpp
