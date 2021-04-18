@@ -27,8 +27,8 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 set(QT_VERSION 5)
-set(REQUIRED_LIBS Core Gui Widgets Network WebEngineWidgets)
-set(REQUIRED_LIBS_QUALIFIED Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Network Qt5::WebEngineWidgets)
+set(REQUIRED_LIBS Core Gui Widgets Network WebEngineWidgets WebSockets)
+set(REQUIRED_LIBS_QUALIFIED Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Network Qt5::WebEngineWidgets Qt5::WebSockets)
 
 find_package(Qt${QT_VERSION} COMPONENTS ${REQUIRED_LIBS} REQUIRED)
 
@@ -51,7 +51,7 @@ add_executable(${PROJECT_NAME}
         ui/settings/Settings.cpp ui/settings/Settings.hpp
         lib/src/FairWindAppBase.cpp
         lib/src/QcGaugeWidget.cpp
-        )
+        core/SignalKWSClient.cpp core/SignalKWSClient.hpp lib/src/SignalKDocument.cpp include/SignalKDocument.hpp)
 
 target_link_libraries(${PROJECT_NAME} ${REQUIRED_LIBS_QUALIFIED})
 
