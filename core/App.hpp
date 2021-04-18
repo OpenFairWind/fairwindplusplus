@@ -7,7 +7,7 @@
 
 
 #include <QMap>
-#include "include/IFairWindApp.hpp"
+#include "../include/IFairWindApp.hpp"
 
 namespace fairwind {
     class App: QObject {
