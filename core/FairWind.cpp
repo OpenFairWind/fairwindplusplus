@@ -119,3 +119,7 @@ fairwind::FairWind *fairwind::FairWind::getInstance() {
     }
     return m_instance;
 }
+
+SignalKDocument *fairwind::FairWind::getSignalKDocument() {
+    return &m_signalkDocument;
+}

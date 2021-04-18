@@ -10,6 +10,7 @@
 #include <QJsonDocument>
 
 #include "App.hpp"
+#include "../include/SignalKDocument.hpp"
 
 
 namespace fairwind {
@@ -26,10 +27,13 @@ namespace fairwind {
         void setApplicationDirPath(QString qString);
         void loadConfig(const QString& configFile);
 
+        SignalKDocument *getSignalKDocument();
 
         QMap<QString, App *> getApps();
 
     private:
+        SignalKDocument m_signalkDocument;
+
         QMap<QString, fairwind::apps::IFairWindApp *> m_mapFairWindApps;
 
         QMap<QString, App *> m_mapApps;
