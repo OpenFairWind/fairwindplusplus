@@ -8,6 +8,7 @@
 #include "QGeoView/QGVLayerOSM.h"
 #include "QGeoView/QGVLayerGoogle.h"
 #include "QGeoView/QGVLayerBing.h"
+#include "../../core/FairWind.hpp"
 #include <QGeoView/QGVGlobal.h>
 #include <QGeoView/QGVWidgetCompass.h>
 #include <QGeoView/QGVWidgetScale.h>
@@ -91,6 +92,9 @@ QWidget *fairwind::apps::chart::Chart::onGui(QMainWindow *mainWindow, QMap<QStri
 
     QMetaObject::invokeMethod(this, "mapSetup", Qt::QueuedConnection);
 
+
+
+
     return m_widgetMapApp;
 }
 
@@ -145,8 +149,15 @@ void fairwind::apps::chart::Chart::mapSetup() {
 
     auto target = m_widgetMapApp->getProjection()->boundaryGeoRect();
     //m_widgetMapApp->cameraTo(QGVCameraActions(m_widgetMapApp).scaleTo(target));
-    QGV::GeoPos geoPos(40.75, 14.28);
-    m_widgetMapApp->cameraTo(QGVCameraActions(m_widgetMapApp).moveTo(geoPos));
+
+    //QGV::GeoPos geoPos(40.75, 14.28);
+    //m_widgetMapApp->cameraTo(QGVCameraActions(m_widgetMapApp).moveTo(geoPos));
+    auto fairWind = FairWind::getInstance();
+
+    auto signalKDocument = fairWind->getSignalKDocument();
+
+    connect(signalKDocument,&SignalKDocument::updatedNavigationPosition,this, &fairwind::apps::chart::Chart::updateNavigationPosition);
+
 
 }
 
@@ -168,6 +179,21 @@ void fairwind::apps::chart::Chart::onInit(QJsonObject *metaData) {
 
 QWidget *fairwind::apps::chart::Chart::onSettings(QTabWidget *tabWidget) {
     return nullptr;
+}
+
+void fairwind::apps::chart::Chart::updateNavigationPosition() {
+    auto fairWind = fairwind::FairWind::getInstance();
+    auto signalKDocument = fairWind->getSignalKDocument();
+    QString path="vessels."+signalKDocument->getSelf()+".navigation.position.value";
+
+    QJsonValue positionValue = signalKDocument->subtree(path);
+    if (positionValue.isObject()) {
+        double latitude = positionValue.toObject()["latitude"].toDouble();
+        double longitude = positionValue.toObject()["longitude"].toDouble();
+        QGV::GeoPos geoPos(latitude, longitude);
+        m_widgetMapApp->cameraTo(QGVCameraActions(m_widgetMapApp).moveTo(geoPos));
+    }
+
 }
 
 

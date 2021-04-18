@@ -36,6 +36,7 @@ namespace fairwind::apps::chart {
 
     public slots:
         void mapSetup();
+        void updateNavigationPosition();
 
     private:
 
