@@ -4,6 +4,7 @@
 
 #include <QSettings>
 #include <QSplashScreen>
+#include <core/SignalKWSClient.hpp>
 #include "ui/MainWindow.hpp"
 #include "core/FairWind.hpp"
 
@@ -37,11 +38,14 @@ int main(int argc, char *argv[]) {
     app.setWindowIcon(QIcon(QStringLiteral(":resources/images/fairwind_logo.png")));
     MainWindow w;
 
-    splash.finish(&w);
+
 
 
     auto fairWind1=fairwind::FairWind::getInstance();
     auto apps=fairWind1->getApps();
 
+    SignalKWSClient signalKWSClient(QUrl(QStringLiteral("ws://demo.signalk.org/signalk/v1/stream")), true);
+
+    splash.finish(&w);
     return QApplication::exec();
 }
