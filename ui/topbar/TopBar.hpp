@@ -18,6 +18,11 @@ public:
     explicit TopBar(QWidget *parent = 0);
     ~TopBar();
 
+
+public slots:
+    void updateNavigationPosition();
+    void updateTime();
+
 private:
     Ui::TopBar *ui;
 };
