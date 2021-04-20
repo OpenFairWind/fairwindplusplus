@@ -25,6 +25,8 @@ private:
     QWebSocket m_webSocket;
     QUrl m_url;
     bool m_debug;
+
+
 };
 
 

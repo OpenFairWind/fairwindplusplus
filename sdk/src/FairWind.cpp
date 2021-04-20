@@ -8,7 +8,7 @@
 #include <QSettings>
 #include <utility>
 #include <QJsonArray>
-#include "FairWind.hpp"
+#include "include/FairWindSdk/FairWind.hpp"
 
 void fairwind::FairWind::loadApps() {
     auto appsDir = QDir(QCoreApplication::applicationDirPath());

@@ -9,12 +9,15 @@
 #include <map>
 #include <QJsonDocument>
 
-#include "App.hpp"
-#include "../include/SignalKDocument.hpp"
 
+
+#include "FairWindSDK.hpp"
+#include "IFairWindApp.hpp"
+#include "SignalKDocument.hpp"
+#include "App.hpp"
 
 namespace fairwind {
-    class FairWind: public QObject {
+    class FAIRWINDSDK_LIB_DECL FairWind: public QObject {
         Q_OBJECT
     public:
 

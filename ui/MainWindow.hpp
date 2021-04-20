@@ -10,7 +10,7 @@
 #include <QDebug>
 
 
-#include "../core/App.hpp"
+#include "FairWindSdk/App.hpp"
 #include "ui/apps/Apps.hpp"
 #include "ui/settings/Settings.hpp"
 

@@ -21,6 +21,8 @@ public:
 
 public slots:
     void updateNavigationPosition();
+    void updateNavigationCourseOverGroundTrue();
+    void updateNavigationSpeedOverGround();
     void updateTime();
 
 private:

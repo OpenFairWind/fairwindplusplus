@@ -4,8 +4,8 @@
 
 #include <QCryptographicHash>
 #include <utility>
-#include "App.hpp"
-#include "FairWind.hpp"
+#include "include/FairWindSdk/App.hpp"
+#include "include/FairWindSdk/FairWind.hpp"
 
 fairwind::App::App() {
 

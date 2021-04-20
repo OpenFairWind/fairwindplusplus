@@ -3,7 +3,7 @@
 //
 
 #include <QTimer>
-#include <core/FairWind.hpp>
+#include <FairWindSdk/FairWind.hpp>
 #include "TopBar.hpp"
 #include "ui_TopBar.h"
 
@@ -21,6 +21,9 @@ TopBar::TopBar(QWidget *parent) :
     auto signalKDocument = fairWind->getSignalKDocument();
 
     connect(signalKDocument,&SignalKDocument::updatedNavigationPosition,this, &TopBar::updateNavigationPosition);
+    connect(signalKDocument,&SignalKDocument::updatedNavigationCourseOverGroundTrue,this, &TopBar::updateNavigationCourseOverGroundTrue);
+    connect(signalKDocument,&SignalKDocument::updatedNavigationSpeedOverGround,this, &TopBar::updateNavigationSpeedOverGround);
+
 }
 
 void TopBar::updateTime()
@@ -56,4 +59,34 @@ void TopBar::updateNavigationPosition() {
         ui->label_Lon->setText(sLongitude);
     }
 
+}
+
+void TopBar::updateNavigationCourseOverGroundTrue() {
+
+    auto fairWind = fairwind::FairWind::getInstance();
+    auto signalKDocument = fairWind->getSignalKDocument();
+    QString path="vessels."+signalKDocument->getSelf()+".navigation.courseOverGroundTrue";
+
+    QJsonValue positionValue = signalKDocument->subtree(path);
+    if (positionValue.isObject()) {
+        double courseOverGroundTrue = positionValue.toObject()["value"].toDouble()*57.2958;
+        QString sCourseOverGroundTrue;
+        sCourseOverGroundTrue = QString{"%1"}.arg(courseOverGroundTrue, 3, 'f', 0, '0');
+        ui->label_COG->setText(sCourseOverGroundTrue);
+    }
+}
+
+void TopBar::updateNavigationSpeedOverGround() {
+
+    auto fairWind = fairwind::FairWind::getInstance();
+    auto signalKDocument = fairWind->getSignalKDocument();
+    QString path="vessels."+signalKDocument->getSelf()+".navigation.speedOverGround";
+
+    QJsonValue positionValue = signalKDocument->subtree(path);
+    if (positionValue.isObject()) {
+        double speedverGround = positionValue.toObject()["value"].toDouble()*1.94384;
+        QString sSpeedOverGround;
+        sSpeedOverGround = QString{"%1"}.arg(speedverGround, 3, 'f', 1, '0');
+        ui->label_SOG->setText(sSpeedOverGround);
+    }
 }

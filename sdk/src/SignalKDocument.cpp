@@ -5,12 +5,10 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QFile>
-#include "../include/SignalKDocument.hpp"
+#include "include/FairWindSdk/SignalKDocument.hpp"
 
 SignalKDocument::SignalKDocument() {
     insert("version","1.0.0");
-    insert("self","urn:mrn:signalk:uuid:39deb5a7-747a-4f16-a6c9-6808de59f6ba");
-
 }
 
 SignalKDocument::~SignalKDocument() {
@@ -62,6 +60,10 @@ void SignalKDocument::insert(const QString& path, const QJsonValue& newValue) {
     emit updated(path);
     if (path.indexOf("navigation.position")>=0) {
         emit updatedNavigationPosition();
+    } else if (path.indexOf("navigation.courseOverGroundTrue")>=0) {
+        emit updatedNavigationCourseOverGroundTrue();
+    } else if (path.indexOf("navigation.speedOverGround")>=0) {
+        emit updatedNavigationSpeedOverGround();
     }
 }
 
@@ -97,4 +99,8 @@ void SignalKDocument::load(QString fileName) {
     QFile jsonFile(fileName);
     jsonFile.open(QFile::ReadOnly);
     m_jsonDocument.fromJson(jsonFile.readAll());
+}
+
+void SignalKDocument::setSelf(QString self) {
+    insert("self",self);
 }

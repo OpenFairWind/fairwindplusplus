@@ -3,15 +3,16 @@
 //
 
 #include <QTimer>
-#include <QLabel>
-
-#include <QGridLayout>
 #include <QToolButton>
+
+#include <FairWindSdk/FairWind.hpp>
+
 #include "MainWindow.hpp"
 #include "ui/topbar/TopBar.hpp"
 #include "ui/bottombar/BottomBar.hpp"
+
 #include "ui_MainWindow.h"
-#include "../core/FairWind.hpp"
+
 
 
 MainWindow::MainWindow(QWidget *parent) :

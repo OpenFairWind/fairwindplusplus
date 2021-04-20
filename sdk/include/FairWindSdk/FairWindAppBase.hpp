@@ -7,9 +7,10 @@
 
 
 #include <QJsonObject>
+#include "FairWindSDK.hpp"
 
 namespace fairwind {
-    class FairWindAppBase {
+    class FAIRWINDSDK_LIB_DECL FairWindAppBase {
     public:
         ~FairWindAppBase() = default;
 

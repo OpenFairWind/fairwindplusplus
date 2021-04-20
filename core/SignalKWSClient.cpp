@@ -3,7 +3,7 @@
 //
 
 #include "SignalKWSClient.hpp"
-#include "FairWind.hpp"
+#include <FairWindSdk/FairWind.hpp>
 
 #include <QtCore/QDebug>
 #include <QJsonDocument>
@@ -40,8 +40,6 @@ void SignalKWSClient::onConnected()
 void SignalKWSClient::onTextMessageReceived(QString message)
 {
     QJsonObject jsonObjectUpdate;
-
-
 
     QJsonDocument jsonDocument = QJsonDocument::fromJson(message.toUtf8());
 

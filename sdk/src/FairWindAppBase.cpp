@@ -2,7 +2,7 @@
 // Created by Raffaele Montella on 08/04/21.
 //
 
-#include "../include/FairWindAppBase.hpp"
+#include "include/FairWindSdk/FairWindAppBase.hpp"
 
 QString fairwind::FairWindAppBase::getId() const {
     if (m_metaData.find("FairWind") == m_metaData.end()) {

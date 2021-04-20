@@ -2,7 +2,7 @@
 // Created by Raffaele Montella on 13/04/21.
 //
 
-#include <core/FairWind.hpp>
+#include <FairWindSdk/FairWind.hpp>
 #include "Apps.hpp"
 #include "ui_Apps.h"
 

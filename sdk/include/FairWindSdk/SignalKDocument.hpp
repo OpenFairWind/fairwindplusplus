@@ -8,7 +8,9 @@
 
 #include <QJsonDocument>
 
-class SignalKDocument: public QObject {
+#include "FairWindSDK.hpp"
+
+class FAIRWINDSDK_LIB_DECL SignalKDocument: public QObject {
     Q_OBJECT
 
 public:
@@ -23,11 +25,14 @@ public:
     QJsonObject subtree(const QString& path);
 
     QString getSelf();
+    void setSelf(QString self);
     QString getVersion();
 
 signals:
     void updated(const QString path);
     void updatedNavigationPosition();
+    void updatedNavigationCourseOverGroundTrue();
+    void updatedNavigationSpeedOverGround();
 
 private:
     QJsonDocument m_jsonDocument;

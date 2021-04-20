@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.16)
 project(FairWind)
-#set(CMAKE_PREFIX_PATH "C:/Qt/5.15.2/mingw81_64/lib/cmake")
+#set(CMAKE_PREFIX_PATH "C:/Qt/5.15.2/mingw81_64/sdk/cmake")
 
 if (NOT CMAKE_PREFIX_PATH)
     message(WARNING "CMAKE_PREFIX_PATH is not defined, you may need to set it "
             "(-DCMAKE_PREFIX_PATH=\"path/to/Qt/lib/cmake\" or -DCMAKE_PREFIX_PATH=/usr/include/{host}/qt{version}/ on Ubuntu)")
 endif ()
-# -DCMAKE_PREFIX_PATH="/usr/local/Cellar/qt@5/5.15.2/lib/cmake"
+# -DCMAKE_PREFIX_PATH="/usr/local/Cellar/qt@5/5.15.2/sdk/cmake"
 
 # Include the support to external projects
 include(ExternalProject)
@@ -32,28 +32,27 @@ set(REQUIRED_LIBS_QUALIFIED Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Network Qt5::We
 
 find_package(Qt${QT_VERSION} COMPONENTS ${REQUIRED_LIBS} REQUIRED)
 
-add_subdirectory(apps/chart)
-add_subdirectory(apps/dashboard)
-add_subdirectory(apps/native)
-add_subdirectory(apps/web)
+add_subdirectory(sdk)
+
+add_subdirectory(apps)
 
 add_executable(${PROJECT_NAME}
         main.cpp resources.qrc
+#        sdk/include/FairWindSdk/App.hpp
+#        sdk/include/FairWindSdk/FairWind.hpp
+#        sdk/include/FairWindSdk/IFairWindApp.hpp
+#        sdk/include/FairWindSdk/FairWindAppBase.hpp
+#        sdk/include/FairWindSdk/SignalKDocument.hpp
         ui/MainWindow.ui ui/MainWindow.cpp ui/MainWindow.hpp
-        core/App.cpp core/App.hpp
-        core/FairWind.cpp core/FairWind.hpp
-        include/IFairWindApp.hpp
-        include/QcGaugeWidget.hpp
-        include/FairWindAppBase.hpp
         ui/topbar/TopBar.cpp ui/topbar/TopBar.hpp
         ui/bottombar/BottomBar.cpp ui/bottombar/BottomBar.hpp
         ui/apps/Apps.cpp ui/apps/Apps.hpp
         ui/settings/Settings.cpp ui/settings/Settings.hpp
-        lib/src/FairWindAppBase.cpp
-        lib/src/QcGaugeWidget.cpp
-        core/SignalKWSClient.cpp core/SignalKWSClient.hpp lib/src/SignalKDocument.cpp include/SignalKDocument.hpp)
+        core/SignalKWSClient.cpp core/SignalKWSClient.hpp
+        core/SignalKAPIClient.cpp core/SignalKAPIClient.hpp)
 
-target_link_libraries(${PROJECT_NAME} ${REQUIRED_LIBS_QUALIFIED})
+add_dependencies(${PROJECT_NAME} FairWindSdk)
+target_link_libraries(${PROJECT_NAME} ${REQUIRED_LIBS_QUALIFIED} ${LIBFAIRWINDSDK})
 
 add_custom_command(
         TARGET ${PROJECT_NAME}

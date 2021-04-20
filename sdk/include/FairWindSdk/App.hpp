@@ -7,10 +7,11 @@
 
 
 #include <QMap>
-#include "../include/IFairWindApp.hpp"
+#include "FairWindSDK.hpp"
+#include "IFairWindApp.hpp"
 
 namespace fairwind {
-    class App: QObject {
+    class FAIRWINDSDK_LIB_DECL App: QObject {
         Q_OBJECT
     public:
         App();
