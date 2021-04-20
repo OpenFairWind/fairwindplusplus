@@ -1,0 +1,14 @@
+//
+// Created by Raffaele Montella on 20/04/21.
+//
+
+#ifndef FAIRWIND_FAIRWINDSDK_HPP
+#define FAIRWIND_FAIRWINDSDK_HPP
+
+#if defined(FAIRWINDSDK_EXPORT)
+#define FAIRWINDSDK_LIB_DECL Q_DECL_EXPORT
+#else
+#define FAIRWINDSDK_LIB_DECL Q_DECL_IMPORT
+#endif
+
+#endif //FAIRWIND_FAIRWINDSDK_HPP
