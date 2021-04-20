@@ -6,8 +6,8 @@
 #define FAIRWIND_WEB_HPP
 
 
-#include <IFairWindApp.hpp>
-#include <FairWindAppBase.hpp>
+#include <FairWindSdk/IFairWindApp.hpp>
+#include <FairWindSdk/FairWindAppBase.hpp>
 #include <QWebEngineProfile>
 
 namespace fairwind::apps::web {

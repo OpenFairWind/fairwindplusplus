@@ -11,8 +11,8 @@
 #include <QNetworkAccessManager>
 #include <QNetworkDiskCache>
 #include <QGeoView/QGVMap.h>
-#include <FairWindAppBase.hpp>
-#include <IFairWindApp.hpp>
+#include <FairWindSdk/FairWindAppBase.hpp>
+#include <FairWindSdk/IFairWindApp.hpp>
 
 
 namespace fairwind::apps::chart {

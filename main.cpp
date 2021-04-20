@@ -5,8 +5,9 @@
 #include <QSettings>
 #include <QSplashScreen>
 #include <core/SignalKWSClient.hpp>
+#include <core/SignalKAPIClient.hpp>
 #include "ui/MainWindow.hpp"
-#include "core/FairWind.hpp"
+#include "sdk/include/FairWindSdk/FairWind.hpp"
 
 int main(int argc, char *argv[]) {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -38,14 +39,11 @@ int main(int argc, char *argv[]) {
     app.setWindowIcon(QIcon(QStringLiteral(":resources/images/fairwind_logo.png")));
     MainWindow w;
 
-
-
-
-    auto fairWind1=fairwind::FairWind::getInstance();
-    auto apps=fairWind1->getApps();
-
     SignalKWSClient signalKWSClient(QUrl(QStringLiteral("ws://demo.signalk.org/signalk/v1/stream")), true);
-
+    SignalKAPIClient signalKAPIClient(QUrl("http://demo.signalk.org/signalk/v1/api"));
+    QString self = signalKAPIClient.getSelf();
+    qDebug() << self;
+    fairWind->getSignalKDocument()->setSelf(self);
     splash.finish(&w);
     return QApplication::exec();
 }

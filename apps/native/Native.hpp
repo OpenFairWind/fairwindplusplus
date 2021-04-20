@@ -5,8 +5,8 @@
 #ifndef FAIRWIND_NATIVE_HPP
 #define FAIRWIND_NATIVE_HPP
 
-#include <FairWindAppBase.hpp>
-#include <IFairWindApp.hpp>
+#include <FairWindSdk/FairWindAppBase.hpp>
+#include <FairWindSdk/IFairWindApp.hpp>
 
 namespace fairwind::apps::native {
     class Native : public QObject, FairWindAppBase, IFairWindApp {

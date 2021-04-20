@@ -2,13 +2,13 @@
 // Created by Raffaele Montella on 05/04/21.
 //
 
-#include "Chart.hpp"
+
 #include "QGeoView/QGVWidget.h"
 #include "QGeoView/QGVLayer.h"
 #include "QGeoView/QGVLayerOSM.h"
 #include "QGeoView/QGVLayerGoogle.h"
 #include "QGeoView/QGVLayerBing.h"
-#include "../../core/FairWind.hpp"
+
 #include <QGeoView/QGVGlobal.h>
 #include <QGeoView/QGVWidgetCompass.h>
 #include <QGeoView/QGVWidgetScale.h>
@@ -18,6 +18,10 @@
 #include <QDir>
 #include <QGeoView/QGVDrawItem.h>
 #include <QGuiApplication>
+
+#include <FairWindSdk/FairWind.hpp>
+
+#include "Chart.hpp"
 
 QImage fairwind::apps::chart::Chart::getIcon() const {
     return QImage(":/resources/images/icons/chart_icon.png");

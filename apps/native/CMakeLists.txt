@@ -1,16 +1,14 @@
-include_directories(SYSTEM ../../include)
-
 set(NATIVE_RESOURCE resources.qrc)
 qt5_add_resources(NATIVE_RESOURCE_ADDED ${NATIVE_RESOURCE})
 
 add_library(Native SHARED
         Native.cpp
         Native.hpp
-        ../../lib/src/FairWindAppBase.cpp
-        ../../include/FairWindAppBase.hpp
         ${NATIVE_RESOURCE_ADDED}
         )
-target_link_libraries(Native PRIVATE Qt5::Widgets)
+
+add_dependencies(Native FairWindSdk)
+target_link_libraries(Native PRIVATE Qt5::Widgets ${LIBFAIRWINDSDK})
 target_compile_options(Native PRIVATE ${COMPILE_OPTIONS})
 
 add_custom_command(
