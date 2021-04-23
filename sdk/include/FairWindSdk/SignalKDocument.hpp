@@ -7,6 +7,7 @@
 
 
 #include <QJsonDocument>
+#include <QGeoView/QGVGlobal.h>
 
 #include "FairWindSDK.hpp"
 
@@ -27,6 +28,12 @@ public:
     QString getSelf();
     void setSelf(QString self);
     QString getVersion();
+
+    QGV::GeoPos getNavigationPosition(QString uuid);
+    QGV::GeoPos getNavigationPosition();
+
+    double getNavigationCourseOverGroundTrue(QString uuid);
+    double getNavigationCourseOverGroundTrue();
 
 signals:
     void updated(const QString path);

@@ -104,3 +104,31 @@ void SignalKDocument::load(QString fileName) {
 void SignalKDocument::setSelf(QString self) {
     insert("self",self);
 }
+
+QGV::GeoPos SignalKDocument::getNavigationPosition() {
+    return getNavigationPosition(getSelf());
+}
+
+QGV::GeoPos SignalKDocument::getNavigationPosition(QString uuid) {
+    QGV::GeoPos result;
+    QString path="vessels."+uuid+".navigation.position.value";
+
+    QJsonValue positionValue = subtree(path);
+    if (positionValue.isObject()) {
+        double latitude = positionValue.toObject()["latitude"].toDouble();
+        double longitude = positionValue.toObject()["longitude"].toDouble();
+        result.setLat(latitude);
+        result.setLon(longitude);
+    }
+    return result;
+}
+
+double SignalKDocument::getNavigationCourseOverGroundTrue() {
+    return getNavigationCourseOverGroundTrue(getSelf());
+}
+
+double SignalKDocument::getNavigationCourseOverGroundTrue(QString uuid) {
+    QString path="vessels."+uuid+".navigation.courseOverGroundTrue";
+    double courseOverGroundTrue = subtree(path)["value"].toDouble();
+    return courseOverGroundTrue;
+}
