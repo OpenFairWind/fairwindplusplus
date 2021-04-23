@@ -6,7 +6,7 @@ if (NOT CMAKE_PREFIX_PATH)
     message(WARNING "CMAKE_PREFIX_PATH is not defined, you may need to set it "
             "(-DCMAKE_PREFIX_PATH=\"path/to/Qt/lib/cmake\" or -DCMAKE_PREFIX_PATH=/usr/include/{host}/qt{version}/ on Ubuntu)")
 endif ()
-# -DCMAKE_PREFIX_PATH="/usr/local/Cellar/qt@5/5.15.2/sdk/cmake"
+# -DCMAKE_PREFIX_PATH="/usr/local/opt/qt5/"
 
 # Include the support to external projects
 include(ExternalProject)
