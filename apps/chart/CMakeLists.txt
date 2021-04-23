@@ -10,7 +10,7 @@ add_library(Chart SHARED
 
 add_dependencies(Chart QGeoView)
 add_dependencies(Chart FairWindSdk)
-target_link_libraries(Chart PRIVATE Qt5::Widgets Qt5::Network ${LIBQGEOVIEW} ${LIBFAIRWINDSDK})
+target_link_libraries(Chart PRIVATE Qt5::Widgets Qt5::Network  ${LIBFAIRWINDSDK})
 target_compile_options(Chart PRIVATE ${COMPILE_OPTIONS})
 
 add_custom_command(
