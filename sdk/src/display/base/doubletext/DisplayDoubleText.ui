@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Double</class>
- <widget class="QWidget" name="Double">
+ <class>DisplayDoubleText</class>
+ <widget class="QWidget" name="DisplayDoubleText">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -14,8 +14,7 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(220, 240, 230);
-color: rgb(75, 75, 75);</string>
+   <string notr="true"/>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">

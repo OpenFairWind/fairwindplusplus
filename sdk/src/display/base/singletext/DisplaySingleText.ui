@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Single</class>
- <widget class="QWidget" name="Single">
+ <class>DisplaySingleText</class>
+ <widget class="QWidget" name="DisplaySingleText">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -14,8 +14,7 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(220, 240, 230);
-color: rgb(75, 75, 75);</string>
+   <string notr="true"/>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
@@ -34,7 +33,7 @@ color: rgb(75, 75, 75);</string>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_Value">
+      <widget class="QLabel" name="label_Value1">
        <property name="text">
         <string>Value</string>
        </property>

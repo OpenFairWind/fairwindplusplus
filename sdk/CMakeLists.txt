@@ -34,6 +34,9 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
 endif()
 set(LIBQGEOVIEW ${LIBQGEOVIEW} PARENT_SCOPE)
 
+set(FAIRWINDSDK_RESOURCE resources.qrc)
+qt5_add_resources(FAIRWINDSDK_RESOURCE_ADDED ${FAIRWINDSDK_RESOURCE})
+
 add_library(fairwindsdk SHARED
         include/FairWindSdk/FairWindSDK.hpp
         include/FairWindSdk/IFairWindApp.hpp
@@ -41,11 +44,17 @@ add_library(fairwindsdk SHARED
         include/FairWindSdk/SignalKDocument.hpp
         include/FairWindSdk/FairWind.hpp
         include/FairWindSdk/App.hpp
+        include/FairWindSdk/DisplaySingleText.hpp
+        include/FairWindSdk/DisplayDoubleText.hpp
         src/FairWind.cpp
         src/App.cpp
         src/FairWindAppBase.cpp
         src/SignalKDocument.cpp
-        )
+        src/display/base/singletext/DisplaySingleText.cpp
+        src/display/base/doubletext/DisplayDoubleText.cpp
+        src/display/position/DisplayPosition.cpp src/display/position/DisplayPosition.hpp
+        src/display/chart/DisplayChart.cpp include/FairWindSdk/DisplayChart.hpp
+        ${FAIRWINDSDK_RESOURCE_ADDED})
 
 target_include_directories(fairwindsdk
         PUBLIC
