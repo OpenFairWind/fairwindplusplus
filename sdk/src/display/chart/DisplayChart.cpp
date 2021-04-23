@@ -91,8 +91,7 @@ void DisplayChart::mapSetup() {
     auto target = m_widgetMap->getProjection()->boundaryGeoRect();
     //m_widgetMapApp->cameraTo(QGVCameraActions(m_widgetMapApp).scaleTo(target));
 
-    //QGV::GeoPos geoPos(40.75, 14.28);
-    //m_widgetMapApp->cameraTo(QGVCameraActions(m_widgetMapApp).moveTo(geoPos));
+
 
     auto layer = new QGVLayer();
     layer->setName("Vessels");
@@ -109,27 +108,21 @@ void DisplayChart::mapSetup() {
     connect(signalKDocument,&SignalKDocument::updatedNavigationPosition,this, &DisplayChart::updateNavigationPosition);
 
 
+    QGV::GeoPos geoPos = signalKDocument->getNavigationPosition();
+    m_widgetMap->cameraTo(QGVCameraActions(m_widgetMap).moveTo(geoPos));
 }
 
 void DisplayChart::updateNavigationPosition() {
     auto fairWind = fairwind::FairWind::getInstance();
     auto signalKDocument = fairWind->getSignalKDocument();
-    QString path="vessels."+signalKDocument->getSelf()+".navigation.position.value";
+    QGV::GeoPos geoPos = signalKDocument->getNavigationPosition();
+    double courseOverGroundTrue=signalKDocument->getNavigationCourseOverGroundTrue();
 
-    QJsonValue positionValue = signalKDocument->subtree(path);
-    if (positionValue.isObject()) {
-        double latitude = positionValue.toObject()["latitude"].toDouble();
-        double longitude = positionValue.toObject()["longitude"].toDouble();
-        QGV::GeoPos geoPos(latitude, longitude);
-        //m_widgetMapApp->cameraTo(QGVCameraActions(m_widgetMapApp).moveTo(geoPos));
-        QImage image(":/resources/images/ship_red.png");
-        QMatrix rot;
+    QImage image(":/resources/images/ship_red.png");
+    QMatrix rot;
 
-        path="vessels."+signalKDocument->getSelf()+".navigation.courseOverGroundTrue";
-        double courseOverGroundTrue = signalKDocument->subtree(path)["value"].toDouble()*57.2958;
+    m_self->loadImage(image.transformed(rot.rotate(courseOverGroundTrue*57.2958)));
+    m_self->setGeometry(geoPos,QSize(64,64),QPoint(32,32));
 
-        m_self->loadImage(image.transformed(rot.rotate(courseOverGroundTrue)));
-        m_self->setGeometry(QGV::GeoPos(latitude,longitude),QSize(64,64),QPoint(32,32));
-    }
 
 }
