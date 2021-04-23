@@ -38,11 +38,6 @@ add_subdirectory(apps)
 
 add_executable(${PROJECT_NAME}
         main.cpp resources.qrc
-#        sdk/include/FairWindSdk/App.hpp
-#        sdk/include/FairWindSdk/FairWind.hpp
-#        sdk/include/FairWindSdk/IFairWindApp.hpp
-#        sdk/include/FairWindSdk/FairWindAppBase.hpp
-#        sdk/include/FairWindSdk/SignalKDocument.hpp
         ui/MainWindow.ui ui/MainWindow.cpp ui/MainWindow.hpp
         ui/topbar/TopBar.cpp ui/topbar/TopBar.hpp
         ui/bottombar/BottomBar.cpp ui/bottombar/BottomBar.hpp
