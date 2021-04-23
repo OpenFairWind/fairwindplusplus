@@ -8,11 +8,9 @@
 
 #include <QObject>
 #include <QtPlugin>
-#include <QNetworkAccessManager>
-#include <QNetworkDiskCache>
-#include <QGeoView/QGVMap.h>
 #include <FairWindSdk/FairWindAppBase.hpp>
 #include <FairWindSdk/IFairWindApp.hpp>
+#include "FairWindSdk/DisplayChart.hpp"
 
 
 namespace fairwind::apps::chart {
@@ -34,18 +32,11 @@ namespace fairwind::apps::chart {
         QWidget *onGui(QMainWindow *mainWindow, QMap<QString, QString> args) override;
         QWidget *onSettings(QTabWidget *tabWidgets) override;
 
-    public slots:
-        void mapSetup();
-        void updateNavigationPosition();
+
+
 
     private:
-
-
-        QGVMap *m_widgetMapApp= nullptr;
-
-
-        QNetworkAccessManager* mManager;
-        QNetworkDiskCache* mCache;
+        QWidget *m_widget = nullptr;
     };
 }
 
