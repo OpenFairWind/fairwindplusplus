@@ -2,6 +2,8 @@
 // Created by Raffaele Montella on 08/04/21.
 //
 
+#include <FairWindSdk/FairWind.hpp>
+#include <QJsonArray>
 #include "include/FairWindSdk/FairWindAppBase.hpp"
 
 QString fairwind::FairWindAppBase::getId() const {
@@ -16,6 +18,32 @@ QString fairwind::FairWindAppBase::getId() const {
     }
 
     return m_metaData["FairWind"]["App"]["Id"].toString();
+}
+
+QJsonObject fairwind::FairWindAppBase::getConfig() {
+    QJsonObject result;
+    auto fairWind=fairwind::FairWind::getInstance();
+    if (fairWind) {
+        auto config = fairWind->getConfig();
+        if (config.contains("Extensions") && config["Extensions"].isObject()) {
+            auto extensions = config["Extensions"].toObject();
+            if (extensions.contains("Apps") && extensions["Apps"].isArray()) {
+                QJsonArray apps=extensions["Apps"].toArray();
+                for (auto app:apps) {
+                    if (app.isObject()) {
+                        auto appExtensionSection=app.toObject();
+                        if (appExtensionSection.contains("Id") && appExtensionSection["Id"].isString() && appExtensionSection["Id"].toString() == getId()) {
+                            if (appExtensionSection.contains("Config") && appExtensionSection["Config"].isObject()) {
+                                result=appExtensionSection["Config"].toObject();
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return result;
 }
 
 QString fairwind::FairWindAppBase::getName() const {

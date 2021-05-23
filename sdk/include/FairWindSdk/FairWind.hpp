@@ -8,11 +8,12 @@
 #include <QString>
 #include <map>
 #include <QJsonDocument>
-
+#include <QGeoView/QGVLayer.h>
 
 
 #include "FairWindSDK.hpp"
 #include "IFairWindApp.hpp"
+#include "IFairWindLayer.hpp"
 #include "SignalKDocument.hpp"
 #include "App.hpp"
 
@@ -28,13 +29,19 @@ namespace fairwind {
 
 
         void setApplicationDirPath(QString qString);
-        void loadConfig(const QString& configFile);
+        void loadConfig();
 
         SignalKDocument *getSignalKDocument();
 
         QMap<QString, App *> getApps();
+        bool registerLayer(QString className, fairwind::layers::IFairWindLayer *dummy);
+        layers::IFairWindLayer *instanceLayer(const QString& className);
+
+        QJsonObject &getConfig();
 
     private:
+        QJsonObject m_config;
+
         SignalKDocument m_signalkDocument;
 
         QMap<QString, fairwind::apps::IFairWindApp *> m_mapFairWindApps;
@@ -44,6 +51,8 @@ namespace fairwind {
         QString m_applicationDirPath;
         FairWind();
         inline static FairWind *m_instance = nullptr;
+
+        QMap<QString, fairwind::layers::IFairWindLayer *> m_registeredLayers;
 
     };
 }

@@ -42,3 +42,7 @@ void fairwind::apps::native::Native::onInit(QJsonObject *metaData) {
 QWidget *fairwind::apps::native::Native::onSettings(QTabWidget *tabWidgets) {
     return nullptr;
 }
+
+QJsonObject fairwind::apps::native::Native::getConfig() {
+    return FairWindAppBase::getConfig();
+}

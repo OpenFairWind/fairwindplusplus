@@ -1,0 +1,35 @@
+//
+// Created by Raffaele Montella on 21/05/21.
+//
+
+#ifndef FAIRWIND_FAIRWINDOSMLAYER_HPP
+#define FAIRWIND_FAIRWINDOSMLAYER_HPP
+
+
+#include <QGeoView/QGVLayerOSM.h>
+#include <FairWindSdk/IFairWindLayer.hpp>
+
+
+class FairWindOSMLayer : public QGVLayerOSM, public fairwind::layers::IFairWindLayer {
+    Q_OBJECT
+
+public:
+    explicit FairWindOSMLayer();
+    ~FairWindOSMLayer();
+
+    QImage getIcon() const override;
+
+    void onInit(QMap<QString, QVariant> params) override;
+
+    virtual IFairWindLayer *getNewInstance() override;
+
+    QWidget *onLegenda() override;
+    QWidget *onSettings() override;
+
+private:
+
+
+};
+
+
+#endif //FAIRWIND_FAIRWINDOSMLAYER_HPP

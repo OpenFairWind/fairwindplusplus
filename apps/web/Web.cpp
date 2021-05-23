@@ -96,3 +96,7 @@ void fairwind::apps::web::Web::toolButton_home_clicked() {
 QWidget *fairwind::apps::web::Web::onSettings(QTabWidget *tabWidgets) {
     return nullptr;
 }
+
+QJsonObject fairwind::apps::web::Web::getConfig() {
+    return FairWindAppBase::getConfig();
+}

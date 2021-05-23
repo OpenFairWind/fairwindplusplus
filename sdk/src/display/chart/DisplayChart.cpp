@@ -4,6 +4,7 @@
 
 #include "QGeoView/QGVWidget.h"
 #include "QGeoView/QGVLayer.h"
+#include <QGeoView/QGVImage.h>
 #include "QGeoView/QGVLayerOSM.h"
 #include "QGeoView/QGVLayerGoogle.h"
 #include "QGeoView/QGVLayerBing.h"
@@ -11,6 +12,7 @@
 #include <QGeoView/QGVGlobal.h>
 #include <QGeoView/QGVWidgetCompass.h>
 #include <QGeoView/QGVWidgetScale.h>
+#include <QJsonArray>
 #include <QGeoView/QGVWidgetZoom.h>
 #include <QAction>
 #include <QClipboard>
@@ -19,9 +21,13 @@
 #include <QGuiApplication>
 #include <FairWindSdk/SignalKDocument.hpp>
 #include <FairWind.hpp>
+#include <SignalKLayer.hpp>
 
 #include "ui_DisplayChart.h"
 #include "DisplayChart.hpp"
+#include "QGVItemVessel.hpp"
+#include "QGVItemShoreBasestations.hpp"
+#include "QGVItemAton.hpp"
 
 DisplayChart::DisplayChart(QWidget *parent) :
         QWidget(parent),
@@ -31,7 +37,7 @@ DisplayChart::DisplayChart(QWidget *parent) :
     m_widgetMap = new QGVMap();
     ui->gridLayout->addWidget(m_widgetMap,0,0);
 
-    QMetaObject::invokeMethod(this, "mapSetup", Qt::QueuedConnection);
+    //QMetaObject::invokeMethod(this, "mapSetup", Qt::QueuedConnection);
 }
 
 
@@ -39,7 +45,8 @@ DisplayChart::~DisplayChart() {
     delete ui;
 }
 
-void DisplayChart::mapSetup() {
+void DisplayChart::onInit(QJsonObject settings) {
+    mSettings=settings;
     QDir("cacheDir").removeRecursively();
     mCache = new QNetworkDiskCache(this);
     mCache->setCacheDirectory("cacheDir");
@@ -48,81 +55,53 @@ void DisplayChart::mapSetup() {
     QGV::setNetworkManager(mManager);
 
 
-    /*
-     * List of available widgets.
-     */
-    QList<QPair<QString, QGVWidget*>> widgets = {
-            { "Compass", new QGVWidgetCompass() },
-            { "ZoomButtons", new QGVWidgetZoom() },
-            { "ScaleHorizontal", new QGVWidgetScale(Qt::Horizontal) },
-            { "ScaleVertical", new QGVWidgetScale(Qt::Vertical) },
-    };
-    /*
-     * Widgets will be owned by map.
-     */
-    for (auto pair : widgets) {
-        auto name = pair.first;
-        auto widget = pair.second;
-        m_widgetMap->addWidget(widget);
-    }
+    m_widgetMap->addWidget(new QGVWidgetCompass());
+    m_widgetMap->addWidget(new QGVWidgetZoom());
+    m_widgetMap->addWidget(new QGVWidgetScale(Qt::Horizontal));
+    m_widgetMap->addWidget(new QGVWidgetScale(Qt::Vertical));
 
-    const QString customURI = "http://c.tile.stamen.com/watercolor/${z}/${x}/${y}.jpg";
-    const QList<QPair<QString, QGVLayer*>> layers = {
-            { "OSM", new QGVLayerOSM() },
-            { "GOOGLE_SATELLITE", new QGVLayerGoogle(QGV::TilesType::Satellite) },
-            { "GOOGLE_HYBRID", new QGVLayerGoogle(QGV::TilesType::Hybrid) },
-            { "GOOGLE_SCHEMA", new QGVLayerGoogle(QGV::TilesType::Schema) },
-            { "BING_SATELLITE", new QGVLayerBing(QGV::TilesType::Satellite) },
-            { "BING_HYBRID", new QGVLayerBing(QGV::TilesType::Hybrid) },
-            { "BING_SCHEMA", new QGVLayerBing(QGV::TilesType::Schema) },
-            { "CUSTOM_OSM", new QGVLayerOSM(customURI) },
-    };
-    /*
-     * Layers will be owned by map.
-     */
-    for (auto pair : layers) {
-        auto name = pair.first;
-        auto layer = pair.second;
-        layer->hide();
-        m_widgetMap->addItem(layer);
-    }
-    layers[0].second->show();
 
-    auto target = m_widgetMap->getProjection()->boundaryGeoRect();
+    //auto target = m_widgetMap->getProjection()->boundaryGeoRect();
     //m_widgetMapApp->cameraTo(QGVCameraActions(m_widgetMapApp).scaleTo(target));
 
-
-
-    auto layer = new QGVLayer();
-    layer->setName("Vessels");
-    layer->setDescription("Demo for Vessels");
-    m_widgetMap->addItem(layer);
-    m_self = new QGVImage();
-    m_self->setFlags(QGV::ItemFlag::IgnoreScale);
-    layer->addItem(m_self);
-
     auto fairWind = fairwind::FairWind::getInstance();
-
     auto signalKDocument = fairWind->getSignalKDocument();
+    auto self = signalKDocument->getSelf();
 
-    connect(signalKDocument,&SignalKDocument::updatedNavigationPosition,this, &DisplayChart::updateNavigationPosition);
+    if (mSettings.contains("Layers") && mSettings["Layers"].isArray()) {
+        auto layerSettings = mSettings["Layers"].toArray();
+        for (auto layerSetting:layerSettings) {
+            if (layerSetting.isObject()) {
+                QJsonObject layerSettingObject = layerSetting.toObject();
+                if (layerSettingObject.contains("active") && layerSettingObject["active"].isBool() && layerSettingObject["active"].toBool()) {
+                    if (layerSettingObject.contains("class") && layerSettingObject["class"].isString()) {
+                        auto className = layerSettingObject["class"].toString();
+                        fairwind::layers::IFairWindLayer *fairWindLayer = fairWind->instanceLayer(className);
+                        if (fairWindLayer) {
+                            QMap<QString, QVariant> params;
+                            for (const auto &key:layerSettingObject.keys()) {
+                                params[key] = layerSettingObject[key].toVariant();
+                            }
+                            fairWindLayer->onInit(params);
 
+                            auto *qgvLayer = dynamic_cast<QGVLayer *>(fairWindLayer);
+                            if (qgvLayer) {
+                                m_widgetMap->addItem(qgvLayer);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    signalKDocument->subscribe(self+".navigation.position.value",this,SLOT(DisplayChart::updateNavigationPosition));
 
     QGV::GeoPos geoPos = signalKDocument->getNavigationPosition();
     m_widgetMap->cameraTo(QGVCameraActions(m_widgetMap).moveTo(geoPos));
 }
 
-void DisplayChart::updateNavigationPosition() {
+void DisplayChart::updateNavigationPosition(const QJsonObject update) {
     auto fairWind = fairwind::FairWind::getInstance();
     auto signalKDocument = fairWind->getSignalKDocument();
-    QGV::GeoPos geoPos = signalKDocument->getNavigationPosition();
-    double courseOverGroundTrue=signalKDocument->getNavigationCourseOverGroundTrue();
-
-    QImage image(":/resources/images/ship_red.png");
-    QMatrix rot;
-
-    m_self->loadImage(image.transformed(rot.rotate(courseOverGroundTrue*57.2958)));
-    m_self->setGeometry(geoPos,QSize(64,64),QPoint(32,32));
-
-
 }

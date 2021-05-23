@@ -19,10 +19,12 @@ public:
     ~TopBar();
 
 
+
+
 public slots:
-    void updateNavigationPosition();
-    void updateNavigationCourseOverGroundTrue();
-    void updateNavigationSpeedOverGround();
+    void updateNavigationPosition(const QJsonObject update);
+    void updateNavigationCourseOverGroundTrue(const QJsonObject update);
+    void updateNavigationSpeedOverGround(const QJsonObject update);
     void updateTime();
 
 private:

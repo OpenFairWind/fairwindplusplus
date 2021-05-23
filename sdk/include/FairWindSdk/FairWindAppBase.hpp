@@ -19,6 +19,8 @@ namespace fairwind {
         virtual QString getDesc() const;
         virtual void init(QJsonObject *metaData);
 
+        virtual QJsonObject getConfig();
+
     private:
         QJsonObject m_metaData;
     };

@@ -20,10 +20,16 @@ TopBar::TopBar(QWidget *parent) :
 
     auto signalKDocument = fairWind->getSignalKDocument();
 
+    /*
+    connect(signalKDocument,&SignalKDocument::updated,this, &TopBar::onUpdate);
     connect(signalKDocument,&SignalKDocument::updatedNavigationPosition,this, &TopBar::updateNavigationPosition);
     connect(signalKDocument,&SignalKDocument::updatedNavigationCourseOverGroundTrue,this, &TopBar::updateNavigationCourseOverGroundTrue);
     connect(signalKDocument,&SignalKDocument::updatedNavigationSpeedOverGround,this, &TopBar::updateNavigationSpeedOverGround);
-
+     */
+    QString self=signalKDocument->getSelf();
+    signalKDocument->subscribe(self+".navigation.position.value",this,SLOT(TopBar::updateNavigationPosition));
+    signalKDocument->subscribe(self+".navigation.courseOverGroundTrue.value",this,SLOT(TopBar::updateNavigationCourseOverGroundTrue));
+    signalKDocument->subscribe(self+".navigation.speedOverGround.value",this,SLOT(TopBar::updateNavigationSpeedOverGround));
 }
 
 void TopBar::updateTime()
@@ -43,10 +49,10 @@ TopBar::~TopBar() {
     delete ui;
 }
 
-void TopBar::updateNavigationPosition() {
+void TopBar::updateNavigationPosition(const QJsonObject update) {
     auto fairWind = fairwind::FairWind::getInstance();
     auto signalKDocument = fairWind->getSignalKDocument();
-    QString path="vessels."+signalKDocument->getSelf()+".navigation.position.value";
+    QString path=signalKDocument->getSelf()+".navigation.position.value";
 
     QJsonValue positionValue = signalKDocument->subtree(path);
     if (positionValue.isObject()) {
@@ -61,11 +67,11 @@ void TopBar::updateNavigationPosition() {
 
 }
 
-void TopBar::updateNavigationCourseOverGroundTrue() {
+void TopBar::updateNavigationCourseOverGroundTrue(const QJsonObject update) {
 
     auto fairWind = fairwind::FairWind::getInstance();
     auto signalKDocument = fairWind->getSignalKDocument();
-    QString path="vessels."+signalKDocument->getSelf()+".navigation.courseOverGroundTrue";
+    QString path=signalKDocument->getSelf()+".navigation.courseOverGroundTrue";
 
     QJsonValue positionValue = signalKDocument->subtree(path);
     if (positionValue.isObject()) {
@@ -76,11 +82,11 @@ void TopBar::updateNavigationCourseOverGroundTrue() {
     }
 }
 
-void TopBar::updateNavigationSpeedOverGround() {
+void TopBar::updateNavigationSpeedOverGround(const QJsonObject update) {
 
     auto fairWind = fairwind::FairWind::getInstance();
     auto signalKDocument = fairWind->getSignalKDocument();
-    QString path="vessels."+signalKDocument->getSelf()+".navigation.speedOverGround";
+    QString path=signalKDocument->getSelf()+".navigation.speedOverGround";
 
     QJsonValue positionValue = signalKDocument->subtree(path);
     if (positionValue.isObject()) {

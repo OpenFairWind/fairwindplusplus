@@ -27,6 +27,8 @@ namespace fairwind::apps::native {
         QWidget *onGui(QMainWindow *mainWindow, QMap<QString, QString> args) override;
         QWidget *onSettings(QTabWidget *tabWidgets) override;
 
+        QJsonObject getConfig() override;
+
     private:
 
     };

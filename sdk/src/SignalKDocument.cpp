@@ -5,7 +5,10 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QFile>
-#include "include/FairWindSdk/SignalKDocument.hpp"
+#include <QJsonDocument>
+#include <iomanip>
+#include <sstream>
+#include "SignalKDocument.hpp"
 
 SignalKDocument::SignalKDocument() {
     insert("version","1.0.0");
@@ -23,11 +26,11 @@ void SignalKDocument::update(QJsonObject &jsonObjectUpdate) {
         QString timeStamp=updateItem.toObject()["timestamp"].toString();
         auto values=updateItem.toObject()["values"].toArray();
         for (auto valueItem: values) {
-            QString path = context + "."+valueItem.toObject()["path"].toString();
+            QString fullPath = context + "."+valueItem.toObject()["path"].toString();
             QJsonValue value = valueItem.toObject()["value"];
-            insert(path+".value",value);
-            insert(path+".source",source);
-            insert(path+".timestamp",timeStamp);
+            insert(fullPath+".value",value);
+            insert(fullPath+".source",source);
+            insert(fullPath+".timestamp",timeStamp);
 
         }
     }
@@ -53,52 +56,62 @@ void SignalKDocument::modifyJsonValue(QJsonObject& obj, const QString& path, con
 
     obj[propertyName] = subValue;
 }
-void SignalKDocument::insert(const QString& path, const QJsonValue& newValue) {
-    QJsonObject obj = m_jsonDocument.object();
-    modifyJsonValue(obj,path,newValue);
-    m_jsonDocument = QJsonDocument(obj);
-    emit updated(path);
-    if (path.indexOf("navigation.position")>=0) {
+void SignalKDocument::insert(const QString& fullPath, const QJsonValue& newValue) {
+
+    modifyJsonValue(m_root,fullPath,newValue);
+
+    //qDebug() << "SignalKDocument::insert: " << fullPath;
+    emit updated(fullPath);
+
+    if (fullPath.indexOf(getSelf()+".navigation.position")>=0) {
         emit updatedNavigationPosition();
-    } else if (path.indexOf("navigation.courseOverGroundTrue")>=0) {
+    } else if (fullPath.indexOf(getSelf()+"navigation.courseOverGroundTrue")>=0) {
         emit updatedNavigationCourseOverGroundTrue();
-    } else if (path.indexOf("navigation.speedOverGround")>=0) {
+    } else if (fullPath.indexOf(getSelf()+"navigation.speedOverGround")>=0) {
         emit updatedNavigationSpeedOverGround();
+    }
+
+    for (auto subscription:subscriptions) {
+        subscription.match(this, fullPath);
     }
 }
 
 QString SignalKDocument::getSelf() {
-    return m_jsonDocument.object()["self"].toString();
+    return m_root["self"].toString();
 }
 
 QString SignalKDocument::getVersion() {
-    return m_jsonDocument.object()["version"].toString();
+    return m_root["version"].toString();
 }
 
-QJsonObject SignalKDocument::subtree(const QString& path) {
+QJsonValue SignalKDocument::subtree(const QString& path) {
     QStringList parts=path.split(".");
-    QJsonObject jsonObject=m_jsonDocument.object();
+    QJsonValue jsonValue=m_root;
     for (auto part:parts) {
-        if (jsonObject.contains(part)) {
-            jsonObject=jsonObject[part].toObject();
+        if (jsonValue.isObject()) {
+            QJsonObject jsonObject=jsonValue.toObject();
+            jsonValue=jsonObject[part];
         } else {
-            return QJsonObject();
+            break;
         }
     }
 
-    return jsonObject;
+    return jsonValue;
 }
 
 void SignalKDocument::save(QString fileName) {
     QFile jsonFile(fileName);
     jsonFile.open(QFile::WriteOnly);
-    jsonFile.write(m_jsonDocument.toJson());
+    QJsonDocument jsonDocument;
+    jsonDocument.setObject(m_root);
+    jsonFile.write(jsonDocument.toJson());
 }
 
 void SignalKDocument::load(QString fileName) {
     QFile jsonFile(fileName);
     jsonFile.open(QFile::ReadOnly);
-    m_jsonDocument.fromJson(jsonFile.readAll());
+    QString jsonString = jsonFile.readAll();
+    QJsonDocument jsonDocument = QJsonDocument::fromJson(jsonString.toUtf8());
 }
 
 void SignalKDocument::setSelf(QString self) {
@@ -109,9 +122,9 @@ QGV::GeoPos SignalKDocument::getNavigationPosition() {
     return getNavigationPosition(getSelf());
 }
 
-QGV::GeoPos SignalKDocument::getNavigationPosition(QString uuid) {
+QGV::GeoPos SignalKDocument::getNavigationPosition(const QString& uuid) {
     QGV::GeoPos result;
-    QString path="vessels."+uuid+".navigation.position.value";
+    QString path=uuid+".navigation.position.value";
 
     QJsonValue positionValue = subtree(path);
     if (positionValue.isObject()) {
@@ -127,8 +140,154 @@ double SignalKDocument::getNavigationCourseOverGroundTrue() {
     return getNavigationCourseOverGroundTrue(getSelf());
 }
 
-double SignalKDocument::getNavigationCourseOverGroundTrue(QString uuid) {
-    QString path="vessels."+uuid+".navigation.courseOverGroundTrue";
+double SignalKDocument::getNavigationCourseOverGroundTrue(const QString& uuid) {
+    QString path=uuid+".navigation.courseOverGroundTrue";
     double courseOverGroundTrue = subtree(path)["value"].toDouble();
     return courseOverGroundTrue;
 }
+
+double SignalKDocument::getNavigationSpeedOverGround() {
+    return getNavigationSpeedOverGround(getSelf());
+}
+
+double SignalKDocument::getNavigationSpeedOverGround(const QString& uuid) {
+    QString path=uuid+".navigation.speedOverGround";
+    double speedOverGround = subtree(path)["value"].toDouble();
+    return speedOverGround;
+}
+
+void SignalKDocument::subscribe(const QString &fullPath, QObject *receiver, const char *member) {
+    Subscription subscription(fullPath,receiver,member);
+    subscriptions.append(subscription);
+    connect(receiver,&QObject::destroyed,this,&SignalKDocument::unsubscribe);
+}
+
+void SignalKDocument::unsubscribe(QObject *receiver) {
+    QMutableListIterator<Subscription> i(subscriptions);
+    while (i.hasNext()) {
+        auto subscription = i.next();
+        if (subscription.checkReceiver(receiver)) {
+            i.remove();
+        }
+    }
+}
+
+/**
+ * Generate a UTC ISO8601-formatted timestamp
+ * and return as std::string
+ */
+QString SignalKDocument::currentISO8601TimeUTC() {
+    auto now = std::chrono::system_clock::now();
+    auto itt = std::chrono::system_clock::to_time_t(now);
+    std::ostringstream ss;
+    ss << std::put_time(gmtime(&itt), "%FT%TZ");
+    return QString(ss.str().c_str());
+}
+
+QJsonObject SignalKDocument::makeUpdate(const QString &fullPath) {
+    QJsonObject updateObject;
+    QStringList parts=fullPath.split(".");
+    if (parts[0]=="vessels") {
+        QString context=parts[0]+"."+parts[1];
+        updateObject["context"] = context;
+        QJsonArray updates;
+        QJsonObject update;
+        QJsonObject source;
+        source["label"]="FairWind++";
+        source["type"]="SignalK";
+        update["source"]=source;
+        update["timestamp"]=currentISO8601TimeUTC();
+        QJsonArray values;
+        QJsonObject valueObject;
+
+        QString path=fullPath;
+        QJsonValue value= subtree(fullPath);
+        path=path.replace(context+".","");
+        if (path.endsWith(".value")) {
+            path=path.left(path.length()-6);
+        }
+        valueObject["path"]=path;
+        valueObject["value"]=value;
+        values.append(valueObject);
+        update["values"]=values;
+        updates.append(update);
+        updateObject["updates"] = updates;
+    }
+    return updateObject;
+}
+
+QJsonObject SignalKDocument::getRoot() {
+    return m_root;
+}
+
+void SignalKDocument::setRoot(QJsonObject root) {
+    this->m_root=root;
+}
+
+QString SignalKDocument::getMmsi(const QString &typeUuid) {
+    QString result="";
+    QJsonValue jsonValue=subtree(typeUuid+".mmsi");
+    if (!jsonValue.isNull() && jsonValue.isString()) {
+        result=jsonValue.toString();
+    }
+    return result;
+}
+
+QString SignalKDocument::getMmsi() {
+    return getMmsi(getSelf());
+}
+
+QString SignalKDocument::getNavigationState(const QString& typeUuid) {
+    QString result ="";
+    QJsonValue jsonValue=subtree(typeUuid+".navigation.state");
+    if (!jsonValue.isNull() && jsonValue.isObject() && jsonValue.toObject().contains("value")) {
+        result=jsonValue.toObject()["value"].toString();
+    }
+    return result;
+}
+
+QString SignalKDocument::getNavigationState() {
+    return getNavigationState(getSelf());
+}
+
+
+Subscription::Subscription(const QString &fullPath, QObject *receiver, const char *member) {
+    //qDebug() << "fullPath: " << fullPath << " receiver: " << receiver->metaObject()->className() << " member:" << member;
+    QString re=QString(fullPath).replace(".","[.]").replace(":","[:]").replace("*",".*");
+    regularExpression=QRegularExpression(fullPath);
+    this->receiver=receiver;
+    memberName=QString(member);
+    int pos=memberName.lastIndexOf("::");
+    memberName= memberName.right(memberName.length()-pos-2);
+    //QString className=QString(receiver->metaObject()->className());
+    //int pos=memberName.indexOf(className)+className.length()+2;
+    //memberName= memberName.right(memberName.length()-pos);
+    //qDebug() << "regularExpression: " << regularExpression << " receiver: " << receiver->metaObject()->className() << " member:" << memberName;
+}
+Subscription::~Subscription() = default;
+
+
+bool Subscription::checkReceiver(QObject *receiver) {
+    if (this->receiver==receiver) return true;
+    return false;
+}
+
+bool Subscription::match(SignalKDocument *signalKDocument, const QString &fullPath) {
+    if (regularExpression.match(fullPath).hasMatch()) {
+        //qDebug() << "Subscription::match("  << fullPath << ") :" << memberName;
+        QJsonObject updateObject=signalKDocument->makeUpdate(fullPath);
+
+        QMetaObject::invokeMethod(receiver, memberName.toStdString().c_str(), Qt::AutoConnection,Q_ARG(QJsonObject, updateObject));
+        //qDebug() << "Done!";
+        return true;
+    }
+    return false;
+}
+
+Subscription::Subscription(Subscription const &other) {
+    this->regularExpression=other.regularExpression;
+    this->receiver=other.receiver;
+    this->memberName=other.memberName;
+}
+
+

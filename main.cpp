@@ -7,7 +7,10 @@
 #include <core/SignalKWSClient.hpp>
 #include <core/SignalKAPIClient.hpp>
 #include "ui/MainWindow.hpp"
-#include "sdk/include/FairWindSdk/FairWind.hpp"
+#include <FairWindSdk/FairWind.hpp>
+#include <FairWindSdk/SignalKLayer.hpp>
+#include <sdk/include/FairWindSdk/FairWindOSMLayer.hpp>
+#include <sdk/include/FairWindSdk/FairWindTiledLayer.hpp>
 
 int main(int argc, char *argv[]) {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -26,10 +29,8 @@ int main(int argc, char *argv[]) {
 
     splash.showMessage("Loading Settings ...",500, Qt::white);
 
-    QSettings settings("fairwind.ini", QSettings::NativeFormat);
-    QString configFile = settings.value("configFile", "fairwind.json").toString();
-    settings.setValue("configFile",configFile);
-    fairWind->loadConfig(configFile);
+
+    fairWind->loadConfig();
 
     splash.showMessage("Loading Organization Name",500, Qt::white);
 
@@ -37,13 +38,22 @@ int main(int argc, char *argv[]) {
 
 
     app.setWindowIcon(QIcon(QStringLiteral(":resources/images/fairwind_logo.png")));
-    MainWindow w;
 
-    SignalKWSClient signalKWSClient(QUrl(QStringLiteral("ws://demo.signalk.org/signalk/v1/stream")), true);
+    fairWind->registerLayer("FairWindOSMLayer", new FairWindOSMLayer());
+    fairWind->registerLayer("FairWindTiledLayer", new FairWindTiledLayer());
+    fairWind->registerLayer("SignalKLayer", new SignalKLayer());
+
     SignalKAPIClient signalKAPIClient(QUrl("http://demo.signalk.org/signalk/v1/api"));
     QString self = signalKAPIClient.getSelf();
-    qDebug() << self;
-    fairWind->getSignalKDocument()->setSelf(self);
+    qDebug() << "self: " << self;
+
+    //fairWind->getSignalKDocument()->setSelf(self);
+    QJsonObject allSignalK=signalKAPIClient.getAll();
+    fairWind->getSignalKDocument()->setRoot(allSignalK);
+    SignalKWSClient signalKWSClient(QUrl(QStringLiteral("ws://demo.signalk.org/signalk/v1/stream")), true);
+
+
+    MainWindow w;
     splash.finish(&w);
     return QApplication::exec();
 }

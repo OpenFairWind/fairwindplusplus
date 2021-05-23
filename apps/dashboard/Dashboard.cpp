@@ -43,3 +43,7 @@ QWidget *fairwind::apps::dashboard::Dashboard::onSettings(QTabWidget *tabWidgets
 
 fairwind::apps::dashboard::Dashboard::~Dashboard() {
 }
+
+QJsonObject fairwind::apps::dashboard::Dashboard::getConfig() {
+    return FairWindAppBase::getConfig();
+}

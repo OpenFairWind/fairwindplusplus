@@ -1,5 +1,13 @@
 <!DOCTYPE RCC><RCC version="1.0">
     <qresource>
+        <file>resources/images/ais_active.png</file>
+        <file>resources/images/ais_buddy.png</file>
+        <file>resources/images/ais_inactive.png</file>
+        <file>resources/images/ais_self.png</file>
+        <file>resources/images/ais_aton.png</file>
+        <file>resources/images/ais_virtual.png</file>
+        <file>resources/images/ais_shore.png</file>
         <file>resources/images/ship_red.png</file>
+        <file>resources/images/icons/signalk_icon.png</file>
     </qresource>
 </RCC>

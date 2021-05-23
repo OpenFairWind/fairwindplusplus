@@ -4,6 +4,7 @@
 
 
 #include <ui_BottomBar.h>
+#include <FairWindSdk/FairWind.hpp>
 #include "BottomBar.hpp"
 
 BottomBar::BottomBar(QWidget *parent) :
@@ -21,6 +22,9 @@ void BottomBar::settings_clicked() {
 
 void BottomBar::apps_clicked() {
     setApps();
+    auto fairWind = fairwind::FairWind::getInstance();
+    auto signalKDocument=fairWind->getSignalKDocument();
+    signalKDocument->save("signalkmodel.json");
 }
 
 BottomBar::~BottomBar() {

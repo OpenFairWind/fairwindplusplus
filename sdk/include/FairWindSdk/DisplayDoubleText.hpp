@@ -7,13 +7,14 @@
 
 
 #include <QWidget>
+#include <FairWindSDK.hpp>
 #include "DisplaySingleText.hpp"
 
 namespace Ui {
     class DisplayDoubleText;
 }
 
-class DisplayDoubleText: public DisplaySingleText {
+class FAIRWINDSDK_LIB_DECL DisplayDoubleText: public DisplaySingleText {
     Q_OBJECT
 
 public:

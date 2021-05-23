@@ -2,7 +2,7 @@
 // Created by Raffaele Montella on 05/04/21.
 //
 
-
+#include <QJsonArray>
 #include <FairWindSdk/FairWind.hpp>
 
 #include "Chart.hpp"
@@ -14,8 +14,9 @@ QImage fairwind::apps::chart::Chart::getIcon() const {
 
 QWidget *fairwind::apps::chart::Chart::onGui(QMainWindow *mainWindow, QMap<QString, QString> args) {
     m_widget = new QWidget();
-    DisplayChart *displayChart = new DisplayChart(m_widget);
-
+    auto config = getConfig();
+    auto displayChart = new DisplayChart(m_widget);
+    displayChart->onInit(config);
     return m_widget;
 }
 
@@ -39,6 +40,10 @@ void fairwind::apps::chart::Chart::onInit(QJsonObject *metaData) {
 
 QWidget *fairwind::apps::chart::Chart::onSettings(QTabWidget *tabWidget) {
     return nullptr;
+}
+
+QJsonObject fairwind::apps::chart::Chart::getConfig() {
+    return FairWindAppBase::getConfig();
 }
 
 

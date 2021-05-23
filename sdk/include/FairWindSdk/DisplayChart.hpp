@@ -8,13 +8,16 @@
 
 #include <QWidget>
 #include <QNetworkDiskCache>
-#include <QGeoView/QGVImage.h>
+
+#include "QGeoView/QGVLayer.h"
+
+#include "FairWindSDK.hpp"
 
 namespace Ui {
     class DisplayChart;
 }
 
-class DisplayChart: public QWidget {
+class FAIRWINDSDK_LIB_DECL DisplayChart: public QWidget {
 Q_OBJECT
 
 public:
@@ -23,8 +26,8 @@ public:
 
 
 public slots:
-    void mapSetup();
-    void updateNavigationPosition();
+    void onInit(QJsonObject settings);
+    void updateNavigationPosition(const QJsonObject update);
 
 private:
     Ui::DisplayChart *ui;
@@ -35,7 +38,7 @@ private:
     QNetworkAccessManager* mManager;
     QNetworkDiskCache* mCache;
 
-    QGVImage *m_self;
+    QJsonObject mSettings;
 };
 
 

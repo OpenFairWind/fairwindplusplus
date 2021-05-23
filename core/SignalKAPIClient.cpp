@@ -4,6 +4,7 @@
 
 #include <QNetworkReply>
 #include <QCoreApplication>
+#include <QJsonDocument>
 #include "SignalKAPIClient.hpp"
 
 SignalKAPIClient::SignalKAPIClient(const QUrl &url, bool debug, QObject *parent):
@@ -23,12 +24,17 @@ SignalKAPIClient::~SignalKAPIClient() {
 
 QString SignalKAPIClient::getSelf() {
     QString url=m_url.toString()+"/self";
-    QString result=httpGet( url).replace("vessels.","").replace("\"","");
+    QString result=httpGet( url).replace("\"","");
     qDebug() << "url:" << url << " result:" << result;
     return result;
 }
 
-
+QJsonObject SignalKAPIClient::getAll() {
+    QString url=m_url.toString()+"/";
+    QString httpResult=httpGet( url);
+    QJsonDocument jsonDocument=QJsonDocument::fromJson(httpResult.toUtf8());
+    return jsonDocument.object();
+}
 
 QByteArray SignalKAPIClient::httpGet(QString url) {
     QNetworkRequest req(url);
@@ -45,3 +51,5 @@ QByteArray SignalKAPIClient::httpGet(QString url) {
     QByteArray data = reply->readAll();
     return data;
 }
+
+

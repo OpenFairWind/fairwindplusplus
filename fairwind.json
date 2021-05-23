@@ -1,10 +1,55 @@
 {
+  "SignalK": {
+    "self": "urn:mrn:signalk:uuid:b10b8d14-2b30-457e-a296-db20e6dea753"
+  },
   "Extensions": {
     "Apps": [
       {
         "Id": "it.uniparthenope.fairwind.apps.chart",
         "Active": true,
-        "Order": 1
+        "Order": 1,
+        "Config": {
+          "Layers": [
+            {
+              "class":"FairWindOSMLayer",
+              "active": true
+            },
+            {
+              "class": "FairWindTiledLayer",
+              "active": true,
+              "name": "OpenSeaMap",
+              "description": "The OpenSeaMap layer.",
+              "url": "http://tiles.openseamap.org/seamark/${z}/${x}/${y}.png"
+            },
+            {
+              "class": "SignalKLayer",
+              "active": true,
+              "name": "Base Stations",
+              "description": "Shore base stations.",
+              "fullPath": "shore.basestations"
+            },
+            {
+              "class": "SignalKLayer",
+              "active": true,
+              "name": "ATONs",
+              "description": "Aids to navigation.",
+              "fullPath": "atons"
+            },
+            {
+              "class": "SignalKLayer",
+              "active": true,
+              "name": "Vessels",
+              "description": "All the other vessels in the range.",
+              "fullPath": "vessels"
+            },
+            {
+              "class": "SignalKLayer",
+              "active": true,
+              "name": "Self",
+              "description": "The Vessel."
+            }
+          ]
+        }
       },
       {
         "Id": "it.uniparthenope.fairwind.apps.sonar",

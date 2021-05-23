@@ -8,6 +8,7 @@
 #include <QSettings>
 #include <utility>
 #include <QJsonArray>
+#include <SignalKLayer.hpp>
 #include "include/FairWindSdk/FairWind.hpp"
 
 void fairwind::FairWind::loadApps() {
@@ -53,6 +54,8 @@ void fairwind::FairWind::loadApps() {
 
 fairwind::FairWind::FairWind() {
     qDebug() << "FairWind constructor";
+    //qRegisterMetaType<SignalKLayer>("SignalKLayer");
+    registerLayer("SignalKLayer", new SignalKLayer());
 }
 
 fairwind::apps::IFairWindApp *fairwind::FairWind::getAppByExtensionId(QString id) {
@@ -63,16 +66,30 @@ void fairwind::FairWind::setApplicationDirPath(QString applicationDirPath) {
     m_applicationDirPath=std::move(applicationDirPath);
 }
 
-void fairwind::FairWind::loadConfig(const QString& configFile) {
+void fairwind::FairWind::loadConfig() {
+    QSettings settings("fairwind.ini", QSettings::NativeFormat);
+    QString configFile = settings.value("configFile", "fairwind.json").toString();
+    settings.setValue("configFile",configFile);
+
     QFile jsonFile(configFile);
     jsonFile.open(QFile::ReadOnly);
     QString jsonText=jsonFile.readAll();
 
     QJsonDocument jsonConfig = QJsonDocument::fromJson(jsonText.toUtf8());
-    QJsonObject jsonRoot=jsonConfig.object();
-    if (jsonRoot.find("Extensions")!=jsonRoot.end()) {
-        QJsonObject jsonExtensions=jsonRoot["Extensions"].toObject();
-        if (jsonExtensions.find("Apps")!=jsonExtensions.end()) {
+    m_config=jsonConfig.object();
+    if (m_config.contains("SignalK") && m_config["SignalK"].isObject()) {
+        QJsonObject jsonSignalK=m_config["SignalK"].toObject();
+        if (jsonSignalK.contains("self") && jsonSignalK["self"].isString()) {
+            QString self = jsonSignalK["self"].toString();
+            m_signalkDocument.setSelf(self);
+        }
+    }
+    if (m_config.contains("Extensions") && m_config["Extensions"].isObject()) {
+
+        QJsonObject jsonExtensions=m_config["Extensions"].toObject();
+
+        if (jsonExtensions.contains("Apps") && jsonExtensions["Apps"].isArray()) {
+
             QJsonArray jsonApps=jsonExtensions["Apps"].toArray();
 
             for (auto jsonApp:jsonApps) {
@@ -90,9 +107,11 @@ void fairwind::FairWind::loadConfig(const QString& configFile) {
                         if (fairWindApp) {
                             QMap<QString,QString> args;
 
-                            if (jsonAppObject.find("Args") != jsonAppObject.end()) {
+                            if (jsonAppObject.contains("Args") && jsonAppObject["Args"].isObject()) {
+
                                 QJsonObject jsonArgs = jsonAppObject["Args"].toObject();
-                                for (QString key: jsonArgs.keys()) {
+
+                                for (const auto& key: jsonArgs.keys()) {
                                     args.insert(key, jsonArgs[key].toString());
                                 }
                             }
@@ -123,3 +142,28 @@ fairwind::FairWind *fairwind::FairWind::getInstance() {
 SignalKDocument *fairwind::FairWind::getSignalKDocument() {
     return &m_signalkDocument;
 }
+
+bool fairwind::FairWind::registerLayer(QString className, fairwind::layers::IFairWindLayer *dummy) {
+    bool result= false;
+    if (m_registeredLayers.contains(className) == false) {
+        qDebug() << "fairwind::FairWind::registerLayer:" << className;
+        m_registeredLayers[className] = dummy;
+
+    }
+    return result;
+}
+
+fairwind::layers::IFairWindLayer *fairwind::FairWind::instanceLayer(const QString& className) {
+    if (m_registeredLayers.contains(className)) {
+        qDebug() << "fairwind::FairWind::instanceLayer:" << className;
+        return m_registeredLayers[className]->getNewInstance();
+    }
+    return nullptr;
+}
+
+QJsonObject &fairwind::FairWind::getConfig() {
+    return m_config;
+}
+
+
+

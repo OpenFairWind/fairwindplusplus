@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>685</width>
-    <height>200</height>
+    <width>875</width>
+    <height>89</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,11 +17,11 @@
    <string notr="true">background-color: rgb(0, 0, 0);
 color: rgb(250, 255, 255);</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
+  <layout class="QHBoxLayout" name="horizontalLayout_2">
+   <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_Position">
+      <layout class="QVBoxLayout" name="verticalLayout">
        <item>
         <widget class="QLabel" name="label_TextLatitude">
          <property name="text">
@@ -42,6 +42,10 @@ color: rgb(250, 255, 255);</string>
          </property>
         </widget>
        </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
         <widget class="QLabel" name="label_TextLongitude">
          <property name="text">
@@ -65,7 +69,7 @@ color: rgb(250, 255, 255);</string>
       </layout>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_COGSOG">
+      <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
         <widget class="QLabel" name="label_TextCOG">
          <property name="text">
@@ -80,6 +84,10 @@ color: rgb(250, 255, 255);</string>
          </property>
         </widget>
        </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
         <widget class="QLabel" name="label_TextSOG">
          <property name="text">
@@ -103,7 +111,7 @@ color: rgb(250, 255, 255);</string>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>40</width>
+         <width>88</width>
          <height>20</height>
         </size>
        </property>
@@ -123,14 +131,14 @@ color: rgb(250, 255, 255);</string>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>40</width>
+         <width>88</width>
          <height>20</height>
         </size>
        </property>
       </spacer>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_Waypoint">
+      <layout class="QVBoxLayout" name="verticalLayout_5">
        <item>
         <widget class="QLabel" name="label_TextWaypoint">
          <property name="text">
@@ -145,6 +153,10 @@ color: rgb(250, 255, 255);</string>
          </property>
         </widget>
        </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_6">
        <item>
         <widget class="QLabel" name="label_TextInfo">
          <property name="text">
@@ -162,7 +174,7 @@ color: rgb(250, 255, 255);</string>
       </layout>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_Bearing">
+      <layout class="QVBoxLayout" name="verticalLayout_7">
        <item>
         <widget class="QLabel" name="label_TextBearing">
          <property name="text">
@@ -177,6 +189,10 @@ color: rgb(250, 255, 255);</string>
          </property>
         </widget>
        </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_8">
        <item>
         <widget class="QLabel" name="label_TextVMG">
          <property name="text">

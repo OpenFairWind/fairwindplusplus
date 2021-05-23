@@ -6,12 +6,13 @@
 #define FAIRWIND_DISPLAYSINGLETEXT_HPP
 
 #include <QWidget>
+#include <FairWindSDK.hpp>
 
 namespace Ui {
     class DisplaySingleText;
 }
 
-class DisplaySingleText: public QWidget {
+class FAIRWINDSDK_LIB_DECL DisplaySingleText: public QWidget {
     Q_OBJECT
 
 public:

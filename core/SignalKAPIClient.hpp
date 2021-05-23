@@ -5,7 +5,7 @@
 #ifndef FAIRWIND_SIGNALKAPICLIENT_HPP
 #define FAIRWIND_SIGNALKAPICLIENT_HPP
 
-
+#include <QJsonObject>
 #include <QNetworkAccessManager>
 
 class SignalKAPIClient: public QObject {
@@ -15,6 +15,7 @@ public:
     ~SignalKAPIClient();
 
     QString getSelf();
+    QJsonObject getAll();
 
 private:
     QNetworkAccessManager manager;
