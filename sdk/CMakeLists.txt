@@ -71,12 +71,14 @@ add_library(fairwindsdk SHARED
         include/FairWindSdk/QGVItemShoreBasestations.hpp
         include/FairWindSdk/QGVItemSignalK.hpp
         include/FairWindSdk/SignalKLayer.hpp
+        include/FairWindSdk/DisplayGauge.hpp
         src/FairWind.cpp
         src/App.cpp
         src/FairWindAppBase.cpp
         src/SignalKDocument.cpp
         src/display/base/singletext/DisplaySingleText.cpp
         src/display/base/doubletext/DisplayDoubleText.cpp
+        src/display/base/gauge/DisplayGauge.cpp
         src/display/position/DisplayPosition.cpp src/display/position/DisplayPosition.hpp
         src/display/chart/DisplayChart.cpp include/FairWindSdk/DisplayChart.hpp
         src/display/chart/QGVItemVessel.cpp
@@ -114,7 +116,7 @@ target_link_libraries(fairwindsdk
         ${LIBQCGAUGEWIDGET} ${LIBQGEOVIEW}
         )
 
-add_library(FairWindSdk ALIAS fairwindsdk )
+add_library(FairWindSdk ALIAS fairwindsdk)
 
 #install(TARGETS fairwindsdk LIBRARY
 #        RUNTIME DESTINATION bin

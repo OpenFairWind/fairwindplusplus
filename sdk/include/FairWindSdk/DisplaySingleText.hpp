@@ -6,7 +6,7 @@
 #define FAIRWIND_DISPLAYSINGLETEXT_HPP
 
 #include <QWidget>
-#include <FairWindSDK.hpp>
+#include <FairWindSdk/FairWindSDK.hpp>
 
 namespace Ui {
     class DisplaySingleText;
@@ -15,15 +15,31 @@ namespace Ui {
 class FAIRWINDSDK_LIB_DECL DisplaySingleText: public QWidget {
     Q_OBJECT
 
+
 public:
-    explicit DisplaySingleText(QWidget *parent=0);
+    explicit DisplaySingleText(QWidget *parent=nullptr);
     ~DisplaySingleText();
 
     void setLabel(QString label);
-    void setText1(QString text);
+    void setUnits(QString label);
+    void setText(QString text);
+
+    void subscribe(QString fullPath);
+
+public slots:
+    void update(const QJsonObject update);
 
 private:
     Ui::DisplaySingleText *ui;
+    QString mUnits;
+    QString mFullPath;
+    QString mSrcUnits;
+    QString mDescription;
+    QChar mFillChar;
+    QChar mFormat;
+    int mPrecision;
+    int mFieldWidth;
+    double mConversionFactor;
 };
 
 

@@ -1,6 +1,71 @@
 {
   "SignalK": {
-    "self": "urn:mrn:signalk:uuid:b10b8d14-2b30-457e-a296-db20e6dea753"
+    "self": "urn:mrn:signalk:uuid:b10b8d14-2b30-457e-a296-db20e6dea753",
+    "units": {
+      "m/s": {
+        "kn": 1.94384,
+        "label": "m/s"
+      },
+      "kn": {
+        "m/s": 0.514444,
+        "label": "kn"
+      },
+      "deg": {
+        "rad": 0.0174533,
+        "label": "°"
+      },
+      "rad": {
+        "deg": 57.2958,
+        "label":""
+      }
+    },
+    "keys": {
+      "navigation.speedOverGround": {
+        "label": "SOG",
+        "units": "kn",
+        "format": "f",
+        "fieldWidth": 4,
+        "precision": 1,
+        "fillChar": "0"
+      },
+      "navigation.courseOverGroundTrue": {
+        "label": "COG",
+        "units": "deg",
+        "format": "f",
+        "fieldWidth": 3,
+        "precision": 0
+      },
+      "navigation.speedThroughWater": {
+        "label": "Boat Speed",
+        "units": "kn",
+        "format": "f",
+        "fieldWidth": 4,
+        "precision": 1,
+        "fillChar": "0"
+      },
+      "navigation.headingTrue": {
+        "label": "Heading True",
+        "units": "deg",
+        "format": "f",
+        "fieldWidth": 3,
+        "precision": 0
+      },
+      "environment.wind.speedApparent": {
+        "label": "AWS",
+        "units": "kn",
+        "format": "f",
+        "fieldWidth": 3,
+        "precision": 1,
+        "fillChar": "0"
+      },
+      "environment.wind.angleApparent": {
+        "label": "AWA",
+        "units": "deg",
+        "format": "f",
+        "fieldWidth": 3,
+        "precision": 0
+      }
+    }
   },
   "Extensions": {
     "Apps": [
@@ -9,10 +74,45 @@
         "Active": true,
         "Order": 1,
         "Config": {
+          "Left": {
+            "displays": [
+              {
+                "class": "Ui::DisplaySingleText",
+                "active": true,
+                "label": "Speed",
+                "fullPath1": "vessels.${self}.navigation.speedThroughWater.value"
+              },
+              {
+                "class": "Ui::DisplaySingleText",
+                "active": true,
+                "label": "Heading",
+                "fullPath1": "vessels.${self}.navigation.heading.value"
+              },
+              {
+                "class": "Ui::DisplaySingleText",
+                "active": true,
+                "label": "SoG",
+                "fullPath1": "vessels.${self}.navigation.speedOverGround.value"
+              },
+              {
+                "class": "Ui::DisplaySingleText",
+                "active": true,
+                "label": "CoG",
+                "fullPath1": "vessels.${self}.navigation.courseOverGroundTrue.value"
+              }
+            ]
+          },
           "Layers": [
             {
               "class":"FairWindOSMLayer",
               "active": true
+            },
+            {
+              "class": "FairWindTiledLayer",
+              "active": false,
+              "name": "ESRI Navigation Charts",
+              "description": "World Navigation Charts by ESRI.",
+              "url": "https://services.arcgisonline.com/ArcGIS/rest/services/Specialty/World_Navigation_Charts/MapServer/tile/${z}/${y}/${x}"
             },
             {
               "class": "FairWindTiledLayer",
@@ -64,7 +164,38 @@
       {
         "Id": "it.uniparthenope.fairwind.apps.dashboard",
         "Active": true,
-        "Order": 1
+        "Order": 1,
+        "Config": {
+          "default": "Navigation",
+          "layouts": [
+            "grid_8x2_flow",
+            "grid_2x2_flow",
+            "grid_4_1_4",
+            "grid_2_1_2"
+          ],
+          "pages": [
+            {
+              "name": "Environment",
+              "layout": "grid_8x2_flow",
+              "displays": [
+                {
+                  "class": "Ui::DisplayDoubleText",
+                  "active": true,
+                  "label": "AWA/AWS",
+                  "fullPath1": "vessels.${self}.environment.apparentWindAngle.value",
+                  "fullPath2": "vessels.${self}.environment.apparentWindSpeed.value"
+                },
+                {
+                  "class": "Ui::DisplayDoubleText",
+                  "active": true,
+                  "label": "TWD/TWS",
+                  "fullPath1": "vessels.${self}.environment.trueWindDirection.value",
+                  "fullPath2": "vessels.${self}.environment.trueWIndSpeed.value"
+                }
+              ]
+            }
+          ]
+        }
       },
       {
         "Id": "it.uniparthenope.fairwind.apps.audio",

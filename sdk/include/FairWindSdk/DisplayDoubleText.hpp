@@ -7,20 +7,21 @@
 
 
 #include <QWidget>
-#include <FairWindSDK.hpp>
-#include "DisplaySingleText.hpp"
+#include <FairWindSdk/FairWindSDK.hpp>
 
 namespace Ui {
     class DisplayDoubleText;
 }
 
-class FAIRWINDSDK_LIB_DECL DisplayDoubleText: public DisplaySingleText {
+class FAIRWINDSDK_LIB_DECL DisplayDoubleText: public QWidget {
     Q_OBJECT
 
 public:
-    explicit DisplayDoubleText(QWidget *parent=0);
+    explicit DisplayDoubleText(QWidget *parent=nullptr);
     ~DisplayDoubleText();
 
+    void setLabel(QString label);
+    void setText1(QString text);
     void setText2(QString text);
 
 private:
