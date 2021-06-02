@@ -9,6 +9,12 @@
 #include <utility>
 #include <QJsonArray>
 #include <SignalKLayer.hpp>
+#include <FairWindOSMLayer.hpp>
+#include <FairWindTiledLayer.hpp>
+#include <include/FairWindSdk/display/DisplaySingleText.hpp>
+#include <include/FairWindSdk/display/DisplayDoubleText.hpp>
+#include <include/FairWindSdk/display/DisplayGauge.hpp>
+#include <include/FairWindSdk/display/DisplayChart.hpp>
 #include "include/FairWindSdk/FairWind.hpp"
 
 void fairwind::FairWind::loadApps() {
@@ -54,8 +60,14 @@ void fairwind::FairWind::loadApps() {
 
 fairwind::FairWind::FairWind() {
     qDebug() << "FairWind constructor";
-    //qRegisterMetaType<SignalKLayer>("SignalKLayer");
-    registerLayer("SignalKLayer", new SignalKLayer());
+    registerLayer( new FairWindOSMLayer());
+    registerLayer( new FairWindTiledLayer());
+    registerLayer(new SignalKLayer());
+
+    registerDisplay(new DisplaySingleText());
+    registerDisplay(new DisplayDoubleText());
+    registerDisplay(new DisplayGauge());
+    registerDisplay(new DisplayChart());
 }
 
 fairwind::apps::IFairWindApp *fairwind::FairWind::getAppByExtensionId(QString id) {
@@ -143,8 +155,9 @@ SignalKDocument *fairwind::FairWind::getSignalKDocument() {
     return &m_signalkDocument;
 }
 
-bool fairwind::FairWind::registerLayer(QString className, fairwind::layers::IFairWindLayer *dummy) {
+bool fairwind::FairWind::registerLayer(fairwind::layers::IFairWindLayer *dummy) {
     bool result= false;
+    QString className=dummy->getClassName();
     if (m_registeredLayers.contains(className) == false) {
         qDebug() << "fairwind::FairWind::registerLayer:" << className;
         m_registeredLayers[className] = dummy;
@@ -163,6 +176,23 @@ fairwind::layers::IFairWindLayer *fairwind::FairWind::instanceLayer(const QStrin
 
 QJsonObject &fairwind::FairWind::getConfig() {
     return m_config;
+}
+
+fairwind::displays::IFairWindDisplay *fairwind::FairWind::instanceDisplay(const QString &className) {
+    if (m_registeredDisplays.contains(className)) {
+        return m_registeredDisplays[className]->getNewInstance();
+    }
+    return nullptr;
+}
+
+bool fairwind::FairWind::registerDisplay(fairwind::displays::IFairWindDisplay *dummy) {
+    bool result= false;
+    QString className=dummy->getClassName();
+    if (m_registeredDisplays.contains(className) == false) {
+        m_registeredDisplays[className] = dummy;
+
+    }
+    return result;
 }
 
 

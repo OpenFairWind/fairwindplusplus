@@ -11,6 +11,10 @@
 #include <FairWindSdk/SignalKLayer.hpp>
 #include <sdk/include/FairWindSdk/FairWindOSMLayer.hpp>
 #include <sdk/include/FairWindSdk/FairWindTiledLayer.hpp>
+#include <sdk/include/FairWindSdk/display/DisplaySingleText.hpp>
+#include <sdk/include/FairWindSdk/display/DisplayDoubleText.hpp>
+#include <sdk/include/FairWindSdk/display/DisplayChart.hpp>
+#include <sdk/include/FairWindSdk/display/DisplayGauge.hpp>
 
 int main(int argc, char *argv[]) {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -39,9 +43,7 @@ int main(int argc, char *argv[]) {
 
     app.setWindowIcon(QIcon(QStringLiteral(":resources/images/fairwind_logo.png")));
 
-    fairWind->registerLayer("FairWindOSMLayer", new FairWindOSMLayer());
-    fairWind->registerLayer("FairWindTiledLayer", new FairWindTiledLayer());
-    fairWind->registerLayer("SignalKLayer", new SignalKLayer());
+
 
     SignalKAPIClient signalKAPIClient(QUrl("http://demo.signalk.org/signalk/v1/api"));
     QString self = signalKAPIClient.getSelf();

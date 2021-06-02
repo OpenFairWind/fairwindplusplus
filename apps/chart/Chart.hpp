@@ -38,6 +38,9 @@ namespace fairwind::apps::chart {
         QJsonObject getConfig() override;
 
 
+    public slots:
+        void resizeWidgets();
+
     private:
         Ui::Chart *ui;
         Ui::chart_Settings *uiSettings;

@@ -85,3 +85,7 @@ fairwind::layers::IFairWindLayer *SignalKLayer::getNewInstance() {
     return static_cast<IFairWindLayer *>(new SignalKLayer());
 }
 
+QString SignalKLayer::getClassName() const {
+    return this->metaObject()->className();
+}
+

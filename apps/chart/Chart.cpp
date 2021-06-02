@@ -5,7 +5,7 @@
 #include <QJsonArray>
 #include <FairWindSdk/FairWind.hpp>
 #include <QLabel>
-#include <FairWindSdk/DisplayGauge.hpp>
+#include <FairWindSdk/IFairWindDisplay.hpp>
 
 #include "Chart.hpp"
 
@@ -23,73 +23,63 @@ QWidget *fairwind::apps::chart::Chart::onGui(QMainWindow *mainWindow, QMap<QStri
     ui=new Ui::Chart();
     ui->setupUi(m_widgetWebApp);
 
+    auto fairwind=FairWind::getInstance();
     auto config = getConfig();
-    auto displayChart = new DisplayChart(ui->widgetCenter);
-    displayChart->onInit(config);
+
+    auto displayChart = new DisplayChart();
+    QMap<QString, QVariant> params;
+    params["settings"]=config;
+    displayChart->onInit(params);
+    ui->horizontalLayout->addWidget(displayChart);
+
+    QMap<QString, QLayout *> layouts;
+    layouts["left"]=ui->verticalLayoutLeft;
+    layouts["center"]=ui->horizontalLayout;
+    layouts["right"]=ui->verticalLayoutRight;
+
+    if (config.contains("displays") && config["displays"].isArray()) {
+        QJsonArray arrayDisplays=config["displays"].toArray();
+        for (auto item:arrayDisplays) {
+            if (item.isObject()) {
+                QJsonObject objectItem=item.toObject();
+                if (objectItem.contains("active") && objectItem["active"].isBool() && objectItem["active"].toBool()) {
+
+                    QMap<QString, QVariant> displayParams;
+                    QString className="UI::DisplaySingleText";
+                    QString layoutName="left";
+
+                    if (objectItem.contains("class") && objectItem["class"].isString()) {
+                        className=objectItem["class"].toString();
+                    }
+
+                    if (objectItem.contains("layout") && objectItem["layout"].isString()) {
+                        layoutName=objectItem["layout"].toString();
+                    }
+
+                    if (objectItem.contains("label") && objectItem["label"].isString()) {
+                        displayParams["label"]=objectItem["label"].toString();
+                    }
+
+                    if (objectItem.contains("fullPath") && objectItem["fullPath"].isString()) {
+                        displayParams["fullPath"]=objectItem["fullPath"].toString();
+                    }
 
 
-    auto layoutLeft = new QVBoxLayout;
+                    displays::IFairWindDisplay *fairWindDisplay=fairwind->instanceDisplay(className);
+                    if (fairWindDisplay) {
+                        fairWindDisplay->onInit(displayParams);
+                    }
 
-    auto layoutRight= new QVBoxLayout;
+                    auto *widget = dynamic_cast<QWidget *>(fairWindDisplay);
+                    if (widget) {
+                        layouts[layoutName]->addWidget(widget);
+                    }
+                }
+            }
+        }
+    }
 
-    //auto displayGauge1 = new DisplayGauge();
-    //layoutLeft->addWidget(displayGauge1);
-
-    /*
-    auto l1 = new QLabel();
-    l1->setText("AAA");
-    layoutLeft->addWidget(l1);
-    */
-
-    auto displaySingle1 = new DisplaySingleText();
-    //displaySingle1->setLabel("SOG");
-    displaySingle1->subscribe("${self}.navigation.speedOverGround");
-    layoutLeft->addWidget(displaySingle1);
-
-
-    auto displaySingle2 = new DisplaySingleText();
-    //displaySingle2->setLabel("COG");
-    displaySingle2->subscribe("${self}.navigation.courseOverGroundTrue");
-    layoutLeft->addWidget(displaySingle2);
-
-    auto displaySingle3 = new DisplaySingleText();
-    //displaySingle3->setLabel("Boat Speed");
-    displaySingle3->subscribe("${self}.navigation.speedThroughWater");
-    layoutLeft->addWidget(displaySingle3);
-
-
-    auto displaySingle4 = new DisplaySingleText();
-    //displaySingle4->setLabel("Heading T");
-    displaySingle4->subscribe("${self}.navigation.headingTrue");
-    layoutLeft->addWidget(displaySingle4);
-
-    auto displaySingle5 = new DisplaySingleText();
-    //displaySingle5->setLabel("AWS");
-    displaySingle5->subscribe("${self}.environment.wind.speedApparent");
-    layoutLeft->addWidget(displaySingle5);
-
-
-    auto displaySingle6 = new DisplaySingleText();
-    //displaySingle6->setLabel("AWA");
-    displaySingle6->subscribe("${self}.environment.wind.angleApparent");
-    layoutLeft->addWidget(displaySingle6);
-
-    /*
-    auto displayDouble = new DisplayDoubleText();
-    displayDouble->setLabel("Double");
-    displayDouble->setText1("-1.--");
-    displayDouble->setText2("-2.--");
-    layoutLeft->addWidget(displayDouble);
-    */
-
-    /*
-    auto tb1 = new QToolButton();
-    tb1->setText("Center");
-    layoutRight->addWidget(tb1);
-    */
-
-    ui->widgetLeft->setLayout(layoutLeft);
-    ui->widgetRight->setLayout(layoutRight);
+    QMetaObject::invokeMethod(this, "resizeWidgets", Qt::QueuedConnection);
 
     return m_widgetWebApp;
 }
@@ -118,6 +108,44 @@ QWidget *fairwind::apps::chart::Chart::onSettings(QTabWidget *tabWidget) {
 
 QJsonObject fairwind::apps::chart::Chart::getConfig() {
     return FairWindAppBase::getConfig();
+}
+
+void fairwind::apps::chart::Chart::resizeWidgets() {
+    QMap<QString, QLayout *> layouts;
+    layouts["left"]=ui->verticalLayoutLeft;
+    layouts["center"]=ui->horizontalLayout;
+    layouts["right"]=ui->verticalLayoutRight;
+
+    for (auto layoutName:layouts.keys()) {
+
+        QLayout *layoutItem = layouts[layoutName];
+        qDebug() << "layoutName:: " << layoutName;
+
+        int nCount = layoutItem->count();
+        int nVisible = 0;
+
+        while (true) {
+            nVisible = 0;
+            for (int i = 0; i < nCount; ++i) {
+                QWidget *widget = layoutItem->itemAt(i)->widget();
+                if (widget) {
+                    if (widget->isVisible()) {
+                        nVisible++;
+                    }
+                }
+            }
+            if (nVisible == nCount) {
+                break;
+            }
+            for (int i = 0; i < nCount; ++i) {
+                auto *fairWindDisplay = reinterpret_cast<displays::IFairWindDisplay *>(layoutItem->itemAt(
+                        i)->widget());
+                if (fairWindDisplay) {
+                    fairWindDisplay->smaller();
+                }
+            }
+        }
+    }
 }
 
 

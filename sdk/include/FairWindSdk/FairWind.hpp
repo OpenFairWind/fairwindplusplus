@@ -16,6 +16,7 @@
 #include "IFairWindLayer.hpp"
 #include "SignalKDocument.hpp"
 #include "App.hpp"
+#include "IFairWindDisplay.hpp"
 
 namespace fairwind {
     class FAIRWINDSDK_LIB_DECL FairWind: public QObject {
@@ -34,10 +35,14 @@ namespace fairwind {
         SignalKDocument *getSignalKDocument();
 
         QMap<QString, App *> getApps();
-        bool registerLayer(QString className, fairwind::layers::IFairWindLayer *dummy);
+        bool registerLayer(fairwind::layers::IFairWindLayer *dummy);
         layers::IFairWindLayer *instanceLayer(const QString& className);
 
+        bool registerDisplay(fairwind::displays::IFairWindDisplay *dummy);
+        displays::IFairWindDisplay *instanceDisplay(const QString& className);
+
         QJsonObject &getConfig();
+
 
     private:
         QJsonObject m_config;
@@ -53,7 +58,7 @@ namespace fairwind {
         inline static FairWind *m_instance = nullptr;
 
         QMap<QString, fairwind::layers::IFairWindLayer *> m_registeredLayers;
-
+        QMap<QString, fairwind::displays::IFairWindDisplay *> m_registeredDisplays;
     };
 }
 

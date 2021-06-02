@@ -31,3 +31,7 @@ QWidget *FairWindOSMLayer::onLegenda() {
 QWidget *FairWindOSMLayer::onSettings() {
     return nullptr;
 }
+
+QString FairWindOSMLayer::getClassName() const {
+    return this->metaObject()->className();
+}

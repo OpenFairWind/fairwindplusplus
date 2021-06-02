@@ -21,6 +21,8 @@ namespace fairwind::layers {
 
         virtual QWidget *onLegenda() = 0;
         virtual QWidget *onSettings() = 0;
+
+        virtual QString getClassName() const = 0;
     };
 
 }

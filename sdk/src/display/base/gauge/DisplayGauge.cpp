@@ -5,7 +5,7 @@
 
 #include "ui_DisplayGauge.h"
 #include <FairWindSdk/DisplayGauge.hpp>
-#include <DisplayGauge.hpp>
+#include <include/FairWindSdk/display/DisplayGauge.hpp>
 
 
 DisplayGauge::DisplayGauge(QWidget *parent):
@@ -36,3 +36,26 @@ DisplayGauge::DisplayGauge(QWidget *parent):
 DisplayGauge::~DisplayGauge() {
     delete ui;
 }
+
+QImage DisplayGauge::getIcon() const {
+    return QImage(":resources/images/icons/signalk_icon.png");
+}
+
+QWidget *DisplayGauge::onSettings() {
+    return nullptr;
+}
+
+void DisplayGauge::onInit(QMap<QString, QVariant> params) {
+    //qDebug() << "DisplaySingleText::onInit(" << params << ")";
+}
+
+fairwind::displays::IFairWindDisplay *DisplayGauge::getNewInstance() {
+    return static_cast<IFairWindDisplay *>(new DisplayGauge());
+}
+
+QString DisplayGauge::getClassName() const {
+    return this->metaObject()->className();
+}
+
+bool DisplayGauge::smaller() { return isVisible(); }
+bool DisplayGauge::bigger() { return isVisible(); }

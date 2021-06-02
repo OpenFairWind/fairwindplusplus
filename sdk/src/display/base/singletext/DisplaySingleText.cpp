@@ -5,8 +5,8 @@
 #include "ui_DisplaySingleText.h"
 
 #include <FairWindSdk/DisplaySingleText.hpp>
-#include <DisplaySingleText.hpp>
 #include <FairWindSdk/FairWind.hpp>
+#include <FairWindSdk/util/Units.hpp>
 #include <QJsonArray>
 
 
@@ -19,35 +19,62 @@ DisplaySingleText::DisplaySingleText(QWidget *parent) :
     mPrecision=1;
     mFieldWidth=3;
     mUnits="";
+
+    int size= contentsRect().height();
+
+    QFont newFontLabel("Arial",size*0.25);
+    ui->label_Label->setFont(newFontLabel);
+
+    QFont newFontUnits("Arial",size*0.25);
+    ui->label_Units->setFont(newFontUnits);
+
+    QFont newFontValue("Arial",size*0.75);
+    ui->label_Value1->setFont(newFontValue);
+
 }
 
 DisplaySingleText::~DisplaySingleText() {
     delete ui;
 }
 
-void DisplaySingleText::setLabel(QString label) {
+QImage DisplaySingleText::getIcon() const {
+    return QImage(":resources/images/icons/signalk_icon.png");
+}
 
-    int size= contentsRect().height()*0.25;
-    QFont newFont("Arial",size);
-    QFontMetrics nfm(newFont);
-    ui->label_Label->setFont(newFont);        //Set the new font with new size
+QWidget *DisplaySingleText::onSettings() {
+    return nullptr;
+}
+
+void DisplaySingleText::onInit(QMap<QString, QVariant> params) {
+    qDebug() << "DisplaySingleText::onInit(" << params << ")";
+
+    if (params.contains("fullPath")) {
+        subscribe(params["fullPath"].toString());
+    }
+    if (params.contains("label")) {
+        setLabel(params["label"].toString());
+    }
+    if (params.contains("units")) {
+        setUnits(params["units"].toString());
+    }
+    if (params.contains("text")) {
+        setText(params["text"].toString());
+    }
+}
+
+fairwind::displays::IFairWindDisplay *DisplaySingleText::getNewInstance() {
+    return static_cast<IFairWindDisplay *>(new DisplaySingleText());
+}
+
+void DisplaySingleText::setLabel(QString label) {
     ui->label_Label->setText(label);
 }
 
-void DisplaySingleText::setUnits(QString label) {
-
-    int size= contentsRect().height()*0.25;
-    QFont newFont("Arial",size);
-    QFontMetrics nfm(newFont);
-    ui->label_Units->setFont(newFont);        //Set the new font with new size
-    ui->label_Units->setText(label);
+void DisplaySingleText::setUnits(QString units) {
+    ui->label_Units->setText(units);
 }
 
 void DisplaySingleText::setText(QString text) {
-    int size= contentsRect().height()*0.75;
-    QFont newFont("Arial",size);
-    QFontMetrics nfm(newFont);
-    ui->label_Value1->setFont(newFont);        //Set the new font with new size
     ui->label_Value1->setText(text);
 }
 
@@ -95,6 +122,11 @@ void DisplaySingleText::subscribe(QString fullPath) {
                     }
                     if (objectKey.contains("fieldWidth") && objectKey["fieldWidth"].isDouble()) {
                         mFieldWidth=objectKey["fieldWidth"].toDouble();
+                        QString text="";
+                        for (int i=0;i<mFieldWidth;i++) {
+                            text=text+"0";
+                        }
+                        setText(text);
                     }
                     if (objectKey.contains("fillChar") && objectKey["fillChar"].isString()) {
                         mFillChar=objectKey["fillChar"].toString().at(0);
@@ -140,7 +172,6 @@ void DisplaySingleText::subscribe(QString fullPath) {
 void DisplaySingleText::update(const QJsonObject update) {
     //qDebug() << "DisplaySingleText::update:" << update;
     auto fairWind = fairwind::FairWind::getInstance();
-    auto signalKDocument = fairWind->getSignalKDocument();
 
     if (update.contains("updates") && update["updates"].isArray()) {
         QJsonArray arrayUpdates=update["updates"].toArray();
@@ -163,13 +194,10 @@ void DisplaySingleText::update(const QJsonObject update) {
                                         QString text="__.__";
                                         if (arrayValuesItemObject["value"].isDouble()) {
 
-                                            double value=arrayValuesItemObject["value"].toDouble();
 
-                                            if (mSrcUnits=="rad") {
-                                                value = value*57.2958;
-                                            } else if (mSrcUnits=="m/s") {
-                                                value = value*1.94384;
-                                            }
+                                            double value=fairwind::Units::getInstance()->convert(
+                                                    mSrcUnits,mUnits,
+                                                    arrayValuesItemObject["value"].toDouble());
 
 
                                             text=QString{ "%1" }.arg(value,
@@ -191,8 +219,22 @@ void DisplaySingleText::update(const QJsonObject update) {
             }
         }
     }
+}
 
+QString DisplaySingleText::getClassName() const {
+    return this->metaObject()->className();
+}
 
+bool DisplaySingleText::smaller() {
+    ui->label_Label->setFont(QFont("Arial",ui->label_Label->font().pixelSize()-1));
+    ui->label_Units->setFont(QFont("Arial",ui->label_Units->font().pixelSize()-1));
+    ui->label_Value1->setFont(QFont("Arial",ui->label_Value1->font().pixelSize()-1));
+    return isVisible();
+}
 
-
+bool DisplaySingleText::bigger() {
+    ui->label_Label->setFont(QFont("Arial",ui->label_Label->font().pixelSize()+1));
+    ui->label_Units->setFont(QFont("Arial",ui->label_Units->font().pixelSize()+1));
+    ui->label_Value1->setFont(QFont("Arial",ui->label_Value1->font().pixelSize()+1));
+    return isVisible();
 }

@@ -42,3 +42,7 @@ QWidget *FairWindTiledLayer::onLegenda() {
 QWidget *FairWindTiledLayer::onSettings() {
     return nullptr;
 }
+
+QString FairWindTiledLayer::getClassName() const {
+    return this->metaObject()->className();
+}

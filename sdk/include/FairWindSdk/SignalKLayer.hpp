@@ -19,11 +19,12 @@ public:
     SignalKLayer(const SignalKLayer &other);
     ~SignalKLayer();
 
+    QString getClassName() const override;
     QImage getIcon() const override;
 
     void onInit(QMap<QString, QVariant> params)  override;
 
-    virtual IFairWindLayer *getNewInstance() override;
+    IFairWindLayer *getNewInstance() override;
 
     QWidget *onLegenda() override;
     QWidget *onSettings() override;

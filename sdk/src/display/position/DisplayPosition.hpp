@@ -6,7 +6,7 @@
 #define FAIRWIND_DISPLAYPOSITION_HPP
 
 
-#include <DisplayDoubleText.hpp>
+#include <include/FairWindSdk/display/DisplayDoubleText.hpp>
 
 class DisplayPosition: public DisplayDoubleText {
     Q_OBJECT

@@ -4,6 +4,8 @@
 
 #include "ui_DisplayDoubleText.h"
 #include <FairWindSdk/DisplayDoubleText.hpp>
+#include <include/FairWindSdk/display/DisplayDoubleText.hpp>
+
 
 DisplayDoubleText::DisplayDoubleText(QWidget *parent) :
         ui(new Ui::DisplayDoubleText) {
@@ -13,6 +15,22 @@ DisplayDoubleText::DisplayDoubleText(QWidget *parent) :
 
 DisplayDoubleText::~DisplayDoubleText() {
     delete ui;
+}
+
+QImage DisplayDoubleText::getIcon() const {
+    return QImage(":resources/images/icons/signalk_icon.png");
+}
+
+QWidget *DisplayDoubleText::onSettings() {
+    return nullptr;
+}
+
+void DisplayDoubleText::onInit(QMap<QString, QVariant> params) {
+    //qDebug() << "DisplaySingleText::onInit(" << params << ")";
+}
+
+fairwind::displays::IFairWindDisplay *DisplayDoubleText::getNewInstance() {
+    return static_cast<IFairWindDisplay *>(new DisplayDoubleText());
 }
 
 void DisplayDoubleText::setLabel(QString label) {
@@ -39,3 +57,10 @@ void DisplayDoubleText::setText2(QString text) {
     ui->label_Value2->setFont(newFont);
     ui->label_Value2->setText(text);
 }
+
+QString DisplayDoubleText::getClassName() const {
+    return this->metaObject()->className();
+}
+
+bool DisplayDoubleText::smaller() { return isVisible(); }
+bool DisplayDoubleText::bigger() { return isVisible(); }

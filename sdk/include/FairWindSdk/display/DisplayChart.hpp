@@ -10,23 +10,31 @@
 #include <QNetworkDiskCache>
 
 #include "QGeoView/QGVLayer.h"
-
-#include "FairWindSDK.hpp"
+#include <FairWindSdk/FairWindSDK.hpp>
+#include <FairWindSdk/IFairWindDisplay.hpp>
 
 namespace Ui {
     class DisplayChart;
 }
 
-class FAIRWINDSDK_LIB_DECL DisplayChart: public QWidget {
+class FAIRWINDSDK_LIB_DECL DisplayChart: public QWidget, public fairwind::displays::IFairWindDisplay {
 Q_OBJECT
 
 public:
     explicit DisplayChart(QWidget *parent=0);
     ~DisplayChart();
 
+    QString getClassName() const override;
+    QImage getIcon() const override;
+    void onInit(QMap<QString, QVariant> params) override;
+    IFairWindDisplay *getNewInstance()  override;
+    QWidget *onSettings() override;
+    bool smaller() override;
+    bool bigger() override;
+
 
 public slots:
-    void onInit(QJsonObject settings);
+    //void onInit(QJsonObject settings);
     void updateNavigationPosition(const QJsonObject update);
 
 private:

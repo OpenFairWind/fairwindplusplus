@@ -24,7 +24,7 @@
 #include <SignalKLayer.hpp>
 
 #include "ui_DisplayChart.h"
-#include "DisplayChart.hpp"
+#include "include/FairWindSdk/display/DisplayChart.hpp"
 #include "QGVItemVessel.hpp"
 #include "QGVItemShoreBasestations.hpp"
 #include "QGVItemAton.hpp"
@@ -32,7 +32,7 @@
 DisplayChart::DisplayChart(QWidget *parent) :
         QWidget(parent),
         ui(new Ui::DisplayChart) {
-    ui->setupUi(parent);
+    ui->setupUi(this);
 
     m_widgetMap = new QGVMap();
     ui->gridLayout->addWidget(m_widgetMap,0,0);
@@ -45,8 +45,22 @@ DisplayChart::~DisplayChart() {
     delete ui;
 }
 
-void DisplayChart::onInit(QJsonObject settings) {
-    mSettings=settings;
+QImage DisplayChart::getIcon() const {
+    return QImage(":resources/images/icons/signalk_icon.png");
+}
+
+QWidget *DisplayChart::onSettings() {
+    return nullptr;
+}
+
+fairwind::displays::IFairWindDisplay *DisplayChart::getNewInstance() {
+    return static_cast<IFairWindDisplay *>(new DisplayChart());
+}
+
+void DisplayChart::onInit(QMap<QString, QVariant> params) {
+    qDebug() << "DisplaySingleText::onInit(" << params << ")";
+
+
     QDir("cacheDir").removeRecursively();
     mCache = new QNetworkDiskCache(this);
     mCache->setCacheDirectory("cacheDir");
@@ -68,25 +82,29 @@ void DisplayChart::onInit(QJsonObject settings) {
     auto signalKDocument = fairWind->getSignalKDocument();
     auto self = signalKDocument->getSelf();
 
-    if (mSettings.contains("Layers") && mSettings["Layers"].isArray()) {
-        auto layerSettings = mSettings["Layers"].toArray();
-        for (auto layerSetting:layerSettings) {
-            if (layerSetting.isObject()) {
-                QJsonObject layerSettingObject = layerSetting.toObject();
-                if (layerSettingObject.contains("active") && layerSettingObject["active"].isBool() && layerSettingObject["active"].toBool()) {
-                    if (layerSettingObject.contains("class") && layerSettingObject["class"].isString()) {
-                        auto className = layerSettingObject["class"].toString();
-                        fairwind::layers::IFairWindLayer *fairWindLayer = fairWind->instanceLayer(className);
-                        if (fairWindLayer) {
-                            QMap<QString, QVariant> params;
-                            for (const auto &key:layerSettingObject.keys()) {
-                                params[key] = layerSettingObject[key].toVariant();
-                            }
-                            fairWindLayer->onInit(params);
+    if (params.contains("settings")) {
+        mSettings = params["settings"].toJsonObject();
+        if (mSettings.contains("Layers") && mSettings["Layers"].isArray()) {
+            auto layerSettings = mSettings["Layers"].toArray();
+            for (auto layerSetting:layerSettings) {
+                if (layerSetting.isObject()) {
+                    QJsonObject layerSettingObject = layerSetting.toObject();
+                    if (layerSettingObject.contains("active") && layerSettingObject["active"].isBool() &&
+                        layerSettingObject["active"].toBool()) {
+                        if (layerSettingObject.contains("class") && layerSettingObject["class"].isString()) {
+                            auto className = layerSettingObject["class"].toString();
+                            fairwind::layers::IFairWindLayer *fairWindLayer = fairWind->instanceLayer(className);
+                            if (fairWindLayer) {
+                                QMap<QString, QVariant> params;
+                                for (const auto &key:layerSettingObject.keys()) {
+                                    params[key] = layerSettingObject[key].toVariant();
+                                }
+                                fairWindLayer->onInit(params);
 
-                            auto *qgvLayer = dynamic_cast<QGVLayer *>(fairWindLayer);
-                            if (qgvLayer) {
-                                m_widgetMap->addItem(qgvLayer);
+                                auto *qgvLayer = dynamic_cast<QGVLayer *>(fairWindLayer);
+                                if (qgvLayer) {
+                                    m_widgetMap->addItem(qgvLayer);
+                                }
                             }
                         }
                     }
@@ -105,3 +123,10 @@ void DisplayChart::updateNavigationPosition(const QJsonObject update) {
     auto fairWind = fairwind::FairWind::getInstance();
     auto signalKDocument = fairWind->getSignalKDocument();
 }
+
+QString DisplayChart::getClassName() const {
+    return this->metaObject()->className();
+}
+
+bool DisplayChart::smaller() { return isVisible(); }
+bool DisplayChart::bigger() { return isVisible(); }

@@ -3,20 +3,35 @@
     "self": "urn:mrn:signalk:uuid:b10b8d14-2b30-457e-a296-db20e6dea753",
     "units": {
       "m/s": {
-        "kn": 1.94384,
+        "kn": { "a": 1,"b":1.94384},
         "label": "m/s"
       },
       "kn": {
-        "m/s": 0.514444,
+        "m/s": { "a": 1,"b":0.514444},
         "label": "kn"
       },
       "deg": {
-        "rad": 0.0174533,
+        "rad": { "a": 1,"b":0.0174533},
         "label": "°"
       },
       "rad": {
-        "deg": 57.2958,
+        "deg": { "a": 1,"b":57.2958},
         "label":""
+      },
+      "K": {
+        "C": { "a": -273.1, "b": 1},
+        "F": { "a": -459.67, "b": 1.8},
+        "label": "°K"
+      },
+      "C": {
+        "K": { "a": 273.1, "b": 1},
+        "F": { "a": 32, "b": 1.8},
+        "label": "°C"
+      },
+      "F": {
+        "K": { "a": 273.1, "b": 1},
+        "C": { "a": 32, "b": 1.8},
+        "label": "°F"
       }
     },
     "keys": {
@@ -64,6 +79,13 @@
         "format": "f",
         "fieldWidth": 3,
         "precision": 0
+      },
+      "environment.water.temperature": {
+        "label": "Water Temp",
+        "units": "C",
+        "format": "f",
+        "fieldWidth": 3,
+        "precision": 0
       }
     }
   },
@@ -74,34 +96,56 @@
         "Active": true,
         "Order": 1,
         "Config": {
-          "Left": {
-            "displays": [
-              {
-                "class": "Ui::DisplaySingleText",
-                "active": true,
-                "label": "Speed",
-                "fullPath1": "vessels.${self}.navigation.speedThroughWater.value"
-              },
-              {
-                "class": "Ui::DisplaySingleText",
-                "active": true,
-                "label": "Heading",
-                "fullPath1": "vessels.${self}.navigation.heading.value"
-              },
-              {
-                "class": "Ui::DisplaySingleText",
-                "active": true,
-                "label": "SoG",
-                "fullPath1": "vessels.${self}.navigation.speedOverGround.value"
-              },
-              {
-                "class": "Ui::DisplaySingleText",
-                "active": true,
-                "label": "CoG",
-                "fullPath1": "vessels.${self}.navigation.courseOverGroundTrue.value"
-              }
-            ]
-          },
+          "displays": [
+            {
+              "class": "DisplaySingleText",
+              "active": true,
+              "layout": "left",
+              "fullPath": "${self}.navigation.speedOverGround"
+            },
+            {
+              "class": "DisplaySingleText",
+              "active": true,
+              "layout": "left",
+              "fullPath": "${self}.navigation.courseOverGroundTrue"
+            },
+            {
+              "class": "DisplaySingleText",
+              "active": true,
+              "layout": "left",
+              "fullPath": "${self}.navigation.speedThroughWater"
+            },
+            {
+              "class": "DisplaySingleText",
+              "active": true,
+              "layout": "left",
+              "fullPath": "${self}.navigation.headingTrue"
+            },
+            {
+              "class": "DisplaySingleText",
+              "active": true,
+              "layout": "right",
+              "fullPath": "${self}.environment.wind.speedApparent"
+            },
+            {
+              "class": "DisplaySingleText",
+              "active": true,
+              "layout": "right",
+              "fullPath": "${self}.environment.wind.angleApparent"
+            },
+            {
+              "class": "DisplaySingleText",
+              "active": true,
+              "layout": "right",
+              "fullPath": "${self}.environment.water.temperature"
+            },
+            {
+              "class": "",
+              "active": true,
+              "layout": "right",
+              "fullPath": "${self}.depth.belowTransducer"
+            }
+          ],
           "Layers": [
             {
               "class":"FairWindOSMLayer",

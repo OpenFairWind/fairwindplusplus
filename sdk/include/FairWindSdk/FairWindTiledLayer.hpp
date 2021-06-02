@@ -16,6 +16,7 @@ public:
     explicit FairWindTiledLayer();
     ~FairWindTiledLayer();
 
+    QString getClassName() const override;
     QImage getIcon() const override;
 
     void onInit(QMap<QString, QVariant> params) override;
