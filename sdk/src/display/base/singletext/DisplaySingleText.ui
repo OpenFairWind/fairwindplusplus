@@ -19,11 +19,18 @@
   <property name="windowTitle">
    <string>Display Single Text</string>
   </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(255, 250, 200);
-color: rgb(0, 0, 0);</string>
+color: rgb(0, 0, 0);
+border-radius: 10px;</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <property name="sizeConstraint">
+    <enum>QLayout::SetMinimumSize</enum>
+   </property>
    <property name="leftMargin">
     <number>0</number>
    </property>
@@ -63,6 +70,9 @@ color: rgb(0, 0, 0);</string>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="styleSheet">
+          <string notr="true">border-radius: 0px;</string>
+         </property>
          <property name="text">
           <string>Value</string>
          </property>
@@ -81,6 +91,9 @@ color: rgb(0, 0, 0);</string>
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border-radius: 0px;</string>
          </property>
          <property name="text">
           <string>Units</string>
@@ -105,6 +118,9 @@ color: rgb(0, 0, 0);</string>
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border-radius: 0px;</string>
        </property>
        <property name="text">
         <string>__.__</string>

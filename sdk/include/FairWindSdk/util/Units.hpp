@@ -18,17 +18,15 @@ namespace fairwind {
     public:
         static Units *getInstance();
         double convert(const QString& srcUnit, const QString& unit, double value);
+        QString getLabel(const QString &unit);
 
     private:
-        double kelvin2celsius(double kelvin) { return kelvin - 273.1; }
-
-        double kelvin2fahrenheit(double fahrenheit) { return fahrenheit * 1.8 - 459.67; }
-
         Units();
 
         inline static Units *m_instance = nullptr;
 
         QMap <QString, QMap<QString, std::function<double(double)>>> mConverters;
+        QMap <QString, QString> mLabels;
 
     };
 }

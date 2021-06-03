@@ -133,28 +133,7 @@ void DisplaySingleText::subscribe(QString fullPath) {
                     }
                     if (objectKey.contains("units") && objectKey["units"].isString()) {
                         mUnits=objectKey["units"].toString();
-                    }
-
-                    if (objectSignalK.contains("units") && objectSignalK["units"].isObject()) {
-                        QJsonObject objectUnits=objectSignalK["units"].toObject();
-
-                        if (objectUnits.contains(mUnits) && objectUnits[mUnits].isObject()) {
-                            QJsonObject objectUnit=objectUnits[mUnits].toObject();
-                            if (objectUnit.contains("label") && objectUnit["label"].isString()) {
-                                QString label=objectUnit["label"].toString();
-                                setUnits(label);
-                            }
-
-
-                            if (!mSrcUnits.isEmpty()) {
-                                if (objectUnits.contains(mSrcUnits) && objectUnits[mUnits].isObject()) {
-                                    QJsonObject objectSrcUnits=objectUnits[mUnits].toObject();
-                                    if (objectSrcUnits.contains(mUnits) && objectSrcUnits[mUnits].isDouble()) {
-                                        mConversionFactor=objectSrcUnits[mUnits].toDouble();
-                                    }
-                                }
-                            }
-                        }
+                        setUnits(fairwind::Units::getInstance()->getLabel(mUnits));
                     }
                 }
             }
@@ -171,7 +150,6 @@ void DisplaySingleText::subscribe(QString fullPath) {
 
 void DisplaySingleText::update(const QJsonObject update) {
     //qDebug() << "DisplaySingleText::update:" << update;
-    auto fairWind = fairwind::FairWind::getInstance();
 
     if (update.contains("updates") && update["updates"].isArray()) {
         QJsonArray arrayUpdates=update["updates"].toArray();

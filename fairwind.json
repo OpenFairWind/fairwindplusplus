@@ -1,39 +1,6 @@
 {
   "SignalK": {
     "self": "urn:mrn:signalk:uuid:b10b8d14-2b30-457e-a296-db20e6dea753",
-    "units": {
-      "m/s": {
-        "kn": { "a": 1,"b":1.94384},
-        "label": "m/s"
-      },
-      "kn": {
-        "m/s": { "a": 1,"b":0.514444},
-        "label": "kn"
-      },
-      "deg": {
-        "rad": { "a": 1,"b":0.0174533},
-        "label": "°"
-      },
-      "rad": {
-        "deg": { "a": 1,"b":57.2958},
-        "label":""
-      },
-      "K": {
-        "C": { "a": -273.1, "b": 1},
-        "F": { "a": -459.67, "b": 1.8},
-        "label": "°K"
-      },
-      "C": {
-        "K": { "a": 273.1, "b": 1},
-        "F": { "a": 32, "b": 1.8},
-        "label": "°C"
-      },
-      "F": {
-        "K": { "a": 273.1, "b": 1},
-        "C": { "a": 32, "b": 1.8},
-        "label": "°F"
-      }
-    },
     "keys": {
       "navigation.speedOverGround": {
         "label": "SOG",

@@ -48,7 +48,6 @@ private:
     QChar mFormat;
     int mPrecision;
     int mFieldWidth;
-    double mConversionFactor;
 };
 
 
