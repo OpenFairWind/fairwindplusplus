@@ -32,7 +32,7 @@
    <item row="0" column="0">
     <layout class="QVBoxLayout" name="verticalLayoutLeft">
      <property name="spacing">
-      <number>0</number>
+      <number>1</number>
      </property>
      <property name="sizeConstraint">
       <enum>QLayout::SetMinimumSize</enum>
@@ -52,7 +52,7 @@
    <item row="0" column="2">
     <layout class="QVBoxLayout" name="verticalLayoutRight">
      <property name="spacing">
-      <number>0</number>
+      <number>1</number>
      </property>
      <property name="sizeConstraint">
       <enum>QLayout::SetMinimumSize</enum>

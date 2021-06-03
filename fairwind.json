@@ -53,6 +53,13 @@
         "format": "f",
         "fieldWidth": 3,
         "precision": 0
+      },
+      "environment.depth.belowTransducer": {
+        "label": "Depth",
+        "units": "m",
+        "format": "f",
+        "fieldWidth": 4,
+        "precision": 1
       }
     }
   },
@@ -102,15 +109,15 @@
             },
             {
               "class": "DisplaySingleText",
-              "active": true,
+              "active": false,
               "layout": "right",
               "fullPath": "${self}.environment.water.temperature"
             },
             {
-              "class": "",
+              "class": "DisplaySingleText",
               "active": true,
-              "layout": "right",
-              "fullPath": "${self}.depth.belowTransducer"
+              "layout": "left",
+              "fullPath": "${self}.environment.depth.belowTransducer"
             }
           ],
           "Layers": [

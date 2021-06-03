@@ -54,6 +54,11 @@ void DisplaySingleText::onInit(QMap<QString, QVariant> params) {
     if (params.contains("label")) {
         setLabel(params["label"].toString());
     }
+
+    if (params.contains("description")) {
+        setToolTip(params["description"].toString());
+    }
+
     if (params.contains("units")) {
         setUnits(params["units"].toString());
     }
@@ -96,6 +101,7 @@ void DisplaySingleText::subscribe(QString fullPath) {
             }
             if (objectMeta.contains("description") && objectMeta["description"].isString()) {
                 mDescription=objectMeta["description"].toString();
+                setToolTip(mDescription);
             }
         }
         auto parts=mFullPath.split(".");
@@ -103,7 +109,7 @@ void DisplaySingleText::subscribe(QString fullPath) {
         parts.removeFirst();
         auto key=parts.join(".");
 
-        //qDebug() << "DisplaySingleText::subscribe: key" << key;
+        qDebug() << "DisplaySingleText::subscribe: key" << key;
         auto config=fairWind->getConfig();
         if (config.contains("SignalK") && config["SignalK"].isObject()) {
             QJsonObject objectSignalK=config["SignalK"].toObject();
@@ -140,7 +146,25 @@ void DisplaySingleText::subscribe(QString fullPath) {
         }
 
         if (jsonObject.contains("value") && jsonObject["value"].isDouble()) {
-            // Preset the value
+            QString text="__.__";
+            if (jsonObject["value"].isDouble()) {
+
+
+                double value=fairwind::Units::getInstance()->convert(
+                        mSrcUnits,mUnits,
+                        jsonObject["value"].toDouble());
+
+
+                text=QString{ "%1" }.arg(value,
+                                         mFieldWidth,
+                                         mFormat.toLatin1(),
+                                         mPrecision,
+                                         mFillChar );
+
+            } else if (jsonObject["value"].isString()) {
+                text = jsonObject["value"].toString();
+            }
+            setText(text);
         }
     }
 
@@ -198,6 +222,8 @@ void DisplaySingleText::update(const QJsonObject update) {
         }
     }
 }
+
+
 
 QString DisplaySingleText::getClassName() const {
     return this->metaObject()->className();

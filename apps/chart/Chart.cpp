@@ -79,7 +79,9 @@ QWidget *fairwind::apps::chart::Chart::onGui(QMainWindow *mainWindow, QMap<QStri
         }
     }
 
-    QMetaObject::invokeMethod(this, "resizeWidgets", Qt::QueuedConnection);
+    ui->verticalLayoutLeft->addStretch(1);
+    ui->verticalLayoutRight->addStretch(1);
+    //QMetaObject::invokeMethod(this, "resizeWidgets", Qt::QueuedConnection);
 
     return m_widgetWebApp;
 }
