@@ -2,7 +2,6 @@
 // Created by Raffaele Montella on 03/06/21.
 //
 
-#include "FairWindSdk/connections/ConnectionSignalKWSClient.hpp"
 #include <FairWindSdk/FairWind.hpp>
 
 #include <QtCore/QDebug>
