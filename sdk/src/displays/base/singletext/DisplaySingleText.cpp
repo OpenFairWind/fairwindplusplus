@@ -4,13 +4,13 @@
 
 #include "ui_DisplaySingleText.h"
 
-#include <FairWindSdk/DisplaySingleText.hpp>
+#include <FairWindSdk/displays/DisplaySingleText.hpp>
 #include <FairWindSdk/FairWind.hpp>
 #include <FairWindSdk/util/Units.hpp>
 #include <QJsonArray>
 
 
-DisplaySingleText::DisplaySingleText(QWidget *parent) :
+fairwind::displays::DisplaySingleText::DisplaySingleText(QWidget *parent) :
         QWidget(parent),
         ui(new Ui::DisplaySingleText) {
     ui->setupUi(this);
@@ -33,19 +33,19 @@ DisplaySingleText::DisplaySingleText(QWidget *parent) :
 
 }
 
-DisplaySingleText::~DisplaySingleText() {
+fairwind::displays::DisplaySingleText::~DisplaySingleText() {
     delete ui;
 }
 
-QImage DisplaySingleText::getIcon() const {
+QImage fairwind::displays::DisplaySingleText::getIcon() const {
     return QImage(":resources/images/icons/signalk_icon.png");
 }
 
-QWidget *DisplaySingleText::onSettings() {
+QWidget *fairwind::displays::DisplaySingleText::onSettings() {
     return nullptr;
 }
 
-void DisplaySingleText::onInit(QMap<QString, QVariant> params) {
+void fairwind::displays::DisplaySingleText::onInit(QMap<QString, QVariant> params) {
     qDebug() << "DisplaySingleText::onInit(" << params << ")";
 
     if (params.contains("fullPath")) {
@@ -67,23 +67,23 @@ void DisplaySingleText::onInit(QMap<QString, QVariant> params) {
     }
 }
 
-fairwind::displays::IFairWindDisplay *DisplaySingleText::getNewInstance() {
-    return static_cast<IFairWindDisplay *>(new DisplaySingleText());
+fairwind::displays::IFairWindDisplay *fairwind::displays::DisplaySingleText::getNewInstance() {
+    return static_cast<IFairWindDisplay *>(new fairwind::displays::DisplaySingleText());
 }
 
-void DisplaySingleText::setLabel(QString label) {
+void fairwind::displays::DisplaySingleText::setLabel(QString label) {
     ui->label_Label->setText(label);
 }
 
-void DisplaySingleText::setUnits(QString units) {
+void fairwind::displays::DisplaySingleText::setUnits(QString units) {
     ui->label_Units->setText(units);
 }
 
-void DisplaySingleText::setText(QString text) {
+void fairwind::displays::DisplaySingleText::setText(QString text) {
     ui->label_Value1->setText(text);
 }
 
-void DisplaySingleText::subscribe(QString fullPath) {
+void fairwind::displays::DisplaySingleText::subscribe(QString fullPath) {
 
     auto fairWind = fairwind::FairWind::getInstance();
     auto signalKDocument = fairWind->getSignalKDocument();
@@ -172,7 +172,7 @@ void DisplaySingleText::subscribe(QString fullPath) {
             this,SLOT(DisplaySingleText::update));
 }
 
-void DisplaySingleText::update(const QJsonObject update) {
+void fairwind::displays::DisplaySingleText::update(const QJsonObject update) {
     //qDebug() << "DisplaySingleText::update:" << update;
 
     if (update.contains("updates") && update["updates"].isArray()) {
@@ -225,18 +225,18 @@ void DisplaySingleText::update(const QJsonObject update) {
 
 
 
-QString DisplaySingleText::getClassName() const {
+QString fairwind::displays::DisplaySingleText::getClassName() const {
     return this->metaObject()->className();
 }
 
-bool DisplaySingleText::smaller() {
+bool fairwind::displays::DisplaySingleText::smaller() {
     ui->label_Label->setFont(QFont("Arial",ui->label_Label->font().pixelSize()-1));
     ui->label_Units->setFont(QFont("Arial",ui->label_Units->font().pixelSize()-1));
     ui->label_Value1->setFont(QFont("Arial",ui->label_Value1->font().pixelSize()-1));
     return isVisible();
 }
 
-bool DisplaySingleText::bigger() {
+bool fairwind::displays::DisplaySingleText::bigger() {
     ui->label_Label->setFont(QFont("Arial",ui->label_Label->font().pixelSize()+1));
     ui->label_Units->setFont(QFont("Arial",ui->label_Units->font().pixelSize()+1));
     ui->label_Value1->setFont(QFont("Arial",ui->label_Value1->font().pixelSize()+1));

@@ -56,45 +56,45 @@ add_library(fairwindsdk SHARED
         include/FairWindSdk/IFairWindApp.hpp
         include/FairWindSdk/IFairWindLayer.hpp
         include/FairWindSdk/IFairWindDisplay.hpp
+        include/FairWindSdk/IFairWindConnection.hpp
         include/FairWindSdk/FairWindAppBase.hpp
         include/FairWindSdk/SignalKDocument.hpp
         include/FairWindSdk/FairWind.hpp
         include/FairWindSdk/App.hpp
-        include/FairWindSdk/display/DisplaySingleText.hpp
-        include/FairWindSdk/display/DisplayDoubleText.hpp
+        include/FairWindSdk/displays/DisplaySingleText.hpp
+        include/FairWindSdk/displays/DisplayDoubleText.hpp
+        include/FairWindSdk/displays/DisplayGauge.hpp
+        include/FairWindSdk/displays/DisplayChart.hpp
         include/FairWindSdk/QGVItemVessel.hpp
         include/FairWindSdk/QGVItemAton.hpp
         include/FairWindSdk/QGVItemShoreBasestations.hpp
         include/FairWindSdk/QGVItemSignalK.hpp
-        include/FairWindSdk/SignalKLayer.hpp
-        include/FairWindSdk/display/DisplayGauge.hpp
         include/FairWindSdk/QGVItemDefault.hpp
-        include/FairWindSdk/FairWindOSMLayer.hpp
-        include/FairWindSdk/FairWindTiledLayer.hpp
+        include/FairWindSdk/layers/SignalKLayer.hpp
+        include/FairWindSdk/layers/FairWindOSMLayer.hpp
+        include/FairWindSdk/layers/FairWindTiledLayer.hpp
         include/FairWindSdk/util/Units.hpp
-        include/FairWindSdk/IFairWindConnection.hpp
-        include/FairWindSdk/connections/ConnectionSignalKAPIClient.hpp
-        include/FairWindSdk/connections/ConnectionSignalKWSClient.hpp
+        include/FairWindSdk/connections/SignalKAPIClient.hpp
+        include/FairWindSdk/connections/SignalKWSClient.hpp
         src/FairWind.cpp
         src/App.cpp
         src/FairWindAppBase.cpp
         src/SignalKDocument.cpp
-        src/display/base/singletext/DisplaySingleText.cpp
-        src/display/base/doubletext/DisplayDoubleText.cpp
-        src/display/base/gauge/DisplayGauge.cpp
-        src/display/position/DisplayPosition.cpp src/display/position/DisplayPosition.hpp
-        src/display/chart/DisplayChart.cpp include/FairWindSdk/display/DisplayChart.hpp
-        src/display/chart/QGVItemVessel.cpp
-        src/display/chart/QGVItemAton.cpp
-        src/display/chart/QGVItemShoreBasestations.cpp
-        src/display/chart/QGVItemSignalK.cpp
-        src/display/chart/SignalKLayer.cpp
-        src/display/chart/QGVItemDefault.cpp
-        src/display/chart/FairWindOSMLayer.cpp
-        src/display/chart/FairWindTiledLayer.cpp
+        src/displays/base/singletext/DisplaySingleText.cpp
+        src/displays/base/doubletext/DisplayDoubleText.cpp
+        src/displays/base/gauge/DisplayGauge.cpp
+        src/displays/chart/DisplayChart.cpp
+        src/displays/chart/QGVItemDefault.cpp
+        src/displays/chart/QGVItemVessel.cpp
+        src/displays/chart/QGVItemAton.cpp
+        src/displays/chart/QGVItemShoreBasestations.cpp
+        src/displays/chart/QGVItemSignalK.cpp
+        src/layers/SignalKLayer.cpp
+        src/layers/FairWindOSMLayer.cpp
+        src/layers/FairWindTiledLayer.cpp
         src/util/Units.cpp
-        src/connections/ConnectionSignalKAPIClient.cpp
-        src/connections/ConnectionSignalKWSClient.cpp
+        src/connections/SignalKAPIClient.cpp
+        src/connections/SignalKWSClient.cpp
         ${FAIRWINDSDK_RESOURCE_ADDED}
         )
 

@@ -8,16 +8,17 @@
 #include <QSettings>
 #include <utility>
 #include <QJsonArray>
-#include <SignalKLayer.hpp>
-#include <FairWindOSMLayer.hpp>
-#include <FairWindTiledLayer.hpp>
-#include <display/DisplaySingleText.hpp>
-#include <display/DisplayDoubleText.hpp>
-#include <display/DisplayGauge.hpp>
-#include <display/DisplayChart.hpp>
-#include <connections/ConnectionSignalKWSClient.hpp>
-#include <connections/ConnectionSignalKAPIClient.hpp>
+#include <FairWindSdk/layers/SignalKLayer.hpp>
+#include <FairWindSdk/layers/FairWindOSMLayer.hpp>
+#include <FairWindSdk/layers/FairWindTiledLayer.hpp>
+#include <FairWindSdk/displays/DisplaySingleText.hpp>
+#include <FairWindSdk/displays/DisplayDoubleText.hpp>
+#include <FairWindSdk/displays/DisplayGauge.hpp>
+#include <FairWindSdk/displays/DisplayChart.hpp>
+#include <FairWindSdk/connections/SignalKWSClient.hpp>
+#include <FairWindSdk/connections/SignalKAPIClient.hpp>
 #include <FairWind.hpp>
+
 
 void fairwind::FairWind::loadApps() {
     auto appsDir = QDir(QCoreApplication::applicationDirPath());
@@ -62,17 +63,17 @@ void fairwind::FairWind::loadApps() {
 
 fairwind::FairWind::FairWind() {
     qDebug() << "FairWind constructor";
-    registerLayer( new FairWindOSMLayer());
-    registerLayer( new FairWindTiledLayer());
-    registerLayer(new SignalKLayer());
+    registerLayer( new layers::FairWindOSMLayer());
+    registerLayer( new layers::FairWindTiledLayer());
+    registerLayer(new layers::SignalKLayer());
 
-    registerDisplay(new DisplaySingleText());
-    registerDisplay(new DisplayDoubleText());
-    registerDisplay(new DisplayGauge());
-    registerDisplay(new DisplayChart());
+    registerDisplay(new displays::DisplaySingleText());
+    registerDisplay(new displays::DisplayDoubleText());
+    registerDisplay(new displays::DisplayGauge());
+    registerDisplay(new displays::DisplayChart());
 
-    registerConnection(new ConnectionSignalKAPIClient());
-    registerConnection(new ConnectionSignalKWSClient());
+    registerConnection(new connections::SignalKAPIClient());
+    registerConnection(new connections::SignalKWSClient());
 }
 
 fairwind::apps::IFairWindApp *fairwind::FairWind::getAppByExtensionId(QString id) {

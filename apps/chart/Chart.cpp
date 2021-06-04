@@ -6,7 +6,7 @@
 #include <FairWindSdk/FairWind.hpp>
 #include <QLabel>
 #include <FairWindSdk/IFairWindDisplay.hpp>
-
+#include <FairWindSdk/displays/DisplayChart.hpp>
 #include "Chart.hpp"
 
 
@@ -26,7 +26,7 @@ QWidget *fairwind::apps::chart::Chart::onGui(QMainWindow *mainWindow, QMap<QStri
     auto fairwind=FairWind::getInstance();
     auto config = getConfig();
 
-    auto displayChart = new DisplayChart();
+    auto displayChart = new fairwind::displays::DisplayChart();
     QMap<QString, QVariant> params;
     params["settings"]=config;
     displayChart->onInit(params);

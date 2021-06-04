@@ -10,9 +10,6 @@
 #include <QtPlugin>
 #include <FairWindSdk/FairWindAppBase.hpp>
 #include <FairWindSdk/IFairWindApp.hpp>
-#include <FairWindSdk/DisplaySingleText.hpp>
-#include <FairWindSdk/DisplayDoubleText.hpp>
-#include <FairWindSdk/DisplayChart.hpp>
 #include "ui_Chart.h"
 #include "ui_Chart_Settings.h"
 
