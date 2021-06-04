@@ -6,28 +6,28 @@
 #include <QCoreApplication>
 #include <QJsonDocument>
 #include <FairWind.hpp>
-#include "FairWindSdk/connections/ConnectionSignalKAPIClient.hpp"
+#include <FairWindSdk/connections/SignalKAPIClient.hpp>
 
-ConnectionSignalKAPIClient::ConnectionSignalKAPIClient(QObject *parent):
+fairwind::connections::SignalKAPIClient::SignalKAPIClient(QObject *parent):
         QObject(parent) {
     m_url = "localhost:3000/signalk/v1/api";
     m_debug = false;
     m_active = false;
 }
 
-ConnectionSignalKAPIClient::~ConnectionSignalKAPIClient() {
+fairwind::connections::SignalKAPIClient::~SignalKAPIClient() {
 
 }
 
-QImage ConnectionSignalKAPIClient::getIcon() const {
+QImage fairwind::connections::SignalKAPIClient::getIcon() const {
     return QImage(":resources/images/icons/signalk_icon.png");
 }
 
-QWidget *ConnectionSignalKAPIClient::onSettings() {
+QWidget *fairwind::connections::SignalKAPIClient::onSettings() {
     return nullptr;
 }
 
-void ConnectionSignalKAPIClient::onInit(QMap<QString, QVariant> params) {
+void fairwind::connections::SignalKAPIClient::onInit(QMap<QString, QVariant> params) {
     qDebug() << "ConnectionSignalKAPIClient::onInit(" << params << ")";
 
     auto fairWind=fairwind::FairWind::getInstance();
@@ -50,37 +50,37 @@ void ConnectionSignalKAPIClient::onInit(QMap<QString, QVariant> params) {
     }
 }
 
-fairwind::connections::IFairWindConnection *ConnectionSignalKAPIClient::getNewInstance() {
-    return static_cast<IFairWindConnection *>(new ConnectionSignalKAPIClient());
+fairwind::connections::IFairWindConnection *fairwind::connections::SignalKAPIClient::getNewInstance() {
+    return static_cast<IFairWindConnection *>(new SignalKAPIClient());
 }
 
-QString ConnectionSignalKAPIClient::getClassName() const {
+QString fairwind::connections::SignalKAPIClient::getClassName() const {
     return this->metaObject()->className();
 }
 
-void ConnectionSignalKAPIClient::setActive(bool active) {
+void fairwind::connections::SignalKAPIClient::setActive(bool active) {
     m_active=active;
 }
 
-bool ConnectionSignalKAPIClient::isActive() const {
+bool fairwind::connections::SignalKAPIClient::isActive() const {
     return m_active;
 }
 
-QString ConnectionSignalKAPIClient::getSelf() {
+QString fairwind::connections::SignalKAPIClient::getSelf() {
     QString url=m_url.toString()+"/self";
     QString result=httpGet( url).replace("\"","");
     qDebug() << "url:" << url << " result:" << result;
     return result;
 }
 
-QJsonObject ConnectionSignalKAPIClient::getAll() {
+QJsonObject fairwind::connections::SignalKAPIClient::getAll() {
     QString url=m_url.toString()+"/";
     QString httpResult=httpGet( url);
     QJsonDocument jsonDocument=QJsonDocument::fromJson(httpResult.toUtf8());
     return jsonDocument.object();
 }
 
-QByteArray ConnectionSignalKAPIClient::httpGet(QString url) {
+QByteArray fairwind::connections::SignalKAPIClient::httpGet(QString url) {
     QNetworkRequest req(url);
     QScopedPointer<QNetworkReply> reply(manager.get(req));
 

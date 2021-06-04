@@ -2,43 +2,44 @@
 // Created by Raffaele Montella on 03/06/21.
 //
 
-#include "FairWindSdk/connections/ConnectionSignalKWSClient.hpp"
 #include <FairWindSdk/FairWind.hpp>
 
 #include <QtCore/QDebug>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <connections/SignalKWSClient.hpp>
+
 
 QT_USE_NAMESPACE
 
 //! [constructor]
-ConnectionSignalKWSClient::ConnectionSignalKWSClient(QObject *parent) :
+fairwind::connections::SignalKWSClient::SignalKWSClient(QObject *parent) :
         QObject(parent)
 {
     m_url="ws://localhost:3000/signalk/v1/stream";
     m_debug= false;
     m_active = false;
 
-    connect(&m_webSocket, &QWebSocket::connected, this, &ConnectionSignalKWSClient::onConnected);
-    connect(&m_webSocket, &QWebSocket::disconnected, this, &ConnectionSignalKWSClient::closed);
+    connect(&m_webSocket, &QWebSocket::connected, this, &SignalKWSClient::onConnected);
+    connect(&m_webSocket, &QWebSocket::disconnected, this, &SignalKWSClient::closed);
 
 }
 //! [constructor]
 
-ConnectionSignalKWSClient::~ConnectionSignalKWSClient() {
+fairwind::connections::SignalKWSClient::~SignalKWSClient() {
 
 }
 
-QImage ConnectionSignalKWSClient::getIcon() const {
+QImage fairwind::connections::SignalKWSClient::getIcon() const {
     return QImage(":resources/images/icons/signalk_icon.png");
 }
 
-QWidget *ConnectionSignalKWSClient::onSettings() {
+QWidget *fairwind::connections::SignalKWSClient::onSettings() {
     return nullptr;
 }
 
-void ConnectionSignalKWSClient::onInit(QMap<QString, QVariant> params) {
-    qDebug() << "ConnectionSignalKWSClient::onInit(" << params << ")";
+void fairwind::connections::SignalKWSClient::onInit(QMap<QString, QVariant> params) {
+    qDebug() << "SignalKWSClient::onInit(" << params << ")";
 
     if (params.contains("url")) {
         m_url=QUrl(params["url"].toString());
@@ -57,15 +58,15 @@ void ConnectionSignalKWSClient::onInit(QMap<QString, QVariant> params) {
     }
 }
 
-fairwind::connections::IFairWindConnection *ConnectionSignalKWSClient::getNewInstance() {
-    return static_cast<IFairWindConnection *>(new ConnectionSignalKWSClient());
+fairwind::connections::IFairWindConnection *fairwind::connections::SignalKWSClient::getNewInstance() {
+    return static_cast<IFairWindConnection *>(new SignalKWSClient());
 }
 
-QString ConnectionSignalKWSClient::getClassName() const {
+QString fairwind::connections::SignalKWSClient::getClassName() const {
     return this->metaObject()->className();
 }
 
-void ConnectionSignalKWSClient::setActive(bool active) {
+void fairwind::connections::SignalKWSClient::setActive(bool active) {
     if (m_active && !active) {
         m_webSocket.close();
     } else if (!m_active && active) {
@@ -75,23 +76,23 @@ void ConnectionSignalKWSClient::setActive(bool active) {
     m_active=active;
 }
 
-bool ConnectionSignalKWSClient::isActive() const {
+bool fairwind::connections::SignalKWSClient::isActive() const {
     return m_active;
 }
 
 //! [onConnected]
-void ConnectionSignalKWSClient::onConnected()
+void fairwind::connections::SignalKWSClient::onConnected()
 {
     if (m_debug)
         qDebug() << "WebSocket connected";
     connect(&m_webSocket, &QWebSocket::textMessageReceived,
-            this, &ConnectionSignalKWSClient::onTextMessageReceived);
+            this, &fairwind::connections::SignalKWSClient::onTextMessageReceived);
 
 }
 //! [onConnected]
 
 //! [onTextMessageReceived]
-void ConnectionSignalKWSClient::onTextMessageReceived(QString message)
+void fairwind::connections::SignalKWSClient::onTextMessageReceived(QString message)
 {
     QJsonObject jsonObjectUpdate;
 
@@ -113,6 +114,4 @@ void ConnectionSignalKWSClient::onTextMessageReceived(QString message)
     fairWind->getSignalKDocument()->update(jsonObjectUpdate);
 
 }
-
-
 //! [onTextMessageReceived]

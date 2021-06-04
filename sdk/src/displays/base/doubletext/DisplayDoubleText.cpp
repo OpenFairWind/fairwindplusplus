@@ -3,37 +3,36 @@
 //
 
 #include "ui_DisplayDoubleText.h"
-#include <FairWindSdk/DisplayDoubleText.hpp>
-#include <include/FairWindSdk/display/DisplayDoubleText.hpp>
+#include <FairWindSdk/displays/DisplayDoubleText.hpp>
 
 
-DisplayDoubleText::DisplayDoubleText(QWidget *parent) :
+fairwind::displays::DisplayDoubleText::DisplayDoubleText(QWidget *parent) :
         ui(new Ui::DisplayDoubleText) {
     ui->setupUi(this);
 
 }
 
-DisplayDoubleText::~DisplayDoubleText() {
+fairwind::displays::DisplayDoubleText::~DisplayDoubleText() {
     delete ui;
 }
 
-QImage DisplayDoubleText::getIcon() const {
+QImage fairwind::displays::DisplayDoubleText::getIcon() const {
     return QImage(":resources/images/icons/signalk_icon.png");
 }
 
-QWidget *DisplayDoubleText::onSettings() {
+QWidget *fairwind::displays::DisplayDoubleText::onSettings() {
     return nullptr;
 }
 
-void DisplayDoubleText::onInit(QMap<QString, QVariant> params) {
+void fairwind::displays::DisplayDoubleText::onInit(QMap<QString, QVariant> params) {
     //qDebug() << "DisplaySingleText::onInit(" << params << ")";
 }
 
-fairwind::displays::IFairWindDisplay *DisplayDoubleText::getNewInstance() {
+fairwind::displays::IFairWindDisplay *fairwind::displays::DisplayDoubleText::getNewInstance() {
     return static_cast<IFairWindDisplay *>(new DisplayDoubleText());
 }
 
-void DisplayDoubleText::setLabel(QString label) {
+void fairwind::displays::DisplayDoubleText::setLabel(QString label) {
 
     int size= contentsRect().height()*0.25;
     QFont newFont("Arial",size);
@@ -42,7 +41,7 @@ void DisplayDoubleText::setLabel(QString label) {
     ui->label_Label->setText(label);
 }
 
-void DisplayDoubleText::setText1(QString text) {
+void fairwind::displays::DisplayDoubleText::setText1(QString text) {
     int size= contentsRect().height()*0.375;
     QFont newFont("Arial",size);
     QFontMetrics nfm(newFont);
@@ -50,7 +49,7 @@ void DisplayDoubleText::setText1(QString text) {
     ui->label_Value1->setText(text);
 }
 
-void DisplayDoubleText::setText2(QString text) {
+void fairwind::displays::DisplayDoubleText::setText2(QString text) {
     int size= contentsRect().height()*0.375;
     QFont newFont("Arial",size);
     QFontMetrics nfm(newFont);
@@ -58,9 +57,9 @@ void DisplayDoubleText::setText2(QString text) {
     ui->label_Value2->setText(text);
 }
 
-QString DisplayDoubleText::getClassName() const {
+QString fairwind::displays::DisplayDoubleText::getClassName() const {
     return this->metaObject()->className();
 }
 
-bool DisplayDoubleText::smaller() { return isVisible(); }
-bool DisplayDoubleText::bigger() { return isVisible(); }
+bool fairwind::displays::DisplayDoubleText::smaller() { return isVisible(); }
+bool fairwind::displays::DisplayDoubleText::bigger() { return isVisible(); }

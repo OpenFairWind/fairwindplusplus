@@ -21,15 +21,15 @@
 #include <QGuiApplication>
 #include <FairWindSdk/SignalKDocument.hpp>
 #include <FairWind.hpp>
-#include <SignalKLayer.hpp>
+#include <FairWindSdk/layers/SignalKLayer.hpp>
 
 #include "ui_DisplayChart.h"
-#include "include/FairWindSdk/display/DisplayChart.hpp"
+#include <FairWindSdk/displays//DisplayChart.hpp>
 #include "QGVItemVessel.hpp"
 #include "QGVItemShoreBasestations.hpp"
 #include "QGVItemAton.hpp"
 
-DisplayChart::DisplayChart(QWidget *parent) :
+fairwind::displays::DisplayChart::DisplayChart(QWidget *parent) :
         QWidget(parent),
         ui(new Ui::DisplayChart) {
     ui->setupUi(this);
@@ -41,23 +41,23 @@ DisplayChart::DisplayChart(QWidget *parent) :
 }
 
 
-DisplayChart::~DisplayChart() {
+fairwind::displays::DisplayChart::~DisplayChart() {
     delete ui;
 }
 
-QImage DisplayChart::getIcon() const {
+QImage fairwind::displays::DisplayChart::getIcon() const {
     return QImage(":resources/images/icons/signalk_icon.png");
 }
 
-QWidget *DisplayChart::onSettings() {
+QWidget *fairwind::displays::DisplayChart::onSettings() {
     return nullptr;
 }
 
-fairwind::displays::IFairWindDisplay *DisplayChart::getNewInstance() {
+fairwind::displays::IFairWindDisplay *fairwind::displays::DisplayChart::getNewInstance() {
     return static_cast<IFairWindDisplay *>(new DisplayChart());
 }
 
-void DisplayChart::onInit(QMap<QString, QVariant> params) {
+void fairwind::displays::DisplayChart::onInit(QMap<QString, QVariant> params) {
     qDebug() << "DisplaySingleText::onInit(" << params << ")";
 
 
@@ -119,14 +119,14 @@ void DisplayChart::onInit(QMap<QString, QVariant> params) {
     m_widgetMap->cameraTo(QGVCameraActions(m_widgetMap).moveTo(geoPos));
 }
 
-void DisplayChart::updateNavigationPosition(const QJsonObject update) {
+void fairwind::displays::DisplayChart::updateNavigationPosition(const QJsonObject update) {
     auto fairWind = fairwind::FairWind::getInstance();
     auto signalKDocument = fairWind->getSignalKDocument();
 }
 
-QString DisplayChart::getClassName() const {
+QString fairwind::displays::DisplayChart::getClassName() const {
     return this->metaObject()->className();
 }
 
-bool DisplayChart::smaller() { return isVisible(); }
-bool DisplayChart::bigger() { return isVisible(); }
+bool fairwind::displays::DisplayChart::smaller() { return isVisible(); }
+bool fairwind::displays::DisplayChart::bigger() { return isVisible(); }

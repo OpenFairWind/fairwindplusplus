@@ -31,5 +31,8 @@
 *.out
 *.app
 
+# Configuration file
+fairwind.json
+
 /.idea
 /cmake-build-debug

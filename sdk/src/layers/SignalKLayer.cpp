@@ -8,36 +8,36 @@
 #include <QGVItemVessel.hpp>
 #include <QGVItemShoreBasestations.hpp>
 #include <QGVItemDefault.hpp>
-#include "SignalKLayer.hpp"
+#include "FairWindSdk/layers/SignalKLayer.hpp"
 
-SignalKLayer::SignalKLayer() {
+fairwind::layers::SignalKLayer::SignalKLayer() {
     setName("Signal K Layer");
     setDescription("Generic Layer Holding Signal K elements");
     qDebug() << "SignalKLayer::SignalKLayer() " << getName() << " " << getDescription();
 }
 
-SignalKLayer::SignalKLayer(const SignalKLayer &other) {
+fairwind::layers::SignalKLayer::SignalKLayer(const SignalKLayer &other) {
     qDebug() << "SignalKLayer::SignalKLayer(const SignalKLayer &other)";
 }
 
-SignalKLayer::~SignalKLayer() {
+fairwind::layers::SignalKLayer::~SignalKLayer() {
     qDebug() << "SignalKLayer::~SignalKLayer()";
 }
 
 
-QImage SignalKLayer::getIcon() const {
+QImage fairwind::layers::SignalKLayer::getIcon() const {
     return QImage(":resources/images/icons/signalk_icon.png");
 }
 
-QWidget *SignalKLayer::onLegenda() {
+QWidget *fairwind::layers::SignalKLayer::onLegenda() {
     return nullptr;
 }
 
-QWidget *SignalKLayer::onSettings() {
+QWidget *fairwind::layers::SignalKLayer::onSettings() {
     return nullptr;
 }
 
-void SignalKLayer::onInit(QMap<QString, QVariant> params)  {
+void fairwind::layers::SignalKLayer::onInit(QMap<QString, QVariant> params)  {
     qDebug() << "SignalKLayer::onInit(" << params << ")";
 
     if (params.contains("name")) {
@@ -81,11 +81,11 @@ void SignalKLayer::onInit(QMap<QString, QVariant> params)  {
     }
 }
 
-fairwind::layers::IFairWindLayer *SignalKLayer::getNewInstance() {
-    return static_cast<IFairWindLayer *>(new SignalKLayer());
+fairwind::layers::IFairWindLayer *fairwind::layers::SignalKLayer::getNewInstance() {
+    return static_cast<IFairWindLayer *>(new fairwind::layers::SignalKLayer());
 }
 
-QString SignalKLayer::getClassName() const {
+QString fairwind::layers::SignalKLayer::getClassName() const {
     return this->metaObject()->className();
 }
 

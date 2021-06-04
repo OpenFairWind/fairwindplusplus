@@ -4,11 +4,10 @@
 
 
 #include "ui_DisplayGauge.h"
-#include <FairWindSdk/DisplayGauge.hpp>
-#include <include/FairWindSdk/display/DisplayGauge.hpp>
+#include <FairWindSdk/displays/DisplayGauge.hpp>
 
 
-DisplayGauge::DisplayGauge(QWidget *parent):
+fairwind::displays::DisplayGauge::DisplayGauge(QWidget *parent):
         QWidget(parent),
         ui(new Ui::DisplayGauge) {
 
@@ -33,29 +32,29 @@ DisplayGauge::DisplayGauge(QWidget *parent):
     ui->horizontalLayout->addWidget(mGaugeWidget);
 }
 
-DisplayGauge::~DisplayGauge() {
+fairwind::displays::DisplayGauge::~DisplayGauge() {
     delete ui;
 }
 
-QImage DisplayGauge::getIcon() const {
+QImage fairwind::displays::DisplayGauge::getIcon() const {
     return QImage(":resources/images/icons/signalk_icon.png");
 }
 
-QWidget *DisplayGauge::onSettings() {
+QWidget *fairwind::displays::DisplayGauge::onSettings() {
     return nullptr;
 }
 
-void DisplayGauge::onInit(QMap<QString, QVariant> params) {
+void fairwind::displays::DisplayGauge::onInit(QMap<QString, QVariant> params) {
     //qDebug() << "DisplaySingleText::onInit(" << params << ")";
 }
 
-fairwind::displays::IFairWindDisplay *DisplayGauge::getNewInstance() {
+fairwind::displays::IFairWindDisplay *fairwind::displays::DisplayGauge::getNewInstance() {
     return static_cast<IFairWindDisplay *>(new DisplayGauge());
 }
 
-QString DisplayGauge::getClassName() const {
+QString fairwind::displays::DisplayGauge::getClassName() const {
     return this->metaObject()->className();
 }
 
-bool DisplayGauge::smaller() { return isVisible(); }
-bool DisplayGauge::bigger() { return isVisible(); }
+bool fairwind::displays::DisplayGauge::smaller() { return isVisible(); }
+bool fairwind::displays::DisplayGauge::bigger() { return isVisible(); }

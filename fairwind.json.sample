@@ -2,12 +2,12 @@
   "SignalK": {
     "connections": [
       {
-        "class": "ConnectionSignalKAPIClient",
+        "class": "fairwind::connections::SignalKAPIClient",
         "active": true,
         "url": "http://demo.signalk.org/signalk/v1/api"
       },
       {
-        "class": "ConnectionSignalKWSClient",
+        "class": "fairwind::connections::SignalKWSClient",
         "active": true,
         "url": "ws://demo.signalk.org/signalk/v1/stream"
       }
@@ -83,49 +83,49 @@
         "Config": {
           "displays": [
             {
-              "class": "DisplaySingleText",
+              "class": "fairwind::displays::DisplaySingleText",
               "active": true,
               "layout": "left",
               "fullPath": "${self}.navigation.speedOverGround"
             },
             {
-              "class": "DisplaySingleText",
+              "class": "fairwind::displays::DisplaySingleText",
               "active": true,
               "layout": "left",
               "fullPath": "${self}.navigation.courseOverGroundTrue"
             },
             {
-              "class": "DisplaySingleText",
+              "class": "fairwind::displays::DisplaySingleText",
               "active": true,
               "layout": "left",
               "fullPath": "${self}.navigation.speedThroughWater"
             },
             {
-              "class": "DisplaySingleText",
+              "class": "fairwind::displays::DisplaySingleText",
               "active": true,
               "layout": "left",
               "fullPath": "${self}.navigation.headingTrue"
             },
             {
-              "class": "DisplaySingleText",
+              "class": "fairwind::displays::DisplaySingleText",
               "active": true,
               "layout": "right",
               "fullPath": "${self}.environment.wind.speedApparent"
             },
             {
-              "class": "DisplaySingleText",
+              "class": "fairwind::displays::DisplaySingleText",
               "active": true,
               "layout": "right",
               "fullPath": "${self}.environment.wind.angleApparent"
             },
             {
-              "class": "DisplaySingleText",
+              "class": "fairwind::displays::DisplaySingleText",
               "active": false,
               "layout": "right",
               "fullPath": "${self}.environment.water.temperature"
             },
             {
-              "class": "DisplaySingleText",
+              "class": "fairwind::displays::DisplaySingleText",
               "active": true,
               "layout": "left",
               "fullPath": "${self}.environment.depth.belowTransducer"
@@ -133,46 +133,46 @@
           ],
           "Layers": [
             {
-              "class":"FairWindOSMLayer",
+              "class":"fairwind::layers::FairWindOSMLayer",
               "active": true
             },
             {
-              "class": "FairWindTiledLayer",
+              "class": "fairwind::layers::FairWindTiledLayer",
               "active": false,
               "name": "ESRI Navigation Charts",
               "description": "World Navigation Charts by ESRI.",
               "url": "https://services.arcgisonline.com/ArcGIS/rest/services/Specialty/World_Navigation_Charts/MapServer/tile/${z}/${y}/${x}"
             },
             {
-              "class": "FairWindTiledLayer",
+              "class": "fairwind::layers::FairWindTiledLayer",
               "active": true,
               "name": "OpenSeaMap",
               "description": "The OpenSeaMap layer.",
               "url": "http://tiles.openseamap.org/seamark/${z}/${x}/${y}.png"
             },
             {
-              "class": "SignalKLayer",
+              "class": "fairwind::layers::SignalKLayer",
               "active": true,
               "name": "Base Stations",
               "description": "Shore base stations.",
               "fullPath": "shore.basestations"
             },
             {
-              "class": "SignalKLayer",
+              "class": "fairwind::layers::SignalKLayer",
               "active": true,
               "name": "ATONs",
               "description": "Aids to navigation.",
               "fullPath": "atons"
             },
             {
-              "class": "SignalKLayer",
+              "class": "fairwind::layers::SignalKLayer",
               "active": true,
               "name": "Vessels",
               "description": "All the other vessels in the range.",
               "fullPath": "vessels"
             },
             {
-              "class": "SignalKLayer",
+              "class": "fairwind::layers::SignalKLayer",
               "active": true,
               "name": "Self",
               "description": "The Vessel."
@@ -196,30 +196,58 @@
         "Order": 1,
         "Config": {
           "default": "Navigation",
-          "layouts": [
-            "grid_8x2_flow",
-            "grid_2x2_flow",
-            "grid_4_1_4",
-            "grid_2_1_2"
-          ],
           "pages": [
             {
-              "name": "Environment",
-              "layout": "grid_8x2_flow",
+              "label": "Navigation",
+              "class": "Page4x4",
               "displays": [
                 {
-                  "class": "Ui::DisplayDoubleText",
+                  "class": "DisplaySingleText",
                   "active": true,
-                  "label": "AWA/AWS",
-                  "fullPath1": "vessels.${self}.environment.apparentWindAngle.value",
-                  "fullPath2": "vessels.${self}.environment.apparentWindSpeed.value"
+                  "layout": "00",
+                  "fullPath": "${self}.navigation.speedOverGround"
                 },
                 {
-                  "class": "Ui::DisplayDoubleText",
+                  "class": "DisplaySingleText",
                   "active": true,
-                  "label": "TWD/TWS",
-                  "fullPath1": "vessels.${self}.environment.trueWindDirection.value",
-                  "fullPath2": "vessels.${self}.environment.trueWIndSpeed.value"
+                  "layout": "01",
+                  "fullPath": "${self}.navigation.courseOverGroundTrue"
+                },
+                {
+                  "class": "DisplaySingleText",
+                  "active": true,
+                  "layout": "02",
+                  "fullPath": "${self}.navigation.speedThroughWater"
+                },
+                {
+                  "class": "DisplaySingleText",
+                  "active": true,
+                  "layout": "03",
+                  "fullPath": "${self}.navigation.headingTrue"
+                },
+                {
+                  "class": "DisplaySingleText",
+                  "active": true,
+                  "layout": "10",
+                  "fullPath": "${self}.environment.wind.speedApparent"
+                },
+                {
+                  "class": "DisplaySingleText",
+                  "active": true,
+                  "layout": "11",
+                  "fullPath": "${self}.environment.wind.angleApparent"
+                },
+                {
+                  "class": "DisplaySingleText",
+                  "active": false,
+                  "layout": "12",
+                  "fullPath": "${self}.environment.water.temperature"
+                },
+                {
+                  "class": "DisplaySingleText",
+                  "active": true,
+                  "layout": "13",
+                  "fullPath": "${self}.environment.depth.belowTransducer"
                 }
               ]
             }
@@ -269,16 +297,6 @@
           "Name": "Instrument Panel",
           "Icon": "icons/instrumentpanel.png",
           "Url": "http://192.168.1.200:3000/@signalk/instrumentpanel/"
-        }
-      },
-      {
-        "Id": "it.uniparthenope.fairwind.apps.web",
-        "Active": true,
-        "Order": 1,
-        "Args": {
-          "Name": "Navionics",
-          "Icon": "icons/navionics.png",
-          "Url": "https://webapp.navionics.com"
         }
       },
       {
