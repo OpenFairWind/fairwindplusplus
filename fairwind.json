@@ -1,6 +1,17 @@
 {
   "SignalK": {
-    "self": "urn:mrn:signalk:uuid:b10b8d14-2b30-457e-a296-db20e6dea753",
+    "connections": [
+      {
+        "class": "ConnectionSignalKAPIClient",
+        "active": true,
+        "url": "http://demo.signalk.org/signalk/v1/api"
+      },
+      {
+        "class": "ConnectionSignalKWSClient",
+        "active": true,
+        "url": "ws://demo.signalk.org/signalk/v1/stream"
+      }
+    ],
     "keys": {
       "navigation.speedOverGround": {
         "label": "SOG",

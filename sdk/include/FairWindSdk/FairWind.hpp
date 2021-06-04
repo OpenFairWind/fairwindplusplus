@@ -17,6 +17,7 @@
 #include "SignalKDocument.hpp"
 #include "App.hpp"
 #include "IFairWindDisplay.hpp"
+#include "IFairWindConnection.hpp"
 
 namespace fairwind {
     class FAIRWINDSDK_LIB_DECL FairWind: public QObject {
@@ -41,6 +42,9 @@ namespace fairwind {
         bool registerDisplay(fairwind::displays::IFairWindDisplay *dummy);
         displays::IFairWindDisplay *instanceDisplay(const QString& className);
 
+        bool registerConnection(fairwind::connections::IFairWindConnection *dummy);
+        connections::IFairWindConnection *instanceConnection(const QString& className);
+
         QJsonObject &getConfig();
 
 
@@ -59,6 +63,7 @@ namespace fairwind {
 
         QMap<QString, fairwind::layers::IFairWindLayer *> m_registeredLayers;
         QMap<QString, fairwind::displays::IFairWindDisplay *> m_registeredDisplays;
+        QMap<QString, fairwind::connections::IFairWindConnection *> m_registeredConnections;
     };
 }
 

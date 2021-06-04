@@ -6,13 +6,8 @@ find_package(Qt5 REQUIRED COMPONENTS
         Network
         Widgets
         WebEngineWidgets
+        WebSockets
         )
-
-#ExternalProject_Add(variant
-#        GIT_REPOSITORY https://github.com/mpark/variant.git
-#        CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
-#        TIMEOUT 360
-#        )
 
 #ExternalProject_Add(marnav
 #        GIT_REPOSITORY https://github.com/mariokonrad/marnav.git
@@ -77,6 +72,9 @@ add_library(fairwindsdk SHARED
         include/FairWindSdk/FairWindOSMLayer.hpp
         include/FairWindSdk/FairWindTiledLayer.hpp
         include/FairWindSdk/util/Units.hpp
+        include/FairWindSdk/IFairWindConnection.hpp
+        include/FairWindSdk/connections/ConnectionSignalKAPIClient.hpp
+        include/FairWindSdk/connections/ConnectionSignalKWSClient.hpp
         src/FairWind.cpp
         src/App.cpp
         src/FairWindAppBase.cpp
@@ -95,6 +93,8 @@ add_library(fairwindsdk SHARED
         src/display/chart/FairWindOSMLayer.cpp
         src/display/chart/FairWindTiledLayer.cpp
         src/util/Units.cpp
+        src/connections/ConnectionSignalKAPIClient.cpp
+        src/connections/ConnectionSignalKWSClient.cpp
         ${FAIRWINDSDK_RESOURCE_ADDED}
         )
 
@@ -121,6 +121,7 @@ target_link_libraries(fairwindsdk
         Qt5::Gui
         Qt5::Widgets
         Qt5::WebEngineWidgets
+        Qt5::WebSockets
         #${LIBMARNAV}
         ${LIBQCGAUGEWIDGET} ${LIBQGEOVIEW}
         )

@@ -11,11 +11,13 @@
 #include <SignalKLayer.hpp>
 #include <FairWindOSMLayer.hpp>
 #include <FairWindTiledLayer.hpp>
-#include <include/FairWindSdk/display/DisplaySingleText.hpp>
-#include <include/FairWindSdk/display/DisplayDoubleText.hpp>
-#include <include/FairWindSdk/display/DisplayGauge.hpp>
-#include <include/FairWindSdk/display/DisplayChart.hpp>
-#include "include/FairWindSdk/FairWind.hpp"
+#include <display/DisplaySingleText.hpp>
+#include <display/DisplayDoubleText.hpp>
+#include <display/DisplayGauge.hpp>
+#include <display/DisplayChart.hpp>
+#include <connections/ConnectionSignalKWSClient.hpp>
+#include <connections/ConnectionSignalKAPIClient.hpp>
+#include <FairWind.hpp>
 
 void fairwind::FairWind::loadApps() {
     auto appsDir = QDir(QCoreApplication::applicationDirPath());
@@ -68,6 +70,9 @@ fairwind::FairWind::FairWind() {
     registerDisplay(new DisplayDoubleText());
     registerDisplay(new DisplayGauge());
     registerDisplay(new DisplayChart());
+
+    registerConnection(new ConnectionSignalKAPIClient());
+    registerConnection(new ConnectionSignalKWSClient());
 }
 
 fairwind::apps::IFairWindApp *fairwind::FairWind::getAppByExtensionId(QString id) {
@@ -94,6 +99,25 @@ void fairwind::FairWind::loadConfig() {
         if (jsonSignalK.contains("self") && jsonSignalK["self"].isString()) {
             QString self = jsonSignalK["self"].toString();
             m_signalkDocument.setSelf(self);
+        }
+        if (jsonSignalK.contains("connections") && jsonSignalK["connections"].isArray()) {
+            QJsonArray arrayConnections=jsonSignalK["connections"].toArray();
+            for (auto item:arrayConnections) {
+                if (item.isObject()) {
+                    QJsonObject objectConnection=item.toObject();
+                    if (objectConnection.contains("class") && objectConnection["class"].isString()) {
+                        QString className=objectConnection["class"].toString();
+                        connections::IFairWindConnection *fairWindConnection= instanceConnection(className);
+                        if (fairWindConnection) {
+                            QMap<QString, QVariant> params;
+                            for(auto key:objectConnection.keys()) {
+                                params[key]=objectConnection[key].toVariant();
+                            }
+                            fairWindConnection->onInit(params);
+                        }
+                    }
+                }
+            }
         }
     }
     if (m_config.contains("Extensions") && m_config["Extensions"].isObject()) {
@@ -190,6 +214,24 @@ bool fairwind::FairWind::registerDisplay(fairwind::displays::IFairWindDisplay *d
     QString className=dummy->getClassName();
     if (m_registeredDisplays.contains(className) == false) {
         m_registeredDisplays[className] = dummy;
+
+    }
+    return result;
+}
+
+fairwind::connections::IFairWindConnection *fairwind::FairWind::instanceConnection(const QString &className) {
+    if (m_registeredConnections.contains(className)) {
+        return m_registeredConnections[className]->getNewInstance();
+    }
+    return nullptr;
+}
+
+bool fairwind::FairWind::registerConnection(fairwind::connections::IFairWindConnection *dummy) {
+    bool result= false;
+    QString className=dummy->getClassName();
+    if (m_registeredConnections.contains(className) == false) {
+        //qDebug() << "airwind::FairWind::registerConnection: " << className;
+        m_registeredConnections[className] = dummy;
 
     }
     return result;

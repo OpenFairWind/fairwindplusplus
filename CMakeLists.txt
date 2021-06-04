@@ -17,6 +17,9 @@ set(EXTERNAL_INSTALL_LOCATION ${CMAKE_BINARY_DIR}/external)
 # Add to the includes
 include_directories(SYSTEM ${EXTERNAL_INSTALL_LOCATION}/include)
 
+# Add include sdk
+include_directories(SYSTEM sdk/include)
+
 # Add to the libraries
 link_directories(${EXTERNAL_INSTALL_LOCATION}/lib)
 
@@ -43,8 +46,7 @@ add_executable(${PROJECT_NAME}
         ui/bottombar/BottomBar.cpp ui/bottombar/BottomBar.hpp
         ui/apps/Apps.cpp ui/apps/Apps.hpp
         ui/settings/Settings.cpp ui/settings/Settings.hpp
-        core/SignalKWSClient.cpp core/SignalKWSClient.hpp
-        core/SignalKAPIClient.cpp core/SignalKAPIClient.hpp)
+        )
 
 add_dependencies(${PROJECT_NAME} FairWindSdk)
 target_link_libraries(${PROJECT_NAME} ${REQUIRED_LIBS_QUALIFIED} ${LIBFAIRWINDSDK})
