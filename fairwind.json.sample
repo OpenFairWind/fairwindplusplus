@@ -137,10 +137,6 @@
               "active": true
             },
             {
-              "class":"navionics::NavionicsLayer",
-              "active": true
-            },
-            {
               "class": "fairwind::layers::FairWindTiledLayer",
               "active": false,
               "name": "ESRI Navigation Charts",
@@ -149,7 +145,7 @@
             },
             {
               "class": "fairwind::layers::FairWindTiledLayer",
-              "active": false,
+              "active": true,
               "name": "OpenSeaMap",
               "description": "The OpenSeaMap layer.",
               "url": "http://tiles.openseamap.org/seamark/${z}/${x}/${y}.png"
@@ -304,16 +300,6 @@
         }
       },
       {
-        "Id": "it.uniparthenope.fairwind.apps.web",
-        "Active": true,
-        "Order": 1,
-        "Args": {
-          "Name": "Navionics",
-          "Icon": "icons/navionics.png",
-          "Url": "https://webapp.navionics.com"
-        }
-      },
-      {
         "Id": "it.uniparthenope.fairwind.apps.native",
         "Active": true,
         "Order": 1,
@@ -332,11 +318,6 @@
           "Icon": "icons/kip.png",
           "Url": "http://192.168.1.200:3000/@mxtommy/kip/#/page/0"
         }
-      },
-      {
-        "Id": "com.navionics.boating",
-        "Active": true,
-        "Order": 1
       }
     ]
   }
