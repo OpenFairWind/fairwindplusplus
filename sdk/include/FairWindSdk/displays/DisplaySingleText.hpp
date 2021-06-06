@@ -7,8 +7,8 @@
 
 #include <QWidget>
 #include <FairWindSdk/FairWindSDK.hpp>
+#include <FairWindSdk/displays/DisplayBase.hpp>
 #include <FairWindSdk/IFairWindDisplay.hpp>
-
 
 namespace Ui {
     class DisplaySingleText;
@@ -18,7 +18,7 @@ namespace Ui {
 namespace fairwind::displays {
 
 
-    class FAIRWINDSDK_LIB_DECL DisplaySingleText : public QWidget, public fairwind::displays::IFairWindDisplay {
+    class FAIRWINDSDK_LIB_DECL DisplaySingleText : public QWidget, public fairwind::displays::DisplayBase, public fairwind::displays::IFairWindDisplay {
     Q_OBJECT
 
 
@@ -34,28 +34,18 @@ namespace fairwind::displays {
         bool smaller() override;
         bool bigger() override;
 
-        void setLabel(QString label);
-
-        void setUnits(QString label);
-
-        void setText(QString text);
-
-        void subscribe(QString fullPath);
+        void setLabel(QString label)  override;
+        void setUnits(QString units)  override;
+        void setText(QString text)  override;
+        void subscribe(QString fullPath)  override;
 
     public slots:
 
-        void update(const QJsonObject update);
+        void update(const QJsonObject update) override;
 
     private:
         Ui::DisplaySingleText *ui;
-        QString mUnits;
-        QString mFullPath;
-        QString mSrcUnits;
-        QString mDescription;
-        QChar mFillChar;
-        QChar mFormat;
-        int mPrecision;
-        int mFieldWidth;
+
     };
 
 }

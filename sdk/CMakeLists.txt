@@ -61,6 +61,7 @@ add_library(fairwindsdk SHARED
         include/FairWindSdk/SignalKDocument.hpp
         include/FairWindSdk/FairWind.hpp
         include/FairWindSdk/App.hpp
+        include/FairWindSdk/displays/DisplayBase.hpp
         include/FairWindSdk/displays/DisplaySingleText.hpp
         include/FairWindSdk/displays/DisplayDoubleText.hpp
         include/FairWindSdk/displays/DisplayGauge.hpp
@@ -80,6 +81,7 @@ add_library(fairwindsdk SHARED
         src/App.cpp
         src/FairWindAppBase.cpp
         src/SignalKDocument.cpp
+        src/displays/base/DisplayBase.cpp
         src/displays/base/singletext/DisplaySingleText.cpp
         src/displays/base/doubletext/DisplayDoubleText.cpp
         src/displays/base/gauge/DisplayGauge.cpp
