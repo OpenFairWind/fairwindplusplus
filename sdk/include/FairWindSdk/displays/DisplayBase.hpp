@@ -17,7 +17,7 @@ namespace fairwind::displays {
 
         virtual void setLabel(QString label) = 0;
         virtual void setUnits(QString units) = 0;
-        virtual void setText(QString text) = 0;
+        virtual void setValue(QString value) = 0;
         virtual void subscribe(QString fullPath);
         virtual void update(const QJsonObject update);
 

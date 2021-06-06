@@ -59,8 +59,8 @@ void fairwind::displays::DisplaySingleText::onInit(QMap<QString, QVariant> param
     if (params.contains("units")) {
         setUnits(params["units"].toString());
     }
-    if (params.contains("text")) {
-        setText(params["text"].toString());
+    if (params.contains("value")) {
+        setValue(params["value"].toString());
     }
 }
 
@@ -76,8 +76,8 @@ void fairwind::displays::DisplaySingleText::setUnits(QString units) {
     ui->label_Units->setText(units);
 }
 
-void fairwind::displays::DisplaySingleText::setText(QString text) {
-    ui->label_Value1->setText(text);
+void fairwind::displays::DisplaySingleText::setValue(QString value) {
+    ui->label_Value1->setText(value);
 }
 
 void fairwind::displays::DisplaySingleText::subscribe(QString fullPath) {

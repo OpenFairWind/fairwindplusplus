@@ -69,7 +69,7 @@ void fairwind::displays::DisplayBase::subscribe(QString fullPath) {
                         for (int i=0;i<mFieldWidth;i++) {
                             text=text+"0";
                         }
-                        setText(text);
+                        setValue(text);
                     }
                     if (objectKey.contains("fillChar") && objectKey["fillChar"].isString()) {
                         mFillChar=objectKey["fillChar"].toString().at(0);
@@ -101,7 +101,7 @@ void fairwind::displays::DisplayBase::subscribe(QString fullPath) {
             } else if (jsonObject["value"].isString()) {
                 text = jsonObject["value"].toString();
             }
-            setText(text);
+            setValue(text);
         }
     }
 }
@@ -143,7 +143,7 @@ void fairwind::displays::DisplayBase::update(const QJsonObject update) {
                                         } else if (arrayValuesItemObject["value"].isString()) {
                                             text = arrayValuesItemObject["value"].toString();
                                         }
-                                        setText(text);
+                                        setValue(text);
                                     }
                                 }
                             }

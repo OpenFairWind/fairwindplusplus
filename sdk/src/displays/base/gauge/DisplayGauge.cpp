@@ -31,20 +31,42 @@ QWidget *fairwind::displays::DisplayGauge::onSettings() {
 
 void fairwind::displays::DisplayGauge::onInit(QMap<QString, QVariant> params) {
 
+    // Create the gauge widget
     mGaugeWidget = new QcGaugeWidget;
-    mGaugeWidget->addArc(55);
-    mGaugeWidget->addDegrees(65)->setValueRange(0,100);
-    QcColorBand *clrBand = mGaugeWidget->addColorBand(50);
-    clrBand->setValueRange(0,100);
-    mGaugeWidget->addValues(80)->setValueRange(0,100);
-    mLabel=mGaugeWidget->addLabel(70);
 
-    QcLabelItem *lab = mGaugeWidget->addLabel(40);
-    lab->setText("0");
+    float minValue=0;
+    float maxValue=16;
+    float step=1;
+
+    // Add an arc
+    QcArcItem *arcItem=mGaugeWidget->addArc(55);
+    arcItem->setColor(Qt::white);
+
+    QcDegreesItem *degreesItem=mGaugeWidget->addDegrees(65);
+    degreesItem->setColor(Qt::white);
+    degreesItem->setValueRange(minValue,maxValue);
+    degreesItem->setStep(step);
+    degreesItem->setSubDegree(true);
+
+    //QcColorBand *clrBand = mGaugeWidget->addColorBand(50);
+    //clrBand->setValueRange(minValue,maxValue);
+
+    QcValuesItem *valuesItem=mGaugeWidget->addValues(80);
+    valuesItem->setValueRange(minValue,maxValue);
+    valuesItem->setStep(1);
+    valuesItem->setColor(Qt::white);
+
+    mLabel=mGaugeWidget->addLabel(70);
+    mLabel->setColor(Qt::white);
+
+    mValue = mGaugeWidget->addLabel(40);
+    mValue->setColor(Qt::white);
+
     mNeedle = mGaugeWidget->addNeedle(60);
-    mNeedle->setLabel(lab);
+    mNeedle->setLabel(mValue);
     mNeedle->setColor(Qt::blue);
-    mNeedle->setValueRange(0,100);
+    mNeedle->setValueRange(minValue,maxValue);
+
     mGaugeWidget->addBackground(7);
 
     if (params.contains("fullPath")) {
@@ -61,8 +83,8 @@ void fairwind::displays::DisplayGauge::onInit(QMap<QString, QVariant> params) {
     if (params.contains("units")) {
         setUnits(params["units"].toString());
     }
-    if (params.contains("text")) {
-        setText(params["text"].toString());
+    if (params.contains("value")) {
+        setValue(params["value"].toString());
     }
 
     ui->horizontalLayout->addWidget(mGaugeWidget);
@@ -87,7 +109,8 @@ void fairwind::displays::DisplayGauge::setUnits(QString units) {
 
 }
 
-void fairwind::displays::DisplayGauge::setText(QString text) {
+void fairwind::displays::DisplayGauge::setValue(QString text) {
+    mValue->setText(text);
     double value=text.toDouble();
     mNeedle->setCurrentValue(value);
 }

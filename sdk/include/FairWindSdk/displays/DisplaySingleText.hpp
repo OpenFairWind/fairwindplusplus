@@ -36,7 +36,7 @@ namespace fairwind::displays {
 
         void setLabel(QString label)  override;
         void setUnits(QString units)  override;
-        void setText(QString text)  override;
+        void setValue(QString value)  override;
         void subscribe(QString fullPath)  override;
 
     public slots:
