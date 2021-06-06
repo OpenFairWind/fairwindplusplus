@@ -88,7 +88,8 @@ void fairwind::displays::DisplayGauge::setUnits(QString units) {
 }
 
 void fairwind::displays::DisplayGauge::setText(QString text) {
-
+    double value=text.toDouble();
+    mNeedle->setCurrentValue(value);
 }
 
 void fairwind::displays::DisplayGauge::subscribe(QString fullPath) {
