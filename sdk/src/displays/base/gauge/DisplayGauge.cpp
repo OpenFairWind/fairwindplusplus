@@ -59,6 +59,9 @@ void fairwind::displays::DisplayGauge::onInit(QMap<QString, QVariant> params) {
     mLabel=mGaugeWidget->addLabel(70);
     mLabel->setColor(Qt::white);
 
+    mUnits=mGaugeWidget->addLabel(50);
+    mUnits->setColor(Qt::white);
+
     mValue = mGaugeWidget->addLabel(40);
     mValue->setColor(Qt::white);
 
@@ -106,7 +109,7 @@ void fairwind::displays::DisplayGauge::setLabel(QString label) {
 }
 
 void fairwind::displays::DisplayGauge::setUnits(QString units) {
-
+    mUnits->setText(units);
 }
 
 void fairwind::displays::DisplayGauge::setValue(QString text) {

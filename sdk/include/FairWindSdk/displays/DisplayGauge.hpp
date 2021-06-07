@@ -42,6 +42,7 @@ namespace fairwind::displays {
 
     private:
         QcLabelItem *mLabel;
+        QcLabelItem *mUnits;
         QcLabelItem *mValue;
         QcGaugeWidget *mGaugeWidget;
         QcNeedleItem *mNeedle;
