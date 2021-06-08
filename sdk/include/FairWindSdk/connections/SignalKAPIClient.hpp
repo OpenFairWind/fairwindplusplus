@@ -8,11 +8,11 @@
 #include <QJsonObject>
 #include <QNetworkAccessManager>
 #include <FairWindSdk/FairWindSDK.hpp>
-#include <FairWindSdk/IFairWindConnection.hpp>
+#include <FairWindSdk/IConnection.hpp>
 
 namespace fairwind::connections {
 
-    class FAIRWINDSDK_LIB_DECL SignalKAPIClient : public QObject, public fairwind::connections::IFairWindConnection {
+    class FAIRWINDSDK_LIB_DECL SignalKAPIClient : public QObject, public fairwind::connections::IConnection {
     Q_OBJECT
 
     public:
@@ -21,7 +21,7 @@ namespace fairwind::connections {
 
         QImage getIcon() const override;
         void onInit(QMap<QString, QVariant> params) override;
-        IFairWindConnection *getNewInstance() override;
+        IConnection *getNewInstance() override;
         QWidget *onSettings() override;
         QString getClassName() const override;
         void setActive(bool active) override;

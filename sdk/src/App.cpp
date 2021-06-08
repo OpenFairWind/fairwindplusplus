@@ -24,7 +24,7 @@ fairwind::App::App(const fairwind::App &app) {
 
 
 
-fairwind::App::App(fairwind::apps::IFairWindApp *fairWindApp, QMap<QString, QVariant> args, bool active, int order) {
+fairwind::App::App(fairwind::apps::IApp *fairWindApp, QMap<QString, QVariant> args, bool active, int order) {
     m_extension=fairWindApp->getId();
     m_name=fairWindApp->getName();
     m_desc=fairWindApp->getDesc();

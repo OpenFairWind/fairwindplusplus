@@ -8,7 +8,7 @@
 
 #include <QMap>
 #include "FairWindSDK.hpp"
-#include "IFairWindApp.hpp"
+#include "IApp.hpp"
 
 namespace fairwind {
     class FAIRWINDSDK_LIB_DECL App: QObject {
@@ -16,7 +16,7 @@ namespace fairwind {
     public:
         App();
 
-        App(apps::IFairWindApp *fairWindApp, QMap<QString, QVariant> args, bool active=true, int order=1);
+        App(apps::IApp *fairWindApp, QMap<QString, QVariant> args, bool active=true, int order=1);
 
         App(const App &app);
 

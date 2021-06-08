@@ -50,8 +50,8 @@ void fairwind::connections::SignalKAPIClient::onInit(QMap<QString, QVariant> par
     }
 }
 
-fairwind::connections::IFairWindConnection *fairwind::connections::SignalKAPIClient::getNewInstance() {
-    return static_cast<IFairWindConnection *>(new SignalKAPIClient());
+fairwind::connections::IConnection *fairwind::connections::SignalKAPIClient::getNewInstance() {
+    return static_cast<IConnection *>(new SignalKAPIClient());
 }
 
 QString fairwind::connections::SignalKAPIClient::getClassName() const {

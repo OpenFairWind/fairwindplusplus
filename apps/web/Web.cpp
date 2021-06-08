@@ -16,15 +16,15 @@
 
 
 QString fairwind::apps::web::Web::getId() const {
-    return fairwind::FairWindAppBase::getId();
+    return fairwind::AppBase::getId();
 }
 
 QString fairwind::apps::web::Web::getName() const {
-    return fairwind::FairWindAppBase::getName();
+    return fairwind::AppBase::getName();
 }
 
 QString fairwind::apps::web::Web::getDesc() const {
-    return fairwind::FairWindAppBase::getDesc();
+    return fairwind::AppBase::getDesc();
 }
 
 QImage fairwind::apps::web::Web::getIcon() const {
@@ -38,7 +38,7 @@ void fairwind::apps::web::Web::onInit(QJsonObject *metaData) {
     QWebEngineProfile::defaultProfile()->setUseForGlobalCertificateVerification();
 #endif
     m_profile = QWebEngineProfile::defaultProfile();
-    FairWindAppBase::onInit(metaData);
+    AppBase::onInit(metaData);
 }
 
 QWidget *fairwind::apps::web::Web::onGui(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
@@ -98,5 +98,5 @@ QWidget *fairwind::apps::web::Web::onSettings(QTabWidget *tabWidgets) {
 }
 
 QJsonObject fairwind::apps::web::Web::getConfig() {
-    return FairWindAppBase::getConfig();
+    return AppBase::getConfig();
 }

@@ -53,11 +53,11 @@ qt5_add_resources(FAIRWINDSDK_RESOURCE_ADDED ${FAIRWINDSDK_RESOURCE})
 
 add_library(fairwindsdk SHARED
         include/FairWindSdk/FairWindSDK.hpp
-        include/FairWindSdk/IFairWindApp.hpp
-        include/FairWindSdk/IFairWindLayer.hpp
-        include/FairWindSdk/IFairWindDisplay.hpp
-        include/FairWindSdk/IFairWindConnection.hpp
-        include/FairWindSdk/FairWindAppBase.hpp
+        include/FairWindSdk/IApp.hpp
+        include/FairWindSdk/ILayer.hpp
+        include/FairWindSdk/IDisplay.hpp
+        include/FairWindSdk/IConnection.hpp
+        include/FairWindSdk/AppBase.hpp
         include/FairWindSdk/SignalKDocument.hpp
         include/FairWindSdk/FairWind.hpp
         include/FairWindSdk/App.hpp
@@ -72,14 +72,14 @@ add_library(fairwindsdk SHARED
         include/FairWindSdk/QGVItemSignalK.hpp
         include/FairWindSdk/QGVItemDefault.hpp
         include/FairWindSdk/layers/SignalKLayer.hpp
-        include/FairWindSdk/layers/FairWindOSMLayer.hpp
-        include/FairWindSdk/layers/FairWindTiledLayer.hpp
+        include/FairWindSdk/layers/OSMLayer.hpp
+        include/FairWindSdk/layers/TiledLayer.hpp
         include/FairWindSdk/util/Units.hpp
         include/FairWindSdk/connections/SignalKAPIClient.hpp
         include/FairWindSdk/connections/SignalKWSClient.hpp
         src/FairWind.cpp
         src/App.cpp
-        src/FairWindAppBase.cpp
+        src/AppBase.cpp
         src/SignalKDocument.cpp
         src/displays/base/DisplayBase.cpp
         src/displays/base/singletext/DisplaySingleText.cpp
@@ -92,8 +92,8 @@ add_library(fairwindsdk SHARED
         src/displays/chart/QGVItemShoreBasestations.cpp
         src/displays/chart/QGVItemSignalK.cpp
         src/layers/SignalKLayer.cpp
-        src/layers/FairWindOSMLayer.cpp
-        src/layers/FairWindTiledLayer.cpp
+        src/layers/OSMLayer.cpp
+        src/layers/TiledLayer.cpp
         src/util/Units.cpp
         src/connections/SignalKAPIClient.cpp
         src/connections/SignalKWSClient.cpp

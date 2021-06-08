@@ -3,7 +3,7 @@
 //
 
 #include <QWidget>
-#include "FairWindSdk/layers/FairWindTiledLayer.hpp"
+#include "FairWindSdk/layers/TiledLayer.hpp"
 
 fairwind::layers::FairWindTiledLayer::FairWindTiledLayer(): QGVLayerOSM() {
     setName("Open Street Map");
@@ -31,8 +31,8 @@ void fairwind::layers::FairWindTiledLayer::onInit(QMap<QString, QVariant> params
     }
 }
 
-fairwind::layers::IFairWindLayer *fairwind::layers::FairWindTiledLayer::getNewInstance() {
-    return static_cast<IFairWindLayer *>(new FairWindTiledLayer());
+fairwind::layers::ILayer *fairwind::layers::FairWindTiledLayer::getNewInstance() {
+    return static_cast<ILayer *>(new FairWindTiledLayer());
 }
 
 QWidget *fairwind::layers::FairWindTiledLayer::onLegenda() {

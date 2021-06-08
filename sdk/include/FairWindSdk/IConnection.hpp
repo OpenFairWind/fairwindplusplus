@@ -2,20 +2,20 @@
 // Created by Raffaele Montella on 03/06/21.
 //
 
-#ifndef FAIRWIND_IFAIRWINDCONNECTION_HPP
-#define FAIRWIND_IFAIRWINDCONNECTION_HPP
+#ifndef FAIRWIND_ICONNECTION_HPP
+#define FAIRWIND_ICONNECTION_HPP
 
 namespace fairwind::connections {
 
-    class IFairWindConnection {
+    class IConnection {
     public:
-        virtual ~IFairWindConnection() = default;
+        virtual ~IConnection() = default;
 
         virtual QImage getIcon() const = 0;
 
         virtual void onInit(QMap<QString, QVariant> params) = 0;
 
-        virtual IFairWindConnection *getNewInstance()  = 0;
+        virtual IConnection *getNewInstance()  = 0;
 
         virtual QWidget *onSettings() = 0;
 
@@ -28,4 +28,4 @@ namespace fairwind::connections {
 
 }
 
-#endif //FAIRWIND_IFAIRWINDCONNECTION_HPP
+#endif //FAIRWIND_ICONNECTION_HPP

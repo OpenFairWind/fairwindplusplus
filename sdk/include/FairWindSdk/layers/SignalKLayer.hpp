@@ -7,13 +7,13 @@
 
 
 #include <FairWindSdk/FairWindSDK.hpp>
-#include <FairWindSdk/IFairWindLayer.hpp>
+#include <FairWindSdk/ILayer.hpp>
 #include <QGeoView/QGVLayer.h>
 
 namespace fairwind::layers {
 
 
-    class FAIRWINDSDK_LIB_DECL SignalKLayer : public QGVLayer, public fairwind::layers::IFairWindLayer {
+    class FAIRWINDSDK_LIB_DECL SignalKLayer : public QGVLayer, public fairwind::layers::ILayer {
     Q_OBJECT
         //Q_INTERFACES(fairwind::layers::IFairWindLayer)
 
@@ -27,7 +27,7 @@ namespace fairwind::layers {
         QString getClassName() const override;
         QImage getIcon() const override;
         void onInit(QMap<QString, QVariant> params) override;
-        IFairWindLayer *getNewInstance() override;
+        ILayer *getNewInstance() override;
         QWidget *onLegenda() override;
         QWidget *onSettings() override;
 

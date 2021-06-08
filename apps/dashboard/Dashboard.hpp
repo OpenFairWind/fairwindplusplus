@@ -7,16 +7,16 @@
 
 #include <QObject>
 #include <QtPlugin>
-#include <FairWindSdk/FairWindAppBase.hpp>
-#include <FairWindSdk/IFairWindApp.hpp>
+#include <FairWindSdk/AppBase.hpp>
+#include <FairWindSdk/IApp.hpp>
 #include "ui_Dashboard.h"
 #include "ui_Dashboard_Settings.h"
 
 namespace fairwind::apps::dashboard {
-    class Dashboard : public QObject, FairWindAppBase, IFairWindApp {
+    class Dashboard : public QObject, AppBase, IApp {
         Q_OBJECT
         Q_PLUGIN_METADATA(IID IID_FAIRWIND_APPS FILE "manifest.json")
-        Q_INTERFACES(fairwind::apps::IFairWindApp)
+        Q_INTERFACES(fairwind::apps::IApp)
 
     public:
         ~Dashboard();

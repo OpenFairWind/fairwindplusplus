@@ -93,8 +93,8 @@ void fairwind::displays::DisplayGauge::onInit(QMap<QString, QVariant> params) {
     ui->horizontalLayout->addWidget(mGaugeWidget);
 }
 
-fairwind::displays::IFairWindDisplay *fairwind::displays::DisplayGauge::getNewInstance() {
-    return static_cast<IFairWindDisplay *>(new DisplayGauge());
+fairwind::displays::IDisplay *fairwind::displays::DisplayGauge::getNewInstance() {
+    return static_cast<IDisplay *>(new DisplayGauge());
 }
 
 QString fairwind::displays::DisplayGauge::getClassName() const {

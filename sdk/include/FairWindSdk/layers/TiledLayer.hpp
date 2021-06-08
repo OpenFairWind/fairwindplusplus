@@ -2,21 +2,21 @@
 // Created by Raffaele Montella on 21/05/21.
 //
 
-#ifndef FAIRWIND_FAIRWINDOSMLAYER_HPP
-#define FAIRWIND_FAIRWINDOSMLAYER_HPP
+#ifndef FAIRWIND_TILEDLAYER_HPP
+#define FAIRWIND_TILEDLAYER_HPP
 
 #include <FairWindSdk/FairWindSDK.hpp>
 #include <QGeoView/QGVLayerOSM.h>
-#include <FairWindSdk/IFairWindLayer.hpp>
+#include "ILayer.hpp"
 
 namespace fairwind::layers {
-    class FAIRWINDSDK_LIB_DECL FairWindOSMLayer : public QGVLayerOSM, public fairwind::layers::IFairWindLayer {
+    class FAIRWINDSDK_LIB_DECL FairWindTiledLayer : public QGVLayerOSM, public fairwind::layers::ILayer {
     Q_OBJECT
 
     public:
-        explicit FairWindOSMLayer();
+        explicit FairWindTiledLayer();
 
-        ~FairWindOSMLayer();
+        ~FairWindTiledLayer();
 
         QString getClassName() const override;
 
@@ -24,7 +24,7 @@ namespace fairwind::layers {
 
         void onInit(QMap<QString, QVariant> params) override;
 
-        virtual IFairWindLayer *getNewInstance() override;
+        virtual ILayer *getNewInstance() override;
 
         QWidget *onLegenda() override;
 
@@ -37,4 +37,4 @@ namespace fairwind::layers {
 }
 
 
-#endif //FAIRWIND_FAIRWINDOSMLAYER_HPP
+#endif //FAIRWIND_TILEDLAYER_HPP

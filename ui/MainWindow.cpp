@@ -95,7 +95,7 @@ void MainWindow::setForegroundApp(QString hash) {
         widgetApp = mapWidgets[hash];
     } else {
 
-        fairwind::apps::IFairWindApp *fairWindApp =
+        fairwind::apps::IApp *fairWindApp =
                 fairWind->getAppByExtensionId(app->getExtension());
         widgetApp=fairWindApp->onGui(this, app->getArgs());
 

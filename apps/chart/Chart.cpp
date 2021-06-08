@@ -5,7 +5,7 @@
 #include <QJsonArray>
 #include <FairWindSdk/FairWind.hpp>
 #include <QLabel>
-#include <FairWindSdk/IFairWindDisplay.hpp>
+#include <FairWindSdk/IDisplay.hpp>
 #include <FairWindSdk/displays/DisplayChart.hpp>
 #include "Chart.hpp"
 
@@ -68,7 +68,7 @@ QWidget *fairwind::apps::chart::Chart::onGui(QMainWindow *mainWindow, QMap<QStri
                     }
 
 
-                    displays::IFairWindDisplay *fairWindDisplay=fairwind->instanceDisplay(className);
+                    displays::IDisplay *fairWindDisplay=fairwind->instanceDisplay(className);
                     if (fairWindDisplay) {
                         fairWindDisplay->onInit(displayParams);
                     }
@@ -92,19 +92,19 @@ QWidget *fairwind::apps::chart::Chart::onGui(QMainWindow *mainWindow, QMap<QStri
 
 
 QString fairwind::apps::chart::Chart::getId() const {
-    return FairWindAppBase::getId();
+    return AppBase::getId();
 }
 
 QString fairwind::apps::chart::Chart::getName() const {
-    return FairWindAppBase::getName();
+    return AppBase::getName();
 }
 
 QString fairwind::apps::chart::Chart::getDesc() const {
-    return FairWindAppBase::getDesc();
+    return AppBase::getDesc();
 }
 
 void fairwind::apps::chart::Chart::onInit(QJsonObject *metaData) {
-    FairWindAppBase::onInit(metaData);
+    AppBase::onInit(metaData);
 }
 
 QWidget *fairwind::apps::chart::Chart::onSettings(QTabWidget *tabWidget) {
@@ -112,7 +112,7 @@ QWidget *fairwind::apps::chart::Chart::onSettings(QTabWidget *tabWidget) {
 }
 
 QJsonObject fairwind::apps::chart::Chart::getConfig() {
-    return FairWindAppBase::getConfig();
+    return AppBase::getConfig();
 }
 
 void fairwind::apps::chart::Chart::resizeWidgets() {
@@ -143,7 +143,7 @@ void fairwind::apps::chart::Chart::resizeWidgets() {
                 break;
             }
             for (int i = 0; i < nCount; ++i) {
-                auto *fairWindDisplay = reinterpret_cast<displays::IFairWindDisplay *>(layoutItem->itemAt(
+                auto *fairWindDisplay = reinterpret_cast<displays::IDisplay *>(layoutItem->itemAt(
                         i)->widget());
                 if (fairWindDisplay) {
                     fairWindDisplay->smaller();

@@ -6,15 +6,15 @@
 #define FAIRWIND_WEB_HPP
 
 
-#include <FairWindSdk/IFairWindApp.hpp>
-#include <FairWindSdk/FairWindAppBase.hpp>
+#include <FairWindSdk/IApp.hpp>
+#include <FairWindSdk/AppBase.hpp>
 #include <QWebEngineProfile>
 
 namespace fairwind::apps::web {
-    class Web : public QObject, FairWindAppBase, IFairWindApp {
+    class Web : public QObject, AppBase, IApp {
         Q_OBJECT
         Q_PLUGIN_METADATA(IID IID_FAIRWIND_APPS FILE "manifest.json")
-        Q_INTERFACES(fairwind::apps::IFairWindApp)
+        Q_INTERFACES(fairwind::apps::IApp)
 
     public:
         ~Web() = default;

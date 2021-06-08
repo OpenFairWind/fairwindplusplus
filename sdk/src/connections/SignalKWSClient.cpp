@@ -58,8 +58,8 @@ void fairwind::connections::SignalKWSClient::onInit(QMap<QString, QVariant> para
     }
 }
 
-fairwind::connections::IFairWindConnection *fairwind::connections::SignalKWSClient::getNewInstance() {
-    return static_cast<IFairWindConnection *>(new SignalKWSClient());
+fairwind::connections::IConnection *fairwind::connections::SignalKWSClient::getNewInstance() {
+    return static_cast<IConnection *>(new SignalKWSClient());
 }
 
 QString fairwind::connections::SignalKWSClient::getClassName() const {

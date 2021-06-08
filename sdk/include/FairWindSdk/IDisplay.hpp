@@ -2,18 +2,18 @@
 // Created by Raffaele Montella on 02/06/21.
 //
 
-#ifndef FAIRWIND_IFAIRWINDDISPLAY_HPP
-#define FAIRWIND_IFAIRWINDDISPLAY_HPP
+#ifndef FAIRWIND_IDISPLAY_HPP
+#define FAIRWIND_IDISPLAY_HPP
 
 namespace fairwind::displays {
 
-    class IFairWindDisplay {
+    class IDisplay {
     public:
-        virtual ~IFairWindDisplay() = default;
+        virtual ~IDisplay() = default;
 
         virtual QImage getIcon() const = 0;
         virtual void onInit(QMap<QString, QVariant> params) = 0;
-        virtual IFairWindDisplay *getNewInstance()  = 0;
+        virtual IDisplay *getNewInstance()  = 0;
         virtual QWidget *onSettings() = 0;
         virtual QString getClassName() const = 0;
 
@@ -23,4 +23,4 @@ namespace fairwind::displays {
 
 }
 
-#endif //FAIRWIND_IFAIRWINDDISPLAY_HPP
+#endif //FAIRWIND_IDISPLAY_HPP

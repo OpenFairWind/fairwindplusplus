@@ -53,8 +53,8 @@ QWidget *fairwind::displays::DisplayChart::onSettings() {
     return nullptr;
 }
 
-fairwind::displays::IFairWindDisplay *fairwind::displays::DisplayChart::getNewInstance() {
-    return static_cast<IFairWindDisplay *>(new DisplayChart());
+fairwind::displays::IDisplay *fairwind::displays::DisplayChart::getNewInstance() {
+    return static_cast<IDisplay *>(new DisplayChart());
 }
 
 void fairwind::displays::DisplayChart::onInit(QMap<QString, QVariant> params) {
@@ -93,7 +93,7 @@ void fairwind::displays::DisplayChart::onInit(QMap<QString, QVariant> params) {
                         layerSettingObject["active"].toBool()) {
                         if (layerSettingObject.contains("class") && layerSettingObject["class"].isString()) {
                             auto className = layerSettingObject["class"].toString();
-                            fairwind::layers::IFairWindLayer *fairWindLayer = fairWind->instanceLayer(className);
+                            fairwind::layers::ILayer *fairWindLayer = fairWind->instanceLayer(className);
                             if (fairWindLayer) {
                                 QMap<QString, QVariant> params;
                                 for (const auto &key:layerSettingObject.keys()) {

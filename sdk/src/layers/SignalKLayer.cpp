@@ -81,8 +81,8 @@ void fairwind::layers::SignalKLayer::onInit(QMap<QString, QVariant> params)  {
     }
 }
 
-fairwind::layers::IFairWindLayer *fairwind::layers::SignalKLayer::getNewInstance() {
-    return static_cast<IFairWindLayer *>(new fairwind::layers::SignalKLayer());
+fairwind::layers::ILayer *fairwind::layers::SignalKLayer::getNewInstance() {
+    return static_cast<ILayer *>(new fairwind::layers::SignalKLayer());
 }
 
 QString fairwind::layers::SignalKLayer::getClassName() const {

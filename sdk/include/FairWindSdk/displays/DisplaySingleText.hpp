@@ -8,7 +8,7 @@
 #include <QWidget>
 #include <FairWindSdk/FairWindSDK.hpp>
 #include <FairWindSdk/displays/DisplayBase.hpp>
-#include <FairWindSdk/IFairWindDisplay.hpp>
+#include <FairWindSdk/IDisplay.hpp>
 
 namespace Ui {
     class DisplaySingleText;
@@ -18,7 +18,7 @@ namespace Ui {
 namespace fairwind::displays {
 
 
-    class FAIRWINDSDK_LIB_DECL DisplaySingleText : public QWidget, public fairwind::displays::DisplayBase, public fairwind::displays::IFairWindDisplay {
+    class FAIRWINDSDK_LIB_DECL DisplaySingleText : public QWidget, public fairwind::displays::DisplayBase, public fairwind::displays::IDisplay {
     Q_OBJECT
 
 
@@ -29,7 +29,7 @@ namespace fairwind::displays {
         QString getClassName() const override;
         QImage getIcon() const override;
         void onInit(QMap<QString, QVariant> params) override;
-        IFairWindDisplay *getNewInstance() override;
+        IDisplay *getNewInstance() override;
         QWidget *onSettings() override;
         bool smaller() override;
         bool bigger() override;

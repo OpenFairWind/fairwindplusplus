@@ -28,8 +28,8 @@ void fairwind::displays::DisplayDoubleText::onInit(QMap<QString, QVariant> param
     //qDebug() << "DisplaySingleText::onInit(" << params << ")";
 }
 
-fairwind::displays::IFairWindDisplay *fairwind::displays::DisplayDoubleText::getNewInstance() {
-    return static_cast<IFairWindDisplay *>(new DisplayDoubleText());
+fairwind::displays::IDisplay *fairwind::displays::DisplayDoubleText::getNewInstance() {
+    return static_cast<IDisplay *>(new DisplayDoubleText());
 }
 
 void fairwind::displays::DisplayDoubleText::setLabel(QString label) {

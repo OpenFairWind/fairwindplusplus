@@ -12,12 +12,12 @@
 
 
 #include "FairWindSDK.hpp"
-#include "IFairWindApp.hpp"
-#include "IFairWindLayer.hpp"
+#include "IApp.hpp"
+#include "ILayer.hpp"
 #include "SignalKDocument.hpp"
 #include "App.hpp"
-#include "IFairWindDisplay.hpp"
-#include "IFairWindConnection.hpp"
+#include "IDisplay.hpp"
+#include "IConnection.hpp"
 
 namespace fairwind {
     class FAIRWINDSDK_LIB_DECL FairWind: public QObject {
@@ -27,7 +27,7 @@ namespace fairwind {
         static FairWind *getInstance();
 
         void loadApps();
-        apps::IFairWindApp *getAppByExtensionId(QString id);
+        apps::IApp *getAppByExtensionId(QString id);
 
 
         void setApplicationDirPath(QString qString);
@@ -36,14 +36,14 @@ namespace fairwind {
         SignalKDocument *getSignalKDocument();
 
         QMap<QString, App *> getApps();
-        bool registerLayer(fairwind::layers::IFairWindLayer *dummy);
-        layers::IFairWindLayer *instanceLayer(const QString& className);
+        bool registerLayer(fairwind::layers::ILayer *dummy);
+        layers::ILayer *instanceLayer(const QString& className);
 
-        bool registerDisplay(fairwind::displays::IFairWindDisplay *dummy);
-        displays::IFairWindDisplay *instanceDisplay(const QString& className);
+        bool registerDisplay(fairwind::displays::IDisplay *dummy);
+        displays::IDisplay *instanceDisplay(const QString& className);
 
-        bool registerConnection(fairwind::connections::IFairWindConnection *dummy);
-        connections::IFairWindConnection *instanceConnection(const QString& className);
+        bool registerConnection(fairwind::connections::IConnection *dummy);
+        connections::IConnection *instanceConnection(const QString& className);
 
         QJsonObject &getConfig();
 
@@ -53,7 +53,7 @@ namespace fairwind {
 
         SignalKDocument m_signalkDocument;
 
-        QMap<QString, fairwind::apps::IFairWindApp *> m_mapFairWindApps;
+        QMap<QString, fairwind::apps::IApp *> m_mapFairWindApps;
 
         QMap<QString, App *> m_mapApps;
 
@@ -61,9 +61,9 @@ namespace fairwind {
         FairWind();
         inline static FairWind *m_instance = nullptr;
 
-        QMap<QString, fairwind::layers::IFairWindLayer *> m_registeredLayers;
-        QMap<QString, fairwind::displays::IFairWindDisplay *> m_registeredDisplays;
-        QMap<QString, fairwind::connections::IFairWindConnection *> m_registeredConnections;
+        QMap<QString, fairwind::layers::ILayer *> m_registeredLayers;
+        QMap<QString, fairwind::displays::IDisplay *> m_registeredDisplays;
+        QMap<QString, fairwind::connections::IConnection *> m_registeredConnections;
     };
 }
 

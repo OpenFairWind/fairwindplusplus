@@ -2,7 +2,7 @@
 // Created by Raffaele Montella on 21/05/21.
 //
 
-#include "FairWindSdk/layers/FairWindOSMLayer.hpp"
+#include "FairWindSdk/layers/OSMLayer.hpp"
 
 fairwind::layers::FairWindOSMLayer::FairWindOSMLayer(): QGVLayerOSM() {
     setName("Open Street Map");
@@ -20,8 +20,8 @@ void fairwind::layers::FairWindOSMLayer::onInit(QMap<QString, QVariant> params) 
 
 }
 
-fairwind::layers::IFairWindLayer *fairwind::layers::FairWindOSMLayer::getNewInstance() {
-    return static_cast<IFairWindLayer *>(new FairWindOSMLayer());
+fairwind::layers::ILayer *fairwind::layers::FairWindOSMLayer::getNewInstance() {
+    return static_cast<ILayer *>(new FairWindOSMLayer());
 }
 
 QWidget *fairwind::layers::FairWindOSMLayer::onLegenda() {

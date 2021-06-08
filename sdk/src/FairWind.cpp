@@ -9,8 +9,8 @@
 #include <utility>
 #include <QJsonArray>
 #include <FairWindSdk/layers/SignalKLayer.hpp>
-#include <FairWindSdk/layers/FairWindOSMLayer.hpp>
-#include <FairWindSdk/layers/FairWindTiledLayer.hpp>
+#include <FairWindSdk/layers/OSMLayer.hpp>
+#include <FairWindSdk/layers/TiledLayer.hpp>
 #include <FairWindSdk/displays/DisplaySingleText.hpp>
 #include <FairWindSdk/displays/DisplayDoubleText.hpp>
 #include <FairWindSdk/displays/DisplayGauge.hpp>
@@ -44,7 +44,7 @@ void fairwind::FairWind::loadApps() {
             auto iid=loader.metaData().value("IID").toString();
 
             if (iid == IID_FAIRWIND_APPS) {
-                fairwind::apps::IFairWindApp *fairWindApp= qobject_cast<fairwind::apps::IFairWindApp *>(plugin);
+                fairwind::apps::IApp *fairWindApp= qobject_cast<fairwind::apps::IApp *>(plugin);
                 if (fairWindApp) {
                     QJsonObject metaData = loader.metaData()["MetaData"].toObject();
                     fairWindApp->onInit(&metaData);
@@ -76,7 +76,7 @@ fairwind::FairWind::FairWind() {
     registerConnection(new connections::SignalKWSClient());
 }
 
-fairwind::apps::IFairWindApp *fairwind::FairWind::getAppByExtensionId(QString id) {
+fairwind::apps::IApp *fairwind::FairWind::getAppByExtensionId(QString id) {
     return m_mapFairWindApps[id];
 }
 
@@ -108,7 +108,7 @@ void fairwind::FairWind::loadConfig() {
                     QJsonObject objectConnection=item.toObject();
                     if (objectConnection.contains("class") && objectConnection["class"].isString()) {
                         QString className=objectConnection["class"].toString();
-                        connections::IFairWindConnection *fairWindConnection= instanceConnection(className);
+                        connections::IConnection *fairWindConnection= instanceConnection(className);
                         if (fairWindConnection) {
                             QMap<QString, QVariant> params;
                             for(auto key:objectConnection.keys()) {
@@ -180,7 +180,7 @@ SignalKDocument *fairwind::FairWind::getSignalKDocument() {
     return &m_signalkDocument;
 }
 
-bool fairwind::FairWind::registerLayer(fairwind::layers::IFairWindLayer *dummy) {
+bool fairwind::FairWind::registerLayer(fairwind::layers::ILayer *dummy) {
     bool result= false;
     QString className=dummy->getClassName();
     if (m_registeredLayers.contains(className) == false) {
@@ -191,7 +191,7 @@ bool fairwind::FairWind::registerLayer(fairwind::layers::IFairWindLayer *dummy) 
     return result;
 }
 
-fairwind::layers::IFairWindLayer *fairwind::FairWind::instanceLayer(const QString& className) {
+fairwind::layers::ILayer *fairwind::FairWind::instanceLayer(const QString& className) {
     if (m_registeredLayers.contains(className)) {
         qDebug() << "fairwind::FairWind::instanceLayer:" << className;
         return m_registeredLayers[className]->getNewInstance();
@@ -203,14 +203,14 @@ QJsonObject &fairwind::FairWind::getConfig() {
     return m_config;
 }
 
-fairwind::displays::IFairWindDisplay *fairwind::FairWind::instanceDisplay(const QString &className) {
+fairwind::displays::IDisplay *fairwind::FairWind::instanceDisplay(const QString &className) {
     if (m_registeredDisplays.contains(className)) {
         return m_registeredDisplays[className]->getNewInstance();
     }
     return nullptr;
 }
 
-bool fairwind::FairWind::registerDisplay(fairwind::displays::IFairWindDisplay *dummy) {
+bool fairwind::FairWind::registerDisplay(fairwind::displays::IDisplay *dummy) {
     bool result= false;
     QString className=dummy->getClassName();
     if (m_registeredDisplays.contains(className) == false) {
@@ -220,14 +220,14 @@ bool fairwind::FairWind::registerDisplay(fairwind::displays::IFairWindDisplay *d
     return result;
 }
 
-fairwind::connections::IFairWindConnection *fairwind::FairWind::instanceConnection(const QString &className) {
+fairwind::connections::IConnection *fairwind::FairWind::instanceConnection(const QString &className) {
     if (m_registeredConnections.contains(className)) {
         return m_registeredConnections[className]->getNewInstance();
     }
     return nullptr;
 }
 
-bool fairwind::FairWind::registerConnection(fairwind::connections::IFairWindConnection *dummy) {
+bool fairwind::FairWind::registerConnection(fairwind::connections::IConnection *dummy) {
     bool result= false;
     QString className=dummy->getClassName();
     if (m_registeredConnections.contains(className) == false) {

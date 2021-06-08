@@ -4,9 +4,9 @@
 
 #include <FairWindSdk/FairWind.hpp>
 #include <QJsonArray>
-#include "include/FairWindSdk/FairWindAppBase.hpp"
+#include "include/FairWindSdk/AppBase.hpp"
 
-QString fairwind::FairWindAppBase::getId() const {
+QString fairwind::AppBase::getId() const {
     if (m_metaData.find("FairWind") == m_metaData.end()) {
         return "";
     }
@@ -20,7 +20,7 @@ QString fairwind::FairWindAppBase::getId() const {
     return m_metaData["FairWind"]["App"]["Id"].toString();
 }
 
-QJsonObject fairwind::FairWindAppBase::getConfig() {
+QJsonObject fairwind::AppBase::getConfig() {
     QJsonObject result;
     auto fairWind=fairwind::FairWind::getInstance();
     if (fairWind) {
@@ -46,7 +46,7 @@ QJsonObject fairwind::FairWindAppBase::getConfig() {
     return result;
 }
 
-QString fairwind::FairWindAppBase::getName() const {
+QString fairwind::AppBase::getName() const {
     if (m_metaData.find("FairWind") == m_metaData.end()) {
         return "";
     }
@@ -64,7 +64,7 @@ QString fairwind::FairWindAppBase::getName() const {
     return m_metaData["Name"].toString();
 }
 
-QString fairwind::FairWindAppBase::getDesc() const {
+QString fairwind::AppBase::getDesc() const {
     if (m_metaData.find("Description") == m_metaData.end()) {
         return "";
     }
@@ -72,6 +72,6 @@ QString fairwind::FairWindAppBase::getDesc() const {
 }
 
 
-void fairwind::FairWindAppBase::onInit(QJsonObject *metaData) {
+void fairwind::AppBase::onInit(QJsonObject *metaData) {
     m_metaData = QJsonObject(*metaData);
 }

@@ -6,15 +6,15 @@
 #include <QDebug>
 
 QString fairwind::apps::dashboard::Dashboard::getId() const {
-    return fairwind::FairWindAppBase::getId();
+    return fairwind::AppBase::getId();
 }
 
 QString fairwind::apps::dashboard::Dashboard::getName() const {
-    return fairwind::FairWindAppBase::getName();
+    return fairwind::AppBase::getName();
 }
 
 QString fairwind::apps::dashboard::Dashboard::getDesc() const {
-    return fairwind::FairWindAppBase::getDesc();
+    return fairwind::AppBase::getDesc();
 }
 
 QImage fairwind::apps::dashboard::Dashboard::getIcon() const {
@@ -22,7 +22,7 @@ QImage fairwind::apps::dashboard::Dashboard::getIcon() const {
 }
 
 void fairwind::apps::dashboard::Dashboard::onInit(QJsonObject *metaData) {
-    fairwind::FairWindAppBase::onInit(metaData);
+    fairwind::AppBase::onInit(metaData);
 }
 
 QWidget *fairwind::apps::dashboard::Dashboard::onGui(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
@@ -45,5 +45,5 @@ fairwind::apps::dashboard::Dashboard::~Dashboard() {
 }
 
 QJsonObject fairwind::apps::dashboard::Dashboard::getConfig() {
-    return FairWindAppBase::getConfig();
+    return AppBase::getConfig();
 }

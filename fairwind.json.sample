@@ -133,18 +133,18 @@
           ],
           "Layers": [
             {
-              "class":"fairwind::layers::FairWindOSMLayer",
+              "class":"fairwind::layers::SMLayer",
               "active": true
             },
             {
-              "class": "fairwind::layers::FairWindTiledLayer",
+              "class": "fairwind::layers::TiledLayer",
               "active": false,
               "name": "ESRI Navigation Charts",
               "description": "World Navigation Charts by ESRI.",
               "url": "https://services.arcgisonline.com/ArcGIS/rest/services/Specialty/World_Navigation_Charts/MapServer/tile/${z}/${y}/${x}"
             },
             {
-              "class": "fairwind::layers::FairWindTiledLayer",
+              "class": "fairwind::layers::TiledLayer",
               "active": true,
               "name": "OpenSeaMap",
               "description": "The OpenSeaMap layer.",

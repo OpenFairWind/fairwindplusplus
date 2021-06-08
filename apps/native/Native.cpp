@@ -24,19 +24,19 @@ QWidget *fairwind::apps::native::Native::onGui(QMainWindow *mainWindow, QMap<QSt
 }
 
 QString fairwind::apps::native::Native::getId() const {
-    return fairwind::FairWindAppBase::getId();
+    return fairwind::AppBase::getId();
 }
 
 QString fairwind::apps::native::Native::getName() const {
-    return fairwind::FairWindAppBase::getName();
+    return fairwind::AppBase::getName();
 }
 
 QString fairwind::apps::native::Native::getDesc() const {
-    return fairwind::FairWindAppBase::getDesc();
+    return fairwind::AppBase::getDesc();
 }
 
 void fairwind::apps::native::Native::onInit(QJsonObject *metaData) {
-    FairWindAppBase::onInit(metaData);
+    AppBase::onInit(metaData);
 }
 
 QWidget *fairwind::apps::native::Native::onSettings(QTabWidget *tabWidgets) {
@@ -44,5 +44,5 @@ QWidget *fairwind::apps::native::Native::onSettings(QTabWidget *tabWidgets) {
 }
 
 QJsonObject fairwind::apps::native::Native::getConfig() {
-    return FairWindAppBase::getConfig();
+    return AppBase::getConfig();
 }

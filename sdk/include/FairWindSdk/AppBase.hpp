@@ -2,17 +2,17 @@
 // Created by Raffaele Montella on 08/04/21.
 //
 
-#ifndef FAIRWIND_FAIRWINDAPPBASE_HPP
-#define FAIRWIND_FAIRWINDAPPBASE_HPP
+#ifndef FAIRWIND_APPBASE_HPP
+#define FAIRWIND_APPBASE_HPP
 
 
 #include <QJsonObject>
 #include <FairWindSdk/FairWindSDK.hpp>
 
 namespace fairwind {
-    class FAIRWINDSDK_LIB_DECL FairWindAppBase {
+    class FAIRWINDSDK_LIB_DECL AppBase {
     public:
-        ~FairWindAppBase() = default;
+        ~AppBase() = default;
 
         virtual QString getId() const;
         virtual QString getName() const;
@@ -26,4 +26,4 @@ namespace fairwind {
     };
 }
 
-#endif //FAIRWIND_FAIRWINDAPPBASE_HPP
+#endif //FAIRWIND_APPBASE_HPP

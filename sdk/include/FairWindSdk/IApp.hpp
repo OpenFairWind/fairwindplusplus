@@ -2,8 +2,8 @@
 // Created by Raffaele Montella on 01/04/21.
 //
 
-#ifndef FAIRWIND_IFAIRWINDAPP_HPP
-#define FAIRWIND_IFAIRWINDAPP_HPP
+#ifndef FAIRWIND_IAPP_HPP
+#define FAIRWIND_IAPP_HPP
 
 #include <QtPlugin>
 #include <QString>
@@ -14,9 +14,9 @@
 
 namespace fairwind::apps {
 
-    class IFairWindApp {
+    class IApp {
     public:
-        virtual ~IFairWindApp() = default;
+        virtual ~IApp() = default;
 
         virtual void onInit(QJsonObject *metaData) = 0;
 
@@ -34,8 +34,8 @@ namespace fairwind::apps {
 
 }
 
-Q_DECLARE_INTERFACE(fairwind::apps::IFairWindApp, IID_FAIRWIND_APPS)
+Q_DECLARE_INTERFACE(fairwind::apps::IApp, IID_FAIRWIND_APPS)
 
 
 
-#endif //FAIRWIND_IFAIRWINDAPP_HPP
+#endif //FAIRWIND_IAPP_HPP

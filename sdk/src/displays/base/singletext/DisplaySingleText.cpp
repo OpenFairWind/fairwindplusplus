@@ -64,8 +64,8 @@ void fairwind::displays::DisplaySingleText::onInit(QMap<QString, QVariant> param
     }
 }
 
-fairwind::displays::IFairWindDisplay *fairwind::displays::DisplaySingleText::getNewInstance() {
-    return static_cast<IFairWindDisplay *>(new fairwind::displays::DisplaySingleText());
+fairwind::displays::IDisplay *fairwind::displays::DisplaySingleText::getNewInstance() {
+    return static_cast<IDisplay *>(new fairwind::displays::DisplaySingleText());
 }
 
 void fairwind::displays::DisplaySingleText::setLabel(QString label) {
