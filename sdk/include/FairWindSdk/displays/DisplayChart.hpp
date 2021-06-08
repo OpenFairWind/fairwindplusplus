@@ -47,7 +47,7 @@ namespace fairwind::displays {
         QNetworkAccessManager *mManager;
         QNetworkDiskCache *mCache;
 
-        QJsonObject mSettings;
+        QJsonObject mConfig;
     };
 
 }

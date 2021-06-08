@@ -12,9 +12,9 @@ QImage fairwind::apps::native::Native::getIcon() const {
     return QImage(":resources/images/icons/native_icon.png");
 }
 
-QWidget *fairwind::apps::native::Native::onGui(QMainWindow *mainWindow, QMap<QString, QString> args) {
-    if (args.find("Command")!=args.end()) {
-        QString command=args["Command"];
+QWidget *fairwind::apps::native::Native::onGui(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
+    if (args.contains("Command")) {
+        QString command=args["Command"].toString();
         QStringList commandArgs;
         commandArgs.empty();
         QProcess::startDetached(command/*,commandArgs*/);
@@ -36,7 +36,7 @@ QString fairwind::apps::native::Native::getDesc() const {
 }
 
 void fairwind::apps::native::Native::onInit(QJsonObject *metaData) {
-    FairWindAppBase::init(metaData);
+    FairWindAppBase::onInit(metaData);
 }
 
 QWidget *fairwind::apps::native::Native::onSettings(QTabWidget *tabWidgets) {

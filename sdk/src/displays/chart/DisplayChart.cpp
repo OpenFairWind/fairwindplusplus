@@ -82,10 +82,10 @@ void fairwind::displays::DisplayChart::onInit(QMap<QString, QVariant> params) {
     auto signalKDocument = fairWind->getSignalKDocument();
     auto self = signalKDocument->getSelf();
 
-    if (params.contains("settings")) {
-        mSettings = params["settings"].toJsonObject();
-        if (mSettings.contains("Layers") && mSettings["Layers"].isArray()) {
-            auto layerSettings = mSettings["Layers"].toArray();
+    if (params.contains("config")) {
+        mConfig = params["config"].toJsonObject();
+        if (mConfig.contains("Layers") && mConfig["Layers"].isArray()) {
+            auto layerSettings = mConfig["Layers"].toArray();
             for (auto layerSetting:layerSettings) {
                 if (layerSetting.isObject()) {
                     QJsonObject layerSettingObject = layerSetting.toObject();

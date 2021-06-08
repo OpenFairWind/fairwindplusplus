@@ -22,10 +22,10 @@ QImage fairwind::apps::dashboard::Dashboard::getIcon() const {
 }
 
 void fairwind::apps::dashboard::Dashboard::onInit(QJsonObject *metaData) {
-    fairwind::FairWindAppBase::init(metaData);
+    fairwind::FairWindAppBase::onInit(metaData);
 }
 
-QWidget *fairwind::apps::dashboard::Dashboard::onGui(QMainWindow *mainWindow, QMap<QString, QString> args) {
+QWidget *fairwind::apps::dashboard::Dashboard::onGui(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
     QWidget *widget=new QWidget();
     ui=new Ui::Dashboard();
 

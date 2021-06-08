@@ -28,7 +28,7 @@ namespace fairwind::apps::dashboard {
         QString getDesc() const override;
 
         QImage getIcon() const override;
-        QWidget *onGui(QMainWindow *mainWindow, QMap<QString, QString> args) override;
+        QWidget *onGui(QMainWindow *mainWindow, QMap<QString, QVariant> args) override;
         QWidget *onSettings(QTabWidget *tabWidgets) override;
 
         QJsonObject getConfig() override;

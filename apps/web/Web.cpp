@@ -38,14 +38,14 @@ void fairwind::apps::web::Web::onInit(QJsonObject *metaData) {
     QWebEngineProfile::defaultProfile()->setUseForGlobalCertificateVerification();
 #endif
     m_profile = QWebEngineProfile::defaultProfile();
-    FairWindAppBase::init(metaData);
+    FairWindAppBase::onInit(metaData);
 }
 
-QWidget *fairwind::apps::web::Web::onGui(QMainWindow *mainWindow, QMap<QString, QString> args) {
+QWidget *fairwind::apps::web::Web::onGui(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
 
 
-    if (args.find("Url")!=args.end()) {
-        m_url = args["Url"];
+    if (args.contains("Url")) {
+        m_url = args["Url"].toString();
 
         m_widgetWebApp = new QWidget();
 

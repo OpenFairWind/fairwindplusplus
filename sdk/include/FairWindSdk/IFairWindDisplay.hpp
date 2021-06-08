@@ -12,13 +12,9 @@ namespace fairwind::displays {
         virtual ~IFairWindDisplay() = default;
 
         virtual QImage getIcon() const = 0;
-
         virtual void onInit(QMap<QString, QVariant> params) = 0;
-
         virtual IFairWindDisplay *getNewInstance()  = 0;
-
         virtual QWidget *onSettings() = 0;
-
         virtual QString getClassName() const = 0;
 
         virtual bool smaller() = 0;

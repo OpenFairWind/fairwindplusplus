@@ -24,7 +24,7 @@ fairwind::App::App(const fairwind::App &app) {
 
 
 
-fairwind::App::App(fairwind::apps::IFairWindApp *fairWindApp, QMap<QString, QString> args, bool active, int order) {
+fairwind::App::App(fairwind::apps::IFairWindApp *fairWindApp, QMap<QString, QVariant> args, bool active, int order) {
     m_extension=fairWindApp->getId();
     m_name=fairWindApp->getName();
     m_desc=fairWindApp->getDesc();
@@ -33,13 +33,13 @@ fairwind::App::App(fairwind::apps::IFairWindApp *fairWindApp, QMap<QString, QStr
     m_active=active;
     m_args=std::move(args);
     if (m_args.find("Name")!=m_args.end()) {
-        m_name=m_args["Name"];
+        m_name=m_args["Name"].toString();
     }
     if (m_args.find("Description")!=m_args.end()) {
-        m_desc=m_args["Description"];
+        m_desc=m_args["Description"].toString();
     }
     if (m_args.find("Icon")!=m_args.end()) {
-        m_icon = QImage(m_args["Icon"]);
+        m_icon = QImage(m_args["Icon"].toString());
     }
     generateHash();
 }
@@ -79,13 +79,13 @@ QString fairwind::App::getHash() {
 void fairwind::App::generateHash() {
     QString text=m_extension;
     for(QString key:m_args.keys()) {
-        text=text+" "+key+"="+"\""+m_args[key]+"\"";
+        text=text+" "+key+"="+"\""+m_args[key].toString()+"\"";
     }
 
     m_hash = QString(QCryptographicHash::hash((text.toUtf8()),QCryptographicHash::Md5).toHex());
 
 }
 
-QMap<QString, QString> fairwind::App::getArgs() {
+QMap<QString, QVariant> fairwind::App::getArgs() {
     return m_args;
 }

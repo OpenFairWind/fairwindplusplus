@@ -72,6 +72,6 @@ QString fairwind::FairWindAppBase::getDesc() const {
 }
 
 
-void fairwind::FairWindAppBase::init(QJsonObject *metaData) {
+void fairwind::FairWindAppBase::onInit(QJsonObject *metaData) {
     m_metaData = QJsonObject(*metaData);
 }

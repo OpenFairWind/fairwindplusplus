@@ -142,14 +142,14 @@ void fairwind::FairWind::loadConfig() {
 
                         auto fairWindApp = getAppByExtensionId(appId);
                         if (fairWindApp) {
-                            QMap<QString,QString> args;
+                            QMap<QString,QVariant> args;
 
                             if (jsonAppObject.contains("Args") && jsonAppObject["Args"].isObject()) {
 
                                 QJsonObject jsonArgs = jsonAppObject["Args"].toObject();
 
                                 for (const auto& key: jsonArgs.keys()) {
-                                    args.insert(key, jsonArgs[key].toString());
+                                    args.insert(key, jsonArgs[key].toVariant());
                                 }
                             }
                             app = new App(fairWindApp,args);

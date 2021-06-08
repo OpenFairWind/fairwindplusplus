@@ -16,7 +16,7 @@ namespace fairwind {
     public:
         App();
 
-        App(apps::IFairWindApp *fairWindApp, QMap<QString, QString> args, bool active=true, int order=1);
+        App(apps::IFairWindApp *fairWindApp, QMap<QString, QVariant> args, bool active=true, int order=1);
 
         App(const App &app);
 
@@ -28,7 +28,7 @@ namespace fairwind {
         void setOrder(int order);
         QString getName();
         QImage getIcon();
-        QMap<QString, QString> getArgs();
+        QMap<QString, QVariant> getArgs();
 
         bool isPlugin();
 
@@ -43,7 +43,7 @@ namespace fairwind {
         QString m_name;
         QString m_desc;
         QImage m_icon;
-        QMap<QString,QString> m_args;
+        QMap<QString, QVariant> m_args;
     };
 
 }

@@ -10,14 +10,17 @@
 #include "Chart.hpp"
 
 
+/*
+ * Returns the application icon
+ */
 QImage fairwind::apps::chart::Chart::getIcon() const {
     return QImage(":/resources/images/icons/chart_icon.png");
 }
 
-
-QWidget *fairwind::apps::chart::Chart::onGui(QMainWindow *mainWindow, QMap<QString, QString> args) {
-
-
+/*
+ * Called by the FairWind framework when the app is invoked for the first time
+ */
+QWidget *fairwind::apps::chart::Chart::onGui(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
 
     m_widgetWebApp=new QWidget();
     ui=new Ui::Chart();
@@ -28,7 +31,7 @@ QWidget *fairwind::apps::chart::Chart::onGui(QMainWindow *mainWindow, QMap<QStri
 
     auto displayChart = new fairwind::displays::DisplayChart();
     QMap<QString, QVariant> params;
-    params["settings"]=config;
+    params["config"]=config;
     displayChart->onInit(params);
     ui->horizontalLayout->addWidget(displayChart);
 
@@ -101,7 +104,7 @@ QString fairwind::apps::chart::Chart::getDesc() const {
 }
 
 void fairwind::apps::chart::Chart::onInit(QJsonObject *metaData) {
-    FairWindAppBase::init(metaData);
+    FairWindAppBase::onInit(metaData);
 }
 
 QWidget *fairwind::apps::chart::Chart::onSettings(QTabWidget *tabWidget) {

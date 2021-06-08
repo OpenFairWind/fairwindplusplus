@@ -27,7 +27,7 @@ namespace fairwind::apps {
 
 
         virtual QImage getIcon() const = 0;
-        virtual QWidget *onGui(QMainWindow *mainWindow, QMap<QString, QString> args) = 0;
+        virtual QWidget *onGui(QMainWindow *mainWindow, QMap<QString, QVariant> args) = 0;
         virtual QWidget *onSettings(QTabWidget *tabWidget) = 0;
         virtual QJsonObject getConfig() = 0;
     };
