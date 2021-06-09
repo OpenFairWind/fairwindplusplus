@@ -25,9 +25,9 @@
 
 #include "ui_DisplayChart.h"
 #include <FairWindSdk/displays//DisplayChart.hpp>
-#include "QGVItemVessel.hpp"
-#include "QGVItemShoreBasestations.hpp"
-#include "QGVItemAton.hpp"
+#include "FairWindSdk/layers/ItemVessel.hpp"
+#include "FairWindSdk/layers/ItemShoreBasestations.hpp"
+#include "FairWindSdk/layers/ItemAton.hpp"
 
 fairwind::displays::DisplayChart::DisplayChart(QWidget *parent) :
         QWidget(parent),

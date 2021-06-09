@@ -18,6 +18,7 @@
 #include <FairWindSdk/connections/SignalKWSClient.hpp>
 #include <FairWindSdk/connections/SignalKAPIClient.hpp>
 #include <FairWind.hpp>
+#include <displays/DisplayWindAngleGauge.hpp>
 
 
 void fairwind::FairWind::loadApps() {
@@ -70,6 +71,7 @@ fairwind::FairWind::FairWind() {
     registerDisplay(new displays::DisplaySingleText());
     registerDisplay(new displays::DisplayDoubleText());
     registerDisplay(new displays::DisplayGauge());
+    registerDisplay(new displays::DisplayWindAngleGauge());
     registerDisplay(new displays::DisplayChart());
 
     registerConnection(new connections::SignalKAPIClient());

@@ -1,9 +1,9 @@
 //
-// Created by Raffaele Montella on 31/05/21.
+// Created by Raffaele Montella on 09/06/21.
 //
 
-#ifndef FAIRWIND_DISPLAYGAUGE_HPP
-#define FAIRWIND_DISPLAYGAUGE_HPP
+#ifndef FAIRWIND_DISPLAYWINDANGLEGAUGE_HPP
+#define FAIRWIND_DISPLAYWINDANGLEGAUGE_HPP
 
 #include <QWidget>
 #include <FairWindSdk/FairWindSDK.hpp>
@@ -12,16 +12,16 @@
 #include <qcgaugewidget.h>
 
 namespace Ui {
-    class DisplayGauge;
+    class DisplayWindAngleGauge;
 }
 
 namespace fairwind::displays {
 
-    class FAIRWINDSDK_LIB_DECL DisplayGauge : public QWidget, public fairwind::displays::DisplayBase, public fairwind::displays::IDisplay {
+    class FAIRWINDSDK_LIB_DECL DisplayWindAngleGauge: public QWidget, public fairwind::displays::DisplayBase, public fairwind::displays::IDisplay {
     Q_OBJECT
     public:
-        explicit DisplayGauge(QWidget *parent = nullptr);
-        ~DisplayGauge();
+        explicit DisplayWindAngleGauge(QWidget *parent = nullptr);
+        ~DisplayWindAngleGauge();
 
         QString getClassName() const override;
         QImage getIcon() const override;
@@ -46,13 +46,14 @@ namespace fairwind::displays {
         QcLabelItem *mValue;
         QcGaugeWidget *mGaugeWidget;
         QcNeedleItem *mNeedle;
-        Ui::DisplayGauge *ui;
+        Ui::DisplayWindAngleGauge *ui;
 
         float mMinValue;
         float mMaxValue;
         float mStep;
+
     };
 }
 
 
-#endif //FAIRWIND_DISPLAYGAUGE_HPP
+#endif //FAIRWIND_DISPLAYWINDANGLEGAUGE_HPP

@@ -15,6 +15,10 @@ fairwind::displays::DisplayGauge::DisplayGauge(QWidget *parent):
         ui(new Ui::DisplayGauge) {
 
     ui->setupUi(this);
+
+    mMinValue=0;
+    mMaxValue=100;
+    mStep=10;
 }
 
 fairwind::displays::DisplayGauge::~DisplayGauge() {
@@ -31,44 +35,62 @@ QWidget *fairwind::displays::DisplayGauge::onSettings() {
 
 void fairwind::displays::DisplayGauge::onInit(QMap<QString, QVariant> params) {
 
+    qDebug() << "fairwind::displays::DisplayGauge::onInit: " << params;
+
+    // Setup parameters
+    if (params.contains("minValue")) {
+        mMinValue = (float)params["minValue"].toDouble();
+    }
+
+    if (params.contains("maxValue")) {
+        mMaxValue = (float)params["maxValue"].toDouble();
+    }
+
+    if (params.contains("step")) {
+        mStep = (float)params["step"].toDouble();
+    }
+
+    if (params.contains("step")) {
+        mStep = (float)params["step"].toDouble();
+    }
+
+    bool addColorBand = false;
+    if (params.contains("colorBand")) {
+        addColorBand = true;
+    }
+
     // Create the gauge widget
     mGaugeWidget = new QcGaugeWidget;
 
-    float minValue=0;
-    float maxValue=16;
-    float step=1;
+
 
     // Add an arc
     QcArcItem *arcItem=mGaugeWidget->addArc(55);
-    arcItem->setColor(Qt::white);
 
     QcDegreesItem *degreesItem=mGaugeWidget->addDegrees(65);
-    degreesItem->setColor(Qt::white);
-    degreesItem->setValueRange(minValue,maxValue);
-    degreesItem->setStep(step);
+    degreesItem->setValueRange(mMinValue,mMaxValue);
+    degreesItem->setStep(mStep);
     degreesItem->setSubDegree(true);
 
-    //QcColorBand *clrBand = mGaugeWidget->addColorBand(50);
-    //clrBand->setValueRange(minValue,maxValue);
+    if (addColorBand) {
+        QcColorBand *clrBand = mGaugeWidget->addColorBand(50);
+        clrBand->setValueRange(mMinValue, mMaxValue);
+    }
 
     QcValuesItem *valuesItem=mGaugeWidget->addValues(80);
-    valuesItem->setValueRange(minValue,maxValue);
-    valuesItem->setStep(1);
-    valuesItem->setColor(Qt::white);
+    valuesItem->setValueRange(mMinValue,mMaxValue);
+    valuesItem->setStep(mStep);
 
     mLabel=mGaugeWidget->addLabel(70);
-    mLabel->setColor(Qt::white);
 
     mUnits=mGaugeWidget->addLabel(50);
-    mUnits->setColor(Qt::white);
 
     mValue = mGaugeWidget->addLabel(40);
-    mValue->setColor(Qt::white);
 
     mNeedle = mGaugeWidget->addNeedle(60);
     mNeedle->setLabel(mValue);
     mNeedle->setColor(Qt::blue);
-    mNeedle->setValueRange(minValue,maxValue);
+    mNeedle->setValueRange(mMinValue,mMaxValue);
 
     mGaugeWidget->addBackground(7);
 

@@ -47,26 +47,22 @@ QWidget *fairwind::apps::chart::Chart::onGui(QMainWindow *mainWindow, QMap<QStri
                 QJsonObject objectItem=item.toObject();
                 if (objectItem.contains("active") && objectItem["active"].isBool() && objectItem["active"].toBool()) {
 
-                    QMap<QString, QVariant> displayParams;
-                    QString className="UI::DisplaySingleText";
-                    QString layoutName="left";
 
+
+                    QString className="UI::DisplaySingleText";
                     if (objectItem.contains("class") && objectItem["class"].isString()) {
                         className=objectItem["class"].toString();
                     }
 
+                    QString layoutName="left";
                     if (objectItem.contains("layout") && objectItem["layout"].isString()) {
                         layoutName=objectItem["layout"].toString();
                     }
 
-                    if (objectItem.contains("label") && objectItem["label"].isString()) {
-                        displayParams["label"]=objectItem["label"].toString();
+                    QMap<QString, QVariant> displayParams;
+                    for (auto key:objectItem.keys()) {
+                        displayParams[key]=objectItem[key].toVariant();
                     }
-
-                    if (objectItem.contains("fullPath") && objectItem["fullPath"].isString()) {
-                        displayParams["fullPath"]=objectItem["fullPath"].toString();
-                    }
-
 
                     displays::IDisplay *fairWindDisplay=fairwind->instanceDisplay(className);
                     if (fairWindDisplay) {

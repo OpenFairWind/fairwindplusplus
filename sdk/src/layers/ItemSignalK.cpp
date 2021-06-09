@@ -3,9 +3,9 @@
 //
 
 #include <FairWind.hpp>
-#include "QGVItemSignalK.hpp"
+#include "FairWindSdk/layers/ItemSignalK.hpp"
 
-QGVItemSignalK::QGVItemSignalK(const QString &context):QGVImage() {
+ItemSignalK::ItemSignalK(const QString &context):QGVImage() {
     m_context=context;
 
     setFlags(QGV::ItemFlag::IgnoreScale);
@@ -15,25 +15,25 @@ QGVItemSignalK::QGVItemSignalK(const QString &context):QGVImage() {
 
     signalKDocument->subscribe(
             m_context+".navigation.position",
-            this,SLOT(QGVItemSignalK::update));
+            this,SLOT(ItemSignalK::update));
 
     signalKDocument->subscribe(
             m_context+".navigation.courseOverGroundTrue.value",
-            this,SLOT(QGVItemSignalK::update));
+            this,SLOT(ItemSignalK::update));
 
     signalKDocument->subscribe(
             m_context+".navigation.speedOverGround.value",
-            this,SLOT(QGVItemSignalK::update));
+            this,SLOT(ItemSignalK::update));
 
     QMetaObject::invokeMethod(this, "update", Qt::QueuedConnection,Q_ARG(QJsonObject,QJsonObject()));
 
 }
 
-QGVItemSignalK::~QGVItemSignalK() {
+ItemSignalK::~ItemSignalK() {
 
 }
 
-void QGVItemSignalK::update(const QJsonObject update) {
+void ItemSignalK::update(const QJsonObject update) {
     //qDebug() << "QGVItemSignalK::update:" << update;
     auto fairWind = fairwind::FairWind::getInstance();
     auto signalKDocument = fairWind->getSignalKDocument();
@@ -54,7 +54,7 @@ void QGVItemSignalK::update(const QJsonObject update) {
     //qDebug() << "QGVItemSignalK::update:" << m_context << " geoPos: " << geoPos;
 }
 
-QString QGVItemSignalK::getContext() const {
+QString ItemSignalK::getContext() const {
     return m_context;
 }
 

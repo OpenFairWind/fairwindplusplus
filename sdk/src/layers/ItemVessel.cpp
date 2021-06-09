@@ -3,9 +3,9 @@
 //
 
 #include <FairWind.hpp>
-#include "QGVItemVessel.hpp"
+#include "FairWindSdk/layers/ItemVessel.hpp"
 
-QGVItemVessel::QGVItemVessel(QString &typeUuid): QGVItemSignalK(typeUuid) {
+ItemVessel::ItemVessel(QString &typeUuid): ItemSignalK(typeUuid) {
     auto fairWind = fairwind::FairWind::getInstance();
     auto signalKDocument = fairWind->getSignalKDocument();
     if (getContext()==signalKDocument->getSelf()) {
@@ -13,7 +13,7 @@ QGVItemVessel::QGVItemVessel(QString &typeUuid): QGVItemSignalK(typeUuid) {
     }
 }
 
-QImage QGVItemVessel::getImage() const {
+QImage ItemVessel::getImage() const {
     auto fairWind = fairwind::FairWind::getInstance();
     auto signalKDocument = fairWind->getSignalKDocument();
     if (getContext()==signalKDocument->getSelf()) {

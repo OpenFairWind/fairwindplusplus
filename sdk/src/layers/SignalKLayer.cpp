@@ -3,11 +3,11 @@
 //
 
 #include <FairWindSdk/FairWind.hpp>
-#include <QGVItemSignalK.hpp>
-#include <QGVItemAton.hpp>
-#include <QGVItemVessel.hpp>
-#include <QGVItemShoreBasestations.hpp>
-#include <QGVItemDefault.hpp>
+#include <FairWindSdk/layers/ItemSignalK.hpp>
+#include <FairWindSdk/layers/ItemAton.hpp>
+#include <FairWindSdk/layers/ItemVessel.hpp>
+#include <FairWindSdk/layers/ItemShoreBasestations.hpp>
+#include <FairWindSdk/layers/ItemDefault.hpp>
 #include "FairWindSdk/layers/SignalKLayer.hpp"
 
 fairwind::layers::SignalKLayer::SignalKLayer() {
@@ -59,17 +59,17 @@ void fairwind::layers::SignalKLayer::onInit(QMap<QString, QVariant> params)  {
             QJsonObject itemsObject = itemsValue.toObject();
             for (const auto& uuid: itemsObject.keys()) {
                 QString context=fullPath+"."+uuid;
-                QGVItemSignalK *itemSignalK = nullptr;
+                ItemSignalK *itemSignalK = nullptr;
                 if ( fullPath.endsWith("atons")) {
-                    itemSignalK = new QGVItemAton(context);
+                    itemSignalK = new ItemAton(context);
                 } else if ( fullPath.endsWith("shore.basestations")) {
-                    itemSignalK = new QGVItemShoreBasestations(context);
+                    itemSignalK = new ItemShoreBasestations(context);
                 } else if ( fullPath.endsWith("vessels")) {
                     if (self.indexOf(uuid)<0) {
-                        itemSignalK = new QGVItemVessel(context);
+                        itemSignalK = new ItemVessel(context);
                     }
                 } else {
-                    itemSignalK = new QGVItemDefault(context);
+                    itemSignalK = new ItemDefault(context);
                 }
                 if (itemSignalK) {
                     addItem(itemSignalK);
@@ -77,7 +77,7 @@ void fairwind::layers::SignalKLayer::onInit(QMap<QString, QVariant> params)  {
             }
         }
     } else {
-        addItem(new QGVItemVessel(self));
+        addItem(new ItemVessel(self));
     }
 }
 

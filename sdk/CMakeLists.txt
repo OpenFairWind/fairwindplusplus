@@ -65,12 +65,13 @@ add_library(fairwindsdk SHARED
         include/FairWindSdk/displays/DisplaySingleText.hpp
         include/FairWindSdk/displays/DisplayDoubleText.hpp
         include/FairWindSdk/displays/DisplayGauge.hpp
+        include/FairWindSdk/displays/DisplayWindAngleGauge.hpp
         include/FairWindSdk/displays/DisplayChart.hpp
-        include/FairWindSdk/QGVItemVessel.hpp
-        include/FairWindSdk/QGVItemAton.hpp
-        include/FairWindSdk/QGVItemShoreBasestations.hpp
-        include/FairWindSdk/QGVItemSignalK.hpp
-        include/FairWindSdk/QGVItemDefault.hpp
+        include/FairWindSdk/layers/ItemVessel.hpp
+        include/FairWindSdk/layers/ItemAton.hpp
+        include/FairWindSdk/layers/ItemShoreBasestations.hpp
+        include/FairWindSdk/layers/ItemSignalK.hpp
+        include/FairWindSdk/layers/ItemDefault.hpp
         include/FairWindSdk/layers/SignalKLayer.hpp
         include/FairWindSdk/layers/OSMLayer.hpp
         include/FairWindSdk/layers/TiledLayer.hpp
@@ -85,12 +86,13 @@ add_library(fairwindsdk SHARED
         src/displays/base/singletext/DisplaySingleText.cpp
         src/displays/base/doubletext/DisplayDoubleText.cpp
         src/displays/base/gauge/DisplayGauge.cpp
+        src/displays/wind/DisplayWindAngleGauge.cpp
         src/displays/chart/DisplayChart.cpp
-        src/displays/chart/QGVItemDefault.cpp
-        src/displays/chart/QGVItemVessel.cpp
-        src/displays/chart/QGVItemAton.cpp
-        src/displays/chart/QGVItemShoreBasestations.cpp
-        src/displays/chart/QGVItemSignalK.cpp
+        src/layers/ItemDefault.cpp
+        src/layers/ItemVessel.cpp
+        src/layers/ItemAton.cpp
+        src/layers/ItemShoreBasestations.cpp
+        src/layers/ItemSignalK.cpp
         src/layers/SignalKLayer.cpp
         src/layers/OSMLayer.cpp
         src/layers/TiledLayer.cpp
