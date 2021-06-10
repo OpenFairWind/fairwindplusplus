@@ -14,7 +14,7 @@ add_library(Dashboard SHARED
         )
 
 add_dependencies(Dashboard FairWindSdk)
-target_link_libraries(Dashboard PRIVATE Qt5::Widgets ${LIBFAIRWINDSDK})
+target_link_libraries(Dashboard PRIVATE Qt5::Widgets Qt5::Network ${LIBFAIRWINDSDK})
 target_compile_options(Dashboard PRIVATE ${COMPILE_OPTIONS})
 
 add_custom_command(

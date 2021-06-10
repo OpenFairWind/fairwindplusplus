@@ -47,8 +47,6 @@ QWidget *fairwind::apps::chart::Chart::onGui(QMainWindow *mainWindow, QMap<QStri
                 QJsonObject objectItem=item.toObject();
                 if (objectItem.contains("active") && objectItem["active"].isBool() && objectItem["active"].toBool()) {
 
-
-
                     QString className="UI::DisplaySingleText";
                     if (objectItem.contains("class") && objectItem["class"].isString()) {
                         className=objectItem["class"].toString();

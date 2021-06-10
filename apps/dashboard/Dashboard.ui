@@ -19,117 +19,27 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QTabWidget" name="tabWidget">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>640</width>
-     <height>400</height>
-    </rect>
-   </property>
-   <property name="currentIndex">
+  <layout class="QGridLayout" name="gridLayout_2">
+   <property name="leftMargin">
     <number>0</number>
    </property>
-   <widget class="QWidget" name="tab_Navigation">
-    <attribute name="title">
-     <string>Navigation</string>
-    </attribute>
-    <widget class="QWidget" name="">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>10</y>
-       <width>631</width>
-       <height>111</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <layout class="QVBoxLayout" name="verticalLayout_Latitude">
-        <item>
-         <widget class="QLabel" name="label_Latitude">
-          <property name="font">
-           <font>
-            <pointsize>24</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>Latitude</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLCDNumber" name="lcdNumber_Latitude">
-          <property name="frameShape">
-           <enum>QFrame::Box</enum>
-          </property>
-          <property name="smallDecimalPoint">
-           <bool>true</bool>
-          </property>
-          <property name="digitCount">
-           <number>8</number>
-          </property>
-          <property name="segmentStyle">
-           <enum>QLCDNumber::Filled</enum>
-          </property>
-          <property name="value" stdset="0">
-           <double>40.500000000000000</double>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QVBoxLayout" name="verticalLayout_Longitude">
-        <item>
-         <widget class="QLabel" name="label_Longitude">
-          <property name="font">
-           <font>
-            <pointsize>24</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>Longitude</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLCDNumber" name="lcdNumber_Longitude">
-          <property name="frameShape">
-           <enum>QFrame::Box</enum>
-          </property>
-          <property name="smallDecimalPoint">
-           <bool>true</bool>
-          </property>
-          <property name="digitCount">
-           <number>8</number>
-          </property>
-          <property name="segmentStyle">
-           <enum>QLCDNumber::Filled</enum>
-          </property>
-          <property name="value" stdset="0">
-           <double>14.279999999999999</double>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <item row="0" column="0">
+    <widget class="QTabWidget" name="tabWidget">
     </widget>
-   </widget>
-   <widget class="QWidget" name="tab_Sailing">
-    <attribute name="title">
-     <string>Sailing</string>
-    </attribute>
-   </widget>
-  </widget>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>
