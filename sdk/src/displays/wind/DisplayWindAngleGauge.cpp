@@ -50,33 +50,45 @@ void fairwind::displays::DisplayWindAngleGauge::onInit(QMap<QString, QVariant> p
 
     // Add an arc
     QcArcItem *arcItem=mGaugeWidget->addArc(55);
-    //arcItem->setValueRange(mMinValue,mMaxValue);
-    arcItem->setDgereeRange(mMinValue,mMaxValue);
+    arcItem->setValueRange(mMinValue,mMaxValue);
+    arcItem->setDegreeRange(mMinValue,mMaxValue);
 
-    /*
+
     QcDegreesItem *degreesItem=mGaugeWidget->addDegrees(65);
     degreesItem->setValueRange(mMinValue,mMaxValue);
-    degreesItem->setDgereeRange(mMinValue,mMaxValue);
-    degreesItem->setStep(mStep);
+    degreesItem->setDegreeRange(mMinValue,mMaxValue);
+    degreesItem->setDegreeOffset(90);
+    degreesItem->setStep(10);
     degreesItem->setSubDegree(true);
-    */
 
-    /*
+
+
     QcColorBand *clrBandPort = mGaugeWidget->addColorBand(50);
-    clrBandPort->setValueRange(mMinValue, 0);
-    clrBandPort->setDgereeRange(mMinValue,0);
-    //clrBandPort->setColors(colorsLeft);
+    clrBandPort->setValueRange(-60, -20);
+    clrBandPort->setDegreeRange(-60,-20);
+    clrBandPort->setDegreeOffset(90);
+    QList<QPair<QColor,float>> colorsPort;
+    colorsPort.append(QPair<QColor,float>(Qt::darkRed,-60));
+    colorsPort.append(QPair<QColor,float>(Qt::darkRed,-20));
+    clrBandPort->setColors(colorsPort);
+
 
     QcColorBand *clrBandStarboard= mGaugeWidget->addColorBand(50);
-    clrBandStarboard->setValueRange(mMinValue, 0);
-    clrBandStarboard->setDgereeRange(0,mMaxValue);
-    //clrBandStarboard->setColors(colorsLeft);
-    */
+    clrBandStarboard->setValueRange(20, 60);
+    clrBandStarboard->setDegreeRange(20,60);
+    clrBandStarboard->setDegreeOffset(90);
+    QList<QPair<QColor,float>> colorsStarboard;
+    colorsStarboard.append(QPair<QColor,float>(Qt::darkGreen,20));
+    colorsStarboard.append(QPair<QColor,float>(Qt::darkGreen,60));
+    clrBandStarboard->setColors(colorsStarboard);
+
 
     QcValuesItem *valuesItem=mGaugeWidget->addValues(80);
-    valuesItem->setValueRange(mMinValue,mMaxValue);
-    valuesItem->setDgereeRange(mMinValue,mMaxValue);
-    valuesItem->setStep(mStep);
+    valuesItem->setValueRange(-150,150);
+    valuesItem->setDegreeRange(-150,150);
+    valuesItem->setDegreeOffset(90);
+    valuesItem->setStep(30);
+
 
     mLabel=mGaugeWidget->addLabel(70);
 
@@ -88,7 +100,8 @@ void fairwind::displays::DisplayWindAngleGauge::onInit(QMap<QString, QVariant> p
     mNeedle->setLabel(mValue);
     mNeedle->setColor(Qt::blue);
     mNeedle->setValueRange(mMinValue,mMaxValue);
-    //mNeedle->setDgereeRange(mMinValue,mMaxValue);
+    mNeedle->setDegreeRange(mMinValue,mMaxValue);
+    mNeedle->setDegreeOffset(90);
 
     mGaugeWidget->addBackground(7);
 
