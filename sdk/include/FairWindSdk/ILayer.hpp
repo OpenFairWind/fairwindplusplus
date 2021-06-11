@@ -5,8 +5,6 @@
 #ifndef FAIRWIND_ILAYER_HPP
 #define FAIRWIND_ILAYER_HPP
 
-//#define IID_FAIRWIND_LAYERS "it.uniparthenope.fairwind.layers"
-
 namespace fairwind::layers {
 
     class ILayer {
@@ -27,5 +25,4 @@ namespace fairwind::layers {
 
 }
 
-//Q_DECLARE_INTERFACE(fairwind::layers::IFairWindLayer, IID_FAIRWIND_LAYERS)
 #endif //FAIRWIND_ILAYER_HPP

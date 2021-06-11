@@ -75,6 +75,8 @@ add_library(fairwindsdk SHARED
         include/FairWindSdk/layers/SignalKLayer.hpp
         include/FairWindSdk/layers/OSMLayer.hpp
         include/FairWindSdk/layers/TiledLayer.hpp
+        include/FairWindSdk/layouts/LayoutBase.hpp
+        include/FairWindSdk/ILayout.hpp
         include/FairWindSdk/util/Units.hpp
         include/FairWindSdk/connections/SignalKAPIClient.hpp
         include/FairWindSdk/connections/SignalKWSClient.hpp
@@ -96,11 +98,12 @@ add_library(fairwindsdk SHARED
         src/layers/SignalKLayer.cpp
         src/layers/OSMLayer.cpp
         src/layers/TiledLayer.cpp
+        src/layouts/LayoutBase.cpp
         src/util/Units.cpp
         src/connections/SignalKAPIClient.cpp
         src/connections/SignalKWSClient.cpp
         ${FAIRWINDSDK_RESOURCE_ADDED}
-        )
+        src/layouts/Page4x4Layout.cpp include/FairWindSdk/layouts/Page4x4Layout.hpp)
 
 target_include_directories(fairwindsdk
         PUBLIC

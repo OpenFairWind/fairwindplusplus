@@ -6,6 +6,7 @@
 #include <QDebug>
 #include <QJsonArray>
 #include <FairWindSdk/FairWind.hpp>
+#include <FairWindSdk/layouts/Page4x4Layout.hpp>
 
 QString fairwind::apps::dashboard::Dashboard::getId() const {
     return fairwind::AppBase::getId();
@@ -45,15 +46,12 @@ QWidget *fairwind::apps::dashboard::Dashboard::onGui(QMainWindow *mainWindow, QM
                 QJsonObject objectPage = page.toObject();
                 if (objectPage.contains("name") && objectPage["name"].isString()) {
                     QString pageName=objectPage["name"].toString();
-                    auto pageWidget = new QWidget();
-                    auto horizontalLayout = new QHBoxLayout();
-                    horizontalLayout->addStretch(1);
-                    pageWidget->setLayout(horizontalLayout);
-                    QMap<QString, QLayout *> layouts;
-                    layouts["00"]=horizontalLayout;
-                    layouts["01"]=horizontalLayout;
-                    layouts["02"]=horizontalLayout;
-                    layouts["03"]=horizontalLayout;
+
+
+                    layouts::ILayout *layout = new layouts::Page4x4Layout();
+                    QMap<QString, QVariant> layoutParams;
+                    layout->onInit(layoutParams);
+                    auto pageWidget = layout->getWidget();
                     ui->tabWidget->addTab(pageWidget,pageName);
                     if (objectPage.contains("displays") && objectPage["displays"].isArray()) {
                         QJsonArray arrayDisplays = objectPage["displays"].toArray();
@@ -72,22 +70,17 @@ QWidget *fairwind::apps::dashboard::Dashboard::onGui(QMainWindow *mainWindow, QM
                                     if (objectItem.contains("layout") && objectItem["layout"].isString()) {
                                         layoutName = objectItem["layout"].toString();
                                     }
-                                    if (layouts.contains(layoutName)) {
 
-                                        QMap<QString, QVariant> displayParams;
-                                        for (const auto& key:objectItem.keys()) {
-                                            displayParams[key] = objectItem[key].toVariant();
-                                        }
+                                    QMap<QString, QVariant> displayParams;
+                                    for (const auto& key:objectItem.keys()) {
+                                        displayParams[key] = objectItem[key].toVariant();
+                                    }
 
-                                        displays::IDisplay *fairWindDisplay = fairwind->instanceDisplay(className);
-                                        if (fairWindDisplay) {
-                                            fairWindDisplay->onInit(displayParams);
-                                        }
+                                    displays::IDisplay *fairWindDisplay = fairwind->instanceDisplay(className);
+                                    if (fairWindDisplay) {
+                                        fairWindDisplay->onInit(displayParams);
 
-                                        auto widget = dynamic_cast<QWidget *>(fairWindDisplay);
-                                        if (widget) {
-                                            layouts[layoutName]->addWidget(widget);
-                                        }
+                                        layout->addDisplay(layoutName, fairWindDisplay);
                                     }
                                 }
                             }
