@@ -18,6 +18,7 @@
 #include "App.hpp"
 #include "IDisplay.hpp"
 #include "IConnection.hpp"
+#include "ILayout.hpp"
 
 namespace fairwind {
     class FAIRWINDSDK_LIB_DECL FairWind: public QObject {
@@ -45,6 +46,9 @@ namespace fairwind {
         bool registerConnection(fairwind::connections::IConnection *dummy);
         connections::IConnection *instanceConnection(const QString& className);
 
+        bool registerLayout(fairwind::layouts::ILayout *dummy);
+        layouts::ILayout *instanceLayout(const QString& className);
+
         QJsonObject &getConfig();
 
 
@@ -64,6 +68,7 @@ namespace fairwind {
         QMap<QString, fairwind::layers::ILayer *> m_registeredLayers;
         QMap<QString, fairwind::displays::IDisplay *> m_registeredDisplays;
         QMap<QString, fairwind::connections::IConnection *> m_registeredConnections;
+        QMap<QString, fairwind::layouts::ILayout *> m_registeredLayouts;
     };
 }
 

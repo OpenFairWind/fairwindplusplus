@@ -2,8 +2,8 @@
 // Created by Raffaele Montella on 10/06/21.
 //
 
-#ifndef FAIRWIND_PAGE4X4LAYOUT_HPP
-#define FAIRWIND_PAGE4X4LAYOUT_HPP
+#ifndef FAIRWIND_VHGLAYOUT_HPP
+#define FAIRWIND_VHGLAYOUT_HPP
 
 #include <FairWindSdk/FairWindSDK.hpp>
 #include <QWidget>
@@ -12,16 +12,16 @@
 #include <FairWindSdk/IDisplay.hpp>
 
 namespace Ui {
-    class Page4x4Layout;
+    class VHGLayout;
 }
 
 namespace fairwind::layouts {
-class FAIRWINDSDK_LIB_DECL Page4x4Layout: public QWidget, public fairwind::layouts::LayoutBase, public fairwind::layouts::ILayout {
+class FAIRWINDSDK_LIB_DECL VHGLayout: public QWidget, public fairwind::layouts::LayoutBase, public fairwind::layouts::ILayout {
         Q_OBJECT
 
     public:
-        explicit Page4x4Layout(QWidget *parent = nullptr);
-        ~Page4x4Layout();
+        explicit VHGLayout(QWidget *parent = nullptr);
+        ~VHGLayout();
 
         QString getClassName() const override;
         QImage getIcon() const override;
@@ -33,9 +33,9 @@ class FAIRWINDSDK_LIB_DECL Page4x4Layout: public QWidget, public fairwind::layou
         void addDisplay(QString key, displays::IDisplay *display) override;
 
     private:
-        Ui::Page4x4Layout *ui;
+        Ui::VHGLayout *ui;
     };
 }
 
 
-#endif //FAIRWIND_PAGE4X4LAYOUT_HPP
+#endif //FAIRWIND_VHGLAYOUT_HPP

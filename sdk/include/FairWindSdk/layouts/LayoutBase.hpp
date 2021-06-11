@@ -21,6 +21,7 @@ namespace fairwind::layouts {
         LayoutBase();
         ~LayoutBase();
 
+        void setUI(QString key, QLayout *layout);
         void addDisplay(QString key, displays::IDisplay *display);
 
 

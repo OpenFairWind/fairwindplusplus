@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Page4x4Layout</class>
- <widget class="QWidget" name="Page4x4Layout">
+ <class>VHGLayout</class>
+ <widget class="QWidget" name="VHGLayout">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>472</width>
     <height>300</height>
    </rect>
   </property>
@@ -26,18 +26,17 @@
    <property name="bottomMargin">
     <number>0</number>
    </property>
-   <property name="horizontalSpacing">
-    <number>-1</number>
-   </property>
-   <property name="verticalSpacing">
+   <property name="spacing">
     <number>0</number>
    </property>
-   <item row="0" column="0">
-    <layout class="QGridLayout" name="gridLayout">
-     <property name="spacing">
-      <number>1</number>
-     </property>
-    </layout>
+   <item row="0" column="0" rowspan="2">
+    <layout class="QVBoxLayout" name="verticalLayout"/>
+   </item>
+   <item row="0" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout"/>
+   </item>
+   <item row="1" column="1">
+    <layout class="QGridLayout" name="gridLayout"/>
    </item>
   </layout>
  </widget>

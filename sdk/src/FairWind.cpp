@@ -17,8 +17,11 @@
 #include <FairWindSdk/displays/DisplayChart.hpp>
 #include <FairWindSdk/connections/SignalKWSClient.hpp>
 #include <FairWindSdk/connections/SignalKAPIClient.hpp>
+#include <FairWindSdk/layouts/GridLayout.hpp>
+#include <FairWindSdk/layouts/VHGLayout.hpp>
 #include <FairWind.hpp>
 #include <displays/DisplayWindAngleGauge.hpp>
+#include <ILayout.hpp>
 
 
 void fairwind::FairWind::loadApps() {
@@ -76,6 +79,9 @@ fairwind::FairWind::FairWind() {
 
     registerConnection(new connections::SignalKAPIClient());
     registerConnection(new connections::SignalKWSClient());
+
+    registerLayout(new layouts::GridLayout());
+    registerLayout(new layouts::VHGLayout());
 }
 
 fairwind::apps::IApp *fairwind::FairWind::getAppByExtensionId(QString id) {
@@ -240,5 +246,22 @@ bool fairwind::FairWind::registerConnection(fairwind::connections::IConnection *
     return result;
 }
 
+fairwind::layouts::ILayout *fairwind::FairWind::instanceLayout(const QString &className) {
+    if (m_registeredLayouts.contains(className)) {
+        return m_registeredLayouts[className]->getNewInstance();
+    }
+    return nullptr;
+}
+
+bool fairwind::FairWind::registerLayout(fairwind::layouts::ILayout *dummy) {
+    bool result= false;
+    QString className=dummy->getClassName();
+    if (m_registeredLayouts.contains(className) == false) {
+        //qDebug() << "airwind::FairWind::registerConnection: " << className;
+        m_registeredLayouts[className] = dummy;
+
+    }
+    return result;
+}
 
 

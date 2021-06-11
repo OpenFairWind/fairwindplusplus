@@ -4,7 +4,6 @@
 
 #include <QJsonObject>
 #include <QWidget>
-
 #include "FairWindSdk/layouts/LayoutBase.hpp"
 
 fairwind::layouts::LayoutBase::LayoutBase() {
@@ -23,4 +22,8 @@ void fairwind::layouts::LayoutBase::addDisplay(QString key, fairwind::displays::
             mLayouts[key]->addWidget(widget);
         }
     }
+}
+
+void fairwind::layouts::LayoutBase::setUI(QString key, QLayout *layout) {
+    mLayouts[key] = layout;
 }
