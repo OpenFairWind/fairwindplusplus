@@ -4,7 +4,8 @@
       {
         "class": "fairwind::connections::SignalKAPIClient",
         "active": true,
-        "url": "http://demo.signalk.org/signalk/v1/api"
+        "url": "http://demo.signalk.org/signalk/v1/api",
+        "restore": true
       },
       {
         "class": "fairwind::connections::SignalKWSClient",
@@ -83,6 +84,15 @@
         "Config": {
           "displays": [
             {
+              "class": "fairwind::displays::DisplayGauge",
+              "active": true,
+              "layout": "left",
+              "fullPath": "${self}.navigation.speedOverGround",
+              "minValue": 0,
+              "maxValue": 16,
+              "step": 1.0
+            },
+            {
               "class": "fairwind::displays::DisplaySingleText",
               "active": true,
               "layout": "left",
@@ -129,11 +139,18 @@
               "active": true,
               "layout": "left",
               "fullPath": "${self}.environment.depth.belowTransducer"
+            },
+            {
+              "class": "fairwind::displays::DisplayWindAngleGauge",
+              "active": true,
+              "layout": "right",
+              "context": "${self}",
+              "wind": "apparent"
             }
           ],
           "Layers": [
             {
-              "class":"fairwind::layers::SMLayer",
+              "class":"fairwind::layers::OSMLayer",
               "active": true
             },
             {
@@ -198,55 +215,55 @@
           "default": "Navigation",
           "pages": [
             {
-              "label": "Navigation",
-              "class": "Page4x4",
+              "name": "Navigation",
+              "class": "fairwind::layouts::GridLayout",
               "displays": [
                 {
-                  "class": "DisplaySingleText",
+                  "class": "fairwind::displays::DisplaySingleText",
                   "active": true,
-                  "layout": "00",
+                  "layout": "0,0",
                   "fullPath": "${self}.navigation.speedOverGround"
                 },
                 {
-                  "class": "DisplaySingleText",
+                  "class": "fairwind::displays::DisplaySingleText",
                   "active": true,
-                  "layout": "01",
+                  "layout": "0,1",
                   "fullPath": "${self}.navigation.courseOverGroundTrue"
                 },
                 {
-                  "class": "DisplaySingleText",
+                  "class": "fairwind::displays::DisplaySingleText",
                   "active": true,
-                  "layout": "02",
+                  "layout": "0,2",
                   "fullPath": "${self}.navigation.speedThroughWater"
                 },
                 {
-                  "class": "DisplaySingleText",
+                  "class": "fairwind::displays::DisplaySingleText",
                   "active": true,
-                  "layout": "03",
+                  "layout": "0,3",
                   "fullPath": "${self}.navigation.headingTrue"
                 },
                 {
-                  "class": "DisplaySingleText",
+                  "class": "fairwind::displays::DisplaySingleText",
                   "active": true,
-                  "layout": "10",
+                  "layout": "1,0",
                   "fullPath": "${self}.environment.wind.speedApparent"
                 },
                 {
-                  "class": "DisplaySingleText",
+                  "class": "fairwind::displays::DisplaySingleText",
                   "active": true,
-                  "layout": "11",
+                  "layout": "1,1",
                   "fullPath": "${self}.environment.wind.angleApparent"
                 },
                 {
-                  "class": "DisplaySingleText",
+                  "class": "fairwind::displays::DisplaySingleText",
                   "active": false,
-                  "layout": "12",
+                  "layout": "1,2",
                   "fullPath": "${self}.environment.water.temperature"
                 },
                 {
-                  "class": "DisplaySingleText",
+                  "class": "fairwind::displays::DisplaySingleText",
                   "active": true,
-                  "layout": "13",
+                  "layout": "1,3",
                   "fullPath": "${self}.environment.depth.belowTransducer"
                 }
               ]
@@ -297,6 +314,16 @@
           "Name": "Instrument Panel",
           "Icon": "icons/instrumentpanel.png",
           "Url": "http://192.168.1.200:3000/@signalk/instrumentpanel/"
+        }
+      },
+      {
+        "Id": "it.uniparthenope.fairwind.apps.web",
+        "Active": true,
+        "Order": 1,
+        "Args": {
+          "Name": "Navionics",
+          "Icon": "icons/navionics.png",
+          "Url": "https://webapp.navionics.com"
         }
       },
       {
