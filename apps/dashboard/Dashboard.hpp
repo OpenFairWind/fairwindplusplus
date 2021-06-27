@@ -32,6 +32,7 @@ namespace fairwind::apps::dashboard {
         QWidget *onSettings(QTabWidget *tabWidgets) override;
 
         QJsonObject getConfig() override;
+        QJsonObject getMetaData() override;
 
     private:
         Ui::Dashboard *ui;

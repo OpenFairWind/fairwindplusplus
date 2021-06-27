@@ -30,6 +30,7 @@ namespace fairwind::apps::web {
         QWidget *onSettings(QTabWidget *tabWidgets) override;
 
         QJsonObject getConfig() override;
+        QJsonObject getMetaData() override;
 
     private:
         QWebEngineProfile *m_profile;

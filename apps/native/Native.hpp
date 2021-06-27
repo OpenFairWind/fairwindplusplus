@@ -28,6 +28,7 @@ namespace fairwind::apps::native {
         QWidget *onSettings(QTabWidget *tabWidgets) override;
 
         QJsonObject getConfig() override;
+        QJsonObject getMetaData() override;
 
     private:
 

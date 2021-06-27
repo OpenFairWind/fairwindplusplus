@@ -12,7 +12,7 @@
 #include <QPushButton>
 #include <QAbstractButton>
 #include <QHBoxLayout>
-
+#include <FairWindSdk/FairWind.hpp>
 
 
 QString fairwind::apps::web::Web::getId() const {
@@ -39,46 +39,50 @@ void fairwind::apps::web::Web::onInit(QJsonObject *metaData) {
 #endif
     m_profile = QWebEngineProfile::defaultProfile();
     AppBase::onInit(metaData);
+
+    auto fairWind = fairwind::FairWind::getInstance();
+
+    m_url = "http://fairwind.uniparthenope.it";
 }
 
 QWidget *fairwind::apps::web::Web::onGui(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
 
-
     if (args.contains("Url")) {
         m_url = args["Url"].toString();
-
-        m_widgetWebApp = new QWidget();
-
-        auto *webView = new WebView(m_widgetWebApp);
-        webView->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
-
-        auto *widgetWebApp_Buttons = new QWidget(m_widgetWebApp);
-
-        auto *pushButton_Home = new QPushButton(widgetWebApp_Buttons);
-        pushButton_Home->setText("Home");
-
-        connect(pushButton_Home, &QPushButton::clicked, this, &fairwind::apps::web::Web::toolButton_home_clicked);
-
-        auto *pushButton_Prev = new QPushButton(widgetWebApp_Buttons);
-        pushButton_Prev->setText("<");
-
-        auto *pushButton_Next = new QPushButton(widgetWebApp_Buttons);
-        pushButton_Next->setText(">");
-
-        auto *hBoxLayout = new QHBoxLayout();
-        m_widgetWebApp->setLayout(hBoxLayout);
-        hBoxLayout->addWidget(webView);
-        hBoxLayout->addWidget(widgetWebApp_Buttons);
-
-        auto *vBoxLayout = new QVBoxLayout();
-        vBoxLayout->setAlignment(Qt::AlignTop);
-        vBoxLayout->addWidget(pushButton_Home);
-        vBoxLayout->addWidget(pushButton_Prev);
-        vBoxLayout->addWidget(pushButton_Next);
-        widgetWebApp_Buttons->setLayout(vBoxLayout);
-
-        webView->load(QUrl(m_url));
     }
+
+    m_widgetWebApp = new QWidget();
+
+    auto *webView = new WebView(m_widgetWebApp);
+    webView->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
+
+    auto *widgetWebApp_Buttons = new QWidget(m_widgetWebApp);
+
+    auto *pushButton_Home = new QPushButton(widgetWebApp_Buttons);
+    pushButton_Home->setText("Home");
+
+    connect(pushButton_Home, &QPushButton::clicked, this, &fairwind::apps::web::Web::toolButton_home_clicked);
+
+    auto *pushButton_Prev = new QPushButton(widgetWebApp_Buttons);
+    pushButton_Prev->setText("<");
+
+    auto *pushButton_Next = new QPushButton(widgetWebApp_Buttons);
+    pushButton_Next->setText(">");
+
+    auto *hBoxLayout = new QHBoxLayout();
+    m_widgetWebApp->setLayout(hBoxLayout);
+    hBoxLayout->addWidget(webView);
+    hBoxLayout->addWidget(widgetWebApp_Buttons);
+
+    auto *vBoxLayout = new QVBoxLayout();
+    vBoxLayout->setAlignment(Qt::AlignTop);
+    vBoxLayout->addWidget(pushButton_Home);
+    vBoxLayout->addWidget(pushButton_Prev);
+    vBoxLayout->addWidget(pushButton_Next);
+    widgetWebApp_Buttons->setLayout(vBoxLayout);
+
+    webView->load(QUrl(m_url));
+
     return m_widgetWebApp;
 }
 
@@ -99,4 +103,8 @@ QWidget *fairwind::apps::web::Web::onSettings(QTabWidget *tabWidgets) {
 
 QJsonObject fairwind::apps::web::Web::getConfig() {
     return AppBase::getConfig();
+}
+
+QJsonObject fairwind::apps::web::Web::getMetaData() {
+    return AppBase::getMetaData();
 }

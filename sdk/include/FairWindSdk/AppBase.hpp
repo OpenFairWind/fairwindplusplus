@@ -17,12 +17,15 @@ namespace fairwind {
         virtual QString getId() const;
         virtual QString getName() const;
         virtual QString getDesc() const;
+
         virtual void onInit(QJsonObject *metaData);
 
         virtual QJsonObject getConfig();
+        virtual QJsonObject getMetaData();
 
     private:
         QJsonObject m_metaData;
+        QJsonObject m_config;
     };
 }
 

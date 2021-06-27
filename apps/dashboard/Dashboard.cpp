@@ -25,6 +25,7 @@ QImage fairwind::apps::dashboard::Dashboard::getIcon() const {
 }
 
 void fairwind::apps::dashboard::Dashboard::onInit(QJsonObject *metaData) {
+    // Invoke the base onInit method
     fairwind::AppBase::onInit(metaData);
 }
 
@@ -34,8 +35,14 @@ QWidget *fairwind::apps::dashboard::Dashboard::onGui(QMainWindow *mainWindow, QM
 
     ui->setupUi(widget);
 
+    QJsonObject config;
+    if (args.contains("Config")) {
+        config = args["Config"].toJsonObject();
+    } else {
+        config = getConfig();
+    }
     auto fairwind=FairWind::getInstance();
-    auto config = getConfig();
+
     qDebug() << "fairwind::apps::dashboard::Dashboard::onGui :" << config;
 
 
@@ -115,4 +122,8 @@ fairwind::apps::dashboard::Dashboard::~Dashboard() {
 
 QJsonObject fairwind::apps::dashboard::Dashboard::getConfig() {
     return AppBase::getConfig();
+}
+
+QJsonObject fairwind::apps::dashboard::Dashboard::getMetaData() {
+    return AppBase::getMetaData();
 }

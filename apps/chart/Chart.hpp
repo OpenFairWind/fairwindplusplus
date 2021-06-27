@@ -33,6 +33,7 @@ namespace fairwind::apps::chart {
         QWidget *onSettings(QTabWidget *tabWidgets) override;
 
         QJsonObject getConfig() override;
+        QJsonObject getMetaData() override;
 
 
     public slots:

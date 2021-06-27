@@ -30,6 +30,7 @@ namespace fairwind::apps {
         virtual QWidget *onGui(QMainWindow *mainWindow, QMap<QString, QVariant> args) = 0;
         virtual QWidget *onSettings(QTabWidget *tabWidget) = 0;
         virtual QJsonObject getConfig() = 0;
+        virtual QJsonObject getMetaData() = 0;
     };
 
 }

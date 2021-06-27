@@ -109,6 +109,10 @@ QJsonObject fairwind::apps::chart::Chart::getConfig() {
     return AppBase::getConfig();
 }
 
+QJsonObject fairwind::apps::chart::Chart::getMetaData() {
+    return AppBase::getMetaData();
+}
+
 void fairwind::apps::chart::Chart::resizeWidgets() {
     QMap<QString, QLayout *> layouts;
     layouts["left"]=ui->verticalLayoutLeft;
