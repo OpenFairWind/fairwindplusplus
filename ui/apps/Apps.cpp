@@ -38,7 +38,6 @@ Apps::Apps(QWidget *parent) :
     for (auto &hash : apps.keys()) {
         auto app=apps[hash];
         if (app->getActive()) {
-            qDebug() << "Apps::Apps name:" << app->getName();
             auto *button = new QToolButton();
             button->setObjectName("toolbutton_"+hash);
             button->setText(app->getName());

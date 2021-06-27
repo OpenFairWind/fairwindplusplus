@@ -43,8 +43,9 @@ fairwind::App::App(fairwind::apps::IApp *fairWindApp, QMap<QString, QVariant> ar
         QDir iconFile(iconFilePath);
         if (iconFile.isRelative()) {
             iconFilePath = fairWindApp->getMetaData()["dataRoot"].toString()+QDir::separator()+fairWindApp->getId()+QDir::separator()+iconFilePath;
-        }
 
+        }
+        //qDebug() << "fairwind::App::App: iconFilePath: " << iconFilePath;
         m_icon = QImage(iconFilePath);
     }
     generateHash();
