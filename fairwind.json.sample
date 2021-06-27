@@ -81,121 +81,6 @@
         "Id": "it.uniparthenope.fairwind.apps.chart",
         "Active": true,
         "Order": 1,
-        "Config": {
-          "displays": [
-            {
-              "class": "fairwind::displays::DisplayGauge",
-              "active": true,
-              "layout": "left",
-              "fullPath": "${self}.navigation.speedOverGround",
-              "minValue": 0,
-              "maxValue": 16,
-              "step": 1.0
-            },
-            {
-              "class": "fairwind::displays::DisplaySingleText",
-              "active": true,
-              "layout": "left",
-              "fullPath": "${self}.navigation.speedOverGround"
-            },
-            {
-              "class": "fairwind::displays::DisplaySingleText",
-              "active": true,
-              "layout": "left",
-              "fullPath": "${self}.navigation.courseOverGroundTrue"
-            },
-            {
-              "class": "fairwind::displays::DisplaySingleText",
-              "active": true,
-              "layout": "left",
-              "fullPath": "${self}.navigation.speedThroughWater"
-            },
-            {
-              "class": "fairwind::displays::DisplaySingleText",
-              "active": true,
-              "layout": "left",
-              "fullPath": "${self}.navigation.headingTrue"
-            },
-            {
-              "class": "fairwind::displays::DisplaySingleText",
-              "active": true,
-              "layout": "right",
-              "fullPath": "${self}.environment.wind.speedApparent"
-            },
-            {
-              "class": "fairwind::displays::DisplaySingleText",
-              "active": true,
-              "layout": "right",
-              "fullPath": "${self}.environment.wind.angleApparent"
-            },
-            {
-              "class": "fairwind::displays::DisplaySingleText",
-              "active": false,
-              "layout": "right",
-              "fullPath": "${self}.environment.water.temperature"
-            },
-            {
-              "class": "fairwind::displays::DisplaySingleText",
-              "active": true,
-              "layout": "left",
-              "fullPath": "${self}.environment.depth.belowTransducer"
-            },
-            {
-              "class": "fairwind::displays::DisplayWindAngleGauge",
-              "active": true,
-              "layout": "right",
-              "context": "${self}",
-              "wind": "apparent"
-            }
-          ],
-          "Layers": [
-            {
-              "class":"fairwind::layers::OSMLayer",
-              "active": true
-            },
-            {
-              "class": "fairwind::layers::TiledLayer",
-              "active": false,
-              "name": "ESRI Navigation Charts",
-              "description": "World Navigation Charts by ESRI.",
-              "url": "https://services.arcgisonline.com/ArcGIS/rest/services/Specialty/World_Navigation_Charts/MapServer/tile/${z}/${y}/${x}"
-            },
-            {
-              "class": "fairwind::layers::TiledLayer",
-              "active": true,
-              "name": "OpenSeaMap",
-              "description": "The OpenSeaMap layer.",
-              "url": "http://tiles.openseamap.org/seamark/${z}/${x}/${y}.png"
-            },
-            {
-              "class": "fairwind::layers::SignalKLayer",
-              "active": true,
-              "name": "Base Stations",
-              "description": "Shore base stations.",
-              "fullPath": "shore.basestations"
-            },
-            {
-              "class": "fairwind::layers::SignalKLayer",
-              "active": true,
-              "name": "ATONs",
-              "description": "Aids to navigation.",
-              "fullPath": "atons"
-            },
-            {
-              "class": "fairwind::layers::SignalKLayer",
-              "active": true,
-              "name": "Vessels",
-              "description": "All the other vessels in the range.",
-              "fullPath": "vessels"
-            },
-            {
-              "class": "fairwind::layers::SignalKLayer",
-              "active": true,
-              "name": "Self",
-              "description": "The Vessel."
-            }
-          ]
-        }
       },
       {
         "Id": "it.uniparthenope.fairwind.apps.sonar",
@@ -206,70 +91,6 @@
         "Id": "it.uniparthenope.fairwind.apps.radar",
         "Active": false,
         "Order": 1
-      },
-      {
-        "Id": "it.uniparthenope.fairwind.apps.dashboard",
-        "Active": true,
-        "Order": 1,
-        "Config": {
-          "default": "Navigation",
-          "pages": [
-            {
-              "name": "Navigation",
-              "class": "fairwind::layouts::GridLayout",
-              "displays": [
-                {
-                  "class": "fairwind::displays::DisplaySingleText",
-                  "active": true,
-                  "layout": "0,0",
-                  "fullPath": "${self}.navigation.speedOverGround"
-                },
-                {
-                  "class": "fairwind::displays::DisplaySingleText",
-                  "active": true,
-                  "layout": "0,1",
-                  "fullPath": "${self}.navigation.courseOverGroundTrue"
-                },
-                {
-                  "class": "fairwind::displays::DisplaySingleText",
-                  "active": true,
-                  "layout": "0,2",
-                  "fullPath": "${self}.navigation.speedThroughWater"
-                },
-                {
-                  "class": "fairwind::displays::DisplaySingleText",
-                  "active": true,
-                  "layout": "0,3",
-                  "fullPath": "${self}.navigation.headingTrue"
-                },
-                {
-                  "class": "fairwind::displays::DisplaySingleText",
-                  "active": true,
-                  "layout": "1,0",
-                  "fullPath": "${self}.environment.wind.speedApparent"
-                },
-                {
-                  "class": "fairwind::displays::DisplaySingleText",
-                  "active": true,
-                  "layout": "1,1",
-                  "fullPath": "${self}.environment.wind.angleApparent"
-                },
-                {
-                  "class": "fairwind::displays::DisplaySingleText",
-                  "active": false,
-                  "layout": "1,2",
-                  "fullPath": "${self}.environment.water.temperature"
-                },
-                {
-                  "class": "fairwind::displays::DisplaySingleText",
-                  "active": true,
-                  "layout": "1,3",
-                  "fullPath": "${self}.environment.depth.belowTransducer"
-                }
-              ]
-            }
-          ]
-        }
       },
       {
         "Id": "it.uniparthenope.fairwind.apps.audio",
@@ -292,7 +113,7 @@
         "Order": 1,
         "Args": {
           "Name": "Signal K",
-          "Icon": "icons/signalk.png",
+          "Icon": "resources/images/icons/signalk_icon.png",
           "Url": "http:192.168.1.200:3000"
         }
       },
@@ -302,7 +123,7 @@
         "Order": 1,
         "Args": {
           "Name": "FreeBoard",
-          "Icon": "icons/freeboard.png",
+          "Icon": "resources/images/icons/freeboard_icon.png",
           "Url": "http://192.168.1.200:3000/@signalk/freeboard-sk/"
         }
       },
@@ -312,7 +133,7 @@
         "Order": 1,
         "Args": {
           "Name": "Instrument Panel",
-          "Icon": "icons/instrumentpanel.png",
+          "Icon": "resources/images/icons/instrumentpanel_icon.png",
           "Url": "http://192.168.1.200:3000/@signalk/instrumentpanel/"
         }
       },
@@ -322,7 +143,7 @@
         "Order": 1,
         "Args": {
           "Name": "Navionics",
-          "Icon": "icons/navionics.png",
+          "Icon": "resources/images/icons/navionics_icon.png",
           "Url": "https://webapp.navionics.com"
         }
       },
@@ -332,7 +153,7 @@
         "Order": 1,
         "Args": {
           "Name": "Open CPN",
-          "Icon": "icons/opencpn.png",
+          "Icon": "resources/images/icons/opencpn_icon.png",
           "Command": "/Applications/OpenCPN.app/Contents/MacOS/OpenCPN -fullscreen"
         }
       },
@@ -342,7 +163,7 @@
         "Order": 1,
         "Args": {
           "Name":"Kip",
-          "Icon": "icons/kip.png",
+          "Icon": "resources/images/icons/kip_icon.png",
           "Url": "http://192.168.1.200:3000/@mxtommy/kip/#/page/0"
         }
       }
