@@ -34,11 +34,11 @@ Apps::Apps(QWidget *parent) :
 
     auto fairWind=fairwind::FairWind::getInstance();
     auto apps=fairWind->getApps();
-    qDebug() << "apps:" << apps.keys();
 
     for (auto &hash : apps.keys()) {
         auto app=apps[hash];
         if (app->getActive()) {
+            qDebug() << "Apps::Apps name:" << app->getName();
             auto *button = new QToolButton();
             button->setObjectName("toolbutton_"+hash);
             button->setText(app->getName());
