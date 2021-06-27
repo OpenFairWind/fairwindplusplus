@@ -22,6 +22,8 @@ public:
     bool isWebActionEnabled(QWebEnginePage::WebAction webAction) const;
     QIcon favIcon() const;
 
+public slots:
+
 protected:
     void contextMenuEvent(QContextMenuEvent *event) override;
     QWebEngineView *createWindow(QWebEnginePage::WebWindowType type) override;
@@ -30,6 +32,7 @@ signals:
     void webActionEnabledChanged(QWebEnginePage::WebAction webAction, bool enabled);
     void favIconChanged(const QIcon &icon);
     void devToolsRequested(QWebEnginePage *source);
+
 
 private:
     void createWebActionTrigger(QWebEnginePage *page, QWebEnginePage::WebAction);
