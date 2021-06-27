@@ -11,7 +11,122 @@
   "FairWind": {
     "App": {
       "Email": "fairwind@uniparthenope.it",
-      "Id": "it.uniparthenope.fairwind.apps.chart"
+      "Id": "it.uniparthenope.fairwind.apps.chart",
+      "Config": {
+        "displays": [
+          {
+            "class": "fairwind::displays::DisplayGauge",
+            "active": true,
+            "layout": "left",
+            "fullPath": "${self}.navigation.speedOverGround",
+            "minValue": 0,
+            "maxValue": 16,
+            "step": 1.0
+          },
+          {
+            "class": "fairwind::displays::DisplaySingleText",
+            "active": true,
+            "layout": "left",
+            "fullPath": "${self}.navigation.speedOverGround"
+          },
+          {
+            "class": "fairwind::displays::DisplaySingleText",
+            "active": true,
+            "layout": "left",
+            "fullPath": "${self}.navigation.courseOverGroundTrue"
+          },
+          {
+            "class": "fairwind::displays::DisplaySingleText",
+            "active": true,
+            "layout": "left",
+            "fullPath": "${self}.navigation.speedThroughWater"
+          },
+          {
+            "class": "fairwind::displays::DisplaySingleText",
+            "active": true,
+            "layout": "left",
+            "fullPath": "${self}.navigation.headingTrue"
+          },
+          {
+            "class": "fairwind::displays::DisplaySingleText",
+            "active": true,
+            "layout": "right",
+            "fullPath": "${self}.environment.wind.speedApparent"
+          },
+          {
+            "class": "fairwind::displays::DisplaySingleText",
+            "active": true,
+            "layout": "right",
+            "fullPath": "${self}.environment.wind.angleApparent"
+          },
+          {
+            "class": "fairwind::displays::DisplaySingleText",
+            "active": false,
+            "layout": "right",
+            "fullPath": "${self}.environment.water.temperature"
+          },
+          {
+            "class": "fairwind::displays::DisplaySingleText",
+            "active": true,
+            "layout": "left",
+            "fullPath": "${self}.environment.depth.belowTransducer"
+          },
+          {
+            "class": "fairwind::displays::DisplayWindAngleGauge",
+            "active": true,
+            "layout": "right",
+            "context": "${self}",
+            "wind": "apparent"
+          }
+        ],
+        "Layers": [
+          {
+            "class":"fairwind::layers::OSMLayer",
+            "active": true
+          },
+          {
+            "class": "fairwind::layers::TiledLayer",
+            "active": false,
+            "name": "ESRI Navigation Charts",
+            "description": "World Navigation Charts by ESRI.",
+            "url": "https://services.arcgisonline.com/ArcGIS/rest/services/Specialty/World_Navigation_Charts/MapServer/tile/${z}/${y}/${x}"
+          },
+          {
+            "class": "fairwind::layers::TiledLayer",
+            "active": true,
+            "name": "OpenSeaMap",
+            "description": "The OpenSeaMap layer.",
+            "url": "http://tiles.openseamap.org/seamark/${z}/${x}/${y}.png"
+          },
+          {
+            "class": "fairwind::layers::SignalKLayer",
+            "active": true,
+            "name": "Base Stations",
+            "description": "Shore base stations.",
+            "fullPath": "shore.basestations"
+          },
+          {
+            "class": "fairwind::layers::SignalKLayer",
+            "active": true,
+            "name": "ATONs",
+            "description": "Aids to navigation.",
+            "fullPath": "atons"
+          },
+          {
+            "class": "fairwind::layers::SignalKLayer",
+            "active": true,
+            "name": "Vessels",
+            "description": "All the other vessels in the range.",
+            "fullPath": "vessels"
+          },
+          {
+            "class": "fairwind::layers::SignalKLayer",
+            "active": true,
+            "name": "Self",
+            "description": "The Vessel."
+          }
+        ]
+      }
     }
   }
 }

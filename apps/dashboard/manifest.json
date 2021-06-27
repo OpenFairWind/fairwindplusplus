@@ -11,7 +11,42 @@
   "FairWind": {
     "App": {
       "Email": "fairwind@uniparthenope.it",
-      "Id": "it.uniparthenope.fairwind.apps.dashboard"
+      "Id": "it.uniparthenope.fairwind.apps.dashboard",
+      "Config": {
+        "default": "Navigation",
+        "pages": [
+          {
+            "name": "Navigation",
+            "class": "fairwind::layouts::GridLayout",
+            "displays": [
+              {
+                "class": "fairwind::displays::DisplaySingleText",
+                "active": true,
+                "layout": "0,0",
+                "fullPath": "${self}.navigation.speedOverGround"
+              },
+              {
+                "class": "fairwind::displays::DisplaySingleText",
+                "active": true,
+                "layout": "0,1",
+                "fullPath": "${self}.navigation.courseOverGroundTrue"
+              },
+              {
+                "class": "fairwind::displays::DisplaySingleText",
+                "active": true,
+                "layout": "0,2",
+                "fullPath": "${self}.navigation.speedThroughWater"
+              },
+              {
+                "class": "fairwind::displays::DisplaySingleText",
+                "active": true,
+                "layout": "0,3",
+                "fullPath": "${self}.navigation.headingTrue"
+              }
+            ]
+          }
+        ]
+      }
     }
   }
 }
