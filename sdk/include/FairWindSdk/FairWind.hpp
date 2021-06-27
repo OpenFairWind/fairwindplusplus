@@ -8,6 +8,7 @@
 #include <QString>
 #include <map>
 #include <QJsonDocument>
+#include <QDir>
 #include <QGeoView/QGVLayer.h>
 
 
@@ -69,6 +70,9 @@ namespace fairwind {
         QMap<QString, fairwind::displays::IDisplay *> m_registeredDisplays;
         QMap<QString, fairwind::connections::IConnection *> m_registeredConnections;
         QMap<QString, fairwind::layouts::ILayout *> m_registeredLayouts;
+
+        QDir m_appsRoot;
+        QDir m_dataRoot;
     };
 }
 
