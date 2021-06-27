@@ -32,14 +32,20 @@ fairwind::App::App(fairwind::apps::IApp *fairWindApp, QMap<QString, QVariant> ar
     m_order=order;
     m_active=active;
     m_args=std::move(args);
-    if (m_args.find("Name")!=m_args.end()) {
+    if (m_args.contains("Name")) {
         m_name=m_args["Name"].toString();
     }
-    if (m_args.find("Description")!=m_args.end()) {
+    if (m_args.contains("Description")) {
         m_desc=m_args["Description"].toString();
     }
-    if (m_args.find("Icon")!=m_args.end()) {
-        m_icon = QImage(m_args["Icon"].toString());
+    if (m_args.contains("Icon")) {
+        QString iconFilePath = m_args["Icon"].toString();
+        QDir iconFile(iconFilePath);
+        if (iconFile.isRelative()) {
+            iconFilePath = fairWindApp->getMetaData()["dataRoot"].toString()+QDir::separator()+fairWindApp->getId()+QDir::separator()+iconFilePath;
+        }
+
+        m_icon = QImage(iconFilePath);
     }
     generateHash();
 }
