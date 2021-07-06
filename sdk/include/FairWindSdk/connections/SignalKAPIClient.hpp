@@ -27,6 +27,10 @@ namespace fairwind::connections {
         void setActive(bool active) override;
         bool isActive() const override;
 
+        QString getName() const override;
+        void setLabel(QString label) override;
+        QString getLabel() const override;
+
         QString getSelf();
 
         QJsonObject getAll();
@@ -36,6 +40,7 @@ namespace fairwind::connections {
         QUrl m_url;
         bool m_debug;
         bool m_active;
+        QString m_label;
 
         QByteArray httpGet(QString url);
 

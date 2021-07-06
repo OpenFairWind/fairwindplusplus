@@ -36,6 +36,10 @@ void fairwind::connections::SignalKAPIClient::onInit(QMap<QString, QVariant> par
         m_url=QUrl(params["url"].toString());
     }
 
+    if (params.contains("label")) {
+        m_label = params["label"].toString();
+    }
+
     if (params.contains("active")) {
         m_active=params["active"].toBool();
     }
@@ -96,4 +100,14 @@ QByteArray fairwind::connections::SignalKAPIClient::httpGet(QString url) {
     return data;
 }
 
+QString fairwind::connections::SignalKAPIClient::getName() const {
+    return tr("Signal K API Client");
+}
 
+void fairwind::connections::SignalKAPIClient::setLabel(QString label) {
+    m_label = label;
+}
+
+QString fairwind::connections::SignalKAPIClient::getLabel() const {
+    return m_label;
+}

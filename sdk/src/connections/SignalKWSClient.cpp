@@ -31,7 +31,7 @@ fairwind::connections::SignalKWSClient::~SignalKWSClient() {
 }
 
 QImage fairwind::connections::SignalKWSClient::getIcon() const {
-    return QImage(":resources/images/icons/signalk_icon.png");
+    return QImage(":/resources/images/icons/signalk_icon.png");
 }
 
 QWidget *fairwind::connections::SignalKWSClient::onSettings() {
@@ -43,6 +43,10 @@ void fairwind::connections::SignalKWSClient::onInit(QMap<QString, QVariant> para
 
     if (params.contains("url")) {
         m_url=QUrl(params["url"].toString());
+    }
+
+    if (params.contains("label")) {
+        m_label = params["label"].toString();
     }
 
     if (params.contains("active")) {
@@ -115,3 +119,16 @@ void fairwind::connections::SignalKWSClient::onTextMessageReceived(QString messa
 
 }
 //! [onTextMessageReceived]
+
+QString fairwind::connections::SignalKWSClient::getName() const {
+    return tr("Signal K WS Client");
+}
+
+void fairwind::connections::SignalKWSClient::setLabel(QString label) {
+    m_label = label;
+}
+
+QString fairwind::connections::SignalKWSClient::getLabel() const {
+    return m_label;
+}
+
