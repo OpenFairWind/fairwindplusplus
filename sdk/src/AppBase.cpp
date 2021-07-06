@@ -22,17 +22,30 @@ QJsonObject fairwind::AppBase::getMetaData() {
 }
 
 QString fairwind::AppBase::getName() const {
+
+    // Check if the metadata contains the key FairWind
     if (m_metaData.contains("FairWind") && m_metaData["FairWind"].isObject()) {
+
+        // Get the FairWind object
         QJsonObject objectFairWind = m_metaData["FairWind"].toObject();
+
+        // Check if the FairWind object contains the key App
         if (objectFairWind.contains("App") && objectFairWind["App"].isObject()) {
+
+            // Get the App object
             QJsonObject objectApp = objectFairWind["App"].toObject();
 
+            // Check if the App object contains the key Name
             if (objectApp.contains("Name") && objectApp["Name"].isString()) {
+
+                // Return the name
                 return objectApp["Name"].toString();
             }
         }
     }
-    return "";
+
+    // Return the name from metadata (QT5 plugin name)
+    return m_metaData["Name"].toString();
 }
 
 QString fairwind::AppBase::getDesc() const {
