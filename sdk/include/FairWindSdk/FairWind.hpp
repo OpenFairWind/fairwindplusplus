@@ -50,6 +50,13 @@ namespace fairwind {
         bool registerLayout(fairwind::layouts::ILayout *dummy);
         layouts::ILayout *instanceLayout(const QString& className);
 
+        QMap<QString, fairwind::layers::ILayer *> *getLayers();
+        QMap<QString, fairwind::displays::IDisplay *> *getDisplays();
+        QMap<QString, fairwind::connections::IConnection *> *getConnections();
+        QMap<QString, fairwind::layouts::ILayout *> *getLayouts();
+
+        QList<fairwind::connections::IConnection *> *getConnectionsList();
+
         QJsonObject &getConfig();
 
 
@@ -62,14 +69,16 @@ namespace fairwind {
 
         QMap<QString, App *> m_mapApps;
 
+        QList<fairwind::connections::IConnection *> m_listConnections;
+
         QString m_applicationDirPath;
         FairWind();
         inline static FairWind *m_instance = nullptr;
 
-        QMap<QString, fairwind::layers::ILayer *> m_registeredLayers;
-        QMap<QString, fairwind::displays::IDisplay *> m_registeredDisplays;
-        QMap<QString, fairwind::connections::IConnection *> m_registeredConnections;
-        QMap<QString, fairwind::layouts::ILayout *> m_registeredLayouts;
+        QMap<QString, layers::ILayer *> m_registeredLayers;
+        QMap<QString, displays::IDisplay *> m_registeredDisplays;
+        QMap<QString, connections::IConnection *> m_registeredConnections;
+        QMap<QString, layouts::ILayout *> m_registeredLayouts;
 
         QDir m_appsRoot;
         QDir m_dataRoot;

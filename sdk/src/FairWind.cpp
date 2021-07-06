@@ -314,14 +314,17 @@ void fairwind::FairWind::loadConfig() {
                             QMap<QString, QVariant> params;
 
                             // For each key in the object connection dictionary
-                            for(auto key:objectConnection.keys()) {
+                            for (auto key:objectConnection.keys()) {
 
                                 // Save the key/value in the dictionary
-                                params[key]=objectConnection[key].toVariant();
+                                params[key] = objectConnection[key].toVariant();
                             }
+
 
                             // Invoke the onInit method passing the parameters
                             fairWindConnection->onInit(params);
+
+                            m_listConnections.append(fairWindConnection);
                         }
                     }
                 }
@@ -461,7 +464,7 @@ bool fairwind::FairWind::registerConnection(fairwind::connections::IConnection *
     bool result= false;
     QString className=dummy->getClassName();
     if (m_registeredConnections.contains(className) == false) {
-        //qDebug() << "airwind::FairWind::registerConnection: " << className;
+        //qDebug() << "fairwind::FairWind::registerConnection: " << className;
         m_registeredConnections[className] = dummy;
 
     }
@@ -479,11 +482,31 @@ bool fairwind::FairWind::registerLayout(fairwind::layouts::ILayout *dummy) {
     bool result= false;
     QString className=dummy->getClassName();
     if (m_registeredLayouts.contains(className) == false) {
-        //qDebug() << "airwind::FairWind::registerConnection: " << className;
+        //qDebug() << "fairwind::FairWind::registerConnection: " << className;
         m_registeredLayouts[className] = dummy;
 
     }
     return result;
+}
+
+QMap<QString, fairwind::connections::IConnection *> *fairwind::FairWind::getConnections() {
+    return &m_registeredConnections;
+}
+
+QMap<QString, fairwind::layouts::ILayout *> *fairwind::FairWind::getLayouts() {
+    return &m_registeredLayouts;
+}
+
+QMap<QString, fairwind::displays::IDisplay *> *fairwind::FairWind::getDisplays() {
+    return &m_registeredDisplays;
+}
+
+QMap<QString, fairwind::layers::ILayer *> *fairwind::FairWind::getLayers() {
+    return &m_registeredLayers;
+}
+
+QList<fairwind::connections::IConnection *> *fairwind::FairWind::getConnectionsList() {
+    return &m_listConnections;
 }
 
 
