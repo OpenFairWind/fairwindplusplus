@@ -24,6 +24,11 @@ namespace fairwind::connections {
         virtual void setActive(bool active) = 0;
         virtual bool isActive() const = 0;
 
+        virtual QString getName() const = 0;
+
+        virtual void setLabel(QString label) = 0;
+        virtual QString getLabel() const = 0;
+
     };
 
 }
