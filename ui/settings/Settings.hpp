@@ -18,6 +18,9 @@ public:
     explicit Settings(QWidget *parent = 0);
     ~Settings();
 
+protected :
+    void showEvent( QShowEvent * event );
+
 private:
     Ui::Settings *ui;
 };
