@@ -80,7 +80,7 @@
       {
         "Id": "it.uniparthenope.fairwind.apps.chart",
         "Active": true,
-        "Order": 1,
+        "Order": 1
       },
         {
           "Id": "it.uniparthenope.fairwind.apps.dashboard",
