@@ -1,0 +1,20 @@
+{
+  "Name" : "Entertainment",
+  "Version" : "0.0.1",
+  "CompatVersion" : "0.0.1",
+  "Vendor" : "University of Naples Parthenope",
+  "Copyright" : "(C) 2021 The FairWind Team",
+  "License" : "Apache 2.0",
+  "Category" : "Apps",
+  "Description" : "An entertainment app",
+  "Url" : "http://fairwind.uniparthenope.it/",
+  "FairWind": {
+    "App": {
+      "Email": "fairwind@uniparthenope.it",
+      "Id": "it.uniparthenope.fairwind.apps.entertainment",
+      "Config": {
+
+      }
+    }
+  }
+}
