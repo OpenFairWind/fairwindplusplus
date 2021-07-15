@@ -24,7 +24,7 @@ color: rgb(255, 255, 255);</string>
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab_Settings">
       <attribute name="title">
@@ -124,6 +124,9 @@ color: rgb(255, 255, 255);</string>
          <attribute name="verticalHeaderVisible">
           <bool>false</bool>
          </attribute>
+         <attribute name="verticalHeaderDefaultSectionSize">
+          <number>64</number>
+         </attribute>
         </widget>
        </item>
        <item row="0" column="1">
@@ -181,6 +184,9 @@ color: rgb(255, 255, 255);</string>
          </attribute>
          <attribute name="verticalHeaderVisible">
           <bool>false</bool>
+         </attribute>
+         <attribute name="verticalHeaderDefaultSectionSize">
+          <number>64</number>
          </attribute>
         </widget>
        </item>
