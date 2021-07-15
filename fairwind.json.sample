@@ -187,8 +187,8 @@
         "Order": 1
       },
       {
-        "Id": "it.uniparthenope.fairwind.apps.audio",
-        "Active": false,
+        "Id": "it.uniparthenope.fairwind.apps.entertainment",
+        "Active": true,
         "Order": 1
       },
       {
