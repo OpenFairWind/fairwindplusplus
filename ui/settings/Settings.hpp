@@ -11,19 +11,24 @@ namespace Ui {
     class Settings;
 }
 
-class Settings: public QWidget {
-Q_OBJECT
+namespace fairwind::ui::settings {
 
-public:
-    explicit Settings(QWidget *parent = 0);
-    ~Settings();
 
-protected :
-    void showEvent( QShowEvent * event );
+    class Settings : public QWidget {
+    Q_OBJECT
 
-private:
-    Ui::Settings *ui;
-};
+    public:
+        explicit Settings(QWidget *parent = 0);
 
+        ~Settings();
+
+    protected :
+        void showEvent(QShowEvent *event);
+
+    private:
+        Ui::Settings *ui;
+    };
+
+}
 
 #endif //FAIRWIND_SETTINGS_HPP

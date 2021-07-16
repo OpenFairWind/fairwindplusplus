@@ -8,7 +8,7 @@
 #include "ui_Settings.h"
 
 
-Settings::Settings(QWidget *parent) :
+fairwind::ui::settings::Settings::Settings(QWidget *parent) :
         QWidget(parent),
         ui(new Ui::Settings) {
 
@@ -34,11 +34,11 @@ Settings::Settings(QWidget *parent) :
 
 }
 
-Settings::~Settings() {
+fairwind::ui::settings::Settings::~Settings() {
     delete ui;
 }
 
-void Settings::showEvent(QShowEvent *e)
+void fairwind::ui::settings::Settings::showEvent(QShowEvent *e)
 {
     auto fairWind=fairwind::FairWind::getInstance();
     auto connectionsList = fairWind->getConnectionsList();

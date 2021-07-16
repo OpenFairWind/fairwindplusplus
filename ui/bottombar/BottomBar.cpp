@@ -7,7 +7,7 @@
 #include <FairWindSdk/FairWind.hpp>
 #include "BottomBar.hpp"
 
-BottomBar::BottomBar(QWidget *parent) :
+fairwind::ui::bottombar::BottomBar::BottomBar(QWidget *parent) :
         QWidget(parent),
         ui(new Ui::BottomBar) {
     ui->setupUi(parent);
@@ -16,17 +16,17 @@ BottomBar::BottomBar(QWidget *parent) :
     connect(ui->toolButton_Settings,&QToolButton::released,this,&BottomBar::settings_clicked);
 }
 
-void BottomBar::settings_clicked() {
+void fairwind::ui::bottombar::BottomBar::settings_clicked() {
     emit setSettings();
 }
 
-void BottomBar::apps_clicked() {
+void fairwind::ui::bottombar::BottomBar::apps_clicked() {
     setApps();
     auto fairWind = fairwind::FairWind::getInstance();
     auto signalKDocument=fairWind->getSignalKDocument();
     signalKDocument->save("signalkmodel.json");
 }
 
-BottomBar::~BottomBar() {
+fairwind::ui::bottombar::BottomBar::~BottomBar() {
     delete ui;
 }

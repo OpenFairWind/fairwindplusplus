@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
     app.setWindowIcon(QIcon(QStringLiteral(":resources/images/fairwind_logo.png")));
 
 
-    MainWindow w;
+    fairwind::ui::MainWindow w;
     splash.finish(&w);
     return QApplication::exec();
 }

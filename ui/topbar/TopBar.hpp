@@ -11,25 +11,31 @@ namespace Ui {
     class TopBar;
 }
 
-class TopBar: public QWidget {
-Q_OBJECT
-
-public:
-    explicit TopBar(QWidget *parent = 0);
-    ~TopBar();
+namespace fairwind::ui::topbar {
 
 
+    class TopBar : public QWidget {
+    Q_OBJECT
+
+    public:
+        explicit TopBar(QWidget *parent = 0);
+
+        ~TopBar();
 
 
-public slots:
-    void updateNavigationPosition(const QJsonObject update);
-    void updateNavigationCourseOverGroundTrue(const QJsonObject update);
-    void updateNavigationSpeedOverGround(const QJsonObject update);
-    void updateTime();
+    public slots:
 
-private:
-    Ui::TopBar *ui;
-};
+        void updateNavigationPosition(const QJsonObject update);
 
+        void updateNavigationCourseOverGroundTrue(const QJsonObject update);
+
+        void updateNavigationSpeedOverGround(const QJsonObject update);
+
+        void updateTime();
+
+    private:
+        Ui::TopBar *ui;
+    };
+}
 
 #endif //FAIRWIND_TOPBAR_HPP

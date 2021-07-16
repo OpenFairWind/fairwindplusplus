@@ -7,7 +7,7 @@
 #include "TopBar.hpp"
 #include "ui_TopBar.h"
 
-TopBar::TopBar(QWidget *parent) :
+fairwind::ui::topbar::TopBar::TopBar(QWidget *parent) :
         QWidget(parent),
         ui(new Ui::TopBar) {
     ui->setupUi(parent);
@@ -32,7 +32,7 @@ TopBar::TopBar(QWidget *parent) :
     signalKDocument->subscribe(self+".navigation.speedOverGround.value",this,SLOT(TopBar::updateNavigationSpeedOverGround));
 }
 
-void TopBar::updateTime()
+void fairwind::ui::topbar::TopBar::updateTime()
 {
     QTime time = QTime::currentTime();
     QString text = time.toString("hh:mm");
@@ -45,11 +45,11 @@ void TopBar::updateTime()
     ui->label_Date->setText(text);
 }
 
-TopBar::~TopBar() {
+fairwind::ui::topbar::TopBar::~TopBar() {
     delete ui;
 }
 
-void TopBar::updateNavigationPosition(const QJsonObject update) {
+void fairwind::ui::topbar::TopBar::updateNavigationPosition(const QJsonObject update) {
     auto fairWind = fairwind::FairWind::getInstance();
     auto signalKDocument = fairWind->getSignalKDocument();
     QString path=signalKDocument->getSelf()+".navigation.position.value";
@@ -67,7 +67,7 @@ void TopBar::updateNavigationPosition(const QJsonObject update) {
 
 }
 
-void TopBar::updateNavigationCourseOverGroundTrue(const QJsonObject update) {
+void fairwind::ui::topbar::TopBar::updateNavigationCourseOverGroundTrue(const QJsonObject update) {
 
     auto fairWind = fairwind::FairWind::getInstance();
     auto signalKDocument = fairWind->getSignalKDocument();
@@ -82,7 +82,7 @@ void TopBar::updateNavigationCourseOverGroundTrue(const QJsonObject update) {
     }
 }
 
-void TopBar::updateNavigationSpeedOverGround(const QJsonObject update) {
+void fairwind::ui::topbar::TopBar::updateNavigationSpeedOverGround(const QJsonObject update) {
 
     auto fairWind = fairwind::FairWind::getInstance();
     auto signalKDocument = fairWind->getSignalKDocument();

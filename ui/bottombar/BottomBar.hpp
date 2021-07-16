@@ -11,25 +11,32 @@ namespace Ui {
     class BottomBar;
 }
 
-class BottomBar : public QWidget {
+namespace fairwind::ui::bottombar {
+
+    class BottomBar : public QWidget {
     Q_OBJECT
-public:
-    explicit BottomBar(QWidget *parent = 0);
-    ~BottomBar();
+    public:
+        explicit BottomBar(QWidget *parent = 0);
 
-public slots:
-    void settings_clicked();
-    void apps_clicked();
+        ~BottomBar();
 
-signals:
-    void setApps();
-    void setSettings();
+    public slots:
+
+        void settings_clicked();
+
+        void apps_clicked();
+
+    signals:
+
+        void setApps();
+
+        void setSettings();
 
 
-private:
-    Ui::BottomBar *ui;
+    private:
+        Ui::BottomBar *ui;
 
 
-};
-
+    };
+}
 #endif //FAIRWIND_BOTTOMBAR_HPP

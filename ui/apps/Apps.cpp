@@ -7,7 +7,7 @@
 #include "ui_Apps.h"
 
 
-Apps::Apps(QWidget *parent) :
+fairwind::ui::apps::Apps::Apps(QWidget *parent) :
         QWidget(parent),
         ui(new Ui::Apps) {
 
@@ -61,12 +61,12 @@ Apps::Apps(QWidget *parent) :
 
 
 
-Apps::~Apps() {
+fairwind::ui::apps::Apps::~Apps() {
     delete ui;
 }
 
 
-void Apps::toolButton_App_released()
+void fairwind::ui::apps::Apps::toolButton_App_released()
 {
     QWidget *buttonWidget = qobject_cast<QWidget*>(sender());
     if (!buttonWidget) {

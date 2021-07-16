@@ -8,6 +8,8 @@
 #include <QMainWindow>
 #include <QMap>
 #include <QDebug>
+#include <ui/topbar/TopBar.hpp>
+#include <ui/bottombar/BottomBar.hpp>
 
 
 #include "FairWindSdk/App.hpp"
@@ -22,32 +24,33 @@ namespace Ui {
     class MainWindow;
 }
 
-class MainWindow : public QMainWindow {
-    Q_OBJECT
+namespace fairwind::ui {
+    class MainWindow : public QMainWindow {
+        Q_OBJECT
 
-public:
-    explicit MainWindow(QWidget *parent = 0);
+    public:
+        explicit MainWindow(QWidget *parent = 0);
 
-    ~MainWindow();
+        ~MainWindow();
 
-    Ui::MainWindow *getUi();
+        Ui::MainWindow *getUi();
 
-public slots:
-    void setForegroundApp(QString hash);
-    void onApps();
-    void onSettings();
+    public slots:
+        void setForegroundApp(QString hash);
+        void onApps();
+        void onSettings();
 
 
-private:
-    Ui::MainWindow *ui;
-    QMap<QString, QWidget *> mapWidgets;
+    private:
+        Ui::MainWindow *ui;
+        QMap<QString, QWidget *> mapWidgets;
 
-    Apps *m_apps = nullptr;
-    Settings *m_settings = nullptr;
-    TopBar *m_topBar = nullptr;
-    BottomBar *m_bottonBar = nullptr;
-};
-
+        apps::Apps *m_apps = nullptr;
+        settings::Settings *m_settings = nullptr;
+        topbar::TopBar *m_topBar = nullptr;
+        bottombar::BottomBar *m_bottonBar = nullptr;
+    };
+}
 
 
 #endif //FAIRWINDS_MAINWINDOW_HPP
