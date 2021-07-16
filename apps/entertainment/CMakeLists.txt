@@ -5,11 +5,15 @@ qt5_add_resources(ENTERTAINMENT_RESOURCE_ADDED ${ENTERTAINMENT_RESOURCE})
 add_library(Entertainment SHARED
         Entertainment.cpp
         Entertainment.hpp
+        PlayerControls.cpp PlayerControls.hpp
+        PlaylistModel.cpp PlaylistModel.hpp
+        HistogramWidget.cpp HistogramWidget.hpp
+        VideoWidget.cpp VideoWidget.hpp
         ${ENTERTAINMENT_RESOURCE_ADDED}
         )
 
 add_dependencies(Entertainment FairWindSdk)
-target_link_libraries(Entertainment PRIVATE Qt5::Widgets Qt5::Network  ${LIBFAIRWINDSDK})
+target_link_libraries(Entertainment PRIVATE Qt5::Widgets Qt5::Multimedia Qt5::MultimediaWidgets Qt5::Network Qt5::Xml  ${LIBFAIRWINDSDK})
 target_compile_options(Entertainment PRIVATE ${COMPILE_OPTIONS})
 
 add_custom_command(
