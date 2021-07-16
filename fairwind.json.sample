@@ -206,8 +206,8 @@
         "Active": true,
         "Order": 1,
         "Args": {
-          "Name": "Signal K",
-          "Icon": ":/images/icons/signalk_icon.png",
+          "Name": "Signal K Server",
+          "Icon":":/resources/images/icons/signalk_server_icon.png",
           "Url": "http://localhost:3000"
         }
       },
@@ -217,7 +217,7 @@
         "Order": 1,
         "Args": {
           "Name": "Open CPN",
-          "Icon": ":/images/icons/opencpn_icon.png",
+          "Icon":":/resources/images/icons/opencpn_icon.png",
           "Command": "/Applications/OpenCPN.app/Contents/MacOS/OpenCPN -fullscreen"
         }
       },
@@ -225,6 +225,11 @@
           "Id": "it.gov.guardiacostiera.gc1530",
           "Active": true,
           "Order": 1
+      },
+      {
+           "Id": "fairwind.apps.portolano",
+           "Active": true,
+           "Order": 1
       }
     ]
   }
