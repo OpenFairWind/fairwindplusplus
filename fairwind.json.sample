@@ -208,37 +208,7 @@
         "Args": {
           "Name": "Signal K",
           "Icon": ":/images/icons/signalk_icon.png",
-          "Url": "http:192.168.1.200:3000"
-        }
-      },
-      {
-        "Id": "it.uniparthenope.fairwind.apps.web",
-        "Active": true,
-        "Order": 1,
-        "Args": {
-          "Name": "FreeBoard",
-          "Icon": ":/images/icons/freeboard_icon.png",
-          "Url": "http://192.168.1.200:3000/@signalk/freeboard-sk/"
-        }
-      },
-      {
-        "Id": "it.uniparthenope.fairwind.apps.web",
-        "Active": true,
-        "Order": 1,
-        "Args": {
-          "Name": "Instrument Panel",
-          "Icon": ":/images/icons/instrumentpanel_icon.png",
-          "Url": "http://192.168.1.200:3000/@signalk/instrumentpanel/"
-        }
-      },
-      {
-        "Id": "it.uniparthenope.fairwind.apps.web",
-        "Active": true,
-        "Order": 1,
-        "Args": {
-          "Name": "Navionics",
-          "Icon": ":/images/icons/navionics_icon.png",
-          "Url": "https://webapp.navionics.com"
+          "Url": "http://localhost:3000"
         }
       },
       {
@@ -252,14 +222,9 @@
         }
       },
       {
-        "Id": "it.uniparthenope.fairwind.apps.web",
-        "Active": true,
-        "Order": 1,
-        "Args": {
-          "Name":"Kip",
-          "Icon": ":/images/icons/kip_icon.png",
-          "Url": "http://192.168.1.200:3000/@mxtommy/kip/#/page/0"
-        }
+          "Id": "it.gov.guardiacostiera.gc1530",
+          "Active": true,
+          "Order": 1
       }
     ]
   }
