@@ -17,10 +17,11 @@ fairwind::ui::settings::Settings::Settings(QWidget *parent) :
 
     ui->setupUi(this);
 
-    ui->tabWidget->addTab(new ui::settings::generic::Generic(),"Generic");
-    ui->tabWidget->addTab(new ui::settings::connections::Connections(),"Connections");
-    ui->tabWidget->addTab(new ui::settings::applications::Applications(), "Applications");
+    FairWind *fairWind = FairWind::getInstance();
 
+    for (const auto settings: *(fairWind->getSettings())) {
+        ui->tabWidget->addTab(dynamic_cast<QWidget *>(settings), settings->getName());
+    }
 }
 
 fairwind::ui::settings::Settings::~Settings() {
@@ -29,7 +30,4 @@ fairwind::ui::settings::Settings::~Settings() {
 
 void fairwind::ui::settings::Settings::showEvent(QShowEvent *e)
 {
-
-
-
 }
