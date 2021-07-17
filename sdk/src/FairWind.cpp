@@ -22,6 +22,8 @@
 #include <FairWind.hpp>
 #include <displays/DisplayWindAngleGauge.hpp>
 #include <ILayout.hpp>
+#include <ISettings.hpp>
+
 
 
 /*
@@ -33,8 +35,8 @@ fairwind::FairWind::FairWind() {
     qDebug() << "FairWind constructor";
 
     // Register built-in chart layers
-    registerLayer( new layers::FairWindOSMLayer());
-    registerLayer( new layers::FairWindTiledLayer());
+    registerLayer( new layers::OSMLayer());
+    registerLayer( new layers::TiledLayer());
     registerLayer(new layers::SignalKLayer());
 
     // Register built-in displays
@@ -51,8 +53,6 @@ fairwind::FairWind::FairWind() {
     // Register built-in display layouts
     registerLayout(new layouts::GridLayout());
     registerLayout(new layouts::VHGLayout());
-
-
 }
 
 /*
@@ -478,12 +478,30 @@ fairwind::layouts::ILayout *fairwind::FairWind::instanceLayout(const QString &cl
     return nullptr;
 }
 
+fairwind::ui::settings::ISettings *fairwind::FairWind::instanceSettings(const QString &className) {
+    if (m_registeredSettings.contains(className)) {
+        return m_registeredSettings[className]->getNewInstance();
+    }
+    return nullptr;
+}
+
 bool fairwind::FairWind::registerLayout(fairwind::layouts::ILayout *dummy) {
     bool result= false;
     QString className=dummy->getClassName();
     if (m_registeredLayouts.contains(className) == false) {
         //qDebug() << "fairwind::FairWind::registerConnection: " << className;
         m_registeredLayouts[className] = dummy;
+
+    }
+    return result;
+}
+
+bool fairwind::FairWind::registerSettings(fairwind::ui::settings::ISettings *dummy) {
+    bool result= false;
+    QString className=dummy->getClassName();
+    if (m_registeredSettings.contains(className) == false) {
+        qDebug() << "fairwind::FairWind::registerSettings: " << className;
+        m_registeredSettings[className] = dummy;
 
     }
     return result;
@@ -503,6 +521,10 @@ QMap<QString, fairwind::displays::IDisplay *> *fairwind::FairWind::getDisplays()
 
 QMap<QString, fairwind::layers::ILayer *> *fairwind::FairWind::getLayers() {
     return &m_registeredLayers;
+}
+
+QMap<QString, fairwind::ui::settings::ISettings *> *fairwind::FairWind::getSettings() {
+    return &m_registeredSettings;
 }
 
 QList<fairwind::connections::IConnection *> *fairwind::FairWind::getConnectionsList() {

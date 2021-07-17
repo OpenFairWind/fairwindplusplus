@@ -20,6 +20,7 @@
 #include "IDisplay.hpp"
 #include "IConnection.hpp"
 #include "ILayout.hpp"
+#include "ISettings.hpp"
 
 namespace fairwind {
     class FAIRWINDSDK_LIB_DECL FairWind: public QObject {
@@ -50,10 +51,14 @@ namespace fairwind {
         bool registerLayout(fairwind::layouts::ILayout *dummy);
         layouts::ILayout *instanceLayout(const QString& className);
 
+        bool registerSettings(fairwind::ui::settings::ISettings *dummy);
+        ui::settings::ISettings *instanceSettings(const QString& className);
+
         QMap<QString, fairwind::layers::ILayer *> *getLayers();
         QMap<QString, fairwind::displays::IDisplay *> *getDisplays();
         QMap<QString, fairwind::connections::IConnection *> *getConnections();
         QMap<QString, fairwind::layouts::ILayout *> *getLayouts();
+        QMap<QString, fairwind::ui::settings::ISettings *> *getSettings();
 
         QList<fairwind::connections::IConnection *> *getConnectionsList();
 
@@ -79,6 +84,7 @@ namespace fairwind {
         QMap<QString, displays::IDisplay *> m_registeredDisplays;
         QMap<QString, connections::IConnection *> m_registeredConnections;
         QMap<QString, layouts::ILayout *> m_registeredLayouts;
+        QMap<QString, ui::settings::ISettings *> m_registeredSettings;
 
         QDir m_appsRoot;
         QDir m_dataRoot;
