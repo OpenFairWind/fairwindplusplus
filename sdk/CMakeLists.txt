@@ -58,6 +58,7 @@ add_library(fairwindsdk SHARED
         include/FairWindSdk/IDisplay.hpp
         include/FairWindSdk/IConnection.hpp
         include/FairWindSdk/ILayout.hpp
+        include/FairWindSdk/ISettings.hpp
         include/FairWindSdk/AppBase.hpp
         include/FairWindSdk/SignalKDocument.hpp
         include/FairWindSdk/FairWind.hpp
