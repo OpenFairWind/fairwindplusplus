@@ -7,7 +7,9 @@
 
 #include "ui/MainWindow.hpp"
 #include <FairWindSdk/FairWind.hpp>
-
+#include <ui/settings/generic/Generic.hpp>
+#include <ui/settings/connections/Connections.hpp>
+#include <ui/settings/applications/Applications.hpp>
 
 int main(int argc, char *argv[]) {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -18,6 +20,11 @@ int main(int argc, char *argv[]) {
     splash.show();
 
     auto fairWind=fairwind::FairWind::getInstance();
+
+    // Register settings pages
+    fairWind->registerSettings(new fairwind::ui::settings::generic::Generic());
+    fairWind->registerSettings(new fairwind::ui::settings::connections::Connections());
+    fairWind->registerSettings(new fairwind::ui::settings::applications::Applications());
 
     splash.showMessage("Loading Applications ...",500, Qt::white);
 
@@ -34,6 +41,7 @@ int main(int argc, char *argv[]) {
     QCoreApplication::setOrganizationName("uniparthenope");
 
     app.setWindowIcon(QIcon(QStringLiteral(":resources/images/fairwind_logo.png")));
+
 
 
     fairwind::ui::MainWindow w;
