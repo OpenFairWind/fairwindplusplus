@@ -5,19 +5,19 @@
 #include <QWidget>
 #include "FairWindSdk/layers/TiledLayer.hpp"
 
-fairwind::layers::FairWindTiledLayer::FairWindTiledLayer(): QGVLayerOSM() {
+fairwind::layers::TiledLayer::TiledLayer(): QGVLayerOSM() {
     setName("Open Street Map");
     setDescription("The Open Street Map basemap.");
 }
 
-fairwind::layers::FairWindTiledLayer::~FairWindTiledLayer() {
+fairwind::layers::TiledLayer::~TiledLayer() {
 }
 
-QImage fairwind::layers::FairWindTiledLayer::getIcon() const {
-    return QImage(":resources/images/icons/signalk_icon.png");;
+QImage fairwind::layers::TiledLayer::getIcon() const {
+    return QImage(":resources/images/icons/tiled_icon.png");;
 }
 
-void fairwind::layers::FairWindTiledLayer::onInit(QMap<QString, QVariant> params) {
+void fairwind::layers::TiledLayer::onInit(QMap<QString, QVariant> params) {
     if (params.contains("name")) {
         setName(params["name"].toString());
     }
@@ -31,18 +31,18 @@ void fairwind::layers::FairWindTiledLayer::onInit(QMap<QString, QVariant> params
     }
 }
 
-fairwind::layers::ILayer *fairwind::layers::FairWindTiledLayer::getNewInstance() {
-    return static_cast<ILayer *>(new FairWindTiledLayer());
+fairwind::layers::ILayer *fairwind::layers::TiledLayer::getNewInstance() {
+    return static_cast<ILayer *>(new TiledLayer());
 }
 
-QWidget *fairwind::layers::FairWindTiledLayer::onLegenda() {
+QWidget *fairwind::layers::TiledLayer::onLegenda() {
     return nullptr;
 }
 
-QWidget *fairwind::layers::FairWindTiledLayer::onSettings() {
+QWidget *fairwind::layers::TiledLayer::onSettings() {
     return nullptr;
 }
 
-QString fairwind::layers::FairWindTiledLayer::getClassName() const {
+QString fairwind::layers::TiledLayer::getClassName() const {
     return this->metaObject()->className();
 }

@@ -4,34 +4,34 @@
 
 #include "FairWindSdk/layers/OSMLayer.hpp"
 
-fairwind::layers::FairWindOSMLayer::FairWindOSMLayer(): QGVLayerOSM() {
+fairwind::layers::OSMLayer::OSMLayer(): QGVLayerOSM() {
     setName("Open Street Map");
     setDescription("The Open Street Map basemap.");
 }
 
-fairwind::layers::FairWindOSMLayer::~FairWindOSMLayer() {
+fairwind::layers::OSMLayer::~OSMLayer() {
 }
 
-QImage fairwind::layers::FairWindOSMLayer::getIcon() const {
-    return QImage(":resources/images/icons/signalk_icon.png");;
+QImage fairwind::layers::OSMLayer::getIcon() const {
+    return QImage(":resources/images/icons/osm_icon.png");;
 }
 
-void fairwind::layers::FairWindOSMLayer::onInit(QMap<QString, QVariant> params) {
+void fairwind::layers::OSMLayer::onInit(QMap<QString, QVariant> params) {
 
 }
 
-fairwind::layers::ILayer *fairwind::layers::FairWindOSMLayer::getNewInstance() {
-    return static_cast<ILayer *>(new FairWindOSMLayer());
+fairwind::layers::ILayer *fairwind::layers::OSMLayer::getNewInstance() {
+    return static_cast<ILayer *>(new OSMLayer());
 }
 
-QWidget *fairwind::layers::FairWindOSMLayer::onLegenda() {
+QWidget *fairwind::layers::OSMLayer::onLegenda() {
     return nullptr;
 }
 
-QWidget *fairwind::layers::FairWindOSMLayer::onSettings() {
+QWidget *fairwind::layers::OSMLayer::onSettings() {
     return nullptr;
 }
 
-QString fairwind::layers::FairWindOSMLayer::getClassName() const {
+QString fairwind::layers::OSMLayer::getClassName() const {
     return this->metaObject()->className();
 }
