@@ -10,13 +10,13 @@
 #include "ILayer.hpp"
 
 namespace fairwind::layers {
-    class FAIRWINDSDK_LIB_DECL FairWindTiledLayer : public QGVLayerOSM, public fairwind::layers::ILayer {
+    class FAIRWINDSDK_LIB_DECL TiledLayer : public QGVLayerOSM, public fairwind::layers::ILayer {
     Q_OBJECT
 
     public:
-        explicit FairWindTiledLayer();
+        explicit TiledLayer();
 
-        ~FairWindTiledLayer();
+        ~TiledLayer();
 
         QString getClassName() const override;
 
