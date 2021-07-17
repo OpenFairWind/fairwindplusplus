@@ -62,3 +62,19 @@ void fairwind::ui::settings::connections::Connections::showEvent(QShowEvent *eve
     }
     QWidget::showEvent(event);
 }
+
+QImage fairwind::ui::settings::connections::Connections::getIcon() const {
+    return QImage(":resources/images/icons/connections_icon.png");
+}
+
+QString fairwind::ui::settings::connections::Connections::getName() const {
+    return tr("Connections");
+}
+
+fairwind::ui::settings::ISettings *fairwind::ui::settings::connections::Connections::getNewInstance() {
+    return static_cast<ISettings *>(new Connections());
+}
+
+QString fairwind::ui::settings::connections::Connections::getClassName() const {
+    return this->metaObject()->className();
+}

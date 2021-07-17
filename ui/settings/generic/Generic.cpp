@@ -19,6 +19,20 @@ void fairwind::ui::settings::generic::Generic::showEvent(QShowEvent *event) {
     QWidget::showEvent(event);
 }
 
+QImage fairwind::ui::settings::generic::Generic::getIcon() const {
+    return QImage(":resources/images/icons/generic_icon.png");
+}
 
+QString fairwind::ui::settings::generic::Generic::getName() const {
+    return tr("Generic");
+}
+
+fairwind::ui::settings::ISettings *fairwind::ui::settings::generic::Generic::getNewInstance() {
+    return static_cast<ISettings *>(new Generic());
+}
+
+QString fairwind::ui::settings::generic::Generic::getClassName() const {
+    return this->metaObject()->className();
+}
 
 

@@ -57,4 +57,19 @@ void fairwind::ui::settings::applications::Applications::showEvent(QShowEvent *e
     QWidget::showEvent(event);
 }
 
+QImage fairwind::ui::settings::applications::Applications::getIcon() const {
+    return QImage(":resources/images/icons/applications_icon.png");
+}
+
+QString fairwind::ui::settings::applications::Applications::getName() const {
+    return tr("Applications");
+}
+
+fairwind::ui::settings::ISettings *fairwind::ui::settings::applications::Applications::getNewInstance() {
+    return static_cast<ISettings *>(new Applications());
+}
+
+QString fairwind::ui::settings::applications::Applications::getClassName() const {
+    return this->metaObject()->className();
+}
 

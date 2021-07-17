@@ -6,6 +6,7 @@
 #define FAIRWIND_GENERIC_HPP
 
 #include <QWidget>
+#include <FairWindSdk/ISettings.hpp>
 
 namespace Ui {
     class Generic;
@@ -13,7 +14,7 @@ namespace Ui {
 
 namespace fairwind::ui::settings::generic {
 
-    class Generic : public QWidget {
+    class Generic : public QWidget, public ISettings {
         Q_OBJECT
 
     public:
@@ -21,8 +22,14 @@ namespace fairwind::ui::settings::generic {
 
         ~Generic();
 
+        QString getClassName() const override;
+        QImage getIcon() const override;
+        QString getName() const override;
+        ISettings *getNewInstance() override;
+
+
     protected :
-        void showEvent(QShowEvent *event);
+        void showEvent(QShowEvent *event) override;
 
     private:
         Ui::Generic *ui;

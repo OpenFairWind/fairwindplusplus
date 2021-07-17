@@ -6,6 +6,7 @@
 #define FAIRWIND_CONNECTIONS_HPP
 
 #include <QWidget>
+#include <FairWindSdk/ISettings.hpp>
 
 namespace Ui {
     class Connections;
@@ -13,7 +14,7 @@ namespace Ui {
 
 namespace fairwind::ui::settings::connections {
 
-    class Connections : public QWidget {
+    class Connections : public QWidget, public ISettings {
         Q_OBJECT
 
     public:
@@ -21,8 +22,13 @@ namespace fairwind::ui::settings::connections {
 
         ~Connections();
 
+        QString getClassName() const override;
+        QImage getIcon() const override;
+        QString getName() const override;
+        ISettings *getNewInstance() override;
+
     protected :
-        void showEvent(QShowEvent *event);
+        void showEvent(QShowEvent *event) override;
 
     private:
         Ui::Connections *ui;

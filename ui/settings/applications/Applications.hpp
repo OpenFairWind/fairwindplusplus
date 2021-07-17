@@ -6,6 +6,7 @@
 #define FAIRWIND_APPLICATIONS_HPP
 
 #include <QWidget>
+#include <FairWindSdk/ISettings.hpp>
 
 namespace Ui {
     class Applications;
@@ -13,7 +14,7 @@ namespace Ui {
 
 namespace fairwind::ui::settings::applications {
 
-    class Applications : public QWidget {
+    class Applications : public QWidget, public ISettings {
         Q_OBJECT
 
     public:
@@ -21,8 +22,13 @@ namespace fairwind::ui::settings::applications {
 
         ~Applications();
 
+        QString getClassName() const override;
+        QImage getIcon() const override;
+        QString getName() const override;
+        ISettings *getNewInstance() override;
+
     protected :
-        void showEvent(QShowEvent *event);
+        void showEvent(QShowEvent *event) override;
 
     private:
         Ui::Applications *ui;
