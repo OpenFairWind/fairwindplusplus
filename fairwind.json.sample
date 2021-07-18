@@ -265,6 +265,17 @@
           "Icon":":/resources/images/icons/youtube_icon.png",
           "Url":"https://www.youtube.com"
         }
+      },
+      {
+           "Id": "it.uniparthenope.fairwind.apps.web",
+           "Active": true,
+           "Order": 1,
+           "Args": {
+             "Name": "Spotify",
+             "Desc": "Listening is Everything",
+             "Icon":":/resources/images/icons/spotify_icon.png",
+             "Url": "https://www.spotify.com"
+           }
       }
     ]
   }
