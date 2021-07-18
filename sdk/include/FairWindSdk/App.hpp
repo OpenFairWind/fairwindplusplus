@@ -27,6 +27,11 @@ namespace fairwind {
         int getOrder();
         void setOrder(int order);
         QString getName();
+        QString getDesc();
+        QString getVersion();
+        QString getVendor();
+        QString getCopyright();
+        QString getLicense();
         QImage getIcon();
         QMap<QString, QVariant> getArgs();
 
@@ -42,8 +47,14 @@ namespace fairwind {
         int m_order;
         QString m_name;
         QString m_desc;
+        QString m_version;
+        QString m_vendor;
+        QString m_copyright;
+        QString m_license;
         QImage m_icon;
         QMap<QString, QVariant> m_args;
+
+
     };
 
 }

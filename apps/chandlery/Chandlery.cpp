@@ -41,6 +41,23 @@ QString fairwind::apps::chandlery::Chandlery::getDesc() const {
     return AppBase::getDesc();
 }
 
+QString fairwind::apps::chandlery::Chandlery::getVersion() const {
+    return fairwind::AppBase::getVersion();
+}
+
+QString fairwind::apps::chandlery::Chandlery::getVendor() const {
+    return fairwind::AppBase::getVendor();
+}
+
+QString fairwind::apps::chandlery::Chandlery::getCopyright() const {
+    return fairwind::AppBase::getCopyright();
+}
+
+QString fairwind::apps::chandlery::Chandlery::getLicense() const {
+    return fairwind::AppBase::getLicense();
+}
+
+
 void fairwind::apps::chandlery::Chandlery::onInit(QJsonObject *metaData) {
     AppBase::onInit(metaData);
 }

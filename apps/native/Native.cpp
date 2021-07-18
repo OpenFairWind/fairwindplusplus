@@ -35,6 +35,23 @@ QString fairwind::apps::native::Native::getDesc() const {
     return fairwind::AppBase::getDesc();
 }
 
+QString fairwind::apps::native::Native::getVersion() const {
+    return fairwind::AppBase::getVersion();
+}
+
+QString fairwind::apps::native::Native::getVendor() const {
+    return fairwind::AppBase::getVendor();
+}
+
+QString fairwind::apps::native::Native::getCopyright() const {
+    return fairwind::AppBase::getCopyright();
+}
+
+QString fairwind::apps::native::Native::getLicense() const {
+    return fairwind::AppBase::getLicense();
+}
+
+
 void fairwind::apps::native::Native::onInit(QJsonObject *metaData) {
     AppBase::onInit(metaData);
 }

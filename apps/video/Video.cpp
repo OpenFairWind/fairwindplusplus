@@ -41,6 +41,22 @@ QString fairwind::apps::video::Video::getDesc() const {
     return AppBase::getDesc();
 }
 
+QString fairwind::apps::video::Video::getVersion() const {
+    return fairwind::AppBase::getVersion();
+}
+
+QString fairwind::apps::video::Video::getVendor() const {
+    return fairwind::AppBase::getVendor();
+}
+
+QString fairwind::apps::video::Video::getCopyright() const {
+    return fairwind::AppBase::getCopyright();
+}
+
+QString fairwind::apps::video::Video::getLicense() const {
+    return fairwind::AppBase::getLicense();
+}
+
 void fairwind::apps::video::Video::onInit(QJsonObject *metaData) {
     AppBase::onInit(metaData);
 }

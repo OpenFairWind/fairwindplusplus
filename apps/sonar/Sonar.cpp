@@ -41,6 +41,22 @@ QString fairwind::apps::sonar::Sonar::getDesc() const {
     return AppBase::getDesc();
 }
 
+QString fairwind::apps::sonar::Sonar::getVersion() const {
+    return fairwind::AppBase::getVersion();
+}
+
+QString fairwind::apps::sonar::Sonar::getVendor() const {
+    return fairwind::AppBase::getVendor();
+}
+
+QString fairwind::apps::sonar::Sonar::getCopyright() const {
+    return fairwind::AppBase::getCopyright();
+}
+
+QString fairwind::apps::sonar::Sonar::getLicense() const {
+    return fairwind::AppBase::getLicense();
+}
+
 void fairwind::apps::sonar::Sonar::onInit(QJsonObject *metaData) {
     AppBase::onInit(metaData);
 }

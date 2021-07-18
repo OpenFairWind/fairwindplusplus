@@ -20,6 +20,23 @@ QString fairwind::apps::dashboard::Dashboard::getDesc() const {
     return fairwind::AppBase::getDesc();
 }
 
+QString fairwind::apps::dashboard::Dashboard::getVersion() const {
+    return fairwind::AppBase::getVersion();
+}
+
+QString fairwind::apps::dashboard::Dashboard::getVendor() const {
+    return fairwind::AppBase::getVendor();
+}
+
+QString fairwind::apps::dashboard::Dashboard::getCopyright() const {
+    return fairwind::AppBase::getCopyright();
+}
+
+QString fairwind::apps::dashboard::Dashboard::getLicense() const {
+    return fairwind::AppBase::getLicense();
+}
+
+
 QImage fairwind::apps::dashboard::Dashboard::getIcon() const {
     return QImage(":/resources/images/icons/dashboard_icon.png");
 }

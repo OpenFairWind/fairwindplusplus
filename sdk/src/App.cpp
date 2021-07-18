@@ -28,6 +28,10 @@ fairwind::App::App(fairwind::apps::IApp *fairWindApp, QMap<QString, QVariant> ar
     m_extension=fairWindApp->getId();
     m_name=fairWindApp->getName();
     m_desc=fairWindApp->getDesc();
+    m_version = fairWindApp->getVersion();
+    m_vendor = fairWindApp->getVersion();
+    m_copyright = fairWindApp->getCopyright();
+    m_license = fairWindApp->getLicense();
     m_icon=fairWindApp->getIcon();
     m_order=order;
     m_active=active;
@@ -57,6 +61,10 @@ QString fairwind::App::getExtension() {
 
 QString fairwind::App::getName() {
     return m_name;
+}
+
+QString fairwind::App::getDesc() {
+    return m_desc;
 }
 
 QImage fairwind::App::getIcon() {
@@ -95,4 +103,20 @@ void fairwind::App::generateHash() {
 
 QMap<QString, QVariant> fairwind::App::getArgs() {
     return m_args;
+}
+
+QString fairwind::App::getVersion() {
+    return m_version;
+}
+
+QString fairwind::App::getVendor() {
+    return m_vendor;
+}
+
+QString fairwind::App::getCopyright() {
+    return m_copyright;
+}
+
+QString fairwind::App::getLicense() {
+    return m_license;
 }

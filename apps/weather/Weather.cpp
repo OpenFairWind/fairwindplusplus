@@ -41,6 +41,22 @@ QString fairwind::apps::weather::Weather::getDesc() const {
     return AppBase::getDesc();
 }
 
+QString fairwind::apps::weather::Weather::getVersion() const {
+    return fairwind::AppBase::getVersion();
+}
+
+QString fairwind::apps::weather::Weather::getVendor() const {
+    return fairwind::AppBase::getVendor();
+}
+
+QString fairwind::apps::weather::Weather::getCopyright() const {
+    return fairwind::AppBase::getCopyright();
+}
+
+QString fairwind::apps::weather::Weather::getLicense() const {
+    return fairwind::AppBase::getLicense();
+}
+
 void fairwind::apps::weather::Weather::onInit(QJsonObject *metaData) {
     AppBase::onInit(metaData);
 }

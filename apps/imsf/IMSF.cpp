@@ -41,6 +41,23 @@ QString fairwind::apps::imsf::IMSF::getDesc() const {
     return AppBase::getDesc();
 }
 
+QString fairwind::apps::imsf::IMSF::getVersion() const {
+    return fairwind::AppBase::getVersion();
+}
+
+QString fairwind::apps::imsf::IMSF::getVendor() const {
+    return fairwind::AppBase::getVendor();
+}
+
+QString fairwind::apps::imsf::IMSF::getCopyright() const {
+    return fairwind::AppBase::getCopyright();
+}
+
+QString fairwind::apps::imsf::IMSF::getLicense() const {
+    return fairwind::AppBase::getLicense();
+}
+
+
 void fairwind::apps::imsf::IMSF::onInit(QJsonObject *metaData) {
     AppBase::onInit(metaData);
 }

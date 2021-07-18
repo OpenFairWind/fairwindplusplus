@@ -24,7 +24,10 @@ namespace fairwind::apps {
         virtual QString getId() const = 0;
         virtual QString getName() const = 0;
         virtual QString getDesc() const  = 0;
-
+        virtual QString getVersion() const  = 0;
+        virtual QString getVendor() const  = 0;
+        virtual QString getCopyright() const  = 0;
+        virtual QString getLicense() const  = 0;
 
         virtual QImage getIcon() const = 0;
         virtual QWidget *onGui(QMainWindow *mainWindow, QMap<QString, QVariant> args) = 0;

@@ -41,6 +41,22 @@ QString fairwind::apps::uav::UAV::getDesc() const {
     return AppBase::getDesc();
 }
 
+QString fairwind::apps::uav::UAV::getVersion() const {
+    return fairwind::AppBase::getVersion();
+}
+
+QString fairwind::apps::uav::UAV::getVendor() const {
+    return fairwind::AppBase::getVendor();
+}
+
+QString fairwind::apps::uav::UAV::getCopyright() const {
+    return fairwind::AppBase::getCopyright();
+}
+
+QString fairwind::apps::uav::UAV::getLicense() const {
+    return fairwind::AppBase::getLicense();
+}
+
 void fairwind::apps::uav::UAV::onInit(QJsonObject *metaData) {
     AppBase::onInit(metaData);
 }

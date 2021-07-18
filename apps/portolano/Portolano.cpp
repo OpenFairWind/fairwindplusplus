@@ -41,6 +41,23 @@ QString fairwind::apps::portolano::Portolano::getDesc() const {
     return AppBase::getDesc();
 }
 
+QString fairwind::apps::portolano::Portolano::getVersion() const {
+    return fairwind::AppBase::getVersion();
+}
+
+QString fairwind::apps::portolano::Portolano::getVendor() const {
+    return fairwind::AppBase::getVendor();
+}
+
+QString fairwind::apps::portolano::Portolano::getCopyright() const {
+    return fairwind::AppBase::getCopyright();
+}
+
+QString fairwind::apps::portolano::Portolano::getLicense() const {
+    return fairwind::AppBase::getLicense();
+}
+
+
 void fairwind::apps::portolano::Portolano::onInit(QJsonObject *metaData) {
     AppBase::onInit(metaData);
 }

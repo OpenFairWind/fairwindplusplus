@@ -17,6 +17,10 @@ namespace fairwind {
         virtual QString getId() const;
         virtual QString getName() const;
         virtual QString getDesc() const;
+        virtual QString getVersion() const;
+        virtual QString getVendor() const;
+        virtual QString getCopyright() const;
+        virtual QString getLicense() const;
 
         virtual void onInit(QJsonObject *metaData);
 

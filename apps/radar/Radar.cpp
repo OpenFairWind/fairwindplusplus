@@ -41,6 +41,23 @@ QString fairwind::apps::radar::Radar::getDesc() const {
     return AppBase::getDesc();
 }
 
+QString fairwind::apps::radar::Radar::getVersion() const {
+    return fairwind::AppBase::getVersion();
+}
+
+QString fairwind::apps::radar::Radar::getVendor() const {
+    return fairwind::AppBase::getVendor();
+}
+
+QString fairwind::apps::radar::Radar::getCopyright() const {
+    return fairwind::AppBase::getCopyright();
+}
+
+QString fairwind::apps::radar::Radar::getLicense() const {
+    return fairwind::AppBase::getLicense();
+}
+
+
 void fairwind::apps::radar::Radar::onInit(QJsonObject *metaData) {
     AppBase::onInit(metaData);
 }

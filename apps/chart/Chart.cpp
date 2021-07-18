@@ -97,6 +97,23 @@ QString fairwind::apps::chart::Chart::getDesc() const {
     return AppBase::getDesc();
 }
 
+QString fairwind::apps::chart::Chart::getVersion() const {
+    return fairwind::AppBase::getVersion();
+}
+
+QString fairwind::apps::chart::Chart::getVendor() const {
+    return fairwind::AppBase::getVendor();
+}
+
+QString fairwind::apps::chart::Chart::getCopyright() const {
+    return fairwind::AppBase::getCopyright();
+}
+
+QString fairwind::apps::chart::Chart::getLicense() const {
+    return fairwind::AppBase::getLicense();
+}
+
+
 void fairwind::apps::chart::Chart::onInit(QJsonObject *metaData) {
     AppBase::onInit(metaData);
 }

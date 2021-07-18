@@ -27,6 +27,22 @@ QString fairwind::apps::web::Web::getDesc() const {
     return fairwind::AppBase::getDesc();
 }
 
+QString fairwind::apps::web::Web::getVersion() const {
+    return fairwind::AppBase::getVersion();
+}
+
+QString fairwind::apps::web::Web::getVendor() const {
+    return fairwind::AppBase::getVendor();
+}
+
+QString fairwind::apps::web::Web::getCopyright() const {
+    return fairwind::AppBase::getCopyright();
+}
+
+QString fairwind::apps::web::Web::getLicense() const {
+    return fairwind::AppBase::getLicense();
+}
+
 QImage fairwind::apps::web::Web::getIcon() const {
     return QImage(":/resources/images/icons/web_icon.png");
 }

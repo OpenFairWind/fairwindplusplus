@@ -41,6 +41,23 @@ QString __namespace__::__Appname__::getDesc() const {
     return AppBase::getDesc();
 }
 
+QString __namespace__::__Appname__::getVersion() const {
+    return AppBase::getVersion();
+}
+
+QString __namespace__::__Appname__::getVendor() const {
+    return AppBase::getVendor();
+}
+
+QString __namespace__::__Appname__::getCopyright() const {
+    return AppBase::getCopyright();
+}
+
+QString __namespace__::__Appname__::getLicense() const {
+    return AppBase::getLicense();
+}
+
+
 void __namespace__::__Appname__::onInit(QJsonObject *metaData) {
     AppBase::onInit(metaData);
 }

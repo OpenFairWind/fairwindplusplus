@@ -55,6 +55,34 @@ QString fairwind::AppBase::getDesc() const {
     return "";
 }
 
+QString fairwind::AppBase::getVersion() const {
+    if (m_metaData.contains("Version") && m_metaData["Version"].isString()) {
+        return m_metaData["Version"].toString();
+    }
+    return "";
+}
+
+QString fairwind::AppBase::getVendor() const {
+    if (m_metaData.contains("Vendor") && m_metaData["Vendor"].isString()) {
+        return m_metaData["Vendor"].toString();
+    }
+    return "";
+}
+
+QString fairwind::AppBase::getCopyright() const {
+    if (m_metaData.contains("Copyright") && m_metaData["Copyright"].isString()) {
+        return m_metaData["Copyright"].toString();
+    }
+    return "";
+}
+
+QString fairwind::AppBase::getLicense() const {
+    if (m_metaData.contains("License") && m_metaData["License"].isString()) {
+        return m_metaData["License"].toString();
+    }
+    return "";
+}
+
 
 void fairwind::AppBase::onInit(QJsonObject *metaData) {
 

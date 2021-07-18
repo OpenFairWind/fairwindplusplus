@@ -27,7 +27,11 @@ namespace it::gov::guardiacostiera::gc1530 {
 
         QString getId() const override;
         QString getName() const override;
-        QString getDesc() const override ;
+        QString getDesc() const override;
+        QString getVersion() const override;
+        QString getVendor() const override;
+        QString getCopyright() const override;
+        QString getLicense() const override;
 
         QImage getIcon() const override;
         QWidget *onGui(QMainWindow *mainWindow, QMap<QString, QVariant> args) override;

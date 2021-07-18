@@ -76,6 +76,23 @@ QString it::gov::guardiacostiera::gc1530::GC1530::getDesc() const {
     return AppBase::getDesc();
 }
 
+QString it::gov::guardiacostiera::gc1530::GC1530::getVersion() const {
+    return fairwind::AppBase::getVersion();
+}
+
+QString it::gov::guardiacostiera::gc1530::GC1530::getVendor() const {
+    return fairwind::AppBase::getVendor();
+}
+
+QString it::gov::guardiacostiera::gc1530::GC1530::getCopyright() const {
+    return fairwind::AppBase::getCopyright();
+}
+
+QString it::gov::guardiacostiera::gc1530::GC1530::getLicense() const {
+    return fairwind::AppBase::getLicense();
+}
+
+
 void it::gov::guardiacostiera::gc1530::GC1530::onInit(QJsonObject *metaData) {
     QWebEngineSettings::defaultSettings()->setAttribute(QWebEngineSettings::PluginsEnabled, true);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)

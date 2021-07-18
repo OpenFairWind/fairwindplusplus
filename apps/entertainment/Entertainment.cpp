@@ -198,6 +198,22 @@ QString fairwind::apps::entertainment::Entertainment::getDesc() const {
     return AppBase::getDesc();
 }
 
+QString fairwind::apps::entertainment::Entertainment::getVersion() const {
+    return fairwind::AppBase::getVersion();
+}
+
+QString fairwind::apps::entertainment::Entertainment::getVendor() const {
+    return fairwind::AppBase::getVendor();
+}
+
+QString fairwind::apps::entertainment::Entertainment::getCopyright() const {
+    return fairwind::AppBase::getCopyright();
+}
+
+QString fairwind::apps::entertainment::Entertainment::getLicense() const {
+    return fairwind::AppBase::getLicense();
+}
+
 void fairwind::apps::entertainment::Entertainment::onInit(QJsonObject *metaData) {
     AppBase::onInit(metaData);
 }
