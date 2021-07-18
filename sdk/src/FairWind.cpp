@@ -489,9 +489,8 @@ bool fairwind::FairWind::registerLayout(fairwind::layouts::ILayout *dummy) {
     bool result= false;
     QString className=dummy->getClassName();
     if (m_registeredLayouts.contains(className) == false) {
-        //qDebug() << "fairwind::FairWind::registerConnection: " << className;
         m_registeredLayouts[className] = dummy;
-
+        result=true;
     }
     return result;
 }
@@ -502,7 +501,8 @@ bool fairwind::FairWind::registerSettings(fairwind::ui::settings::ISettings *dum
     if (m_registeredSettings.contains(className) == false) {
         qDebug() << "fairwind::FairWind::registerSettings: " << className;
         m_registeredSettings[className] = dummy;
-
+        m_listSettings.append(dummy);
+        result=true;
     }
     return result;
 }
@@ -529,6 +529,10 @@ QMap<QString, fairwind::ui::settings::ISettings *> *fairwind::FairWind::getSetti
 
 QList<fairwind::connections::IConnection *> *fairwind::FairWind::getConnectionsList() {
     return &m_listConnections;
+}
+
+QList<fairwind::ui::settings::ISettings *> *fairwind::FairWind::getSettingsList() {
+    return &m_listSettings;
 }
 
 

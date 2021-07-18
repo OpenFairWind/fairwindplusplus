@@ -61,6 +61,7 @@ namespace fairwind {
         QMap<QString, fairwind::ui::settings::ISettings *> *getSettings();
 
         QList<fairwind::connections::IConnection *> *getConnectionsList();
+        QList<ui::settings::ISettings *> *getSettingsList();
 
         QJsonObject &getConfig();
 
@@ -85,6 +86,7 @@ namespace fairwind {
         QMap<QString, connections::IConnection *> m_registeredConnections;
         QMap<QString, layouts::ILayout *> m_registeredLayouts;
         QMap<QString, ui::settings::ISettings *> m_registeredSettings;
+        QList<ui::settings::ISettings *> m_listSettings;
 
         QDir m_appsRoot;
         QDir m_dataRoot;
