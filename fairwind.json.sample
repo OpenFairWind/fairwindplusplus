@@ -245,7 +245,28 @@
                 "Icon":":/resources/images/icons/opencpn_icon.png",
                 "Command": "/Applications/OpenCPN.app/Contents/MacOS/OpenCPN -fullscreen"
               }
-            }
+            },
+
+              {
+                "Id": "it.uniparthenope.fairwind.apps.web",
+                "Active": true,
+                "Order": 1,
+                "Args": {
+                  "Name": "Netflix",
+                  "Icon":":/resources/images/icons/netflix_icon.png",
+                  "Url": "https://www.netflix.com"
+                }
+              },
+              {
+                "Id": "it.uniparthenope.fairwind.apps.web",
+                "Active": true,
+                "Order": 1,
+                "Args": {
+                  "Name": "YouTube",
+                  "Icon":":/resources/images/icons/youtube_icon.png",
+                  "Url": "https://www.youtube.com"
+                }
+              }
     ]
   }
 }
