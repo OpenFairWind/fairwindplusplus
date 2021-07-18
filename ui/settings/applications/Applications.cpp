@@ -40,7 +40,10 @@ void fairwind::ui::settings::applications::Applications::showEvent(QShowEvent *e
     for (auto app:apps) {
         int row  = tableAppsList->rowCount();
         tableAppsList->insertRow( row );
-        auto itemIcon = new QTableWidgetItem(app->getName());
+        auto itemIcon = new QTableWidgetItem(
+                app->getName()+"\n" +
+                app->getDesc()+"\n"
+                );
         itemIcon->data(Qt::CheckStateRole);
         bool active=app->getActive();
         if (active) {
