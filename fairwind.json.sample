@@ -78,159 +78,174 @@
   "Extensions": {
     "Apps": [
       {
-        "Id": "it.uniparthenope.fairwind.apps.chart",
-        "Active": true,
-        "Order": 1
-      },
-        {
-          "Id": "it.uniparthenope.fairwind.apps.dashboard",
-          "Active": true,
-          "Order": 1,
-          "Args": {
-            "Name":"Data",
-            "Icon":":/images/icons/dashboard_icon.png",
-            "Config": {
-              "default": "Navigation",
-              "pages": [
-                {
-                  "name": "Navigation",
-                  "class": "fairwind::layouts::GridLayout",
-                  "displays": [
-                    {
-                      "class": "fairwind::displays::DisplaySingleText",
-                      "active": true,
-                      "layout": "0,0",
-                      "fullPath": "${self}.navigation.speedOverGround"
-                    },
-                    {
-                      "class": "fairwind::displays::DisplaySingleText",
-                      "active": true,
-                      "layout": "0,1",
-                      "fullPath": "${self}.navigation.courseOverGroundTrue"
-                    },
-                    {
-                      "class": "fairwind::displays::DisplaySingleText",
-                      "active": true,
-                      "layout": "0,2",
-                      "fullPath": "${self}.navigation.speedThroughWater"
-                    },
-                    {
-                      "class": "fairwind::displays::DisplaySingleText",
-                      "active": true,
-                      "layout": "0,3",
-                      "fullPath": "${self}.navigation.headingTrue"
-                    },
-                    {
-                      "class": "fairwind::displays::DisplaySingleText",
-                      "active": true,
-                      "layout": "1,0",
-                      "fullPath": "${self}.environment.wind.speedApparent"
-                    },
-                    {
-                      "class": "fairwind::displays::DisplaySingleText",
-                      "active": true,
-                      "layout": "1,1",
-                      "fullPath": "${self}.environment.wind.angleApparent"
-                    },
-                    {
-                      "class": "fairwind::displays::DisplaySingleText",
-                      "active": false,
-                      "layout": "1,2",
-                      "fullPath": "${self}.environment.water.temperature"
-                    },
-                    {
-                      "class": "fairwind::displays::DisplaySingleText",
-                      "active": true,
-                      "layout": "1,3",
-                      "fullPath": "${self}.environment.depth.belowTransducer"
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        },
-        {
-          "Id": "it.uniparthenope.fairwind.apps.dashboard",
-          "Active": true,
-          "Order": 1,
-          "Args": {
-            "Name":"Switch Panel",
-            "Icon":":/images/icons/switchpanel_icon.png",
-            "Config": {
-              "default": "Main",
-              "pages": [
-                {
-                  "name": "Main",
-                  "class": "fairwind::layouts::GridLayout",
-                  "displays": [
-                    {
-                      "class": "fairwind::displays::DisplaySingleText",
-                      "active": true,
-                      "layout": "0,0",
-                      "fullPath": "${self}.navigation.speedOverGround"
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        },
-      {
-        "Id": "it.uniparthenope.fairwind.apps.sonar",
-        "Active": true,
-        "Order": 1
-      },
-      {
-        "Id": "it.uniparthenope.fairwind.apps.radar",
-        "Active": false,
-        "Order": 1
-      },
-      {
-        "Id": "it.uniparthenope.fairwind.apps.entertainment",
-        "Active": true,
-        "Order": 1
-      },
-      {
-        "Id": "it.uniparthenope.fairwind.apps.video",
-        "Active": false,
-        "Order": 1
-      },
-      {
-        "Id": "it.uniparthenope.fairwind.apps.uav",
-        "Active": false,
-        "Order": 1
-      },
-      {
-        "Id": "it.uniparthenope.fairwind.apps.web",
-        "Active": true,
-        "Order": 1,
-        "Args": {
-          "Name": "Signal K Server",
-          "Icon":":/resources/images/icons/signalk_server_icon.png",
-          "Url": "http://localhost:3000"
-        }
-      },
-      {
-        "Id": "it.uniparthenope.fairwind.apps.native",
-        "Active": true,
-        "Order": 1,
-        "Args": {
-          "Name": "Open CPN",
-          "Icon":":/resources/images/icons/opencpn_icon.png",
-          "Command": "/Applications/OpenCPN.app/Contents/MacOS/OpenCPN -fullscreen"
-        }
-      },
-      {
-          "Id": "it.gov.guardiacostiera.gc1530",
+          "Id": "it.uniparthenope.fairwind.apps.chart",
           "Active": true,
           "Order": 1
-      },
-      {
-           "Id": "fairwind.apps.portolano",
-           "Active": true,
-           "Order": 1
-      }
+        },
+            {
+              "Id": "it.gov.guardiacostiera.gc1530",
+              "Active": true,
+              "Order": 1
+            },
+            {
+              "Id": "fairwind.apps.portolano",
+              "Active": true,
+              "Order": 1
+            },
+            {
+              "Id": "fairwind.apps.sonar",
+              "Active": true,
+              "Order": 1
+            },
+            {
+              "Id": "fairwind.apps.radar",
+              "Active": true,
+              "Order": 1
+            },
+            {
+              "Id": "it.uniparthenope.fairwind.apps.dashboard",
+              "Active": true,
+              "Order": 1,
+              "Args": {
+                "Name":"Data",
+                "Icon":":/resources/images/icons/dashboard_icon.png",
+                "Config": {
+                  "default": "Navigation",
+                  "pages": [
+                    {
+                      "name": "Navigation",
+                      "class": "fairwind::layouts::GridLayout",
+                      "displays": [
+                        {
+                          "class": "fairwind::displays::DisplaySingleText",
+                          "active": true,
+                          "layout": "0,0",
+                          "fullPath": "${self}.navigation.speedOverGround"
+                        },
+                        {
+                          "class": "fairwind::displays::DisplaySingleText",
+                          "active": true,
+                          "layout": "0,1",
+                          "fullPath": "${self}.navigation.courseOverGroundTrue"
+                        },
+                        {
+                          "class": "fairwind::displays::DisplaySingleText",
+                          "active": true,
+                          "layout": "0,2",
+                          "fullPath": "${self}.navigation.speedThroughWater"
+                        },
+                        {
+                          "class": "fairwind::displays::DisplaySingleText",
+                          "active": true,
+                          "layout": "0,3",
+                          "fullPath": "${self}.navigation.headingTrue"
+                        },
+                        {
+                          "class": "fairwind::displays::DisplaySingleText",
+                          "active": true,
+                          "layout": "1,0",
+                          "fullPath": "${self}.environment.wind.speedApparent"
+                        },
+                        {
+                          "class": "fairwind::displays::DisplaySingleText",
+                          "active": true,
+                          "layout": "1,1",
+                          "fullPath": "${self}.environment.wind.angleApparent"
+                        },
+                        {
+                          "class": "fairwind::displays::DisplaySingleText",
+                          "active": false,
+                          "layout": "1,2",
+                          "fullPath": "${self}.environment.water.temperature"
+                        },
+                        {
+                          "class": "fairwind::displays::DisplaySingleText",
+                          "active": true,
+                          "layout": "1,3",
+                          "fullPath": "${self}.environment.depth.belowTransducer"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "Id": "it.uniparthenope.fairwind.apps.dashboard",
+              "Active": true,
+              "Order": 1,
+              "Args": {
+                "Name":"Switch Panel",
+                "Icon":":/resources/images/icons/switchpanel_icon.png",
+                "Config": {
+                  "default": "Main",
+                  "pages": [
+                    {
+                      "name": "Main",
+                      "class": "fairwind::layouts::GridLayout",
+                      "displays": [
+                        {
+                          "class": "fairwind::displays::DisplaySingleText",
+                          "active": true,
+                          "layout": "0,0",
+                          "fullPath": "${self}.navigation.speedOverGround"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "Id": "it.uniparthenope.fairwind.apps.entertainment",
+              "Active": true,
+              "Order": 1
+            },
+            {
+              "Id": "fairwind.apps.video",
+              "Active": true,
+              "Order": 1
+            },
+            {
+              "Id": "fairwind.apps.chandlery",
+              "Active": true,
+              "Order": 1
+            },
+            {
+              "Id": "fairwind.apps.uav",
+              "Active": true,
+              "Order": 1
+            },
+            {
+              "Id": "fairwind.apps.weather",
+              "Active": true,
+              "Order": 1
+            },
+            {
+              "Id": "fairwind.apps.imsf",
+              "Active": true,
+              "Order": 1
+            },
+            {
+              "Id": "it.uniparthenope.fairwind.apps.web",
+              "Active": true,
+              "Order": 1,
+              "Args": {
+                "Name": "Signal K Server",
+                "Icon":":/resources/images/icons/signalk_server_icon.png",
+                "Url": "http://localhost:3000"
+              }
+            },
+            {
+              "Id": "it.uniparthenope.fairwind.apps.native",
+              "Active": true,
+              "Order": 1,
+              "Args": {
+                "Name": "Open CPN",
+                "Icon":":/resources/images/icons/opencpn_icon.png",
+                "Command": "/Applications/OpenCPN.app/Contents/MacOS/OpenCPN -fullscreen"
+              }
+            }
     ]
   }
 }
