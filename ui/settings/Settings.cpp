@@ -19,7 +19,7 @@ fairwind::ui::settings::Settings::Settings(QWidget *parent) :
 
     FairWind *fairWind = FairWind::getInstance();
 
-    for (const auto settings: *(fairWind->getSettings())) {
+    for (const auto settings: *(fairWind->getSettingsList())) {
         ui->tabWidget->addTab(dynamic_cast<QWidget *>(settings), settings->getName());
     }
 }
