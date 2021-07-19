@@ -10,7 +10,7 @@ add_library(GC1530 SHARED
         )
 
 add_dependencies(GC1530 FairWindSdk)
-add_dependencies(Boating QGeoView)
+add_dependencies(GC1530 QGeoView)
 target_link_libraries(GC1530 PRIVATE Qt5::Widgets Qt5::WebEngineWidgets Qt5::Network ${LIBQGEOVIEW} ${LIBFAIRWINDSDK})
 target_compile_options(GC1530 PRIVATE ${COMPILE_OPTIONS})
 
