@@ -54,6 +54,24 @@ add_executable(${PROJECT_NAME}
 add_dependencies(${PROJECT_NAME} FairWindSdk)
 target_link_libraries(${PROJECT_NAME} ${REQUIRED_LIBS_QUALIFIED} ${LIBFAIRWINDSDK})
 
+
+
+
+if( EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/fairwind.json")
+else()
+    message("Creating default configuration file: ${CMAKE_CURRENT_SOURCE_DIR}/fairwind.json")
+
+    add_custom_command(
+            TARGET ${PROJECT_NAME}
+            POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy
+            ${CMAKE_CURRENT_SOURCE_DIR}/fairwind.json.sample
+            ${CMAKE_CURRENT_SOURCE_DIR}/fairwind.json
+    )
+endif()
+
+
+
 add_custom_command(
         TARGET ${PROJECT_NAME}
         POST_BUILD
