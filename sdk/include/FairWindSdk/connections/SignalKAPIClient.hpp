@@ -36,6 +36,8 @@ namespace fairwind::connections {
         QJsonObject getAll();
 
     private:
+        QWidget *m_settings;
+
         QNetworkAccessManager manager;
         QUrl m_url;
         bool m_debug;
@@ -43,7 +45,6 @@ namespace fairwind::connections {
         QString m_label;
 
         QByteArray httpGet(QString url);
-
     };
 }
 

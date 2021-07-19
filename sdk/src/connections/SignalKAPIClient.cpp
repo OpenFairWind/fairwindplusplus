@@ -24,7 +24,7 @@ QImage fairwind::connections::SignalKAPIClient::getIcon() const {
 }
 
 QWidget *fairwind::connections::SignalKAPIClient::onSettings() {
-    return nullptr;
+    return m_settings;
 }
 
 void fairwind::connections::SignalKAPIClient::onInit(QMap<QString, QVariant> params) {

@@ -35,7 +35,7 @@ QImage fairwind::connections::SignalKWSClient::getIcon() const {
 }
 
 QWidget *fairwind::connections::SignalKWSClient::onSettings() {
-    return nullptr;
+    return m_settings;
 }
 
 void fairwind::connections::SignalKWSClient::onInit(QMap<QString, QVariant> params) {

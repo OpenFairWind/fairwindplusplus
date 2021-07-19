@@ -42,6 +42,8 @@ namespace fairwind::connections {
         void onTextMessageReceived(QString message);
 
     private:
+        QWidget *m_settings;
+
         QWebSocket m_webSocket;
         QUrl m_url;
         bool m_debug;
