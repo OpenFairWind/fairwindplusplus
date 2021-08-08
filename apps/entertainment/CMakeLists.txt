@@ -1,5 +1,5 @@
 
-set(ENTERTAINMENT_RESOURCE resources.qrc)
+set(ENTERTAINMENT_RESOURCE resourcesEntertainment.qrc)
 qt5_add_resources(ENTERTAINMENT_RESOURCE_ADDED ${ENTERTAINMENT_RESOURCE})
 
 add_library(Entertainment SHARED

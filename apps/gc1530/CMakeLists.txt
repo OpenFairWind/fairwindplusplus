@@ -1,5 +1,5 @@
 
-set(GC1530_RESOURCE resources.qrc)
+set(GC1530_RESOURCE resourcesGC1530.qrc)
 qt5_add_resources(GC1530_RESOURCE_ADDED ${GC1530_RESOURCE})
 
 add_library(GC1530 SHARED

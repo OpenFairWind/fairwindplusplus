@@ -1,5 +1,5 @@
 
-set(RADAR_RESOURCE resources.qrc)
+set(RADAR_RESOURCE resourcesRadar.qrc)
 qt5_add_resources(RADAR_RESOURCE_ADDED ${RADAR_RESOURCE})
 
 add_library(Radar SHARED

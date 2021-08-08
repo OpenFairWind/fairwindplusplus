@@ -1,5 +1,5 @@
 
-set(VIDEO_RESOURCE resources.qrc)
+set(VIDEO_RESOURCE resourcesVideo.qrc)
 qt5_add_resources(VIDEO_RESOURCE_ADDED ${VIDEO_RESOURCE})
 
 add_library(Video SHARED

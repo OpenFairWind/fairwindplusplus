@@ -1,5 +1,5 @@
 
-set(SONAR_RESOURCE resources.qrc)
+set(SONAR_RESOURCE resourcesSonar.qrc)
 qt5_add_resources(SONAR_RESOURCE_ADDED ${SONAR_RESOURCE})
 
 add_library(Sonar SHARED

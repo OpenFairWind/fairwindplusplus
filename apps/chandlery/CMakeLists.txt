@@ -1,5 +1,5 @@
 
-set(CHANDLERY_RESOURCE resources.qrc)
+set(CHANDLERY_RESOURCE resourcesChandlery.qrc)
 qt5_add_resources(CHANDLERY_RESOURCE_ADDED ${CHANDLERY_RESOURCE})
 
 add_library(Chandlery SHARED

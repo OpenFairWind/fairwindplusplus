@@ -4,7 +4,7 @@ set(CMAKE_AUTOUIC ON)
 
 
 
-set(DASHBOARD_RESOURCE resources.qrc)
+set(DASHBOARD_RESOURCE resourcesDashboard.qrc)
 qt5_add_resources(DASHBOARD_RESOURCE_ADDED ${DASHBOARD_RESOURCE})
 
 add_library(Dashboard SHARED

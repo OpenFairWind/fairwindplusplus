@@ -1,6 +1,6 @@
 
 
-set(WEB_RESOURCE resources.qrc)
+set(WEB_RESOURCE resourcesWeb.qrc)
 qt5_add_resources(WEB_RESOURCE_ADDED ${WEB_RESOURCE})
 
 add_library(Web SHARED

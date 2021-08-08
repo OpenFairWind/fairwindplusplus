@@ -1,5 +1,5 @@
 
-set(UAV_RESOURCE resources.qrc)
+set(UAV_RESOURCE resourcesUAV.qrc)
 qt5_add_resources(UAV_RESOURCE_ADDED ${UAV_RESOURCE})
 
 add_library(UAV SHARED

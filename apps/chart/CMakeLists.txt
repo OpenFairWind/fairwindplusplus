@@ -1,5 +1,5 @@
 
-set(CHART_RESOURCE resources.qrc)
+set(CHART_RESOURCE resourcesChart.qrc)
 qt5_add_resources(CHART_RESOURCE_ADDED ${CHART_RESOURCE})
 
 add_library(Chart SHARED

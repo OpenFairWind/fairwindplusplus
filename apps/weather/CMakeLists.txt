@@ -1,5 +1,5 @@
 
-set(WEATHER_RESOURCE resources.qrc)
+set(WEATHER_RESOURCE resourcesWeather.qrc)
 qt5_add_resources(WEATHER_RESOURCE_ADDED ${WEATHER_RESOURCE})
 
 add_library(Weather SHARED

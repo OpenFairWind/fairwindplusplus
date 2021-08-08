@@ -1,5 +1,5 @@
 
-set(PORTOLANO_RESOURCE resources.qrc)
+set(PORTOLANO_RESOURCE resourcesPortolano.qrc)
 qt5_add_resources(PORTOLANO_RESOURCE_ADDED ${PORTOLANO_RESOURCE})
 
 add_library(Portolano SHARED

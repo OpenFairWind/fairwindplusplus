@@ -1,5 +1,5 @@
 
-set(IMSF_RESOURCE resources.qrc)
+set(IMSF_RESOURCE resourcesIMSF.qrc)
 qt5_add_resources(IMSF_RESOURCE_ADDED ${IMSF_RESOURCE})
 
 add_library(IMSF SHARED
