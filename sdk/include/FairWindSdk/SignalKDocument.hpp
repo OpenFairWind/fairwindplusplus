@@ -5,7 +5,7 @@
 #ifndef FAIRWIND_SIGNALKDOCUMENT_HPP
 #define FAIRWIND_SIGNALKDOCUMENT_HPP
 
-
+#include <QRegularExpression>
 #include <QJsonObject>
 #include <QGeoView/QGVGlobal.h>
 
