@@ -48,7 +48,7 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
 endif()
 set(LIBQGEOVIEW ${LIBQGEOVIEW} PARENT_SCOPE)
 
-set(FAIRWINDSDK_RESOURCE resources.qrc)
+set(FAIRWINDSDK_RESOURCE resourcesSDK.qrc)
 qt5_add_resources(FAIRWINDSDK_RESOURCE_ADDED ${FAIRWINDSDK_RESOURCE})
 
 add_library(fairwindsdk SHARED
