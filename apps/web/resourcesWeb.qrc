@@ -1,0 +1,9 @@
+<!DOCTYPE RCC><RCC version="1.0">
+    <qresource>
+        <file>resources/images/icons/web_icon.png</file>
+        <file>resources/images/icons/signalk_server_icon.png</file>
+        <file>resources/images/icons/netflix_icon.png</file>
+        <file>resources/images/icons/youtube_icon.png</file>
+        <file>resources/images/icons/spotify_icon.png</file>
+    </qresource>
+</RCC>
