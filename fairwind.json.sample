@@ -1,4 +1,11 @@
 {
+  "Options": {
+    "Position": "${self}.navigation.position",
+    "Heading": "${self}.navigation.courseOverGroundMagnetic",
+    "Speed": "${self}.navigation.speedOverGround",
+    "Orientation":"north_up",
+    "CenterMap":false
+  },
   "SignalK":{
     "connections":[
       {
