@@ -23,7 +23,14 @@
         "fillChar":"0"
       },
       "navigation.courseOverGroundTrue":{
-        "label":"COG",
+        "label":"COG (T)",
+        "units":"deg",
+        "format":"f",
+        "fieldWidth":3,
+        "precision":0
+      },
+      "navigation.courseOverGroundMagnetic":{
+        "label":"COG (M)",
         "units":"deg",
         "format":"f",
         "fieldWidth":3,
@@ -38,10 +45,24 @@
         "fillChar":"0"
       },
       "navigation.headingTrue":{
-        "label":"Heading True",
+        "label":"Heading (T)",
         "units":"deg",
         "format":"f",
         "fieldWidth":3,
+        "precision":0
+      },
+      "navigation.headingMagnetic":{
+        "label":"Heading (M)",
+        "units":"deg",
+        "format":"f",
+        "fieldWidth":3,
+        "precision":0
+      },
+      "navigation.magneticVarition":{
+        "label":"Mag (°)",
+        "units":"deg",
+        "format":"f",
+        "fieldWidth":1,
         "precision":0
       },
       "environment.wind.speedApparent":{
