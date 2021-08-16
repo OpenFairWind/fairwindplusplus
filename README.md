@@ -63,27 +63,10 @@ sudo apt install libgles2-mesa-dev libgbm-dev
 mkdir build
 cd build
 
-PKG_CONFIG_LIBDIR=/usr/lib/arm-linux-gnueabihf/pkgconfig:/usr/share/pkgconfig \
-../qt-everywhere-src-5.15.2/configure -platform linux-rpi4-v3d-g++ \
--v \
--opengl es2 -eglfs \
--no-gtk \
--opensource -confirm-license -release \
--reduce-exports \
--force-pkg-config \
--nomake examples -no-compile-examples \
--skip qtwayland \
--skip qtwebengine \
--no-feature-geoservices_mapboxgl \
--qt-pcre \
--no-pch \
--ssl \
--evdev \
--system-freetype \
--fontconfig \
--glib \
--prefix /opt/Qt/5.15.2 \
--qpa eglfs
+PKG_CONFIG_LIBDIR=/usr/lib/arm-linux-gnueabihf/pkgconfig:/usr/share/pkgconfig
+
+../qt-everywhere-src-5.15.2/configure -platform linux-rpi4-v3d-g++ -v -opengl es2 -eglfs -no-gtk -opensource -confirm-license -release -reduce-exports -force-pkg-config -nomake examples -no-compile-examples -skip qtwayland -skip qtwebengine -no-feature-geoservices_mapboxgl -qt-pcre -no-pch -ssl -evdev-system-freetype 
+-fontconfig -glib -prefix /opt/Qt/5.15.2 -qpa eglfs
 
 make
 
