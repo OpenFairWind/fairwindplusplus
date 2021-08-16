@@ -32,7 +32,7 @@ cmake -DCMAKE_PREFIX_PATH="/lib/qt5/" ..
 
 * Building on Raspberry Pi OS
 
-Build QT 5.15.2 using the istructions here: https://www.tal.org/tutorials/building-qt-512-raspberry-pi
+Build QT 5.15.2 using the guide here: https://www.tal.org/tutorials/building-qt-515-raspberry-pi
 
 wget https://download.qt.io/official_releases/qt/5.15/5.15.2/single/qt-everywhere-src-5.15.2.tar.xz
 
