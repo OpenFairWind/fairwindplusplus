@@ -55,7 +55,7 @@ color: rgb(255, 255, 255);</string>
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>../resources/images/icons/imagebutton_mydata.png</normaloff>../resources/images/icons/imagebutton_mydata.png</iconset>
+         <normaloff>:/resources/images/icons/imagebutton_mydata.png</normaloff>:/resources/images/icons/imagebutton_mydata.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -75,7 +75,7 @@ color: rgb(255, 255, 255);</string>
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>../resources/images/icons/imagebutton_mob.png</normaloff>../resources/images/icons/imagebutton_mob.png</iconset>
+         <normaloff>:/resources/images/icons/imagebutton_mob.png</normaloff>:/resources/images/icons/imagebutton_mob.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -95,7 +95,7 @@ color: rgb(255, 255, 255);</string>
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>../resources/images/icons/imagebutton_apps.png</normaloff>../resources/images/icons/imagebutton_apps.png</iconset>
+         <normaloff>:/resources/images/icons/imagebutton_apps.png</normaloff>:/resources/images/icons/imagebutton_apps.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -115,7 +115,7 @@ color: rgb(255, 255, 255);</string>
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>../resources/images/icons/imagebutton_alarms.png</normaloff>../resources/images/icons/imagebutton_alarms.png</iconset>
+         <normaloff>:/resources/images/icons/imagebutton_alarms.png</normaloff>:/resources/images/icons/imagebutton_alarms.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -135,7 +135,7 @@ color: rgb(255, 255, 255);</string>
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>../resources/images/icons/imagebutton_settings.png</normaloff>../resources/images/icons/imagebutton_settings.png</iconset>
+         <normaloff>:/resources/images/icons/imagebutton_settings.png</normaloff>:/resources/images/icons/imagebutton_settings.png</iconset>
        </property>
        <property name="iconSize">
         <size>
