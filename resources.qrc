@@ -9,5 +9,9 @@
         <file>resources/images/icons/imagebutton_settings.png</file>
         <file>resources/images/icons/splash_logo.png</file>
 
+	<file>resources/images/icons/toolbutton_left.png</file>
+	<file>resources/images/icons/toolbutton_right.png</file>
+	
+
     </qresource>
 </RCC>
