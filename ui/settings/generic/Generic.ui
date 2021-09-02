@@ -34,7 +34,7 @@
              </property>
              <property name="icon">
               <iconset>
-               <normaloff>../resources/images/icons/toolbutton_save.png</normaloff>../resources/images/icons/toolbutton_save.png</iconset>
+               <normaloff>:/resources/images/icons/toolbutton_save.png</normaloff>:/resources/images/icons/toolbutton_save.png</iconset>
              </property>
              <property name="iconSize">
               <size>
