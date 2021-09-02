@@ -35,7 +35,7 @@
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>../resources/images/icons/toolbutton_left.png</normaloff>../resources/images/icons/toolbutton_left.png</iconset>
+         <normaloff>:/resources/images/icons/toolbutton_left.png</normaloff>:/resources/images/icons/toolbutton_left.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -81,7 +81,7 @@
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>../resources/images/icons/toolbutton_right.png</normaloff>../resources/images/icons/toolbutton_right.png</iconset>
+         <normaloff>:/resources/images/icons/toolbutton_right.png</normaloff>:/resources/images/icons/toolbutton_right.png</iconset>
        </property>
        <property name="iconSize">
         <size>
