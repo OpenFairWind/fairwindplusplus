@@ -82,6 +82,12 @@ void fairwind::FairWind::loadApps() {
     // Initialize the QT managed settings
     QSettings settings("fairwind.ini", QSettings::NativeFormat);
 
+    // Is a virtual keyboard needed?
+    bool useVirtualKeyboard = settings.value("useVirtualKeyboard",false).toBool();
+
+    // Store the virtual keyboard in the settings
+    settings.setValue("useVirtualKeyboard",useVirtualKeyboard);
+
     // Get the name of the FairWind++ apps directory
     QString appsDirRoot = settings.value("appsRoot","").toString();
 
