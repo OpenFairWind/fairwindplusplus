@@ -13,6 +13,13 @@
       "Email": "fairwind@uniparthenope.it",
       "Id": "it.uniparthenope.fairwind.apps.chart",
       "Config": {
+        "Options": {
+          "Position": "${self}.navigation.position",
+          "Heading": "${self}.navigation.courseOverGroundMagnetic",
+          "Speed": "${self}.navigation.speedOverGround",
+          "Orientation":"north_up",
+          "CenterMap":false
+        },
         "displays": [
           {
             "class": "fairwind::displays::DisplayGauge",
