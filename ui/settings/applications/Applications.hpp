@@ -6,6 +6,7 @@
 #define FAIRWIND_APPLICATIONS_HPP
 
 #include <QWidget>
+#include <QItemSelection>
 #include <FairWindSdk/ISettings.hpp>
 
 namespace Ui {
@@ -29,6 +30,9 @@ namespace fairwind::ui::settings::applications {
 
     protected :
         void showEvent(QShowEvent *event) override;
+
+    private slots:
+        void onCurrentRowChanged(const QModelIndex &current, const QModelIndex &previous);
 
     private:
         Ui::Applications *ui;

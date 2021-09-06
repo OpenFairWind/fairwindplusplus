@@ -48,6 +48,7 @@
          <property name="widgetResizable">
           <bool>true</bool>
          </property>
+         <!--
          <widget class="QWidget" name="scrollAreaWidgetContents_Apps">
           <property name="geometry">
            <rect>
@@ -58,6 +59,7 @@
            </rect>
           </property>
          </widget>
+    -->
         </widget>
        </item>
       </layout>
