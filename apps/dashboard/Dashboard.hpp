@@ -41,6 +41,7 @@ namespace fairwind::apps::dashboard {
     private:
         Ui::Dashboard *ui;
         Ui::dashboard_Settings *uiSettings;
+        QWidget *m_settings = nullptr;
     };
 }
 

@@ -45,8 +45,9 @@ namespace fairwind::apps::chart {
 
     private:
         Ui::Chart *ui;
-        Ui::chart_Settings *uiSettings;
-        QWidget *m_widgetWebApp= nullptr;
+        Ui::ChartSettings *uiSettings;
+        QWidget *m_widgetWebApp = nullptr;
+        QWidget *m_settings = nullptr;
     };
 }
 

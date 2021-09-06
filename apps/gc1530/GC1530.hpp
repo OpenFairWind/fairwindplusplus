@@ -46,6 +46,7 @@ namespace it::gov::guardiacostiera::gc1530 {
         Ui::GC1530 *ui;
         Ui::gc1530_Settings *uiSettings;
         QWidget *m_widget= nullptr;
+        QWidget *m_settings= nullptr;
         WebView *m_webView = nullptr;
 
         QWebEngineProfile *m_profile;

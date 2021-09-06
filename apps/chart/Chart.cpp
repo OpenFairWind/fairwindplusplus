@@ -119,7 +119,12 @@ void fairwind::apps::chart::Chart::onInit(QJsonObject *metaData) {
 }
 
 QWidget *fairwind::apps::chart::Chart::onSettings(QTabWidget *tabWidget) {
-    return nullptr;
+    if (m_settings == nullptr) {
+        m_settings = new QWidget();
+        uiSettings = new Ui::ChartSettings();
+        uiSettings->setupUi(m_settings);
+    }
+    return m_settings;
 }
 
 QJsonObject fairwind::apps::chart::Chart::getConfig() {

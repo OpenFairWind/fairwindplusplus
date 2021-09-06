@@ -109,7 +109,12 @@ void it::gov::guardiacostiera::gc1530::GC1530::onInit(QJsonObject *metaData) {
 }
 
 QWidget *it::gov::guardiacostiera::gc1530::GC1530::onSettings(QTabWidget *tabWidget) {
-    return nullptr;
+    if (m_settings == nullptr) {
+        m_settings = new QWidget();
+        uiSettings = new Ui::gc1530_Settings();
+        uiSettings->setupUi(m_settings);
+    }
+    return m_settings;
 }
 
 QJsonObject it::gov::guardiacostiera::gc1530::GC1530::getConfig() {

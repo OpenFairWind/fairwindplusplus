@@ -127,11 +127,12 @@ QWidget *fairwind::apps::dashboard::Dashboard::onGui(QMainWindow *mainWindow, QM
 }
 
 QWidget *fairwind::apps::dashboard::Dashboard::onSettings(QTabWidget *tabWidgets) {
-    QWidget *widget=new QWidget();
-    uiSettings=new Ui::dashboard_Settings();
-
-    uiSettings->setupUi(widget);
-    return widget;
+    if (m_settings == nullptr) {
+        m_settings = new QWidget();
+        uiSettings = new Ui::dashboard_Settings();
+        uiSettings->setupUi(m_settings);
+    }
+    return m_settings;
 }
 
 fairwind::apps::dashboard::Dashboard::~Dashboard() {
