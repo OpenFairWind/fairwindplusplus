@@ -2,6 +2,7 @@
 // Created by Raffaele Montella on 16/07/21.
 //
 
+#include <FairWindSdk/FairWind.hpp>
 #include "Generic.hpp"
 #include "ui_Generic.h"
 
@@ -16,6 +17,8 @@ fairwind::ui::settings::generic::Generic::~Generic() {
 }
 
 void fairwind::ui::settings::generic::Generic::showEvent(QShowEvent *event) {
+    qDebug() << "fairwind::ui::settings::generic::Generic::showEvent";
+
     QWidget::showEvent(event);
 }
 

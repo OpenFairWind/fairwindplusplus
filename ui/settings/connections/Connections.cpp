@@ -28,6 +28,7 @@ fairwind::ui::settings::connections::Connections::~Connections() {
 }
 
 void fairwind::ui::settings::connections::Connections::showEvent(QShowEvent *event) {
+    qDebug() << "fairwind::ui::settings::connections::Connections::showEvent";
 
     auto fairWind = fairwind::FairWind::getInstance();
 
