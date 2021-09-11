@@ -41,6 +41,7 @@ fairwind::ui::settings::applications::Applications::~Applications() {
  * showEvent : called when the tab have to be shown
  */
 void fairwind::ui::settings::applications::Applications::showEvent(QShowEvent *event) {
+    qDebug() << "fairwind::ui::settings::applications::Applications::showEvent";
 
     // The the FairWind singleton instance
     auto fairWind = fairwind::FairWind::getInstance();
@@ -51,12 +52,8 @@ void fairwind::ui::settings::applications::Applications::showEvent(QShowEvent *e
     // Get the table ApplsList
     auto tableAppsList = ui->table_AppsList;
 
-    // While the number of rows is greater than zero
-    while (tableAppsList->rowCount()>0) {
-
-        // Remove the row
-        tableAppsList->removeRow(0);
-    }
+    // Remove all items
+    tableAppsList->setRowCount(0);
 
     // For each app
     for (auto app:apps) {
@@ -120,7 +117,9 @@ QString fairwind::ui::settings::applications::Applications::getClassName() const
 
 
 void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(const QModelIndex &current, const QModelIndex &previous) {
-    // The the FairWind singleton instance
+    qDebug() << "fairwind::ui::settings::applications::Applications::onCurrentRowChanged";
+
+    // The FairWind singleton instance
     auto fairWind = fairwind::FairWind::getInstance();
 
     // Get the applications list
@@ -132,17 +131,37 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
     }
     qDebug() << "Current:" << current.row();
 
-    // Get the application unique key by index
-    auto key = apps.keys().at(current.row());
+    // Check if a current row is selected
+    if (current.row()>=0) {
 
-    // Get the reference to the application
-    auto app = apps[key];
+        // Get the application unique key by index
+        auto key = apps.keys().at(current.row());
 
+        // Get the reference to the application
+        auto app = apps[key];
 
-    // Get the extension reference by the application id
-    auto extension = fairWind->getAppByExtensionId(app->getExtension());
-    auto widget = extension->onSettings(nullptr);
+        // Store the extension id
+        mExtension = app->getExtension();
+    }
 
-    ui->scrollArea_Apps->setWidget(widget);
+    // Check if the settings widget has already shown
+    if (!mSettingsByExtensionId.contains(mExtension))  {
+
+        // Get the extension reference by the application id
+        auto extension = fairWind->getAppByExtensionId(mExtension);
+
+        // Get the settings widget
+        auto settings = extension->onSettings(nullptr);
+
+        // Store the the settings widget
+        mSettingsByExtensionId[mExtension] = settings;
+    }
+
+    // Get the settings widget by the extension id
+    auto settings=mSettingsByExtensionId[mExtension];
+
+    // Set the settings widget in the scroll area
+    ui->scrollArea_Apps->setWidget(settings);
+
 }
 

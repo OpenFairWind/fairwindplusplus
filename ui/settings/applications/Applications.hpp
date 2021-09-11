@@ -36,6 +36,8 @@ namespace fairwind::ui::settings::applications {
 
     private:
         Ui::Applications *ui;
+        QString mExtension;
+        QMap<QString, QWidget *> mSettingsByExtensionId;
     };
 }
 
