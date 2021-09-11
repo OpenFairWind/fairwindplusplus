@@ -41,13 +41,10 @@ namespace fairwind::apps::chart {
 
 
     public slots:
-        void resizeWidgets();
+
 
     private:
-        Ui::Chart *ui;
-        Ui::ChartSettings *uiSettings;
-        QWidget *m_widgetWebApp = nullptr;
-        QWidget *m_settings = nullptr;
+
     };
 }
 

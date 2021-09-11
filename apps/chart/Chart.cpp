@@ -22,9 +22,9 @@ QImage fairwind::apps::chart::Chart::getIcon() const {
  */
 QWidget *fairwind::apps::chart::Chart::onGui(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
 
-    m_widgetWebApp=new QWidget();
-    ui=new Ui::Chart();
-    ui->setupUi(m_widgetWebApp);
+    auto widget = new QWidget();
+    auto ui = new Ui::Chart();
+    ui->setupUi(widget);
 
     auto fairwind=FairWind::getInstance();
     auto config = getConfig();
@@ -80,7 +80,8 @@ QWidget *fairwind::apps::chart::Chart::onGui(QMainWindow *mainWindow, QMap<QStri
     ui->verticalLayoutRight->addStretch(1);
     //QMetaObject::invokeMethod(this, "resizeWidgets", Qt::QueuedConnection);
 
-    return m_widgetWebApp;
+    //return m_widgetWebApp;
+    return widget;
 }
 
 
@@ -119,12 +120,26 @@ void fairwind::apps::chart::Chart::onInit(QJsonObject *metaData) {
 }
 
 QWidget *fairwind::apps::chart::Chart::onSettings(QTabWidget *tabWidget) {
-    if (m_settings == nullptr) {
-        m_settings = new QWidget();
-        uiSettings = new Ui::ChartSettings();
-        uiSettings->setupUi(m_settings);
+    auto widget = new QWidget();
+    auto uiSettings = new Ui::ChartSettings();
+    uiSettings->setupUi(widget);
+
+    auto config = getConfig();
+
+    if (config.contains("Options") && config["Options"].isObject()) {
+        auto options = config["Options"].toObject();
+        if (options.contains("Position") && options["Position"].isString()) {
+            uiSettings->lineEditPosition->setText(options["Position"].toString());
+        }
+        if (options.contains("Heading") && options["Heading"].isString()) {
+            uiSettings->lineEditHeading->setText(options["Heading"].toString());
+        }
+
+        if (options.contains("Speed") && options["Speed"].isString()) {
+            uiSettings->lineEditSpeed->setText(options["Speed"].toString());
+        }
     }
-    return m_settings;
+    return widget;
 }
 
 QJsonObject fairwind::apps::chart::Chart::getConfig() {
@@ -134,46 +149,3 @@ QJsonObject fairwind::apps::chart::Chart::getConfig() {
 QJsonObject fairwind::apps::chart::Chart::getMetaData() {
     return AppBase::getMetaData();
 }
-
-void fairwind::apps::chart::Chart::resizeWidgets() {
-    QMap<QString, QLayout *> layouts;
-    layouts["left"]=ui->verticalLayoutLeft;
-    layouts["center"]=ui->horizontalLayout;
-    layouts["right"]=ui->verticalLayoutRight;
-
-    for (auto layoutName:layouts.keys()) {
-
-        QLayout *layoutItem = layouts[layoutName];
-        qDebug() << "layoutName:: " << layoutName;
-
-        int nCount = layoutItem->count();
-        int nVisible = 0;
-
-        while (true) {
-            nVisible = 0;
-            for (int i = 0; i < nCount; ++i) {
-                QWidget *widget = layoutItem->itemAt(i)->widget();
-                if (widget) {
-                    if (widget->isVisible()) {
-                        nVisible++;
-                    }
-                }
-            }
-            if (nVisible == nCount) {
-                break;
-            }
-            for (int i = 0; i < nCount; ++i) {
-                auto *fairWindDisplay = reinterpret_cast<displays::IDisplay *>(layoutItem->itemAt(
-                        i)->widget());
-                if (fairWindDisplay) {
-                    fairWindDisplay->smaller();
-                }
-            }
-        }
-    }
-}
-
-
-
-
-
