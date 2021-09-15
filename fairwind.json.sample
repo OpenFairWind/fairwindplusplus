@@ -216,21 +216,21 @@
                     "class":"fairwind::displays::DisplaySimpleSwitch",
                     "active":true,
                     "layout":"0,0",
-                    "label": "Cabin Lights 1"
+                    "label": "Cabin Lights 1",
                     "fullPath":"${self}.electrical.switches.cabinLights1"
                   },
                   {
                       "class":"fairwind::displays::DisplaySimpleSwitch",
                       "active":true,
                       "layout":"0,1",
-                      "label": "Cabin Lights 2"
+                      "label": "Cabin Lights 2",
                       "fullPath":"${self}.electrical.switches.cabinLights2"
                   },
                   {
                     "class":"fairwind::displays::DisplaySimpleSwitch",
                     "active":true,
                     "layout":"0,2",
-                    "label": "Cabin Lights 3"
+                    "label": "Cabin Lights 3",
                     "fullPath":"${self}.electrical.switches.cabinLights3"
                   }
                 ]
