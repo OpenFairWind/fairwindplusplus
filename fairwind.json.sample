@@ -100,6 +100,20 @@
         "format":"f",
         "fieldWidth":4,
         "precision":1
+      },
+      "electrical.batteries.1.voltage": {
+        "label":"Voltage",
+        "units":"v",
+        "format":"f",
+        "fieldWidth":3,
+        "precision":1
+      },
+      "electrical.batteries.1.current": {
+        "label":"Current",
+        "units":"A",
+        "format":"f",
+        "fieldWidth":3,
+        "precision":1
       }
     }
   },
@@ -222,16 +236,143 @@
                   {
                       "class":"fairwind::displays::DisplaySimpleSwitch",
                       "active":true,
-                      "layout":"0,1",
+                      "layout":"1,0",
                       "label": "Cabin Lights 2",
                       "fullPath":"${self}.electrical.switches.cabinLights2"
                   },
                   {
                     "class":"fairwind::displays::DisplaySimpleSwitch",
                     "active":true,
-                    "layout":"0,2",
+                    "layout":"2,0",
                     "label": "Cabin Lights 3",
                     "fullPath":"${self}.electrical.switches.cabinLights3"
+                  },
+                  {
+                      "class":"fairwind::displays::DisplaySimpleSwitch",
+                      "active":true,
+                      "layout":"3,0",
+                      "label": "Top Light",
+                      "fullPath":"${self}.electrical.switches.topLight"
+                    },
+                    {
+                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "active":true,
+                        "layout":"4,0",
+                        "label": "Steaming Light",
+                        "fullPath":"${self}.electrical.switches.steamingLight"
+                    },
+                    {
+                      "class":"fairwind::displays::DisplaySimpleSwitch",
+                      "active":true,
+                      "layout":"5,0",
+                      "label": "Navigation Light",
+                      "fullPath":"${self}.electrical.switches.navigationLight"
+                    },
+                     {
+                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "active":true,
+                        "layout":"6,0",
+                        "label": "Keel Bilge Pump",
+                        "fullPath":"${self}.electrical.switches.keelBilgePump"
+                    },
+                    {
+                      "class":"fairwind::displays::DisplaySimpleSwitch",
+                      "active":true,
+                      "layout":"7,0",
+                      "label": "Anchor Windlass",
+                      "fullPath":"${self}.electrical.switches.anchorWindlass"
+                    },
+                  {
+                      "class":"fairwind::displays::DisplaySimpleSwitch",
+                      "active":true,
+                      "layout":"0,1",
+                      "label": "Sailing Instruments",
+                      "fullPath":"${self}.electrical.switches.sailingInstruments"
+                    },
+                    {
+                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "active":true,
+                        "layout":"1,1",
+                        "label": "Navigation Instruments",
+                        "fullPath":"${self}.electrical.switches.navigationInstruments"
+                    },
+                    {
+                      "class":"fairwind::displays::DisplaySimpleSwitch",
+                      "active":true,
+                      "layout":"2,1",
+                      "label": "VHF",
+                      "fullPath":"${self}.electrical.switches.vhf"
+                    },
+                     {
+                       "class":"fairwind::displays::DisplaySimpleSwitch",
+                       "active":true,
+                       "layout":"3,1",
+                       "label": "Radio Recorder",
+                       "fullPath":"${self}.electrical.switches.radioRecorder"
+                     },
+                   {
+                     "class":"fairwind::displays::DisplaySimpleSwitch",
+                     "active":true,
+                     "layout":"4,1",
+                     "label": "Refrigerator",
+                     "fullPath":"${self}.electrical.switches.refrigerator"
+                   },
+                   {
+                     "class":"fairwind::displays::DisplaySimpleSwitch",
+                     "active":true,
+                     "layout":"5,1",
+                     "label": "Water Pump",
+                     "fullPath":"${self}.electrical.switches.waterPump"
+                   },
+                   {
+                     "class":"fairwind::displays::DisplaySimpleSwitch",
+                     "active":true,
+                     "layout":"6,1",
+                     "label": "Shower Pump",
+                     "fullPath":"${self}.electrical.switches.showerPump"
+                   },
+                   {
+                     "class":"fairwind::displays::DisplaySimpleSwitch",
+                     "active":true,
+                     "layout":"7,1",
+                     "label": "FairWind++",
+                     "fullPath":"${self}.electrical.switches.fairWindPlusPlus"
+                   },
+                   {
+                     "class":"fairwind::displays::DisplayGauge",
+                     "active":true,
+                     "layout":"0,2,4,1",
+                    "maxValue": 18,
+                    "minValue": 9,
+                    "step": 1,
+                     "fullPath":"${self}.electrical.batteries.1.voltage"
+                   },
+                   {
+                     "class":"fairwind::displays::DisplayGauge",
+                     "active":true,
+                     "layout":"0,3,4,1",
+                    "maxValue": 60,
+                    "minValue": 0,
+                    "step": 10,
+                     "fullPath":"${self}.electrical.batteries.1.current"
+                   },
+                   {
+                    "class":"fairwind::displays::DisplayVerticalBarGauge",
+                    "active":true,
+                    "layout":"4,2,4,1",
+                   "maxValue": 0,
+                   "minValue": 100,
+                   "step": 10,
+                    "fullPath":"${self}.tanks.fuel.1.currentLevel"
+                  },
+                  {
+                    "class":"fairwind::displays::DisplayVerticalBarGauge",
+                    "active":true,
+                    "layout":"4,3,4,1",
+                   "maxValue": 100,
+                   "minValue": 0,
+                   "step": 10,
+                    "fullPath":"${self}.tanks.freshWater.1.currentLevel"
                   }
                 ]
               }
