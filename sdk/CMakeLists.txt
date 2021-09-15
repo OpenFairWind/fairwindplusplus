@@ -83,6 +83,7 @@ add_library(fairwindsdk SHARED
         include/FairWindSdk/util/Units.hpp
         include/FairWindSdk/connections/SignalKAPIClient.hpp
         include/FairWindSdk/connections/SignalKWSClient.hpp
+        include/FairWindSdk/displays/DisplaySimpleSwitch.hpp
         src/FairWind.cpp
         src/App.cpp
         src/AppBase.cpp
@@ -107,6 +108,7 @@ add_library(fairwindsdk SHARED
         src/util/Units.cpp
         src/connections/SignalKAPIClient.cpp
         src/connections/SignalKWSClient.cpp
+        src/displays/switches/DisplaySimpleSwitch.cpp
         ${FAIRWINDSDK_RESOURCE_ADDED}
         )
 
