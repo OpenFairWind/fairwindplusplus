@@ -133,8 +133,10 @@ QString fairwind::displays::DisplayWindAngleGauge::getClassName() const {
     return this->metaObject()->className();
 }
 
+/*
 bool fairwind::displays::DisplayWindAngleGauge::smaller() { return isVisible(); }
 bool fairwind::displays::DisplayWindAngleGauge::bigger() { return isVisible(); }
+*/
 
 void fairwind::displays::DisplayWindAngleGauge::setLabel(QString label) {
     mLabel->setText(label);
