@@ -17,8 +17,8 @@ namespace fairwind::displays {
         virtual QWidget *onSettings() = 0;
         virtual QString getClassName() const = 0;
 
-        virtual bool smaller() = 0;
-        virtual bool bigger() = 0;
+        //virtual bool smaller() = 0;
+        //virtual bool bigger() = 0;
     };
 
 }

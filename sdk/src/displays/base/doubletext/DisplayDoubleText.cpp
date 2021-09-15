@@ -61,5 +61,7 @@ QString fairwind::displays::DisplayDoubleText::getClassName() const {
     return this->metaObject()->className();
 }
 
+/*
 bool fairwind::displays::DisplayDoubleText::smaller() { return isVisible(); }
 bool fairwind::displays::DisplayDoubleText::bigger() { return isVisible(); }
+ */

@@ -9,27 +9,44 @@
 #include <FairWindSdk/displays/DisplayBase.hpp>
 #include <FairWindSdk/displays/DisplaySingleText.hpp>
 
-
+/**
+ * DisplaySingleText constructor
+ * @param parent The parent widget
+ */
 fairwind::displays::DisplaySingleText::DisplaySingleText(QWidget *parent) :
         QWidget(parent),
         DisplayBase(),
         ui(new Ui::DisplaySingleText) {
+
+    // Initialize the user interface
     ui->setupUi(this);
 
-
+    // Get the display height
     int size= contentsRect().height();
 
+    // Calculate the label font size
     QFont newFontLabel("Arial",size*0.25);
+
+    // Set the label font size
     ui->label_Label->setFont(newFontLabel);
 
+    // Calculate the units font side
     QFont newFontUnits("Arial",size*0.25);
+
+    // Set the units font size
     ui->label_Units->setFont(newFontUnits);
 
+    // Calculate the value font size
     QFont newFontValue("Arial",size*0.75);
+
+    // Set the value font size
     ui->label_Value1->setFont(newFontValue);
 
 }
 
+/**
+ * DisplaySingleText destructor
+ */
 fairwind::displays::DisplaySingleText::~DisplaySingleText() {
     delete ui;
 }
@@ -101,18 +118,4 @@ void fairwind::displays::DisplaySingleText::update(const QJsonObject update) {
 
 QString fairwind::displays::DisplaySingleText::getClassName() const {
     return this->metaObject()->className();
-}
-
-bool fairwind::displays::DisplaySingleText::smaller() {
-    ui->label_Label->setFont(QFont("Arial",ui->label_Label->font().pixelSize()-1));
-    ui->label_Units->setFont(QFont("Arial",ui->label_Units->font().pixelSize()-1));
-    ui->label_Value1->setFont(QFont("Arial",ui->label_Value1->font().pixelSize()-1));
-    return isVisible();
-}
-
-bool fairwind::displays::DisplaySingleText::bigger() {
-    ui->label_Label->setFont(QFont("Arial",ui->label_Label->font().pixelSize()+1));
-    ui->label_Units->setFont(QFont("Arial",ui->label_Units->font().pixelSize()+1));
-    ui->label_Value1->setFont(QFont("Arial",ui->label_Value1->font().pixelSize()+1));
-    return isVisible();
 }

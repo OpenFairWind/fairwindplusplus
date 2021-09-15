@@ -25,13 +25,16 @@ namespace fairwind::displays {
         explicit DisplayChart(QWidget *parent = 0);
         ~DisplayChart();
 
+        // IDisplay methods
         QString getClassName() const override;
         QImage getIcon() const override;
         void onInit(QMap<QString, QVariant> params) override;
         IDisplay *getNewInstance() override;
         QWidget *onSettings() override;
+        /*
         bool smaller() override;
         bool bigger() override;
+         */
 
 
     public slots:

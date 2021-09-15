@@ -26,24 +26,27 @@ namespace fairwind::displays {
         explicit DisplaySingleText(QWidget *parent = nullptr);
         ~DisplaySingleText();
 
+        // IDisplay methods
         QString getClassName() const override;
         QImage getIcon() const override;
         void onInit(QMap<QString, QVariant> params) override;
         IDisplay *getNewInstance() override;
         QWidget *onSettings() override;
-        bool smaller() override;
-        bool bigger() override;
+        //bool smaller() override;
+        //bool bigger() override;
 
+        // DisplayBase methods
         void setLabel(QString label)  override;
         void setUnits(QString units)  override;
         void setValue(QString value)  override;
         void subscribe(QString fullPath)  override;
 
     public slots:
-
+        // Update message listener
         void update(const QJsonObject update) override;
 
     private:
+        // The user interface
         Ui::DisplaySingleText *ui;
 
     };

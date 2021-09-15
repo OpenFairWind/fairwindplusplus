@@ -122,9 +122,10 @@ fairwind::displays::IDisplay *fairwind::displays::DisplayGauge::getNewInstance()
 QString fairwind::displays::DisplayGauge::getClassName() const {
     return this->metaObject()->className();
 }
-
+/*
 bool fairwind::displays::DisplayGauge::smaller() { return isVisible(); }
 bool fairwind::displays::DisplayGauge::bigger() { return isVisible(); }
+*/
 
 void fairwind::displays::DisplayGauge::setLabel(QString label) {
     mLabel->setText(label);

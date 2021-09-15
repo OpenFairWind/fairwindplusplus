@@ -127,6 +127,7 @@ void fairwind::displays::DisplayChart::updateNavigationPosition(const QJsonObjec
 QString fairwind::displays::DisplayChart::getClassName() const {
     return this->metaObject()->className();
 }
-
+/*
 bool fairwind::displays::DisplayChart::smaller() { return isVisible(); }
 bool fairwind::displays::DisplayChart::bigger() { return isVisible(); }
+*/

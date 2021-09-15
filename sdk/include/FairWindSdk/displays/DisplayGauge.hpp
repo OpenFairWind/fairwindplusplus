@@ -28,8 +28,10 @@ namespace fairwind::displays {
         void onInit(QMap<QString, QVariant> params) override;
         IDisplay *getNewInstance() override;
         QWidget *onSettings() override;
+        /*
         bool smaller() override;
         bool bigger() override;
+        */
 
         void setLabel(QString label) override;
         void setUnits(QString units) override;
