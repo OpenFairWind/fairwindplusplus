@@ -66,7 +66,7 @@ fairwind::displays::IDisplay *fairwind::displays::DisplaySimpleSwitch::getNewIns
 }
 
 void fairwind::displays::DisplaySimpleSwitch::setLabel(QString label) {
-    //ui->label_Label->setText(label);
+    ui->switchLabel->setText(label);
 }
 
 void fairwind::displays::DisplaySimpleSwitch::setUnits(QString units) {
