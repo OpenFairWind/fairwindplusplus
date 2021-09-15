@@ -10,12 +10,18 @@ fairwind::Units::Units() {
     mConverters["rad"]["deg"]=[](double value) { return value * 57.2958; };
     mConverters["m/s"]["kn"]=[](double value) { return value * 1.94384; };
     mConverters["m"]["m"]=[](double value) { return value; };
+    mConverters["v"]["v"]=[](double value) { return value; };
+    mConverters["l"]["l"]=[](double value) { return value; };
+    mConverters["A"]["A"]=[](double value) { return value; };
 
     mLabels["F"]="°F";
     mLabels["C"]="°C";
     mLabels["deg"]="°";
     mLabels["kn"]="kn";
     mLabels["m"]="m";
+    mLabels["A"]="A";
+    mLabels["v"]="v";
+    mLabels["l"]="l";
 }
 
 fairwind::Units *fairwind::Units::getInstance() {
