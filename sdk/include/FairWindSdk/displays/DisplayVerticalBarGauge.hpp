@@ -1,0 +1,14 @@
+//
+// Created by Raffaele Montella on 16/09/21.
+//
+
+#ifndef FAIRWIND_DISPLAYVERTICALBARGAUGE_HPP
+#define FAIRWIND_DISPLAYVERTICALBARGAUGE_HPP
+
+
+class DisplayVerticalBarGauge {
+
+};
+
+
+#endif //FAIRWIND_DISPLAYVERTICALBARGAUGE_HPP
