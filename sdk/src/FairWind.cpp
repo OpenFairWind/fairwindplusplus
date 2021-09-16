@@ -14,6 +14,7 @@
 #include <FairWindSdk/displays/DisplaySingleText.hpp>
 #include <FairWindSdk/displays/DisplayDoubleText.hpp>
 #include <FairWindSdk/displays/DisplayGauge.hpp>
+#include <FairWindSdk/displays/DisplayVerticalBarGauge.hpp>
 #include <FairWindSdk/displays/DisplayChart.hpp>
 #include <FairWindSdk/displays/DisplaySimpleSwitch.hpp>
 #include <FairWindSdk/connections/SignalKWSClient.hpp>
@@ -44,6 +45,7 @@ fairwind::FairWind::FairWind() {
     registerDisplay(new displays::DisplaySingleText());
     registerDisplay(new displays::DisplayDoubleText());
     registerDisplay(new displays::DisplayGauge());
+    registerDisplay(new displays::DisplayVerticalBarGauge());
     registerDisplay(new displays::DisplayWindAngleGauge());
     registerDisplay(new displays::DisplayChart());
     registerDisplay(new displays::DisplaySimpleSwitch());
