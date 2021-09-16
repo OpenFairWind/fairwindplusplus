@@ -67,6 +67,8 @@ add_library(fairwindsdk SHARED
         include/FairWindSdk/displays/DisplaySingleText.hpp
         include/FairWindSdk/displays/DisplayDoubleText.hpp
         include/FairWindSdk/displays/DisplayGauge.hpp
+        include/FairWindSdk/displays/DisplayVerticalBarGauge.hpp
+        include/FairWindSdk/displays/DisplaySimpleSwitch.hpp
         include/FairWindSdk/displays/DisplayWindAngleGauge.hpp
         include/FairWindSdk/displays/DisplayChart.hpp
         include/FairWindSdk/layers/ItemVessel.hpp
@@ -83,7 +85,7 @@ add_library(fairwindsdk SHARED
         include/FairWindSdk/util/Units.hpp
         include/FairWindSdk/connections/SignalKAPIClient.hpp
         include/FairWindSdk/connections/SignalKWSClient.hpp
-        include/FairWindSdk/displays/DisplaySimpleSwitch.hpp
+
         src/FairWind.cpp
         src/App.cpp
         src/AppBase.cpp
@@ -92,6 +94,8 @@ add_library(fairwindsdk SHARED
         src/displays/base/singletext/DisplaySingleText.cpp
         src/displays/base/doubletext/DisplayDoubleText.cpp
         src/displays/base/gauge/DisplayGauge.cpp
+        src/displays/base/gauge/DisplayVerticalBarGauge.cpp
+        src/displays/base/switch/DisplaySimpleSwitch.cpp
         src/displays/wind/DisplayWindAngleGauge.cpp
         src/displays/chart/DisplayChart.cpp
         src/layers/ItemDefault.cpp
@@ -108,7 +112,6 @@ add_library(fairwindsdk SHARED
         src/util/Units.cpp
         src/connections/SignalKAPIClient.cpp
         src/connections/SignalKWSClient.cpp
-        src/displays/switches/DisplaySimpleSwitch.cpp
         ${FAIRWINDSDK_RESOURCE_ADDED}
         )
 
