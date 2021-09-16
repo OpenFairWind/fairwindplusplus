@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
-    <class>VerticalBarGauge</class>
-    <widget class="QWidget" name="VerticalBarGauge">
+    <class>DisplayVerticalBarGauge</class>
+    <widget class="QWidget" name="DisplayVerticalBarGauge">
         <property name="geometry">
             <rect>
                 <x>0</x>

@@ -66,7 +66,7 @@ fairwind::displays::IDisplay *fairwind::displays::DisplayVerticalBarGauge::getNe
 }
 
 void fairwind::displays::DisplayVerticalBarGauge::setLabel(QString label) {
-    //ui->switchLabel->setText(label);
+    ui->_valueLabel->setText(label);
 }
 
 void fairwind::displays::DisplayVerticalBarGauge::setUnits(QString units) {
