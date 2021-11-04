@@ -55,13 +55,13 @@ fairwind::ui::settings::applications::Applications::~Applications() {
 void fairwind::ui::settings::applications::Applications::showEvent(QShowEvent *event) {
     qDebug() << "fairwind::ui::settings::applications::Applications::showEvent";
 
-    // The the FairWind singleton instance
+    // Get the FairWind singleton instance
     auto fairWind = fairwind::FairWind::getInstance();
 
     // Get the applications list
     auto apps = fairWind->getApps();
 
-    // Get the table ApplsList
+    // Get the table AppsList
     auto tableAppsList = ui->table_AppsList;
 
     // Remove all items
@@ -69,7 +69,6 @@ void fairwind::ui::settings::applications::Applications::showEvent(QShowEvent *e
 
     // For each app
     for (auto app: apps) {
-
         // Get the row count
         int row = tableAppsList->rowCount();
 
@@ -90,12 +89,9 @@ void fairwind::ui::settings::applications::Applications::showEvent(QShowEvent *e
 
         // Check if the app is active
         if (active) {
-
             // Set the checkbox as active
             itemIcon->setCheckState(Qt::Checked);
-
         } else {
-
             // Else set the checkbox as not active
             itemIcon->setCheckState(Qt::Unchecked);
         }
