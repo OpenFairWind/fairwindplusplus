@@ -5,7 +5,6 @@
 #ifndef FAIRWIND_LAYOUTBASE_HPP
 #define FAIRWIND_LAYOUTBASE_HPP
 
-
 #include <QString>
 #include <QMap>
 #include <QLayout>
@@ -13,8 +12,11 @@
 #include <FairWindSdk/FairWindSDK.hpp>
 #include <FairWindSdk/IDisplay.hpp>
 
-
 namespace fairwind::layouts {
+    /*
+     * LayoutBase
+     * Basic layout for FairWind
+     */
     class FAIRWINDSDK_LIB_DECL LayoutBase {
 
     public:
@@ -29,6 +31,5 @@ namespace fairwind::layouts {
         QMap<QString, QLayout *> mLayouts;
     };
 }
-
 
 #endif //FAIRWIND_LAYOUTBASE_HPP
