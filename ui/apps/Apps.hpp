@@ -12,9 +12,8 @@ namespace Ui {
 }
 
 namespace fairwind::ui::apps {
-
     class Apps : public QWidget {
-    Q_OBJECT
+        Q_OBJECT
 
     public:
         explicit Apps(QWidget *parent = 0);
@@ -23,15 +22,13 @@ namespace fairwind::ui::apps {
 
         void toolButton_App_released();
 
-    signals:
+        signals:
 
-        void foregroundAppChanged(const QString hash);
+                void foregroundAppChanged(const QString hash);
 
     private:
         Ui::Apps *ui;
     };
-
 }
-
 
 #endif //FAIRWIND_APPS_HPP

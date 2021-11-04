@@ -5,15 +5,18 @@
 #ifndef FAIRWIND_GRIDLAYOUT_HPP
 #define FAIRWIND_GRIDLAYOUT_HPP
 
+#include <QWidget>
 
 #include <FairWindSdk/FairWindSDK.hpp>
-#include <QWidget>
 #include <FairWindSdk/ILayout.hpp>
 #include <FairWindSdk/layouts/LayoutBase.hpp>
 #include <FairWindSdk/IDisplay.hpp>
 
-
 namespace fairwind::layouts {
+    /*
+     * GridLayout
+     * Basic structure of grid layout
+     */
     class FAIRWINDSDK_LIB_DECL GridLayout: public QWidget, public fairwind::layouts::LayoutBase, public fairwind::layouts::ILayout {
     Q_OBJECT
 
@@ -31,10 +34,8 @@ namespace fairwind::layouts {
     void addDisplay(QString key, displays::IDisplay *display) override;
 
     private:
-        QGridLayout *mGridLayout;
+    QGridLayout *mGridLayout;
 };
 }
-
-
 
 #endif //FAIRWIND_GRIDLAYOUT_HPP

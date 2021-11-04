@@ -12,11 +12,8 @@ namespace Ui {
 }
 
 namespace fairwind::ui::topbar {
-
-
     class TopBar : public QWidget {
     Q_OBJECT
-
     public:
         explicit TopBar(QWidget *parent = 0);
 

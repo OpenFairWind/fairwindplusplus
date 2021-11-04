@@ -40,21 +40,30 @@ QWidget *fairwind::layers::SignalKLayer::onSettings() {
 void fairwind::layers::SignalKLayer::onInit(QMap<QString, QVariant> params)  {
     qDebug() << "SignalKLayer::onInit(" << params << ")";
 
+    // Set the layer's name from the parameters
     if (params.contains("name")) {
         setName(params["name"].toString());
     }
 
+    // Set the layer's description from the parameters
     if (params.contains("description")) {
         setDescription(params["description"].toString());
     }
 
+    // Get the FairWind singleton
     auto fairWind = fairwind::FairWind::getInstance();
+    // Get the signalkdocument from the FairWind singleton itself
     auto signalKDocument = fairWind->getSignalKDocument();
+    // Get the self key from the document
     auto self = signalKDocument->getSelf();
 
+    // Check if a fullPath has been provided
     if (params.contains("fullPath")) {
+        // Get the path
         QString fullPath=params["fullPath"].toString();
+        // Get the items to display on the layer
         QJsonValue itemsValue = signalKDocument->subtree(fullPath);
+        // Check if there is at least one valid item
         if (!itemsValue.isNull() && itemsValue.isObject()) {
             QJsonObject itemsObject = itemsValue.toObject();
             for (const auto& uuid: itemsObject.keys()) {
@@ -77,6 +86,7 @@ void fairwind::layers::SignalKLayer::onInit(QMap<QString, QVariant> params)  {
             }
         }
     } else {
+        // Directly add the vessel to the layer
         addItem(new ItemVessel(self));
     }
 }
@@ -88,4 +98,3 @@ fairwind::layers::ILayer *fairwind::layers::SignalKLayer::getNewInstance() {
 QString fairwind::layers::SignalKLayer::getClassName() const {
     return this->metaObject()->className();
 }
-

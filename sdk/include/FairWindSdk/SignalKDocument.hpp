@@ -7,6 +7,7 @@
 
 #include <QRegularExpression>
 #include <QJsonObject>
+
 #include <QGeoView/QGVGlobal.h>
 
 #include "FairWindSDK.hpp"
@@ -16,8 +17,6 @@ typedef void (*myfunc)();
 class SignalKDocument;
 
 class FAIRWINDSDK_LIB_DECL Subscription  {
-
-
 public:
     Subscription()=default;
     Subscription(const QString &fullPath, QObject *receiver, const char *member);
@@ -36,10 +35,6 @@ private:
 
 class FAIRWINDSDK_LIB_DECL SignalKDocument: public QObject {
     Q_OBJECT
-
-
-
-
 public:
     explicit SignalKDocument();
     ~SignalKDocument();
@@ -93,8 +88,6 @@ private:
     QList<Subscription> subscriptions;
 
     void modifyJsonValue(QJsonObject& obj, const QString& path, const QJsonValue& newValue);
-
 };
-
 
 #endif //FAIRWIND_SIGNALKDOCUMENT_HPP

@@ -2,30 +2,44 @@
 // Created by Raffaele Montella on 08/04/21.
 //
 
-#include <FairWindSdk/FairWind.hpp>
 #include <QJsonArray>
-#include <FairWindSdk/AppBase.hpp>
 #include <QDir>
-#include <AppBase.hpp>
 
+#include <AppBase.hpp>
+#include <FairWindSdk/AppBase.hpp>
+#include <FairWindSdk/FairWind.hpp>
+
+/*
+ * getId
+ * Returns the app's id
+ */
 QString fairwind::AppBase::getId() const {
-    // Return the application id
     return m_metaData["FairWind"]["App"]["Id"].toString();
 }
 
+/*
+ * getConfig
+ * Returns the app's configuration
+ */
 QJsonObject fairwind::AppBase::getConfig() {
     return m_config;
 }
 
+/*
+ * getMetaData
+ * Returns the app's metadata
+ */
 QJsonObject fairwind::AppBase::getMetaData() {
     return m_metaData;
 }
 
+/*
+ * getName
+ * Returns the app's name
+ */
 QString fairwind::AppBase::getName() const {
-
     // Check if the metadata contains the key FairWind
     if (m_metaData.contains("FairWind") && m_metaData["FairWind"].isObject()) {
-
         // Get the FairWind object
         QJsonObject objectFairWind = m_metaData["FairWind"].toObject();
 
@@ -48,55 +62,82 @@ QString fairwind::AppBase::getName() const {
     return m_metaData["Name"].toString();
 }
 
+/*
+ * getDesc
+ * Returns the app's description
+ */
 QString fairwind::AppBase::getDesc() const {
     if (m_metaData.contains("Description") && m_metaData["Description"].isString()) {
         return m_metaData["Description"].toString();
     }
+
     return "";
 }
 
+/*
+ * getVersion
+ * Returns the app's version
+ */
 QString fairwind::AppBase::getVersion() const {
     if (m_metaData.contains("Version") && m_metaData["Version"].isString()) {
         return m_metaData["Version"].toString();
     }
+
     return "";
 }
 
+/*
+ * getVendor
+ * Returns the app's vendor
+ */
 QString fairwind::AppBase::getVendor() const {
     if (m_metaData.contains("Vendor") && m_metaData["Vendor"].isString()) {
         return m_metaData["Vendor"].toString();
     }
+
     return "";
 }
 
+/*
+ * getCopyright
+ * Returns the app's copyright
+ */
 QString fairwind::AppBase::getCopyright() const {
     if (m_metaData.contains("Copyright") && m_metaData["Copyright"].isString()) {
         return m_metaData["Copyright"].toString();
     }
+
     return "";
 }
 
+/*
+ * getLicense
+ * Returns the app's license
+ */
 QString fairwind::AppBase::getLicense() const {
     if (m_metaData.contains("License") && m_metaData["License"].isString()) {
         return m_metaData["License"].toString();
     }
+
     return "";
 }
 
-
+/*
+ * onInit
+ * Initialisation method
+ */
 void fairwind::AppBase::onInit(QJsonObject *metaData) {
-
     // Copy the metadata in a member object
     m_metaData = QJsonObject(*metaData);
 
     // Get the application data path
-    QDir appDataPath=QDir(m_metaData["dataRoot"].toString()+QDir::separator()+getId());
+    QDir appDataPath = QDir(m_metaData["dataRoot"].toString() + QDir::separator() + getId());
 
     // Create the path if needed
     appDataPath.mkpath(appDataPath.absolutePath());
 
     // Set the config.json file
-    QFile appConfigFile(appDataPath.absolutePath()+QDir::separator()+"config.json");
+    QFile appConfigFile(appDataPath.absolutePath() + QDir::separator() + "config.json");
 
     // Check if the file exists
     if (appConfigFile.exists()) {
@@ -113,7 +154,6 @@ void fairwind::AppBase::onInit(QJsonObject *metaData) {
         // Set the config object
         m_config = jsonDocument.object();
     } else {
-
         // Check if metadata contains the FairWind key
         if (m_metaData.contains("FairWind") && m_metaData["FairWind"].isObject()) {
 
@@ -141,7 +181,7 @@ void fairwind::AppBase::onInit(QJsonObject *metaData) {
                     // Initialize the json document with the config data
                     jsonDocument.setObject(m_config);
 
-                    // Qrite the config file
+                    // Write the config file
                     appConfigFile.write(jsonDocument.toJson());
                 }
             }

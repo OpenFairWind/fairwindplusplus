@@ -6,6 +6,7 @@
 #define FAIRWIND_DISPLAYSINGLETEXT_HPP
 
 #include <QWidget>
+
 #include <FairWindSdk/FairWindSDK.hpp>
 #include <FairWindSdk/displays/DisplayBase.hpp>
 #include <FairWindSdk/IDisplay.hpp>
@@ -14,14 +15,9 @@ namespace Ui {
     class DisplaySingleText;
 }
 
-
 namespace fairwind::displays {
-
-
     class FAIRWINDSDK_LIB_DECL DisplaySingleText : public QWidget, public fairwind::displays::DisplayBase, public fairwind::displays::IDisplay {
     Q_OBJECT
-
-
     public:
         explicit DisplaySingleText(QWidget *parent = nullptr);
         ~DisplaySingleText();
@@ -48,10 +44,7 @@ namespace fairwind::displays {
     private:
         // The user interface
         Ui::DisplaySingleText *ui;
-
     };
-
 }
-
 
 #endif //FAIRWIND_DISPLAYSINGLETEXT_HPP

@@ -12,10 +12,8 @@ namespace Ui {
 }
 
 namespace fairwind::ui::settings {
-
-
     class Settings : public QWidget {
-    Q_OBJECT
+        Q_OBJECT
 
     public:
         explicit Settings(QWidget *parent = 0);
@@ -28,7 +26,6 @@ namespace fairwind::ui::settings {
     private:
         Ui::Settings *ui;
     };
-
 }
 
 #endif //FAIRWIND_SETTINGS_HPP

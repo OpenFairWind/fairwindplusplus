@@ -2,22 +2,23 @@
 // Created by Raffaele Montella on 10/06/21.
 //
 
-#include "FairWindSdk/layouts/VHGLayout.hpp"
+#include <QJsonArray>
 
+#include "FairWindSdk/layouts/VHGLayout.hpp"
 #include "ui_VHGLayout.h"
 
-#include <QJsonArray>
 #include <FairWindSdk/FairWind.hpp>
 #include <FairWindSdk/displays/DisplayBase.hpp>
-
 
 fairwind::layouts::VHGLayout::VHGLayout(QWidget *parent) :
         QWidget(parent),
         LayoutBase(),
         ui(new Ui::VHGLayout) {
+    // Setup the UI
     ui->setupUi(this);
-    setUI("vertical",ui->verticalLayout);
-    setUI("horizontal",ui->horizontalLayout);
+    // Remember the available layouts
+    setUI("vertical", ui->verticalLayout);
+    setUI("horizontal", ui->horizontalLayout);
 }
 
 fairwind::layouts::VHGLayout::~VHGLayout() {
@@ -32,7 +33,7 @@ QWidget *fairwind::layouts::VHGLayout::onSettings() {
     return nullptr;
 }
 
-void fairwind::layouts::VHGLayout::onInit(QMap<QString, QVariant> params) {
+void fairwind::layouts::VHGLayout::onInit(QMap <QString, QVariant> params) {
     qDebug() << "VHGLayout::onInit(" << params << ")";
 }
 
@@ -45,22 +46,27 @@ QString fairwind::layouts::VHGLayout::getClassName() const {
 }
 
 void fairwind::layouts::VHGLayout::addDisplay(QString key, displays::IDisplay *display) {
+    // Check if the new layout is a grid layout
     if (key.startsWith("grid")) {
-        int rowSpan=1;
-        int colSpan=1;
-        auto parts=key.split(",");
-        int row=parts[1].toInt();
-        int col=parts[2].toInt();
-        if (parts.size()==5) {
-            rowSpan=parts[3].toInt();
-            colSpan=parts[4].toInt();
+        int rowSpan = 1;
+        int colSpan = 1;
+        auto parts = key.split(",");
+        int row = parts[1].toInt();
+        int col = parts[2].toInt();
+        if (parts.size() == 5) {
+            rowSpan = parts[3].toInt();
+            colSpan = parts[4].toInt();
         }
+        // Cast display to QWidget*
         auto widget = dynamic_cast<QWidget *>(display);
+        // Check if the new widget is valid
         if (widget) {
-            ui->gridLayout->addWidget(widget,row,col,rowSpan,colSpan);
+            // Add the widget to the gridlayout
+            ui->gridLayout->addWidget(widget, row, col, rowSpan, colSpan);
         }
 
     } else {
+        // Add the display to the VHGLayout
         LayoutBase::addDisplay(key, display);
     }
 }

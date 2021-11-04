@@ -5,8 +5,8 @@
 #ifndef FAIRWIND_ITEMSIGNALK_HPP
 #define FAIRWIND_ITEMSIGNALK_HPP
 
-
 #include <QGeoView/QGVImage.h>
+
 #include <FairWindSDK.hpp>
 #include <SignalKDocument.hpp>
 
@@ -26,6 +26,5 @@ public slots:
 private:
     QString m_context;
 };
-
 
 #endif //FAIRWIND_ITEMSIGNALK_HPP

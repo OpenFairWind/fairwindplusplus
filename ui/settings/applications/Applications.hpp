@@ -7,6 +7,7 @@
 
 #include <QWidget>
 #include <QItemSelection>
+
 #include <FairWindSdk/ISettings.hpp>
 
 namespace Ui {
@@ -14,7 +15,6 @@ namespace Ui {
 }
 
 namespace fairwind::ui::settings::applications {
-
     class Applications : public QWidget, public ISettings {
         Q_OBJECT
 
@@ -24,15 +24,22 @@ namespace fairwind::ui::settings::applications {
         ~Applications();
 
         QString getClassName() const override;
+
         QImage getIcon() const override;
+
         QString getName() const override;
+
         ISettings *getNewInstance() override;
 
     protected :
         void showEvent(QShowEvent *event) override;
 
-    private slots:
-        void onCurrentRowChanged(const QModelIndex &current, const QModelIndex &previous);
+    private
+        slots:
+                void onCurrentRowChanged(
+        const QModelIndex &current,
+        const QModelIndex &previous
+        );
 
     private:
         Ui::Applications *ui;
@@ -40,6 +47,5 @@ namespace fairwind::ui::settings::applications {
         QMap<QString, QWidget *> mSettingsByExtensionId;
     };
 }
-
 
 #endif //FAIRWIND_APPLICATIONS_HPP

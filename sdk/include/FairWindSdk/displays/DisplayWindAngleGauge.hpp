@@ -6,6 +6,7 @@
 #define FAIRWIND_DISPLAYWINDANGLEGAUGE_HPP
 
 #include <QWidget>
+
 #include <FairWindSdk/FairWindSDK.hpp>
 #include <FairWindSdk/displays/DisplayBase.hpp>
 #include <FairWindSdk/IDisplay.hpp>
@@ -16,7 +17,6 @@ namespace Ui {
 }
 
 namespace fairwind::displays {
-
     class FAIRWINDSDK_LIB_DECL DisplayWindAngleGauge: public QWidget, public fairwind::displays::DisplayBase, public fairwind::displays::IDisplay {
     Q_OBJECT
     public:
@@ -38,7 +38,6 @@ namespace fairwind::displays {
         void subscribe(QString fullPath) override;
 
     public slots:
-
         void update(const QJsonObject update) override;
 
     private:
@@ -52,9 +51,7 @@ namespace fairwind::displays {
         float mMinValue;
         float mMaxValue;
         float mStep;
-
     };
 }
-
 
 #endif //FAIRWIND_DISPLAYWINDANGLEGAUGE_HPP

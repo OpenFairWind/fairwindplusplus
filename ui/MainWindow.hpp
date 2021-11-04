@@ -8,16 +8,16 @@
 #include <QMainWindow>
 #include <QMap>
 #include <QDebug>
+
 #include <ui/topbar/TopBar.hpp>
 #include <ui/bottombar/BottomBar.hpp>
-
 
 #include "FairWindSdk/App.hpp"
 #include "ui/apps/Apps.hpp"
 #include "ui/settings/Settings.hpp"
 
-
 class BottomBar;
+
 class TopBar;
 
 namespace Ui {
@@ -35,22 +35,29 @@ namespace fairwind::ui {
 
         Ui::MainWindow *getUi();
 
-    public slots:
-        void setForegroundApp(QString hash);
-        void onApps();
-        void onSettings();
+    public
+        slots:
+                void setForegroundApp(QString
+        hash);
 
+        void onApps();
+
+        void onSettings();
 
     private:
         Ui::MainWindow *ui;
+        // This will be populated with the apps launched by the user for quick usage
         QMap<QString, QWidget *> mapWidgets;
 
+        // QWidget containing the loaded apps
         apps::Apps *m_apps = nullptr;
+        // QWidget containing a tab for every registered settings page
         settings::Settings *m_settings = nullptr;
+        // QWidget containing useful infos
         topbar::TopBar *m_topBar = nullptr;
+        // QWidget containing navigation buttons
         bottombar::BottomBar *m_bottonBar = nullptr;
     };
 }
-
 
 #endif //FAIRWINDS_MAINWINDOW_HPP

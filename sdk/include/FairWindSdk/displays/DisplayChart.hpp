@@ -5,11 +5,11 @@
 #ifndef FAIRWIND_DISPLAYCHART_HPP
 #define FAIRWIND_DISPLAYCHART_HPP
 
-
 #include <QWidget>
 #include <QNetworkDiskCache>
 
 #include "QGeoView/QGVLayer.h"
+
 #include <FairWindSdk/FairWindSDK.hpp>
 #include <FairWindSdk/IDisplay.hpp>
 
@@ -18,9 +18,12 @@ namespace Ui {
 }
 
 namespace fairwind::displays {
+    /*
+     * DisplayChart
+     * A visual display component that emulates the functionalities fo a chart, providing different data at once
+     */
     class FAIRWINDSDK_LIB_DECL DisplayChart : public QWidget, public fairwind::displays::IDisplay {
     Q_OBJECT
-
     public:
         explicit DisplayChart(QWidget *parent = 0);
         ~DisplayChart();
@@ -36,9 +39,7 @@ namespace fairwind::displays {
         bool bigger() override;
          */
 
-
     public slots:
-
         void updateNavigationPosition(const QJsonObject update);
 
     private:
@@ -46,13 +47,11 @@ namespace fairwind::displays {
 
         QGVMap *m_widgetMap = nullptr;
 
-
         QNetworkAccessManager *mManager;
         QNetworkDiskCache *mCache;
 
         QJsonObject mConfig;
     };
-
 }
 
 #endif //FAIRWIND_DISPLAYCHART_HPP
