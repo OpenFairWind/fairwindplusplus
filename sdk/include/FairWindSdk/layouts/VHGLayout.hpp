@@ -5,8 +5,9 @@
 #ifndef FAIRWIND_VHGLAYOUT_HPP
 #define FAIRWIND_VHGLAYOUT_HPP
 
-#include <FairWindSdk/FairWindSDK.hpp>
 #include <QWidget>
+
+#include <FairWindSdk/FairWindSDK.hpp>
 #include <FairWindSdk/ILayout.hpp>
 #include <FairWindSdk/layouts/LayoutBase.hpp>
 #include <FairWindSdk/IDisplay.hpp>
@@ -16,9 +17,12 @@ namespace Ui {
 }
 
 namespace fairwind::layouts {
+    /*
+     * VHGLayout
+     * Manages the available layout: vertical, horizontal
+     */
 class FAIRWINDSDK_LIB_DECL VHGLayout: public QWidget, public fairwind::layouts::LayoutBase, public fairwind::layouts::ILayout {
         Q_OBJECT
-
     public:
         explicit VHGLayout(QWidget *parent = nullptr);
         ~VHGLayout();
@@ -36,6 +40,5 @@ class FAIRWINDSDK_LIB_DECL VHGLayout: public QWidget, public fairwind::layouts::
         Ui::VHGLayout *ui;
     };
 }
-
 
 #endif //FAIRWIND_VHGLAYOUT_HPP
