@@ -7,14 +7,13 @@
 
 #include <QJsonObject>
 #include <QNetworkAccessManager>
+
 #include <FairWindSdk/FairWindSDK.hpp>
 #include <FairWindSdk/IConnection.hpp>
 
 namespace fairwind::connections {
-
     class FAIRWINDSDK_LIB_DECL SignalKAPIClient : public QObject, public fairwind::connections::IConnection {
     Q_OBJECT
-
     public:
         explicit SignalKAPIClient(QObject *parent = nullptr);
         ~SignalKAPIClient();
