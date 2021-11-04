@@ -8,6 +8,10 @@
 #include <FairWindSDK.hpp>
 #include "ItemSignalK.hpp"
 
+/*
+ * ItemDefault
+ * Basic item widget for FairWind
+ */
 class FAIRWINDSDK_LIB_DECL ItemDefault: public ItemSignalK {
 Q_OBJECT
 public:
