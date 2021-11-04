@@ -12,9 +12,12 @@
 #include <FairWindSdk/FairWindSDK.hpp>
 
 namespace fairwind {
+    /*
+     * Units
+     * This class provides the most basic units and a quick way to convert and switch between them
+     */
     class FAIRWINDSDK_LIB_DECL Units : public QObject {
         Q_OBJECT
-
     public:
         static Units *getInstance();
         double convert(const QString& srcUnit, const QString& unit, double value);
@@ -27,9 +30,7 @@ namespace fairwind {
 
         QMap <QString, QMap<QString, std::function<double(double)>>> mConverters;
         QMap <QString, QString> mLabels;
-
     };
 }
-
 
 #endif //FAIRWIND_UNITS_HPP
