@@ -9,8 +9,8 @@
 #include <map>
 #include <QJsonDocument>
 #include <QDir>
-#include <QGeoView/QGVLayer.h>
 
+#include <QGeoView/QGVLayer.h>
 
 #include "FairWindSDK.hpp"
 #include "IApp.hpp"
@@ -23,15 +23,17 @@
 #include "ISettings.hpp"
 
 namespace fairwind {
+    /*
+     * FairWind
+     * Singleton used to handle the entire FairWind ecosystem in a centralized way
+     */
     class FAIRWINDSDK_LIB_DECL FairWind: public QObject {
         Q_OBJECT
     public:
-
         static FairWind *getInstance();
 
         void loadApps();
         apps::IApp *getAppByExtensionId(QString id);
-
 
         void setApplicationDirPath(QString qString);
         void loadConfig();
@@ -65,7 +67,6 @@ namespace fairwind {
 
         QJsonObject &getConfig();
 
-
     private:
         QJsonObject m_config;
 
@@ -92,6 +93,5 @@ namespace fairwind {
         QDir m_dataRoot;
     };
 }
-
 
 #endif //FAIRWIND_FAIRWIND_HPP
