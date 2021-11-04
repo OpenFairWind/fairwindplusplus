@@ -5,8 +5,8 @@
 #ifndef FAIRWIND_DISPLAYDOUBLETEXT_HPP
 #define FAIRWIND_DISPLAYDOUBLETEXT_HPP
 
-
 #include <QWidget>
+
 #include <FairWindSdk/FairWindSDK.hpp>
 #include <FairWindSdk/IDisplay.hpp>
 
@@ -17,7 +17,6 @@ namespace Ui {
 namespace fairwind::displays {
     class FAIRWINDSDK_LIB_DECL DisplayDoubleText : public QWidget, public fairwind::displays::IDisplay {
     Q_OBJECT
-
     public:
         explicit DisplayDoubleText(QWidget *parent = nullptr);
         ~DisplayDoubleText();
