@@ -7,14 +7,13 @@
 
 #include <QtCore/QObject>
 #include <QtWebSockets/QWebSocket>
+
 #include <FairWindSdk/FairWindSDK.hpp>
 #include <FairWindSdk/IConnection.hpp>
 
 namespace fairwind::connections {
-
     class FAIRWINDSDK_LIB_DECL SignalKWSClient : public QObject, public fairwind::connections::IConnection {
     Q_OBJECT
-
     public:
         explicit SignalKWSClient(QObject *parent = nullptr);
         ~SignalKWSClient();
@@ -32,13 +31,10 @@ namespace fairwind::connections {
         QString getLabel() const override;
 
     signals:
-
         void closed();
 
     private slots:
-
         void onConnected();
-
         void onTextMessageReceived(QString message);
 
     private:
@@ -51,6 +47,5 @@ namespace fairwind::connections {
         QString m_label;
     };
 }
-
 
 #endif //FAIRWIND_SIGNALKWSCLIENT_HPP
