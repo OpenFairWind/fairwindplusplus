@@ -33,7 +33,6 @@ namespace fairwind::apps::imsf {
 
         QImage getIcon() const override;
         QWidget *onGui(QMainWindow *mainWindow, QMap<QString, QVariant> args) override;
-        QWidget *onSettings(QTabWidget *tabWidgets) override;
         void updateSettings(QString settingsID, QString newValue) override;
 
         QJsonObject getConfig() override;

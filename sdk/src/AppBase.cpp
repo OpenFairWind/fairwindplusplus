@@ -126,6 +126,36 @@ QString fairwind::AppBase::getLicense() const {
     return "";
 }
 
+void fairwind::AppBase::updateSettings(QString settingsID, QString newValue) {
+    QDir appDataPath = QDir(getMetaData()["dataRoot"].toString() + QDir::separator() + getId());
+
+    // Create the path if needed
+    appDataPath.mkpath(appDataPath.absolutePath());
+
+    // Set the config.json file
+    QFile configsFile(appDataPath.absolutePath() + QDir::separator() + "config.json");
+    configsFile.open(QFile::ReadWrite);
+
+    QJsonDocument configsDocument = QJsonDocument().fromJson(configsFile.readAll());
+
+    QJsonObject configs = configsDocument.object();
+
+    QJsonValueRef ref = configs.find("Values").value();
+    QJsonObject values = ref.toObject();
+
+    values.insert(settingsID, newValue);
+
+    ref = values;
+
+    configsDocument.setObject(configs);
+
+    if (configsFile.resize(0))
+        configsFile.write(configsDocument.toJson());
+
+    configsFile.close();
+    setConfig(configs);
+}
+
 /*
  * onInit
  * Initialisation method
@@ -204,3 +234,4 @@ void fairwind::AppBase::onInit(QJsonObject *metaData) {
         appDataPath.mkpath("resources/images/icons");
     }
 }
+

@@ -62,10 +62,6 @@ void fairwind::apps::chandlery::Chandlery::onInit(QJsonObject *metaData) {
     AppBase::onInit(metaData);
 }
 
-QWidget *fairwind::apps::chandlery::Chandlery::onSettings(QTabWidget *tabWidget) {
-    return nullptr;
-}
-
 QJsonObject fairwind::apps::chandlery::Chandlery::getConfig() {
     return AppBase::getConfig();
 }
@@ -76,33 +72,7 @@ QJsonObject fairwind::apps::chandlery::Chandlery::getMetaData() {
 
 
 void fairwind::apps::chandlery::Chandlery::updateSettings(QString settingsID, QString newValue) {
-    QDir appDataPath = QDir(getMetaData()["dataRoot"].toString() + QDir::separator() + getId());
-
-    // Create the path if needed
-    appDataPath.mkpath(appDataPath.absolutePath());
-
-    // Set the config.json file
-    QFile configsFile(appDataPath.absolutePath() + QDir::separator() + "config.json");
-    configsFile.open(QFile::ReadWrite);
-
-    QJsonDocument configsDocument = QJsonDocument().fromJson(configsFile.readAll());
-
-    QJsonObject configs = configsDocument.object();
-
-    QJsonValueRef ref = configs.find("Values").value();
-    QJsonObject values = ref.toObject();
-
-    values.insert(settingsID, newValue);
-
-    ref = values;
-
-    configsDocument.setObject(configs);
-
-    if (configsFile.resize(0))
-        configsFile.write(configsDocument.toJson());
-
-    configsFile.close();
-    setConfig(configs);
+    AppBase::updateSettings(settingsID, newValue);
 }
 
 void fairwind::apps::chandlery::Chandlery::setConfig(QJsonObject config) {

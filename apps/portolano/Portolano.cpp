@@ -62,10 +62,6 @@ void fairwind::apps::portolano::Portolano::onInit(QJsonObject *metaData) {
     AppBase::onInit(metaData);
 }
 
-QWidget *fairwind::apps::portolano::Portolano::onSettings(QTabWidget *tabWidget) {
-    return nullptr;
-}
-
 QJsonObject fairwind::apps::portolano::Portolano::getConfig() {
     return AppBase::getConfig();
 }
@@ -75,33 +71,7 @@ QJsonObject fairwind::apps::portolano::Portolano::getMetaData() {
 }
 
 void fairwind::apps::portolano::Portolano::updateSettings(QString settingsID, QString newValue) {
-    QDir appDataPath = QDir(getMetaData()["dataRoot"].toString() + QDir::separator() + getId());
-
-    // Create the path if needed
-    appDataPath.mkpath(appDataPath.absolutePath());
-
-    // Set the config.json file
-    QFile configsFile(appDataPath.absolutePath() + QDir::separator() + "config.json");
-    configsFile.open(QFile::ReadWrite);
-
-    QJsonDocument configsDocument = QJsonDocument().fromJson(configsFile.readAll());
-
-    QJsonObject configs = configsDocument.object();
-
-    QJsonValueRef ref = configs.find("Values").value();
-    QJsonObject values = ref.toObject();
-
-    values.insert(settingsID, newValue);
-
-    ref = values;
-
-    configsDocument.setObject(configs);
-
-    if (configsFile.resize(0))
-        configsFile.write(configsDocument.toJson());
-
-    configsFile.close();
-    setConfig(configs);
+    AppBase::updateSettings(settingsID, newValue);
 }
 
 void fairwind::apps::portolano::Portolano::setConfig(QJsonObject config) {

@@ -108,15 +108,6 @@ void it::gov::guardiacostiera::gc1530::GC1530::onInit(QJsonObject *metaData) {
     m_url = "https://www.guardiacostiera.gov.it";
 }
 
-QWidget *it::gov::guardiacostiera::gc1530::GC1530::onSettings(QTabWidget *tabWidget) {
-    if (m_settings == nullptr) {
-        m_settings = new QWidget();
-        uiSettings = new Ui::gc1530_Settings();
-        uiSettings->setupUi(m_settings);
-    }
-    return m_settings;
-}
-
 QJsonObject it::gov::guardiacostiera::gc1530::GC1530::getConfig() {
     return AppBase::getConfig();
 }
@@ -126,38 +117,11 @@ QJsonObject it::gov::guardiacostiera::gc1530::GC1530::getMetaData() {
 }
 
 void it::gov::guardiacostiera::gc1530::GC1530::toolButton_home_clicked() {
-
     m_webView->load(QUrl(m_url));
 }
 
 void it::gov::guardiacostiera::gc1530::GC1530::updateSettings(QString settingsID, QString newValue) {
-    QDir appDataPath = QDir(getMetaData()["dataRoot"].toString() + QDir::separator() + getId());
-
-    // Create the path if needed
-    appDataPath.mkpath(appDataPath.absolutePath());
-
-    // Set the config.json file
-    QFile configsFile(appDataPath.absolutePath() + QDir::separator() + "config.json");
-    configsFile.open(QFile::ReadWrite);
-
-    QJsonDocument configsDocument = QJsonDocument().fromJson(configsFile.readAll());
-
-    QJsonObject configs = configsDocument.object();
-
-    QJsonValueRef ref = configs.find("Values").value();
-    QJsonObject values = ref.toObject();
-
-    values.insert(settingsID, newValue);
-
-    ref = values;
-
-    configsDocument.setObject(configs);
-
-    if (configsFile.resize(0))
-        configsFile.write(configsDocument.toJson());
-
-    configsFile.close();
-    setConfig(configs);
+    AppBase::updateSettings(settingsID, newValue);
 }
 
 void it::gov::guardiacostiera::gc1530::GC1530::setConfig(QJsonObject config) {
