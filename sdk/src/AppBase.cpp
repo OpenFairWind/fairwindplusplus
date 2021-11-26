@@ -126,6 +126,11 @@ QString fairwind::AppBase::getLicense() const {
     return "";
 }
 
+/*
+ * updateSettings
+ * This method will update the app's settings inside its json config file
+ * and wil update the m_config variable accordingly
+ */
 void fairwind::AppBase::updateSettings(QString settingsID, QString newValue) {
     QDir appDataPath = QDir(getMetaData()["dataRoot"].toString() + QDir::separator() + getId());
 
