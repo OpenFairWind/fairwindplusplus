@@ -5,6 +5,7 @@
 #include <QJsonArray>
 #include <FairWindSdk/FairWind.hpp>
 #include <QLabel>
+#include <QFile>
 #include <FairWindSdk/IDisplay.hpp>
 #include <FairWindSdk/displays/DisplayChart.hpp>
 #include "Chart.hpp"
@@ -120,26 +121,7 @@ void fairwind::apps::chart::Chart::onInit(QJsonObject *metaData) {
 }
 
 QWidget *fairwind::apps::chart::Chart::onSettings(QTabWidget *tabWidget) {
-    auto widget = new QWidget();
-    auto uiSettings = new Ui::ChartSettings();
-    uiSettings->setupUi(widget);
-
-    auto config = getConfig();
-
-    if (config.contains("Options") && config["Options"].isObject()) {
-        auto options = config["Options"].toObject();
-        if (options.contains("Position") && options["Position"].isString()) {
-            uiSettings->lineEditPosition->setText(options["Position"].toString());
-        }
-        if (options.contains("Heading") && options["Heading"].isString()) {
-            uiSettings->lineEditHeading->setText(options["Heading"].toString());
-        }
-
-        if (options.contains("Speed") && options["Speed"].isString()) {
-            uiSettings->lineEditSpeed->setText(options["Speed"].toString());
-        }
-    }
-    return widget;
+    return nullptr;
 }
 
 QJsonObject fairwind::apps::chart::Chart::getConfig() {
@@ -148,4 +130,38 @@ QJsonObject fairwind::apps::chart::Chart::getConfig() {
 
 QJsonObject fairwind::apps::chart::Chart::getMetaData() {
     return AppBase::getMetaData();
+}
+
+void fairwind::apps::chart::Chart::updateSettings(QString settingsID, QString newValue) {
+    QDir appDataPath = QDir(getMetaData()["dataRoot"].toString() + QDir::separator() + getId());
+
+    // Create the path if needed
+    appDataPath.mkpath(appDataPath.absolutePath());
+
+    // Set the config.json file
+    QFile configsFile(appDataPath.absolutePath() + QDir::separator() + "config.json");
+    configsFile.open(QFile::ReadWrite);
+
+    QJsonDocument configsDocument = QJsonDocument().fromJson(configsFile.readAll());
+
+    QJsonObject configs = configsDocument.object();
+
+    QJsonValueRef ref = configs.find("Values").value();
+    QJsonObject values = ref.toObject();
+
+    values.insert(settingsID, newValue);
+
+    ref = values;
+
+    configsDocument.setObject(configs);
+
+    if (configsFile.resize(0))
+        configsFile.write(configsDocument.toJson());
+
+    configsFile.close();
+    setConfig(configs);
+}
+
+void fairwind::apps::chart::Chart::setConfig(QJsonObject config) {
+    AppBase::setConfig(config);
 }

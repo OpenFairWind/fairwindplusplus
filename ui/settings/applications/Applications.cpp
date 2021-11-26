@@ -7,6 +7,10 @@
 
 #include "Applications.hpp"
 #include "ui_Applications.h"
+#include "QJsonArray"
+#include "QComboBox"
+#include "QLineEdit"
+#include "QLabel"
 
 /*
  * Applications
@@ -172,22 +176,66 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
         mExtension = app->getExtension();
     }
 
-    // Check if the settings widget has already shown
-    if (!mSettingsByExtensionId.contains(mExtension)) {
+    // Get the extension reference by the application id
+    auto extension = fairWind->getAppByExtensionId(mExtension);
 
-        // Get the extension reference by the application id
-        auto extension = fairWind->getAppByExtensionId(mExtension);
+    auto configs = extension->getConfig();
 
-        // Get the settings widget
-        auto settings = extension->onSettings(nullptr);
+    auto tableAppsList = new QTableWidget;
+    tableAppsList->setColumnCount(1);
+    tableAppsList->setRowCount(0);
+    tableAppsList->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    tableAppsList->horizontalHeader()->setVisible(false);
+    tableAppsList->verticalHeader()->setVisible(false);
 
-        // Store the the settings widget
-        mSettingsByExtensionId[mExtension] = settings;
+    auto settings = configs["Settings"].toArray();
+    auto values = configs["Values"].toObject();
+
+    for (int i = 0; i < settings.size(); i++ ) {
+        auto label = new QLabel(settings[i].toObject()["displayName"].toString() + ":");
+
+        tableAppsList->insertRow(tableAppsList->rowCount());
+        tableAppsList->setCellWidget(tableAppsList->rowCount() - 1, 0, label);
+
+        auto settingsID = settings[i].toObject()["id"].toString();
+        auto widgetClassName = settings[i].toObject()["widgetClassName"].toString();
+
+        if (widgetClassName == "QComboBox") {
+            auto domain = settings[i].toObject()["domain"].toArray();
+
+            auto box = new QComboBox;
+
+            box->addItem(values[settingsID].toString());
+
+            for (int j = 0; j < domain.size(); j++) {
+                if (domain[j].toString() != values[settingsID].toString())
+                    box->addItem(domain[j].toString());
+            }
+            int row = tableAppsList->rowCount();
+
+            connect(box,static_cast<void (QComboBox::*)(int index)>(&QComboBox::currentIndexChanged), this, [settingsID, extension, box]() {
+                extension->updateSettings(settingsID, box->currentText());
+            });
+
+            // Add a new row
+            tableAppsList->insertRow(tableAppsList->rowCount());
+            tableAppsList->setCellWidget(tableAppsList->rowCount() - 1, 0, box);
+        }
+
+        if (widgetClassName == "QLineEdit") {
+            auto line = new QLineEdit;
+            line->setText(values[settingsID].toString());
+
+            connect(line,static_cast<void (QLineEdit::*)(const QString& newValue)>(&QLineEdit::textChanged), this, [settingsID, extension](QString newValue) {
+                extension->updateSettings(settingsID, newValue);
+            });
+
+            // Add a new row
+            tableAppsList->insertRow(tableAppsList->rowCount());
+            tableAppsList->setCellWidget(tableAppsList->rowCount() - 1, 0, line);
+        }
     }
 
-    // Get the settings widget by the extension id
-    auto settings = mSettingsByExtensionId[mExtension];
-
     // Set the settings widget in the scroll area
-    ui->scrollArea_Apps->setWidget(settings);
+    ui->scrollArea_Apps->setWidget(tableAppsList);
 }

@@ -25,6 +25,10 @@ QJsonObject fairwind::AppBase::getConfig() {
     return m_config;
 }
 
+void fairwind::AppBase::setConfig(QJsonObject config) {
+    m_config = config;
+}
+
 /*
  * getMetaData
  * Returns the app's metadata
