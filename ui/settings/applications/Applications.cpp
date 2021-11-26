@@ -9,6 +9,7 @@
 #include "ui_Applications.h"
 #include "QJsonArray"
 #include "QComboBox"
+#include "QCheckBox"
 #include "QLineEdit"
 #include "QLabel"
 
@@ -233,6 +234,24 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
             // Add a new row
             tableAppsList->insertRow(tableAppsList->rowCount());
             tableAppsList->setCellWidget(tableAppsList->rowCount() - 1, 0, line);
+        }
+
+        if (widgetClassName == "QCheckBox") {
+            auto checkBox = new QCheckBox;
+            QString checkState = values[settingsID].toString();
+
+            if (checkState.toInt() == 0)
+                checkBox->setCheckState(Qt::CheckState::Unchecked);
+            else
+                checkBox->setCheckState(Qt::CheckState::Checked);
+
+            connect(checkBox,static_cast<void (QCheckBox::*)(int state)>(&QCheckBox::stateChanged), this, [settingsID, extension, checkState]() {
+                extension->updateSettings(settingsID, checkState == "0" ? "2" : "0");
+            });
+
+            // Add a new row
+            tableAppsList->insertRow(tableAppsList->rowCount());
+            tableAppsList->setCellWidget(tableAppsList->rowCount() - 1, 0, checkBox);
         }
     }
 
