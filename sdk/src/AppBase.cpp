@@ -132,6 +132,7 @@ QString fairwind::AppBase::getLicense() const {
  * and wil update the m_config variable accordingly
  */
 void fairwind::AppBase::updateSettings(QString settingsID, QString newValue) {
+    // Get the path
     QDir appDataPath = QDir(getMetaData()["dataRoot"].toString() + QDir::separator() + getId());
 
     // Create the path if needed
@@ -141,23 +142,29 @@ void fairwind::AppBase::updateSettings(QString settingsID, QString newValue) {
     QFile configsFile(appDataPath.absolutePath() + QDir::separator() + "config.json");
     configsFile.open(QFile::ReadWrite);
 
-    QJsonDocument configsDocument = QJsonDocument().fromJson(configsFile.readAll());
+    // Get config
+    QJsonObject configs = getConfig();
 
-    QJsonObject configs = configsDocument.object();
-
+    // Find the 'Values' object inside the configs
     QJsonValueRef ref = configs.find("Values").value();
     QJsonObject values = ref.toObject();
 
+    // Update the settings value
     values.insert(settingsID, newValue);
 
+    // Save the changes
     ref = values;
 
-    configsDocument.setObject(configs);
+    auto configsDocument = new QJsonDocument;
+    configsDocument->setObject(configs);
 
+    // Wipe the config file and then fill it with the new content
     if (configsFile.resize(0))
-        configsFile.write(configsDocument.toJson());
+        configsFile.write(configsDocument->toJson());
 
+    // Close the file
     configsFile.close();
+    // Set the config
     setConfig(configs);
 }
 
