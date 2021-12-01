@@ -10,7 +10,6 @@
 #include <FairWindSdk/displays/DisplayChart.hpp>
 #include "Chart.hpp"
 
-
 /*
  * Returns the application icon
  */
