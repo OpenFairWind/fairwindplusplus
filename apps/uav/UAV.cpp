@@ -61,14 +61,18 @@ void fairwind::apps::uav::UAV::onInit(QJsonObject *metaData) {
     AppBase::onInit(metaData);
 }
 
-QWidget *fairwind::apps::uav::UAV::onSettings(QTabWidget *tabWidget) {
-    return nullptr;
-}
-
 QJsonObject fairwind::apps::uav::UAV::getConfig() {
     return AppBase::getConfig();
 }
 
 QJsonObject fairwind::apps::uav::UAV::getMetaData() {
     return AppBase::getMetaData();
+}
+
+void fairwind::apps::uav::UAV::updateSettings(QString settingsID, QString newValue) {
+    AppBase::updateSettings(settingsID, newValue);
+}
+
+void fairwind::apps::uav::UAV::setConfig(QJsonObject config) {
+    AppBase::setConfig(config);
 }

@@ -25,7 +25,7 @@
 #include <FairWind.hpp>
 #include <displays/DisplayWindAngleGauge.hpp>
 #include <ILayout.hpp>
-#include <ISettings.hpp>
+#include <ISettingsTab.hpp>
 
 /*
  * FairWind
@@ -520,7 +520,14 @@ fairwind::layouts::ILayout *fairwind::FairWind::instanceLayout(const QString &cl
  * instanceSettings
  * Returns one the registered settings that matches the provided classname, if any exists
  */
-fairwind::ui::settings::ISettings *fairwind::FairWind::instanceSettings(const QString &className) {
+fairwind::ui::settings::ISettingsTab *fairwind::FairWind::instanceSettingsTab(const QString &className) {
+    if (m_registeredSettingsTab.contains(className)) {
+        return m_registeredSettingsTab[className]->getNewInstance();
+    }
+    return nullptr;
+}
+
+fairwind::ui::settings::ISettings *fairwind::FairWind::instanceSettings(const QString className) {
     if (m_registeredSettings.contains(className)) {
         return m_registeredSettings[className]->getNewInstance();
     }
@@ -545,13 +552,26 @@ bool fairwind::FairWind::registerLayout(fairwind::layouts::ILayout *dummy) {
  * registerSetting
  * Registers a new setting inside FairWind
  */
-bool fairwind::FairWind::registerSettings(fairwind::ui::settings::ISettings *dummy) {
+bool fairwind::FairWind::registerSettingsTab(fairwind::ui::settings::ISettingsTab *dummy) {
     bool result = false;
     QString className = dummy->getClassName();
+    if (m_registeredSettingsTab.contains(className) == false) {
+        qDebug() << "fairwind::FairWind::registerSettingsTab: " << className;
+        m_registeredSettingsTab[className] = dummy;
+        m_listSettings.append(dummy);
+        result = true;
+    }
+    return result;
+}
+
+bool fairwind::FairWind::registerSettings(fairwind::ui::settings::ISettings *dummy) {
+    qDebug() << "1";
+    bool result = false;
+    QString className = dummy->getClassName();
+    qDebug() << "2";
     if (m_registeredSettings.contains(className) == false) {
         qDebug() << "fairwind::FairWind::registerSettings: " << className;
         m_registeredSettings[className] = dummy;
-        m_listSettings.append(dummy);
         result = true;
     }
     return result;
@@ -593,8 +613,8 @@ QMap<QString, fairwind::layers::ILayer *> *fairwind::FairWind::getLayers() {
  * getSettings
  * Returns all the registered settings
  */
-QMap<QString, fairwind::ui::settings::ISettings *> *fairwind::FairWind::getSettings() {
-    return &m_registeredSettings;
+QMap<QString, fairwind::ui::settings::ISettingsTab *> *fairwind::FairWind::getSettings() {
+    return &m_registeredSettingsTab;
 }
 
 /*
@@ -609,6 +629,6 @@ QList<fairwind::connections::IConnection *> *fairwind::FairWind::getConnectionsL
  * getSettingsList
  * Returns all the registered settings in form of list
  */
-QList<fairwind::ui::settings::ISettings *> *fairwind::FairWind::getSettingsList() {
+QList<fairwind::ui::settings::ISettingsTab *> *fairwind::FairWind::getSettingsList() {
     return &m_listSettings;
 }

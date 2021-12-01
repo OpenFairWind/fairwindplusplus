@@ -13,126 +13,166 @@
       "Email": "fairwind@uniparthenope.it",
       "Id": "it.uniparthenope.fairwind.apps.chart",
       "Config": {
-        "Options": {
-          "Position": "${self}.navigation.position",
-          "Heading": "${self}.navigation.courseOverGroundMagnetic",
-          "Speed": "${self}.navigation.speedOverGround",
-          "Orientation":"north_up",
-          "CenterMap":false
-        },
-        "displays": [
+        "Displays": [
           {
+            "active": true,
             "class": "fairwind::displays::DisplayGauge",
-            "active": true,
-            "layout": "left",
             "fullPath": "${self}.navigation.speedOverGround",
-            "minValue": 0,
+            "layout": "left",
             "maxValue": 16,
-            "step": 1.0
+            "minValue": 0,
+            "step": 1
           },
           {
-            "class": "fairwind::displays::DisplaySingleText",
             "active": true,
-            "layout": "left",
-            "fullPath": "${self}.navigation.speedOverGround"
+            "class": "fairwind::displays::DisplaySingleText",
+            "fullPath": "${self}.navigation.speedOverGround",
+            "layout": "left"
           },
           {
-            "class": "fairwind::displays::DisplaySingleText",
             "active": true,
-            "layout": "left",
-            "fullPath": "${self}.navigation.courseOverGroundTrue"
+            "class": "fairwind::displays::DisplaySingleText",
+            "fullPath": "${self}.navigation.courseOverGroundTrue",
+            "layout": "left"
           },
           {
-            "class": "fairwind::displays::DisplaySingleText",
             "active": true,
-            "layout": "left",
-            "fullPath": "${self}.navigation.speedThroughWater"
+            "class": "fairwind::displays::DisplaySingleText",
+            "fullPath": "${self}.navigation.speedThroughWater",
+            "layout": "left"
           },
           {
-            "class": "fairwind::displays::DisplaySingleText",
             "active": true,
-            "layout": "left",
-            "fullPath": "${self}.navigation.headingTrue"
+            "class": "fairwind::displays::DisplaySingleText",
+            "fullPath": "${self}.navigation.headingTrue",
+            "layout": "left"
           },
           {
-            "class": "fairwind::displays::DisplaySingleText",
             "active": true,
-            "layout": "right",
-            "fullPath": "${self}.environment.wind.speedApparent"
+            "class": "fairwind::displays::DisplaySingleText",
+            "fullPath": "${self}.environment.wind.speedApparent",
+            "layout": "right"
           },
           {
-            "class": "fairwind::displays::DisplaySingleText",
             "active": true,
-            "layout": "right",
-            "fullPath": "${self}.environment.wind.angleApparent"
+            "class": "fairwind::displays::DisplaySingleText",
+            "fullPath": "${self}.environment.wind.angleApparent",
+            "layout": "right"
           },
           {
-            "class": "fairwind::displays::DisplaySingleText",
             "active": false,
-            "layout": "right",
-            "fullPath": "${self}.environment.water.temperature"
-          },
-          {
             "class": "fairwind::displays::DisplaySingleText",
-            "active": true,
-            "layout": "left",
-            "fullPath": "${self}.environment.depth.belowTransducer"
+            "fullPath": "${self}.environment.water.temperature",
+            "layout": "right"
           },
           {
-            "class": "fairwind::displays::DisplayWindAngleGauge",
             "active": true,
-            "layout": "right",
+            "class": "fairwind::displays::DisplaySingleText",
+            "fullPath": "${self}.environment.depth.belowTransducer",
+            "layout": "left"
+          },
+          {
+            "active": true,
+            "class": "fairwind::displays::DisplayWindAngleGauge",
             "context": "${self}",
+            "layout": "right",
             "wind": "apparent"
           }
         ],
         "Layers": [
           {
-            "class":"fairwind::layers::OSMLayer",
-            "active": true
+            "active": true,
+            "class": "fairwind::layers::OSMLayer"
           },
           {
-            "class": "fairwind::layers::TiledLayer",
             "active": false,
-            "name": "ESRI Navigation Charts",
+            "class": "fairwind::layers::TiledLayer",
             "description": "World Navigation Charts by ESRI.",
+            "name": "ESRI Navigation Charts",
             "url": "https://services.arcgisonline.com/ArcGIS/rest/services/Specialty/World_Navigation_Charts/MapServer/tile/${z}/${y}/${x}"
           },
           {
-            "class": "fairwind::layers::TiledLayer",
             "active": true,
-            "name": "OpenSeaMap",
+            "class": "fairwind::layers::TiledLayer",
             "description": "The OpenSeaMap layer.",
+            "name": "OpenSeaMap",
             "url": "http://tiles.openseamap.org/seamark/${z}/${x}/${y}.png"
           },
           {
-            "class": "fairwind::layers::SignalKLayer",
             "active": true,
-            "name": "Base Stations",
+            "class": "fairwind::layers::SignalKLayer",
             "description": "Shore base stations.",
-            "fullPath": "shore.basestations"
+            "fullPath": "shore.basestations",
+            "name": "Base Stations"
           },
           {
-            "class": "fairwind::layers::SignalKLayer",
             "active": true,
-            "name": "ATONs",
+            "class": "fairwind::layers::SignalKLayer",
             "description": "Aids to navigation.",
-            "fullPath": "atons"
+            "fullPath": "atons",
+            "name": "ATONs"
           },
           {
-            "class": "fairwind::layers::SignalKLayer",
             "active": true,
-            "name": "Vessels",
+            "class": "fairwind::layers::SignalKLayer",
             "description": "All the other vessels in the range.",
-            "fullPath": "vessels"
+            "fullPath": "vessels",
+            "name": "Vessels"
           },
           {
-            "class": "fairwind::layers::SignalKLayer",
             "active": true,
-            "name": "Self",
-            "description": "The Vessel."
+            "class": "fairwind::layers::SignalKLayer",
+            "description": "The Vessel.",
+            "name": "Self"
           }
-        ]
+        ],
+        "Settings": [
+          {
+            "defaultValue": "No",
+            "domain": [
+              "No",
+              "Yes"
+            ],
+            "id": "chart.settings.center_map",
+            "displayName": "Center Map",
+            "widgetClassName": "fairwind::ui::settings::FairComboBox"
+          },
+          {
+            "defaultValue": "${self}.navigation.courseOverGroundMagnetic",
+            "id": "chart.settings.heading",
+            "displayName": "Heading",
+            "widgetClassName": "fairwind::ui::settings::FairLineEdit"
+          },
+          {
+            "defaultValue": "North Up",
+            "domain": [
+              "North Up",
+              "Course Up"
+            ],
+            "id": "chart.settings.orientation",
+            "displayName": "Orientation",
+            "widgetClassName": "fairwind::ui::settings::FairComboBox"
+          },
+          {
+            "defaultValue": "${self}.navigation.position",
+            "id": "chart.settings.position",
+            "displayName": "Position",
+            "widgetClassName": "fairwind::ui::settings::FairLineEdit"
+          },
+          {
+            "defaultValue": "${self}.navigation.speedOverGround",
+            "id": "chart.settings.speed",
+            "displayName": "Speed",
+            "widgetClassName": "fairwind::ui::settings::FairLineEdit"
+          }
+        ],
+        "Values": {
+          "chart.settings.center_map": "Yes",
+          "chart.settings.heading": "${self}.navigation.courseOverGroundMagnetic",
+          "chart.settings.orientation": "North Up",
+          "chart.settings.position": "${self}.navigation.position",
+          "chart.settings.speed": "${self}.navigation.speedOverGround"
+        }
       }
     }
   }

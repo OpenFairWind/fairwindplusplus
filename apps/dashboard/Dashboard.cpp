@@ -126,15 +126,6 @@ QWidget *fairwind::apps::dashboard::Dashboard::onGui(QMainWindow *mainWindow, QM
     return widget;
 }
 
-QWidget *fairwind::apps::dashboard::Dashboard::onSettings(QTabWidget *tabWidgets) {
-    if (m_settings == nullptr) {
-        m_settings = new QWidget();
-        uiSettings = new Ui::dashboard_Settings();
-        uiSettings->setupUi(m_settings);
-    }
-    return m_settings;
-}
-
 fairwind::apps::dashboard::Dashboard::~Dashboard() {
 }
 
@@ -144,4 +135,12 @@ QJsonObject fairwind::apps::dashboard::Dashboard::getConfig() {
 
 QJsonObject fairwind::apps::dashboard::Dashboard::getMetaData() {
     return AppBase::getMetaData();
+}
+
+void fairwind::apps::dashboard::Dashboard::updateSettings(QString settingsID, QString newValue) {
+    AppBase::updateSettings(settingsID, newValue);
+}
+
+void fairwind::apps::dashboard::Dashboard::setConfig(QJsonObject config) {
+    AppBase::setConfig(config);
 }

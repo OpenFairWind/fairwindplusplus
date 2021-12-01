@@ -8,14 +8,14 @@
 #include <QWidget>
 #include <QItemSelection>
 
-#include <FairWindSdk/ISettings.hpp>
+#include <FairWindSdk/ISettingsTab.hpp>
 
 namespace Ui {
     class Applications;
 }
 
 namespace fairwind::ui::settings::applications {
-    class Applications : public QWidget, public ISettings {
+    class Applications : public QWidget, public ISettingsTab {
         Q_OBJECT
 
     public:
@@ -29,7 +29,7 @@ namespace fairwind::ui::settings::applications {
 
         QString getName() const override;
 
-        ISettings *getNewInstance() override;
+        ISettingsTab *getNewInstance() override;
 
     protected :
         void showEvent(QShowEvent *event) override;

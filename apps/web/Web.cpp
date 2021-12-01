@@ -112,15 +112,18 @@ void fairwind::apps::web::Web::toolButton_home_clicked() {
     ((WebView *)(m_widgetWebApp->children()[0]))->load(QUrl(m_url));
 }
 
-
-QWidget *fairwind::apps::web::Web::onSettings(QTabWidget *tabWidgets) {
-    return nullptr;
-}
-
 QJsonObject fairwind::apps::web::Web::getConfig() {
     return AppBase::getConfig();
 }
 
 QJsonObject fairwind::apps::web::Web::getMetaData() {
     return AppBase::getMetaData();
+}
+
+void fairwind::apps::web::Web::updateSettings(QString settingsID, QString newValue) {
+    AppBase::updateSettings(settingsID, newValue);
+}
+
+void fairwind::apps::web::Web::setConfig(QJsonObject config) {
+    AppBase::setConfig(config);
 }

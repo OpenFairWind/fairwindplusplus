@@ -61,14 +61,18 @@ void fairwind::apps::video::Video::onInit(QJsonObject *metaData) {
     AppBase::onInit(metaData);
 }
 
-QWidget *fairwind::apps::video::Video::onSettings(QTabWidget *tabWidget) {
-    return nullptr;
-}
-
 QJsonObject fairwind::apps::video::Video::getConfig() {
     return AppBase::getConfig();
 }
 
 QJsonObject fairwind::apps::video::Video::getMetaData() {
     return AppBase::getMetaData();
+}
+
+void fairwind::apps::video::Video::updateSettings(QString settingsID, QString newValue) {
+    AppBase::updateSettings(settingsID, newValue);
+}
+
+void fairwind::apps::video::Video::setConfig(QJsonObject config) {
+    AppBase::setConfig(config);
 }

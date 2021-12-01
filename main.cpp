@@ -4,8 +4,11 @@
 #include <QSplashScreen>
 
 #include <FairWindSdk/FairWind.hpp>
-#include <ui/settings/generic/Generic.hpp>
+#include <FairWindSdk/settings/FairComboBox.hpp>
+#include <FairWindSdk/settings/FairLineEdit.hpp>
+#include <FairWindSdk/settings/FairCheckBox.hpp>
 #include <ui/settings/connections/Connections.hpp>
+#include <ui/settings/generic/Generic.hpp>
 #include <ui/settings/applications/Applications.hpp>
 
 #include "ui/MainWindow.hpp"
@@ -31,9 +34,14 @@ int main(int argc, char *argv[]) {
     auto fairWind = fairwind::FairWind::getInstance();
 
     // Register settings pages inside the FairWind singleton
-    fairWind->registerSettings(new fairwind::ui::settings::generic::Generic());
-    fairWind->registerSettings(new fairwind::ui::settings::connections::Connections());
-    fairWind->registerSettings(new fairwind::ui::settings::applications::Applications());
+    fairWind->registerSettingsTab(new fairwind::ui::settings::generic::Generic());
+    fairWind->registerSettingsTab(new fairwind::ui::settings::connections::Connections());
+    fairWind->registerSettingsTab(new fairwind::ui::settings::applications::Applications());
+
+    // Register the settings widgets inside the FairWind singleton
+    fairWind->registerSettings(new fairwind::ui::settings::FairComboBox());
+    fairWind->registerSettings(new fairwind::ui::settings::FairLineEdit());
+    fairWind->registerSettings(new fairwind::ui::settings::FairCheckBox());
 
     splash.showMessage("Loading Applications ...", 500, Qt::white);
 

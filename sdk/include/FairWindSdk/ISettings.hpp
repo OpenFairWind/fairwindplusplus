@@ -1,31 +1,39 @@
 //
-// Created by Raffaele Montella on 16/07/21.
+// Created by debian on 11/30/21.
 //
 
-#ifndef FAIRWIND_ISETTINGS_HPP
-#define FAIRWIND_ISETTINGS_HPP
+#ifndef FAIRWIND_ISETTINGS_H
+#define FAIRWIND_ISETTINGS_H
+
+#include <FairWindSdk/IApp.hpp>
 
 namespace fairwind::ui::settings {
     /*
      * ISettings
-     * Interface to build new settings pages for FairWind
+     * This interface is used by FairWind to implement a set of allowed and curated settings widgets.
      */
-    class ISettings {
+    class ISettings{
     public:
         virtual ~ISettings() = default;
 
-        // Returns the settings page's icon
-        virtual QImage getIcon() const = 0;
+        /*
+         * setDetails
+         * This method sets the state of the widget
+         */
+        virtual void setDetails(QJsonObject settings, QJsonObject values, fairwind::apps::IApp* extension) = 0;
 
-        // Returns the settings page's name
-        virtual QString getName() const = 0;
+        /*
+         * getNewInstance
+         * Returns a new instance of ISettings
+         */
+        virtual ISettings* getNewInstance() = 0;
 
-        // Returns a newly created instance
-        virtual ISettings *getNewInstance() = 0;
-
-        // Returns the settings page's class name
-        virtual QString getClassName() const = 0;
+        /*
+         * getClassName
+         * Returns the class name of the settings
+         */
+        virtual QString getClassName() = 0;
     };
 }
 
-#endif //FAIRWIND_ISETTINGS_HPP
+#endif //FAIRWIND_ISETTINGS_H
