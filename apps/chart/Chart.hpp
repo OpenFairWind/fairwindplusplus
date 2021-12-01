@@ -11,7 +11,6 @@
 #include <FairWindSdk/AppBase.hpp>
 #include <FairWindSdk/IApp.hpp>
 #include "ui_Chart.h"
-#include "ui_Chart_Settings.h"
 
 namespace fairwind::apps::chart {
     class Chart : public QObject, AppBase, IApp {

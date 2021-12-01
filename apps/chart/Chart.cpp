@@ -41,8 +41,8 @@ QWidget *fairwind::apps::chart::Chart::onGui(QMainWindow *mainWindow, QMap<QStri
     layouts["center"]=ui->horizontalLayout;
     layouts["right"]=ui->verticalLayoutRight;
 
-    if (config.contains("displays") && config["displays"].isArray()) {
-        QJsonArray arrayDisplays=config["displays"].toArray();
+    if (config.contains("Displays") && config["Displays"].isArray()) {
+        QJsonArray arrayDisplays=config["Displays"].toArray();
         for (auto item:arrayDisplays) {
             if (item.isObject()) {
                 QJsonObject objectItem=item.toObject();
