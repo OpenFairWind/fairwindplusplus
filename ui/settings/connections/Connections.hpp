@@ -7,14 +7,14 @@
 
 #include <QWidget>
 
-#include <FairWindSdk/ISettings.hpp>
+#include <FairWindSdk/ISettingsTab.hpp>
 
 namespace Ui {
     class Connections;
 }
 
 namespace fairwind::ui::settings::connections {
-    class Connections : public QWidget, public ISettings {
+    class Connections : public QWidget, public ISettingsTab {
         Q_OBJECT
 
     public:
@@ -28,7 +28,7 @@ namespace fairwind::ui::settings::connections {
 
         QString getName() const override;
 
-        ISettings *getNewInstance() override;
+        ISettingsTab *getNewInstance() override;
 
     protected :
         void showEvent(QShowEvent *event) override;

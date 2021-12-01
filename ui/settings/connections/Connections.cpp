@@ -119,8 +119,8 @@ QString fairwind::ui::settings::connections::Connections::getName() const {
  * getNewInstance
  * Returns a new instance of Connections
  */
-fairwind::ui::settings::ISettings *fairwind::ui::settings::connections::Connections::getNewInstance() {
-    return static_cast<ISettings *>(new Connections());
+fairwind::ui::settings::ISettingsTab *fairwind::ui::settings::connections::Connections::getNewInstance() {
+    return static_cast<ISettingsTab *>(new Connections());
 }
 
 /*

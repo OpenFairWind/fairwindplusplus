@@ -132,8 +132,8 @@ QString fairwind::ui::settings::applications::Applications::getName() const {
  * getNewInstance
  * Returns a new instance of Applications
  */
-fairwind::ui::settings::ISettings *fairwind::ui::settings::applications::Applications::getNewInstance() {
-    return static_cast<ISettings *>(new Applications());
+fairwind::ui::settings::ISettingsTab *fairwind::ui::settings::applications::Applications::getNewInstance() {
+    return static_cast<ISettingsTab *>(new Applications());
 }
 
 /*
@@ -192,36 +192,23 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
     auto settings = configs["Settings"].toArray();
     auto values = configs["Values"].toObject();
 
-    for (int i = 0; i < settings.size(); i++ ) {
-        auto label = new QLabel(settings[i].toObject()["displayName"].toString() + ":");
+    for (int i = 0; i < settings.size(); i++) {
+        auto widget = fairWind->instanceSettings(settings[i].toObject()["widgetClassName"].toString());
 
-        tableAppsList->insertRow(tableAppsList->rowCount());
-        tableAppsList->setCellWidget(tableAppsList->rowCount() - 1, 0, label);
+        if (widget != nullptr) {
+            auto label = new QLabel(settings[i].toObject()["displayName"].toString() + ":");
 
-        auto settingsID = settings[i].toObject()["id"].toString();
-        auto widgetClassName = settings[i].toObject()["widgetClassName"].toString();
-
-        if (widgetClassName == "QComboBox") {
-            auto domain = settings[i].toObject()["domain"].toArray();
-
-            auto box = new QComboBox;
-
-            box->addItem(values[settingsID].toString());
-
-            for (int j = 0; j < domain.size(); j++) {
-                if (domain[j].toString() != values[settingsID].toString())
-                    box->addItem(domain[j].toString());
-            }
-            int row = tableAppsList->rowCount();
-
-            connect(box,static_cast<void (QComboBox::*)(int index)>(&QComboBox::currentIndexChanged), this, [settingsID, extension, box]() {
-                extension->updateSettings(settingsID, box->currentText());
-            });
-
-            // Add a new row
             tableAppsList->insertRow(tableAppsList->rowCount());
-            tableAppsList->setCellWidget(tableAppsList->rowCount() - 1, 0, box);
+            tableAppsList->setCellWidget(tableAppsList->rowCount() - 1, 0, label);
+
+            widget->setDetails(settings[i].toObject(), values, extension);
+
+            tableAppsList->insertRow(tableAppsList->rowCount());
+            tableAppsList->setCellWidget(tableAppsList->rowCount() - 1, 0, dynamic_cast<QWidget *>(widget));
         }
+    }
+
+    /*for (int i = 0; i < settings.size(); i++ ) {
 
         if (widgetClassName == "QLineEdit") {
             auto line = new QLineEdit;
@@ -253,7 +240,7 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
             tableAppsList->insertRow(tableAppsList->rowCount());
             tableAppsList->setCellWidget(tableAppsList->rowCount() - 1, 0, checkBox);
         }
-    }
+    }*/
 
     // Set the settings widget in the scroll area
     ui->scrollArea_Apps->setWidget(tableAppsList);
