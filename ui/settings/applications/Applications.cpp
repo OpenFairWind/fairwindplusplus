@@ -180,68 +180,45 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
     // Get the extension reference by the application id
     auto extension = fairWind->getAppByExtensionId(mExtension);
 
+    // Get the extension's config
     auto configs = extension->getConfig();
 
-    auto tableAppsList = new QTableWidget;
-    tableAppsList->setColumnCount(1);
-    tableAppsList->setRowCount(0);
-    tableAppsList->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    tableAppsList->horizontalHeader()->setVisible(false);
-    tableAppsList->verticalHeader()->setVisible(false);
+    // Prepare the settings container widget
+    auto settingsTable = new QTableWidget;
+    settingsTable->setColumnCount(1);
+    settingsTable->setRowCount(0);
+    settingsTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    settingsTable->horizontalHeader()->setVisible(false);
+    settingsTable->verticalHeader()->setVisible(false);
 
+    // Get the 'Settings' object from the config
     auto settings = configs["Settings"].toArray();
+    // Get the 'Values' object from the config
     auto values = configs["Values"].toObject();
 
+    // Iterate on all the extension's settings
     for (int i = 0; i < settings.size(); i++) {
+        // Generate the widget according to the provided class name
         auto widget = fairWind->instanceSettings(settings[i].toObject()["widgetClassName"].toString());
 
+        // Check if the widget is valid
         if (widget != nullptr) {
+            // Create a label
             auto label = new QLabel(settings[i].toObject()["displayName"].toString() + ":");
 
-            tableAppsList->insertRow(tableAppsList->rowCount());
-            tableAppsList->setCellWidget(tableAppsList->rowCount() - 1, 0, label);
+            // Insert the label
+            settingsTable->insertRow(settingsTable->rowCount());
+            settingsTable->setCellWidget(settingsTable->rowCount() - 1, 0, label);
 
+            // Set the details for the widget
             widget->setDetails(settings[i].toObject(), values, extension);
 
-            tableAppsList->insertRow(tableAppsList->rowCount());
-            tableAppsList->setCellWidget(tableAppsList->rowCount() - 1, 0, dynamic_cast<QWidget *>(widget));
+            // Add the widget to the container
+            settingsTable->insertRow(settingsTable->rowCount());
+            settingsTable->setCellWidget(settingsTable->rowCount() - 1, 0, dynamic_cast<QWidget *>(widget));
         }
     }
 
-    /*for (int i = 0; i < settings.size(); i++ ) {
-
-        if (widgetClassName == "QLineEdit") {
-            auto line = new QLineEdit;
-            line->setText(values[settingsID].toString());
-
-            connect(line,static_cast<void (QLineEdit::*)(const QString& newValue)>(&QLineEdit::textChanged), this, [settingsID, extension](QString newValue) {
-                extension->updateSettings(settingsID, newValue);
-            });
-
-            // Add a new row
-            tableAppsList->insertRow(tableAppsList->rowCount());
-            tableAppsList->setCellWidget(tableAppsList->rowCount() - 1, 0, line);
-        }
-
-        if (widgetClassName == "QCheckBox") {
-            auto checkBox = new QCheckBox;
-            QString checkState = values[settingsID].toString();
-
-            if (checkState.toInt() == 0)
-                checkBox->setCheckState(Qt::CheckState::Unchecked);
-            else
-                checkBox->setCheckState(Qt::CheckState::Checked);
-
-            connect(checkBox,static_cast<void (QCheckBox::*)(int state)>(&QCheckBox::stateChanged), this, [settingsID, extension, checkState]() {
-                extension->updateSettings(settingsID, checkState == "0" ? "2" : "0");
-            });
-
-            // Add a new row
-            tableAppsList->insertRow(tableAppsList->rowCount());
-            tableAppsList->setCellWidget(tableAppsList->rowCount() - 1, 0, checkBox);
-        }
-    }*/
-
     // Set the settings widget in the scroll area
-    ui->scrollArea_Apps->setWidget(tableAppsList);
+    ui->scrollArea_Apps->setWidget(settingsTable);
 }
