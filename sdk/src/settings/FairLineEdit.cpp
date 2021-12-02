@@ -1,4 +1,3 @@
-
 #include <FairWindSdk/FairWind.hpp>
 #include <QLineEdit>
 #include <QJsonObject>
