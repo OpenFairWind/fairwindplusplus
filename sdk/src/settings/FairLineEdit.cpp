@@ -1,11 +1,11 @@
-#include <FairWindSdk/FairWind.hpp>
 #include <QLineEdit>
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QDebug>
 
-#include <FairWindSdk/settings/FairLineEdit.hpp>
+#include <FairWindSdk/FairWind.hpp>
 #include <FairWindSdk/IApp.hpp>
+#include <FairWindSdk/settings/FairLineEdit.hpp>
 
 void fairwind::ui::settings::FairLineEdit::setDetails(QJsonObject settings, QJsonObject values, fairwind::apps::IApp* extension) {
     // Get the settings ID

@@ -1,10 +1,10 @@
-#include <FairWindSdk/FairWind.hpp>
 #include <QComboBox>
 #include <QJsonObject>
 #include <QJsonArray>
 
-#include <FairWindSdk/settings/FairComboBox.hpp>
+#include <FairWindSdk/FairWind.hpp>
 #include <FairWindSdk/IApp.hpp>
+#include <FairWindSdk/settings/FairComboBox.hpp>
 
 void fairwind::ui::settings::FairComboBox::setDetails(QJsonObject settings, QJsonObject values, fairwind::apps::IApp* extension) {
     // Get the settings ID

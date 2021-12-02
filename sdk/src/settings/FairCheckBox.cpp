@@ -1,12 +1,12 @@
-#include <FairWindSdk/FairWind.hpp>
 #include <QCheckBox>
 #include <QString>
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QDebug>
 
-#include <FairWindSdk/settings/FairCheckBox.hpp>
+#include <FairWindSdk/FairWind.hpp>
 #include <FairWindSdk/IApp.hpp>
+#include <FairWindSdk/settings/FairCheckBox.hpp>
 
 void fairwind::ui::settings::FairCheckBox::setDetails(QJsonObject settings, QJsonObject values, fairwind::apps::IApp* extension) {
     // Get the settings ID
