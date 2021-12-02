@@ -129,7 +129,7 @@ QString fairwind::AppBase::getLicense() const {
 /*
  * updateSettings
  * This method will update the app's settings inside its json config file
- * and wil update the m_config variable accordingly
+ * and will update the m_config variable accordingly
  */
 void fairwind::AppBase::updateSettings(QString settingsID, QString newValue) {
     // Get the path
@@ -246,4 +246,3 @@ void fairwind::AppBase::onInit(QJsonObject *metaData) {
         appDataPath.mkpath("resources/images/icons");
     }
 }
-

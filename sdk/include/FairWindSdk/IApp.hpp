@@ -55,10 +55,11 @@ namespace fairwind::apps {
         // Method called to update the value of a settings
         virtual void updateSettings(QString settingsID, QString newValue) = 0;
 
+        // Method to set the config file
+        virtual void setConfig(QJsonObject config) = 0;
+
         // Returns the app's configuration
         virtual QJsonObject getConfig() = 0;
-
-        virtual void setConfig(QJsonObject config) = 0;
 
         // Returns the app's metadata
         virtual QJsonObject getMetaData() = 0;
