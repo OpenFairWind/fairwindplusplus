@@ -23,13 +23,21 @@ find_package(Qt5 REQUIRED COMPONENTS
 #set(LIBMARNAV ${LIBMARNAV} PARENT_SCOPE)
 
 ExternalProject_Add(QcGaugeWidget
-        GIT_REPOSITORY https://github.com/OpenFairWind/Qt-custom-gauge-widget.git
+        GIT_REPOSITORY https://github.com/zSelimReborn/Qt-custom-gauge-widget.git
         CMAKE_ARGS -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH} -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
         TIMEOUT 360
         )
+
 set(LIBQCGAUGEWIDGET ${EXTERNAL_INSTALL_LOCATION}/lib/libqcgaugewidget.so)
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
-    set(LIBQCGAUGEWIDGET ${EXTERNAL_INSTALL_LOCATION}/lib/libqcgaugewidget.dll)
+    set(LIBQCGAUGEWIDGET ${EXTERNAL_INSTALL_LOCATION}/lib/static/qcgaugewidget.lib)
+    add_custom_command(
+            TARGET QcGaugeWidget
+            POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy
+            ${EXTERNAL_INSTALL_LOCATION}/bin/qcgaugewidget.dll
+            ${CMAKE_BINARY_DIR}
+    )
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
     set(LIBQCGAUGEWIDGET ${EXTERNAL_INSTALL_LOCATION}/lib/libqcgaugewidget.dylib)
 endif()
@@ -42,7 +50,14 @@ ExternalProject_Add(QGeoView
         )
 set(LIBQGEOVIEW ${EXTERNAL_INSTALL_LOCATION}/lib/libqgeoview.so)
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
-    set(LIBQGEOVIEW ${EXTERNAL_INSTALL_LOCATION}/lib/libqgeoview.dll)
+    set(LIBQGEOVIEW ${EXTERNAL_INSTALL_LOCATION}/lib/static/qgeoview.lib)
+    add_custom_command(
+            TARGET QGeoView
+            POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy
+            ${EXTERNAL_INSTALL_LOCATION}/bin/qgeoview.dll
+            ${CMAKE_BINARY_DIR}
+    )
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
     set(LIBQGEOVIEW ${EXTERNAL_INSTALL_LOCATION}/lib/libqgeoview.dylib)
 endif()
@@ -158,7 +173,7 @@ add_library(FairWindSdk ALIAS fairwindsdk)
 
 set(LIBFAIRWINDSDK ${EXTERNAL_INSTALL_LOCATION}/lib/libfairwindsdk.so)
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
-    set(LIBFAIRWINDSDK ${EXTERNAL_INSTALL_LOCATION}/lib/libfairwindsdk.dll)
+    set(LIBFAIRWINDSDK ${CMAKE_BINARY_DIR}/sdk/fairwindsdk.lib)
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
     set(LIBFAIRWINDSDK ${EXTERNAL_INSTALL_LOCATION}/lib/libfairwindsdk.dylib)
 endif()
@@ -179,3 +194,14 @@ add_custom_command(
         $<TARGET_FILE:fairwindsdk>
         ${EXTERNAL_INSTALL_LOCATION}/lib/
 )
+
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    add_custom_command(
+            TARGET fairwindsdk
+            POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy
+            $<TARGET_FILE:fairwindsdk>
+            ${CMAKE_BINARY_DIR}
+    )
+endif()
+

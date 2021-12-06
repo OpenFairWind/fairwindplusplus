@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 project(FairWind)
-#set(CMAKE_PREFIX_PATH "C:/Qt/5.15.2/mingw81_64/sdk/cmake")
+set(CMAKE_PREFIX_PATH "C:\\Qt\\5.15.2\\msvc2019_64\\")
 
 if (NOT CMAKE_PREFIX_PATH)
     message(WARNING "CMAKE_PREFIX_PATH is not defined, you may need to set it "
@@ -22,6 +22,8 @@ include_directories(SYSTEM sdk/include)
 
 # Add to the libraries
 link_directories(${EXTERNAL_INSTALL_LOCATION}/lib)
+
+#set (CMAKE_PREFIX_PATH "C:\\Qt\\5.9.9\\mingw53_32\\")
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTOMOC ON)
@@ -52,7 +54,7 @@ add_executable(${PROJECT_NAME}
         )
 
 add_dependencies(${PROJECT_NAME} FairWindSdk)
-target_link_libraries(${PROJECT_NAME} ${REQUIRED_LIBS_QUALIFIED} ${LIBFAIRWINDSDK})
+target_link_libraries(${PROJECT_NAME} PRIVATE ${REQUIRED_LIBS_QUALIFIED} ${LIBFAIRWINDSDK})
 
 
 
