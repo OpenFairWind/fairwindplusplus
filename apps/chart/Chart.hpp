@@ -11,7 +11,6 @@
 #include <FairWindSdk/AppBase.hpp>
 #include <FairWindSdk/IApp.hpp>
 #include "ui_Chart.h"
-#include "ui_Chart_Settings.h"
 
 namespace fairwind::apps::chart {
     class Chart : public QObject, AppBase, IApp {
@@ -34,9 +33,10 @@ namespace fairwind::apps::chart {
 
         QImage getIcon() const override;
         QWidget *onGui(QMainWindow *mainWindow, QMap<QString, QVariant> args) override;
-        QWidget *onSettings(QTabWidget *tabWidgets) override;
+        void updateSettings(QString settingsID, QString newValue) override;
 
         QJsonObject getConfig() override;
+        void setConfig(QJsonObject config) override;
         QJsonObject getMetaData() override;
 
 

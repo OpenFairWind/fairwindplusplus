@@ -62,14 +62,18 @@ void fairwind::apps::radar::Radar::onInit(QJsonObject *metaData) {
     AppBase::onInit(metaData);
 }
 
-QWidget *fairwind::apps::radar::Radar::onSettings(QTabWidget *tabWidget) {
-    return nullptr;
-}
-
 QJsonObject fairwind::apps::radar::Radar::getConfig() {
     return AppBase::getConfig();
 }
 
 QJsonObject fairwind::apps::radar::Radar::getMetaData() {
     return AppBase::getMetaData();
+}
+
+void fairwind::apps::radar::Radar::updateSettings(QString settingsID, QString newValue) {
+    AppBase::updateSettings(settingsID, newValue);
+}
+
+void fairwind::apps::radar::Radar::setConfig(QJsonObject config) {
+    AppBase::setConfig(config);
 }

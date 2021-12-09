@@ -25,6 +25,10 @@ QJsonObject fairwind::AppBase::getConfig() {
     return m_config;
 }
 
+void fairwind::AppBase::setConfig(QJsonObject config) {
+    m_config = config;
+}
+
 /*
  * getMetaData
  * Returns the app's metadata
@@ -120,6 +124,48 @@ QString fairwind::AppBase::getLicense() const {
     }
 
     return "";
+}
+
+/*
+ * updateSettings
+ * This method will update the app's settings inside its json config file
+ * and will update the m_config variable accordingly
+ */
+void fairwind::AppBase::updateSettings(QString settingsID, QString newValue) {
+    // Get the path
+    QDir appDataPath = QDir(getMetaData()["dataRoot"].toString() + QDir::separator() + getId());
+
+    // Create the path if needed
+    appDataPath.mkpath(appDataPath.absolutePath());
+
+    // Set the config.json file
+    QFile configsFile(appDataPath.absolutePath() + QDir::separator() + "config.json");
+    configsFile.open(QFile::ReadWrite);
+
+    // Get config
+    QJsonObject configs = getConfig();
+
+    // Find the 'Values' object inside the configs
+    QJsonValueRef ref = configs.find("Values").value();
+    QJsonObject values = ref.toObject();
+
+    // Update the settings value
+    values.insert(settingsID, newValue);
+
+    // Save the changes
+    ref = values;
+
+    auto configsDocument = new QJsonDocument;
+    configsDocument->setObject(configs);
+
+    // Wipe the config file and then fill it with the new content
+    if (configsFile.resize(0))
+        configsFile.write(configsDocument->toJson());
+
+    // Close the file
+    configsFile.close();
+    // Set the config
+    setConfig(configs);
 }
 
 /*

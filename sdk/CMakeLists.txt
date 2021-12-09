@@ -58,7 +58,7 @@ add_library(fairwindsdk SHARED
         include/FairWindSdk/IDisplay.hpp
         include/FairWindSdk/IConnection.hpp
         include/FairWindSdk/ILayout.hpp
-        include/FairWindSdk/ISettings.hpp
+        include/FairWindSdk/ISettingsTab.hpp
         include/FairWindSdk/AppBase.hpp
         include/FairWindSdk/SignalKDocument.hpp
         include/FairWindSdk/FairWind.hpp
@@ -85,6 +85,10 @@ add_library(fairwindsdk SHARED
         include/FairWindSdk/util/Units.hpp
         include/FairWindSdk/connections/SignalKAPIClient.hpp
         include/FairWindSdk/connections/SignalKWSClient.hpp
+        include/FairWindSdk/ISettings.hpp
+        include/FairWindSdk/settings/FairComboBox.hpp
+        include/FairWindSdk/settings/FairLineEdit.hpp
+        include/FairWindSdk/settings/FairCheckBox.hpp
 
         src/FairWind.cpp
         src/App.cpp
@@ -112,8 +116,10 @@ add_library(fairwindsdk SHARED
         src/util/Units.cpp
         src/connections/SignalKAPIClient.cpp
         src/connections/SignalKWSClient.cpp
-        ${FAIRWINDSDK_RESOURCE_ADDED}
-        )
+        src/settings/FairComboBox.cpp
+        src/settings/FairLineEdit.cpp
+        src/settings/FairCheckBox.cpp
+        ${FAIRWINDSDK_RESOURCE_ADDED})
 
 target_include_directories(fairwindsdk
         PUBLIC

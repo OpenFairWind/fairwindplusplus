@@ -5,6 +5,9 @@
 #include "Native.hpp"
 
 #include <QDebug>
+#include <QDir>
+#include <QFile>
+#include <QJsonDocument>
 #include <QProcess>
 
 
@@ -56,14 +59,18 @@ void fairwind::apps::native::Native::onInit(QJsonObject *metaData) {
     AppBase::onInit(metaData);
 }
 
-QWidget *fairwind::apps::native::Native::onSettings(QTabWidget *tabWidgets) {
-    return nullptr;
-}
-
 QJsonObject fairwind::apps::native::Native::getConfig() {
     return AppBase::getConfig();
 }
 
 QJsonObject fairwind::apps::native::Native::getMetaData() {
     return AppBase::getMetaData();
+}
+
+void fairwind::apps::native::Native::updateSettings(QString settingsID, QString newValue) {
+    AppBase::updateSettings(settingsID, newValue);
+}
+
+void fairwind::apps::native::Native::setConfig(QJsonObject config) {
+    AppBase::setConfig(config);
 }

@@ -5,10 +5,10 @@
 #include <QJsonArray>
 #include <FairWindSdk/FairWind.hpp>
 #include <QLabel>
+#include <QFile>
 #include <FairWindSdk/IDisplay.hpp>
 #include <FairWindSdk/displays/DisplayChart.hpp>
 #include "Chart.hpp"
-
 
 /*
  * Returns the application icon
@@ -40,8 +40,8 @@ QWidget *fairwind::apps::chart::Chart::onGui(QMainWindow *mainWindow, QMap<QStri
     layouts["center"]=ui->horizontalLayout;
     layouts["right"]=ui->verticalLayoutRight;
 
-    if (config.contains("displays") && config["displays"].isArray()) {
-        QJsonArray arrayDisplays=config["displays"].toArray();
+    if (config.contains("Displays") && config["Displays"].isArray()) {
+        QJsonArray arrayDisplays=config["Displays"].toArray();
         for (auto item:arrayDisplays) {
             if (item.isObject()) {
                 QJsonObject objectItem=item.toObject();
@@ -119,33 +119,18 @@ void fairwind::apps::chart::Chart::onInit(QJsonObject *metaData) {
     AppBase::onInit(metaData);
 }
 
-QWidget *fairwind::apps::chart::Chart::onSettings(QTabWidget *tabWidget) {
-    auto widget = new QWidget();
-    auto uiSettings = new Ui::ChartSettings();
-    uiSettings->setupUi(widget);
-
-    auto config = getConfig();
-
-    if (config.contains("Options") && config["Options"].isObject()) {
-        auto options = config["Options"].toObject();
-        if (options.contains("Position") && options["Position"].isString()) {
-            uiSettings->lineEditPosition->setText(options["Position"].toString());
-        }
-        if (options.contains("Heading") && options["Heading"].isString()) {
-            uiSettings->lineEditHeading->setText(options["Heading"].toString());
-        }
-
-        if (options.contains("Speed") && options["Speed"].isString()) {
-            uiSettings->lineEditSpeed->setText(options["Speed"].toString());
-        }
-    }
-    return widget;
-}
-
 QJsonObject fairwind::apps::chart::Chart::getConfig() {
     return AppBase::getConfig();
 }
 
 QJsonObject fairwind::apps::chart::Chart::getMetaData() {
     return AppBase::getMetaData();
+}
+
+void fairwind::apps::chart::Chart::updateSettings(QString settingsID, QString newValue) {
+    AppBase::updateSettings(settingsID, newValue);
+}
+
+void fairwind::apps::chart::Chart::setConfig(QJsonObject config) {
+    AppBase::setConfig(config);
 }

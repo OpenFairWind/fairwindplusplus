@@ -52,8 +52,11 @@ namespace fairwind::apps {
         // Method called when the app is first launched by the user
         virtual QWidget *onGui(QMainWindow *mainWindow, QMap <QString, QVariant> args) = 0;
 
-        // Method called when the in-app settings are launched by the user
-        virtual QWidget *onSettings(QTabWidget *tabWidget) = 0;
+        // Method called to update the value of a settings
+        virtual void updateSettings(QString settingsID, QString newValue) = 0;
+
+        // Method to set the config file
+        virtual void setConfig(QJsonObject config) = 0;
 
         // Returns the app's configuration
         virtual QJsonObject getConfig() = 0;

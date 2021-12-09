@@ -61,14 +61,18 @@ void fairwind::apps::sonar::Sonar::onInit(QJsonObject *metaData) {
     AppBase::onInit(metaData);
 }
 
-QWidget *fairwind::apps::sonar::Sonar::onSettings(QTabWidget *tabWidget) {
-    return nullptr;
-}
-
 QJsonObject fairwind::apps::sonar::Sonar::getConfig() {
     return AppBase::getConfig();
 }
 
 QJsonObject fairwind::apps::sonar::Sonar::getMetaData() {
     return AppBase::getMetaData();
+}
+
+void fairwind::apps::sonar::Sonar::updateSettings(QString settingsID, QString newValue) {
+    AppBase::updateSettings(settingsID, newValue);
+}
+
+void fairwind::apps::sonar::Sonar::setConfig(QJsonObject config) {
+    AppBase::setConfig(config);
 }

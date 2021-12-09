@@ -61,14 +61,18 @@ void fairwind::apps::weather::Weather::onInit(QJsonObject *metaData) {
     AppBase::onInit(metaData);
 }
 
-QWidget *fairwind::apps::weather::Weather::onSettings(QTabWidget *tabWidget) {
-    return nullptr;
-}
-
 QJsonObject fairwind::apps::weather::Weather::getConfig() {
     return AppBase::getConfig();
 }
 
 QJsonObject fairwind::apps::weather::Weather::getMetaData() {
     return AppBase::getMetaData();
+}
+
+void fairwind::apps::weather::Weather::updateSettings(QString settingsID, QString newValue) {
+    AppBase::updateSettings(settingsID, newValue);
+}
+
+void fairwind::apps::weather::Weather::setConfig(QJsonObject config) {
+    AppBase::setConfig(config);
 }

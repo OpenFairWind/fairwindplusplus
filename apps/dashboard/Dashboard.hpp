@@ -33,9 +33,10 @@ namespace fairwind::apps::dashboard {
 
         QImage getIcon() const override;
         QWidget *onGui(QMainWindow *mainWindow, QMap<QString, QVariant> args) override;
-        QWidget *onSettings(QTabWidget *tabWidgets) override;
+        void updateSettings(QString settingsID, QString newValue) override;
 
         QJsonObject getConfig() override;
+        void setConfig(QJsonObject config) override;
         QJsonObject getMetaData() override;
 
     private:

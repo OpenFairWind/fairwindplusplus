@@ -1,18 +1,18 @@
 # FairWind++
 Integrated multifunctional navigation software based on open technologies
 
-# Prerequisites
+### Prerequisites
 
  - C++ compiler (gcc, CLang)
  - GIT client
  - CMake
 
-# Building on Ubuntu Linux
+### Building on Ubuntu Linux
 
  - sudo apt-get install build-essential cmake git qtbase5-dev qtchooser qt5-qmake
 qtbase5-dev-tools qtwebengine5-dev libqt5websockets5-dev qtmultimedia5-dev
 
-In order to build the multimeda compnetnts, the gstreamer libray is needed:
+In order to build the multimedia components, the gstreamer library is needed:
 
  - sudo apt-get install libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-bad1.0-dev gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav gstreamer1.0-doc gstreamer1.0-tools gstreamer1.0-x gstreamer1.0-alsa gstreamer1.0-gl gstreamer1.0-gtk3 gstreamer1.0-qt5 gstreamer1.0-pulseaudio
 
@@ -32,7 +32,7 @@ In order to build the multimeda compnetnts, the gstreamer libray is needed:
 
 
 
-# Building on Raspberry Pi OS
+### Building on Raspberry Pi OS
 
  - Build QT 5.15.2 using the guide here: https://www.tal.org/tutorials/building-qt-515-raspberry-pi
 
@@ -76,7 +76,7 @@ In order to build the multimeda compnetnts, the gstreamer libray is needed:
 
  - Build qtwebengine using this guide: https://www.tal.org/tutorials/building-qtwebengine
 
-# Building on MacOS
+### Building on MacOS
 
  - brew install git cmake qt@5
 
@@ -92,6 +92,6 @@ In order to build the multimeda compnetnts, the gstreamer libray is needed:
 
  - ./FairWind
 
-# Building on Windows
+### Building on Windows
 
 *** work in progress ***

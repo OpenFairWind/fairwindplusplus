@@ -62,14 +62,18 @@ void fairwind::apps::portolano::Portolano::onInit(QJsonObject *metaData) {
     AppBase::onInit(metaData);
 }
 
-QWidget *fairwind::apps::portolano::Portolano::onSettings(QTabWidget *tabWidget) {
-    return nullptr;
-}
-
 QJsonObject fairwind::apps::portolano::Portolano::getConfig() {
     return AppBase::getConfig();
 }
 
 QJsonObject fairwind::apps::portolano::Portolano::getMetaData() {
     return AppBase::getMetaData();
+}
+
+void fairwind::apps::portolano::Portolano::updateSettings(QString settingsID, QString newValue) {
+    AppBase::updateSettings(settingsID, newValue);
+}
+
+void fairwind::apps::portolano::Portolano::setConfig(QJsonObject config) {
+    AppBase::setConfig(config);
 }

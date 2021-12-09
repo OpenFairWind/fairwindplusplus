@@ -57,8 +57,8 @@ QString fairwind::ui::settings::generic::Generic::getName() const {
  * getNewInstance
  * Returns a new instance of Generic
  */
-fairwind::ui::settings::ISettings *fairwind::ui::settings::generic::Generic::getNewInstance() {
-    return static_cast<ISettings *>(new Generic());
+fairwind::ui::settings::ISettingsTab *fairwind::ui::settings::generic::Generic::getNewInstance() {
+    return static_cast<ISettingsTab *>(new Generic());
 }
 
 /*

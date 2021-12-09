@@ -21,6 +21,7 @@
 #include "IConnection.hpp"
 #include "ILayout.hpp"
 #include "ISettings.hpp"
+#include "ISettingsTab.hpp"
 
 namespace fairwind {
     /*
@@ -53,17 +54,19 @@ namespace fairwind {
         bool registerLayout(fairwind::layouts::ILayout *dummy);
         layouts::ILayout *instanceLayout(const QString& className);
 
+        bool registerSettingsTab(fairwind::ui::settings::ISettingsTab *dummy);
         bool registerSettings(fairwind::ui::settings::ISettings *dummy);
-        ui::settings::ISettings *instanceSettings(const QString& className);
+        ui::settings::ISettingsTab *instanceSettingsTab(const QString& className);
+        ui::settings::ISettings *instanceSettings(const QString className);
 
         QMap<QString, fairwind::layers::ILayer *> *getLayers();
         QMap<QString, fairwind::displays::IDisplay *> *getDisplays();
         QMap<QString, fairwind::connections::IConnection *> *getConnections();
         QMap<QString, fairwind::layouts::ILayout *> *getLayouts();
-        QMap<QString, fairwind::ui::settings::ISettings *> *getSettings();
+        QMap<QString, fairwind::ui::settings::ISettingsTab *> *getSettings();
 
         QList<fairwind::connections::IConnection *> *getConnectionsList();
-        QList<ui::settings::ISettings *> *getSettingsList();
+        QList<ui::settings::ISettingsTab *> *getSettingsList();
 
         QJsonObject &getConfig();
 
@@ -87,7 +90,8 @@ namespace fairwind {
         QMap<QString, connections::IConnection *> m_registeredConnections;
         QMap<QString, layouts::ILayout *> m_registeredLayouts;
         QMap<QString, ui::settings::ISettings *> m_registeredSettings;
-        QList<ui::settings::ISettings *> m_listSettings;
+        QMap<QString, ui::settings::ISettingsTab *> m_registeredSettingsTab;
+        QList<ui::settings::ISettingsTab *> m_listSettings;
 
         QDir m_appsRoot;
         QDir m_dataRoot;

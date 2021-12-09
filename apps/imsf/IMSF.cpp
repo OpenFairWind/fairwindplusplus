@@ -62,9 +62,6 @@ void fairwind::apps::imsf::IMSF::onInit(QJsonObject *metaData) {
     AppBase::onInit(metaData);
 }
 
-QWidget *fairwind::apps::imsf::IMSF::onSettings(QTabWidget *tabWidget) {
-    return nullptr;
-}
 
 QJsonObject fairwind::apps::imsf::IMSF::getConfig() {
     return AppBase::getConfig();
@@ -72,4 +69,12 @@ QJsonObject fairwind::apps::imsf::IMSF::getConfig() {
 
 QJsonObject fairwind::apps::imsf::IMSF::getMetaData() {
     return AppBase::getMetaData();
+}
+
+void fairwind::apps::imsf::IMSF::updateSettings(QString settingsID, QString newValue) {
+    AppBase::updateSettings(settingsID, newValue);
+}
+
+void fairwind::apps::imsf::IMSF::setConfig(QJsonObject config) {
+    AppBase::setConfig(config);
 }
