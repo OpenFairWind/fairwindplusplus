@@ -2,7 +2,6 @@
 // Created by Raffaele Montella on 15/09/21.
 //
 
-#include "FairWindSdk/displays/DisplaySimpleSwitch.hpp"
 
 #include "ui_DisplaySimpleSwitch.h"
 
@@ -10,6 +9,8 @@
 #include <FairWindSdk/FairWind.hpp>
 #include <FairWindSdk/displays/DisplayBase.hpp>
 #include <FairWindSdk/displays/DisplaySimpleSwitch.hpp>
+#include <displays/DisplaySimpleSwitch.hpp>
+
 
 /**
  * DisplaySingleText constructor
@@ -19,12 +20,11 @@ fairwind::displays::DisplaySimpleSwitch::DisplaySimpleSwitch(QWidget *parent) :
 QWidget(parent),
 DisplayBase(),
 ui(new Ui::DisplaySimpleSwitch) {
+    status = false;
 
     // Initialize the user interface
     ui->setupUi(this);
-
-
-
+    connect(ui->switchButton, &QPushButton::released, this, &DisplaySimpleSwitch::onRelease);
 }
 
 /**
@@ -66,7 +66,7 @@ fairwind::displays::IDisplay *fairwind::displays::DisplaySimpleSwitch::getNewIns
 }
 
 void fairwind::displays::DisplaySimpleSwitch::setLabel(QString label) {
-    ui->switchLabel->setText(label);
+    ui->labelGroupBox->setTitle(label);
 }
 
 void fairwind::displays::DisplaySimpleSwitch::setUnits(QString units) {
@@ -75,7 +75,28 @@ void fairwind::displays::DisplaySimpleSwitch::setUnits(QString units) {
 
 void fairwind::displays::DisplaySimpleSwitch::setValue(QString value) {
     //ui->label_Value1->setText(value);
+    if (value.contains("on")) {
+        status=true;
+    } else {
+        status=false;
+    }
+
+    updateStatus();
 }
+
+
+void fairwind::displays::DisplaySimpleSwitch::updateStatus() {
+    if (status) {
+        ui->switchButton->setText("simpleswitch_on");
+    } else {
+        ui->switchButton->setText("simpleswitch_off");
+    }
+}
+
+
+
+
+
 
 void fairwind::displays::DisplaySimpleSwitch::subscribe(QString fullPath) {
     auto fairWind = fairwind::FairWind::getInstance();
@@ -94,8 +115,13 @@ void fairwind::displays::DisplaySimpleSwitch::update(const QJsonObject update) {
     DisplayBase::update(update);
 }
 
-
-
 QString fairwind::displays::DisplaySimpleSwitch::getClassName() const {
     return this->metaObject()->className();
 }
+
+void fairwind::displays::DisplaySimpleSwitch::onRelease() {
+    status=!status;
+    updateStatus();
+}
+
+

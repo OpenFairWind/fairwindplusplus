@@ -6,11 +6,10 @@
 #define FAIRWIND_DISPLAYSIMPLESWITCH_HPP
 
 #include <QWidget>
-
 #include <FairWindSdk/FairWindSDK.hpp>
 #include <FairWindSdk/displays/DisplayBase.hpp>
 #include <FairWindSdk/IDisplay.hpp>
-#include <qcgaugewidget.h>
+
 
 namespace Ui {
     class DisplaySimpleSwitch;
@@ -29,17 +28,24 @@ namespace fairwind::displays {
         IDisplay *getNewInstance() override;
         QWidget *onSettings() override;
 
+
         void setLabel(QString label) override;
         void setUnits(QString units) override;
         void setValue(QString value) override;
         void subscribe(QString fullPath) override;
 
+        void updateStatus();
+
         public slots:
-            void update(const QJsonObject update) override;
+        void update(const QJsonObject update) override;
+        void onRelease();
 
     private:
         Ui::DisplaySimpleSwitch *ui;
+        bool status;
+
     };
 }
+
 
 #endif //FAIRWIND_DISPLAYSIMPLESWITCH_HPP
