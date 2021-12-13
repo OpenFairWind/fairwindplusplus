@@ -1,0 +1,111 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "title": "Chart app JSON Schema",
+    "type": "object",
+    "properties": {
+      "Layers": {
+        "type": "array",
+        "items": [
+          {
+            "type": "object",
+            "properties": {
+              "active": {
+                "type": "boolean"
+              },
+              "class": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "fullPath": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "active",
+              "class"
+            ]
+          }
+        ]
+      },
+      "Options": {
+        "type": "object",
+        "properties": {
+          "CenterMap": {
+            "type": "boolean"
+          },
+          "Heading": {
+            "type": "string"
+          },
+          "Orientation": {
+            "type": "string"
+          },
+          "Position": {
+            "type": "string"
+          },
+          "Speed": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "CenterMap",
+          "Heading",
+          "Orientation",
+          "Position",
+          "Speed"
+        ]
+      },
+      "displays": {
+        "type": "array",
+        "items": [
+          {
+            "type": "object",
+            "properties": {
+              "active": {
+                "type": "boolean"
+              },
+              "class": {
+                "type": "string"
+              },
+              "fullPath": {
+                "type": "string"
+              },
+              "layout": {
+                "type": "string"
+              },
+              "maxValue": {
+                "type": "integer"
+              },
+              "minValue": {
+                "type": "integer"
+              },
+              "step": {
+                "type": "integer"
+              },
+              "wind": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "active",
+              "class",
+              "fullPath",
+              "layout"
+            ]
+          }
+        ]
+      }
+    },
+    "required": [
+      "Layers",
+      "Options",
+      "displays"
+    ]
+  }
