@@ -1,0 +1,201 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "title": "FairWind++ JSON Schema",
+    "type": "object",
+    "properties": {
+        "Options": {
+            "type": "object",
+            "properties": {
+                "Position": {
+                    "type": "string"
+                },
+                "Heading": {
+                    "type": "string"
+                },
+                "Speed": {
+                    "type": "string"
+                },
+                "Orientation": {
+                    "type": "string"
+                },
+                "CenterMap": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "Position",
+                "Heading",
+                "Speed",
+                "Orientation",
+                "CenterMap"
+            ]
+        },
+        "SignalK": {
+            "type": "object",
+            "properties": {
+                "connections": {
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "object",
+                            "properties": {
+                                "class": {
+                                    "type": "string"
+                                },
+                                "active": {
+                                    "type": "boolean"
+                                },
+                                "url": {
+                                    "type": "string"
+                                },
+                                "restore": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "required": [
+                                "class",
+                                "active",
+                                "url"
+                            ]
+                        }
+                    ]
+                },
+                "keys": {
+                    "type": "object",
+                    "properties": {},
+                    "required": []
+                }
+            },
+            "required": [
+                "connections",
+                "keys"
+            ]
+        },
+        "Extensions": {
+            "type": "object",
+            "properties": {
+                "Apps": {
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "object",
+                            "properties": {
+                                "Id": {
+                                    "type": "string"
+                                },
+                                "Active": {
+                                    "type": "boolean"
+                                },
+                                "Order": {
+                                    "type": "integer"
+                                },
+                                "Args": {
+                                    "type": "object",
+                                    "properties": {
+                                        "Name": {
+                                            "type": "string"
+                                        },
+                                        "Icon": {
+                                            "type": "string"
+                                        },
+                                        "Config": {
+                                            "type": "object",
+                                            "properties": {
+                                                "default": {
+                                                    "type": "string"
+                                                },
+                                                "pages": {
+                                                    "type": "array",
+                                                    "items": [
+                                                        {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "name": {
+                                                                    "type": "string"
+                                                                },
+                                                                "class": {
+                                                                    "type": "string"
+                                                                },
+                                                                "displays": {
+                                                                    "type": "array",
+                                                                    "items": [
+                                                                        {
+                                                                            "type": "object",
+                                                                            "properties": {
+                                                                                "class": {
+                                                                                    "type": "string"
+                                                                                },
+                                                                                "active": {
+                                                                                    "type": "boolean"
+                                                                                },
+                                                                                "layout": {
+                                                                                    "type": "string"
+                                                                                },
+                                                                                "maxValue": {
+                                                                                    "type": "integer"
+                                                                                },
+                                                                                "minValue": {
+                                                                                    "type": "integer"
+                                                                                },
+                                                                                "fullPath": {
+                                                                                    "type": "string"
+                                                                                },
+                                                                                "label": {
+                                                                                    "type": "string"
+                                                                                },
+                                                                                "step": {
+                                                                                    "type": "integer"
+                                                                                }
+                                                                            },
+                                                                            "required": [
+                                                                                "class",
+                                                                                "active",
+                                                                                "layout",
+                                                                                "fullPath"
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            },
+                                                            "required": [
+                                                                "name",
+                                                                "class",
+                                                                "displays"
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "required": [
+                                                "default",
+                                                "pages"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "Name",
+                                        "Icon",
+                                        "Config"
+                                    ]
+                                }
+                            },
+                            "required": [
+                                "Id",
+                                "Active",
+                                "Order"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "required": [
+                "Apps"
+            ]
+        }
+    },
+    "required": [
+        "Options",
+        "SignalK",
+        "Extensions"
+    ]
+}

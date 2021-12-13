@@ -1,0 +1,54 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "title": "Chart app JSON Schema",
+    "type": "object",
+    "properties": {
+        "Settings": {
+            "type": "array",
+            "items": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "displayName": {
+                            "type": "string"
+                        },
+                        "widgetClassName": {
+                            "type": "string",
+                            "oneOf": [
+                                {
+                                    "enum": [
+                                        "fairwind::ui::settings::FairCheckBox",
+                                        "fairwind::ui::settings::FairComboBox",
+                                        "fairwind::ui::settings::FairLineEdit"
+                                    ]
+                                }
+                            ]
+                        },
+                        "defaultValue": {
+                            "type": "string"
+                        },
+                        "domain": {
+                            "type": "array"
+                        }
+                    },
+                    "required": [
+                        "id",
+                        "displayName",
+                        "widgetClassName",
+                        "defaultValue"
+                    ]
+                }
+            ]
+        },
+        "Values": {
+            "type": "object"
+        }
+    },
+    "required": [
+        "Settings",
+        "Values"
+    ]
+}
