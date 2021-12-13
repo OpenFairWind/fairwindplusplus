@@ -1,5 +1,3 @@
-
-
 find_package(Qt5 REQUIRED COMPONENTS
         Core
         Gui
@@ -23,7 +21,7 @@ find_package(Qt5 REQUIRED COMPONENTS
 #set(LIBMARNAV ${LIBMARNAV} PARENT_SCOPE)
 
 ExternalProject_Add(QcGaugeWidget
-        GIT_REPOSITORY https://github.com/zSelimReborn/Qt-custom-gauge-widget.git
+        GIT_REPOSITORY https://github.com/OpenFairWind/Qt-custom-gauge-widget.git
         CMAKE_ARGS -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH} -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
         TIMEOUT 360
         )
