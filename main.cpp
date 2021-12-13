@@ -11,6 +11,8 @@
 #include <ui/settings/generic/Generic.hpp>
 #include <ui/settings/applications/Applications.hpp>
 
+#include <ui/settings/generic/Generic.hpp>
+
 #include "ui/MainWindow.hpp"
 
 /*
