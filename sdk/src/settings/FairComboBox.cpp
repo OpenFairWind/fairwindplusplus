@@ -19,8 +19,8 @@ void fairwind::ui::settings::FairComboBox::setDetails(QJsonObject settings, QJso
     // Get the settings possible values
     auto domain = settings["domain"].toArray();
 
-    label->setFont(QFont("", 14));
-    comboBox->setFont(QFont("", 18));
+    label->setFont(QFont("", 12));
+    comboBox->setFont(QFont("", 16));
     comboBox->setStyleSheet("background:#404040");
 
     // Add the current value

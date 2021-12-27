@@ -18,7 +18,7 @@ void fairwind::ui::settings::FairCheckBox::setDetails(QJsonObject settings, QJso
     auto label = new QLabel(settings["displayName"].toString() + ":");
     auto checkBox = new QCheckBox;
 
-    label->setFont(QFont("", 14));
+    label->setFont(QFont("", 12));
     checkBox->setStyleSheet("background:#404040");
 
     // Get the settings current value

@@ -24,6 +24,10 @@ fairwind::ui::settings::applications::Applications::Applications(QWidget *parent
     // Setup the user interface
     ui->setupUi(this);
 
+    auto layout = ui->gridLayout_4;
+    layout->setColumnStretch(0, 1);
+    layout->setColumnStretch(1, 2);
+
     // Get the table AppsList
     auto tableAppsList = ui->table_AppsList;
 

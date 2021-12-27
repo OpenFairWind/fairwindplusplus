@@ -17,8 +17,8 @@ void fairwind::ui::settings::FairLineEdit::setDetails(QJsonObject settings, QJso
     auto label = new QLabel(settings["displayName"].toString() + ":");
     auto lineEdit = new QLineEdit;
 
-    label->setFont(QFont("", 14));
-    lineEdit->setFont(QFont("", 18));
+    label->setFont(QFont("", 12));
+    lineEdit->setFont(QFont("", 16));
     lineEdit->setText(values[settingsID].toString());
     lineEdit->setStyleSheet("background:#404040");
 
