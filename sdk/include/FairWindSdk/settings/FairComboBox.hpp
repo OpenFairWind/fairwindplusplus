@@ -14,7 +14,7 @@ namespace fairwind::ui::settings {
      * FairComboBox
      * This widget is a combo box and presents a dropwdown list of options
      */
-    class FairComboBox : public QComboBox, public ISettings {
+    class FairComboBox : public QWidget, public ISettings {
     Q_OBJECT
 
     public:

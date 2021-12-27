@@ -14,7 +14,7 @@ namespace fairwind::ui::settings {
      * FairLineEdit
      * This widget is an editable line of text
      */
-    class FairLineEdit : public QGroupBox, public ISettings {
+    class FairLineEdit : public QWidget, public ISettings {
         Q_OBJECT
 
     public:
