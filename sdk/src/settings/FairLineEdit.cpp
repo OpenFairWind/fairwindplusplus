@@ -28,8 +28,8 @@ void fairwind::ui::settings::FairLineEdit::setDetails(QJsonObject settings, QJso
     connect(lineEdit,static_cast<void (QToolButton::*)(const bool newValue)>(&QToolButton::clicked), this, [settingsID, extension](bool newValue) {
         //extension->updateSettings(settingsID, newValue ? "true" : "false");
         auto dialog = new QDialog;
-
-        dialog->exec();
+        dialog->setWindowFlags(Qt::FramelessWindowHint | Qt::Dialog);
+        dialog->show();
     });
 
     layout->addWidget(label, 0, 0);
