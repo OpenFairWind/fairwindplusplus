@@ -182,7 +182,6 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
         auto configs = extension->getConfig();
 
         // Prepare the settings container widget
-        auto settingsTable = new QTableWidget;
         auto layout = new QGridLayout;
 
         // Get the 'Settings' object from the config
@@ -206,7 +205,6 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
         }
 
         // Set the settings widget in the scroll area
-        settingsTable->setLayout(layout);
-        ui->scrollArea_Apps->setWidget(settingsTable);
+        ui->scrollArea_Apps->setLayout(layout);
     }
 }
