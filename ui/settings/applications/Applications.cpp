@@ -182,6 +182,7 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
         auto configs = extension->getConfig();
 
         // Prepare the settings container widget
+        auto settingsContainer = new QWidget;
         auto layout = new QGridLayout;
 
         // Get the 'Settings' object from the config
@@ -201,11 +202,11 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
 
                 // Add the widget to the container
                 layout->addWidget(dynamic_cast<QWidget *>(widget), i, 0);
-                layout->setRowStretch(i, 24);
             }
         }
 
         // Set the settings widget in the scroll area
-        ui->scrollArea_Apps->setLayout(layout);
+        settingsContainer->setLayout(layout);
+        ui->scrollArea_Apps->setWidget(settingsContainer);
     }
 }
