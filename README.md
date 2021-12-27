@@ -34,47 +34,80 @@ In order to build the multimedia components, the gstreamer library is needed:
 
 ### Building on Raspberry Pi OS
 
- - Build QT 5.15.2 using the guide here: https://www.tal.org/tutorials/building-qt-515-raspberry-pi
+FairWind++ needs the QT 5.15.2.
+Although it is possible to build QT 5.15.2 using the guide here https://www.tal.org/tutorials/building-qt-515-raspberry-pi,
+it is warmly suggested to use a clean install of Raspberry Pi Os version 4 or later.
+Some apps need QT 5.15.2 MultimediaWidgets and WebEngineWidgets, but those packages are not included in the Rasberry Pi OS version 4.
 
- - wget https://download.qt.io/official_releases/qt/5.15/5.15.2/single/qt-everywhere-src-5.15.2.tar.xz
+In order to walkaround this issue, it is possible using Debian Bulleyes packages:
 
- - tar xf qt-everywhere-src-5.15.2.tar.xz
+- Login under the pi account.
 
- - git clone https://github.com/oniongarlic/qt-raspberrypi-configuration.git
+- Get the Debian key
+```console
+wget https://ftp-master.debian.org/keys/archive-key-11.asc
+```
 
- - cd qt-raspberrypi-configuration && make install DESTDIR=../qt-everywhere-src-5.15.2
+- Add the Debian key
+```console
+sudo apt-key add Downloads/archive-key-11.asc
+```
+- Edit the file /etc/apt/sources.list
+```console
+sudo nano /etc/apt/sources.list
+```
+- Add the Trial Debian Repository
+```console
+#Trial Debain repo
+deb http://deb.debian.org/debian bullseye main contrib non-free
+```
+- Edit the file /etc/apt/preferences
+```console
+sudo nano /etc/apt/preferences
+```
+- Add the following text:
+```console
+Package: *
+Pin: origin raspbian.raspberrypi.org
+Pin-Priority: 800
 
- - sudo apt update
-
- - sudo apt install build-essential libfontconfig1-dev libdbus-1-dev libfreetype6-dev libicu-dev libinput-dev libxkbcommon-dev libsqlite3-dev libssl-dev libpng-dev libjpeg-dev libglib2.0-dev libraspberrypi-dev
-
- - sudo apt install bluez libbluetooth-dev
-
- - sudo apt install libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly gstreamer1.0-plugins-bad libgstreamer-plugins-bad1.0-dev gstreamer1.0-pulseaudio gstreamer1.0-tools gstreamer1.0-alsa
-
- - sudo apt install libasound2-dev
-
- - sudo apt install pulseaudio libpulse-dev
-
- - sudo apt install libx11-dev libxcb1-dev  libxext-dev libxi-dev libxcomposite-dev libxcursor-dev libxtst-dev libxrandr-dev libfontconfig1-dev libfreetype6-dev libx11-xcb-dev libxext-dev libxfixes-dev libxi-dev libxrender-dev libxcb1-dev  libxcb-glx0-dev  libxcb-keysyms1-dev libxcb-image0-dev  libxcb-shm0-dev libxcb-icccm4-dev libxcb-sync-dev libxcb-xfixes0-dev libxcb-shape0-dev  libxcb-randr0-dev  libxcb-render-util0-dev  libxcb-util0-dev  libxcb-xinerama0-dev  libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev
-
- - sudo apt install flex bison gperf libre2-dev libnss3-dev libdrm-dev libxml2-dev libxslt1-dev libminizip-dev libjsoncpp-dev liblcms2-dev libevent-dev libprotobuf-dev protobuf-compiler
-
- - sudo apt install libgles2-mesa-dev libgbm-dev
-
- - mkdir build
- - cd build
-
- - PKG_CONFIG_LIBDIR=/usr/lib/arm-linux-gnueabihf/pkgconfig:/usr/share/pkgconfig
-
- - ../qt-everywhere-src-5.15.2/configure -platform linux-rpi4-v3d-g++ -v -opengl es2 -eglfs -no-gtk -opensource -confirm-license -release -reduce-exports -force-pkg-config -nomake examples -no-compile-examples -skip qtwayland -skip qtwebengine -no-feature-geoservices_mapboxgl -qt-pcre -no-pch -ssl -evdev-system-freetype 
--fontconfig -glib -prefix /opt/Qt/5.15.2 -qpa eglfs
-
- - make
-
- - make install
-
- - Build qtwebengine using this guide: https://www.tal.org/tutorials/building-qtwebengine
+Package: *
+Pin: origin deb.debian.org
+Pin-Priority: 600
+```
+- Update the repository
+```console
+sudo apt update
+```
+- Install the needed packages
+```console
+sudo apt-get install cmake libqt5webkit5-dev libqt5virtualkeyboard5-dev libqt5websockets5-dev libqt5widgets5 libqt5multimedia5 libqt5webenginewidgets5 libqt5webkit5-dev libqt5webview5-dev libqt5multimedia5-plugins libqt5webengine5 libqt5webengine-data qtwebengine5-dev qtmultimedia5-dev
+```
+- Create a development environment
+```console
+cd 
+mkdir dev
+cd dev
+```
+- Clone the FairWind++ repository
+```console
+git clone https://github.com/OpenFairWind/fairwindplusplus.git
+```
+- Create a build directory
+```console
+cd fairwindplusplus
+mkdir build
+cd buld
+```
+- Build
+```console
+cmake -DCMAKE_PREFIX_PATH="/lib/qt5/" ..
+make
+```
+- Launch FairWind++
+```console
+./FairWind
+```
 
 ### Building on MacOS
 
