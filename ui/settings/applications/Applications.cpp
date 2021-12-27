@@ -204,6 +204,45 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
                 layout->addWidget(dynamic_cast<QWidget *>(widget), i, 0);
             }
         }
+        for (int i = 0; i < settings.size(); i++) {
+            // Generate the widget according to the provided class name
+            auto widget = fairWind->instanceSettings(settings[i].toObject()["widgetClassName"].toString());
+
+            // Check if the widget is valid
+            if (widget != nullptr) {
+                // Set the details for the widget
+                widget->setDetails(settings[i].toObject(), values, extension);
+
+                // Add the widget to the container
+                layout->addWidget(dynamic_cast<QWidget *>(widget), i, 0);
+            }
+        }
+        for (int i = 0; i < settings.size(); i++) {
+            // Generate the widget according to the provided class name
+            auto widget = fairWind->instanceSettings(settings[i].toObject()["widgetClassName"].toString());
+
+            // Check if the widget is valid
+            if (widget != nullptr) {
+                // Set the details for the widget
+                widget->setDetails(settings[i].toObject(), values, extension);
+
+                // Add the widget to the container
+                layout->addWidget(dynamic_cast<QWidget *>(widget), i, 0);
+            }
+        }
+        for (int i = 0; i < settings.size(); i++) {
+            // Generate the widget according to the provided class name
+            auto widget = fairWind->instanceSettings(settings[i].toObject()["widgetClassName"].toString());
+
+            // Check if the widget is valid
+            if (widget != nullptr) {
+                // Set the details for the widget
+                widget->setDetails(settings[i].toObject(), values, extension);
+
+                // Add the widget to the container
+                layout->addWidget(dynamic_cast<QWidget *>(widget), i, 0);
+            }
+        }
 
         // Set the settings widget in the scroll area
         settingsContainer->setLayout(layout);
