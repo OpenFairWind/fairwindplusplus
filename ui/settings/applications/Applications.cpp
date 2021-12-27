@@ -183,11 +183,7 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
 
         // Prepare the settings container widget
         auto settingsTable = new QTableWidget;
-        settingsTable->setColumnCount(1);
-        settingsTable->setRowCount(0);
-        settingsTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-        settingsTable->horizontalHeader()->setVisible(false);
-        settingsTable->verticalHeader()->setVisible(false);
+        auto layout = new QGridLayout;
 
         // Get the 'Settings' object from the config
         auto settings = configs["Settings"].toArray();
@@ -195,29 +191,22 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
         auto values = configs["Values"].toObject();
 
         // Iterate on all the extension's settings
-        for (auto && setting : settings) {
+        for (int i = 0; i < settings.size(); i++) {
             // Generate the widget according to the provided class name
-            auto widget = fairWind->instanceSettings(setting.toObject()["widgetClassName"].toString());
+            auto widget = fairWind->instanceSettings(settings[i].toObject()["widgetClassName"].toString());
 
             // Check if the widget is valid
             if (widget != nullptr) {
-                // Create a label
-                auto label = new QLabel(setting.toObject()["displayName"].toString() + ":");
-
-                // Insert the label
-                settingsTable->insertRow(settingsTable->rowCount());
-                settingsTable->setCellWidget(settingsTable->rowCount() - 1, 0, label);
-
                 // Set the details for the widget
-                widget->setDetails(setting.toObject(), values, extension);
+                widget->setDetails(settings[i].toObject(), values, extension);
 
                 // Add the widget to the container
-                settingsTable->insertRow(settingsTable->rowCount());
-                settingsTable->setCellWidget(settingsTable->rowCount() - 1, 0, dynamic_cast<QWidget *>(widget));
+                layout->addWidget(dynamic_cast<QWidget *>(widget), i, 0);
             }
         }
 
         // Set the settings widget in the scroll area
+        settingsTable->setLayout(layout);
         ui->scrollArea_Apps->setWidget(settingsTable);
     }
 }

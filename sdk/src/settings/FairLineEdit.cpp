@@ -27,6 +27,10 @@ void fairwind::ui::settings::FairLineEdit::setDetails(QJsonObject settings, QJso
     layout->addWidget(label, 0, 0);
     layout->addWidget(lineEdit, 0, 1);
 
+    layout->setColumnStretch(0, 10);
+    layout->setColumnStretch(1, 20);
+    layout->setRowMinimumHeight(0, 50);
+
     // When the current value changes, call the updateSettings method to save the changes
     connect(lineEdit,static_cast<void (QLineEdit::*)(const QString& newValue)>(&QLineEdit::textChanged), this, [settingsID, extension](QString newValue) {
         extension->updateSettings(settingsID, std::move(newValue));
