@@ -214,7 +214,7 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
                 widget->setDetails(settings[i].toObject(), values, extension);
 
                 // Add the widget to the container
-                layout->addWidget(dynamic_cast<QWidget *>(widget), i, 0);
+                layout->addWidget(dynamic_cast<QWidget *>(widget), i + 5, 0);
             }
         }
         for (int i = 0; i < settings.size(); i++) {
@@ -227,7 +227,7 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
                 widget->setDetails(settings[i].toObject(), values, extension);
 
                 // Add the widget to the container
-                layout->addWidget(dynamic_cast<QWidget *>(widget), i, 0);
+                layout->addWidget(dynamic_cast<QWidget *>(widget), i + 10, 0);
             }
         }
         for (int i = 0; i < settings.size(); i++) {
@@ -240,7 +240,7 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
                 widget->setDetails(settings[i].toObject(), values, extension);
 
                 // Add the widget to the container
-                layout->addWidget(dynamic_cast<QWidget *>(widget), i, 0);
+                layout->addWidget(dynamic_cast<QWidget *>(widget), i + 15, 0);
             }
         }
 
