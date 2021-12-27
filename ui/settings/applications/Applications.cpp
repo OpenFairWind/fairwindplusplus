@@ -201,6 +201,7 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
 
                 // Add the widget to the container
                 layout->addWidget(dynamic_cast<QWidget *>(widget), i, 0);
+                layout->setRowStretch(i, 24)
             }
         }
 
