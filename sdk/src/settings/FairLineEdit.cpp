@@ -1,4 +1,4 @@
-#include <QToolButton>
+#include <QLineEdit>
 #include <QJsonObject>
 #include <QJsonArray>
 
@@ -6,7 +6,6 @@
 #include <FairWindSdk/IApp.hpp>
 #include <FairWindSdk/settings/FairLineEdit.hpp>
 #include <QLabel>
-#include <QDialog>
 #include <QGridLayout>
 #include <utility>
 
@@ -16,7 +15,7 @@ void fairwind::ui::settings::FairLineEdit::setDetails(QJsonObject settings, QJso
     auto settingsID = settings["id"].toString();
     // Create a label
     auto label = new QLabel(settings["displayName"].toString() + ":");
-    auto lineEdit = new QToolButton;
+    auto lineEdit = new QLineEdit;
 
     QFont font = QFont("", 20);
 
@@ -25,11 +24,8 @@ void fairwind::ui::settings::FairLineEdit::setDetails(QJsonObject settings, QJso
     lineEdit->setText(values[settingsID].toString());
 
     // When the current value changes, call the updateSettings method to save the changes
-    connect(lineEdit,static_cast<void (QToolButton::*)(const bool newValue)>(&QToolButton::clicked), this, [settingsID, extension](bool newValue) {
-        //extension->updateSettings(settingsID, newValue ? "true" : "false");
-        auto dialog = new QDialog;
-        dialog->setWindowFlags(Qt::FramelessWindowHint | Qt::Dialog);
-        dialog->show();
+    connect(lineEdit,static_cast<void (QLineEdit::*)(const QString& newValue)>(&QLineEdit::textChanged), this, [settingsID, extension](QString newValue) {
+        extension->updateSettings(settingsID, std::move(newValue));
     });
 
     layout->addWidget(label, 0, 0);
