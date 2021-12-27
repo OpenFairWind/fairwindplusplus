@@ -246,6 +246,6 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
 
         // Set the settings widget in the scroll area
         settingsContainer->setLayout(layout);
-        ui->scrollArea_Apps->setWidget(settingsContainer);
+        ui->scrollArea_Apps->setLayout(layout);
     }
 }
