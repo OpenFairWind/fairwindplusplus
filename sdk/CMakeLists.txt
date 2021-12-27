@@ -3,7 +3,6 @@ find_package(Qt5 REQUIRED COMPONENTS
         Gui
         Network
         Widgets
-        WebEngineWidgets
         WebSockets
         )
 
@@ -156,7 +155,6 @@ target_link_libraries(fairwindsdk
         Qt5::Network
         Qt5::Gui
         Qt5::Widgets
-        Qt5::WebEngineWidgets
         Qt5::WebSockets
         #${LIBMARNAV}
         ${LIBQCGAUGEWIDGET} ${LIBQGEOVIEW}
