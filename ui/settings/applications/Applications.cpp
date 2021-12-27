@@ -166,12 +166,8 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
 
     // Check if a current row is selected
     if (current.row() >= 0) {
-
-        // Get the application unique key by index
-        auto key = apps.keys().at(current.row());
-
         // Get the reference to the application
-        auto app = apps[key];
+        auto app = apps.values().at(current.row());
 
         // Store the extension id
         mExtension = app->getExtension();
@@ -199,21 +195,21 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
         auto values = configs["Values"].toObject();
 
         // Iterate on all the extension's settings
-        for (int i = 0; i < settings.size(); i++) {
+        for (auto && setting : settings) {
             // Generate the widget according to the provided class name
-            auto widget = fairWind->instanceSettings(settings[i].toObject()["widgetClassName"].toString());
+            auto widget = fairWind->instanceSettings(setting.toObject()["widgetClassName"].toString());
 
             // Check if the widget is valid
             if (widget != nullptr) {
                 // Create a label
-                auto label = new QLabel(settings[i].toObject()["displayName"].toString() + ":");
+                auto label = new QLabel(setting.toObject()["displayName"].toString() + ":");
 
                 // Insert the label
                 settingsTable->insertRow(settingsTable->rowCount());
                 settingsTable->setCellWidget(settingsTable->rowCount() - 1, 0, label);
 
                 // Set the details for the widget
-                widget->setDetails(settings[i].toObject(), values, extension);
+                widget->setDetails(setting.toObject(), values, extension);
 
                 // Add the widget to the container
                 settingsTable->insertRow(settingsTable->rowCount());
