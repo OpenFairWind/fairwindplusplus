@@ -29,7 +29,7 @@ void fairwind::ui::settings::FairLineEdit::setDetails(QJsonObject settings, QJso
         //extension->updateSettings(settingsID, newValue ? "true" : "false");
         auto dialog = new QDialog;
 
-
+        dialog->exec();
     });
 
     layout->addWidget(label, 0, 0);
