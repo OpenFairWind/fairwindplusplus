@@ -21,6 +21,7 @@ void fairwind::ui::settings::FairComboBox::setDetails(QJsonObject settings, QJso
 
     label->setFont(QFont("", 14));
     comboBox->setFont(QFont("", 18));
+    comboBox->setStyleSheet("background:#404040");
 
     // Add the current value
     comboBox->addItem(values[settingsID].toString());
@@ -39,8 +40,8 @@ void fairwind::ui::settings::FairComboBox::setDetails(QJsonObject settings, QJso
     layout->addWidget(label, 0, 0);
     layout->addWidget(comboBox, 0, 1);
 
-    layout->setColumnStretch(0, 3);
-    layout->setColumnStretch(1, 7);
+    layout->setColumnStretch(0, 2);
+    layout->setColumnStretch(1, 8);
 
     this->setLayout(layout);
 }

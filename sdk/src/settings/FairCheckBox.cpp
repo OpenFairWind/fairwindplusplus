@@ -19,6 +19,7 @@ void fairwind::ui::settings::FairCheckBox::setDetails(QJsonObject settings, QJso
     auto checkBox = new QCheckBox;
 
     label->setFont(QFont("", 14));
+    checkBox->setStyleSheet("background:#404040");
 
     // Get the settings current value
     QString checkState = values[settingsID].toString();
@@ -36,6 +37,9 @@ void fairwind::ui::settings::FairCheckBox::setDetails(QJsonObject settings, QJso
 
     layout->addWidget(label, 0, 0);
     layout->addWidget(checkBox, 0, 1);
+
+    layout->setColumnStretch(0, 9);
+    layout->setColumnStretch(1, 1);
 
     this->setLayout(layout);
 }
