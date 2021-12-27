@@ -17,10 +17,8 @@ void fairwind::ui::settings::FairLineEdit::setDetails(QJsonObject settings, QJso
     auto label = new QLabel(settings["displayName"].toString() + ":");
     auto lineEdit = new QLineEdit;
 
-    QFont font = QFont("", 20);
-
-    label->setFont(font);
-    lineEdit->setFont(font);
+    label->setFont(QFont("", 14));
+    lineEdit->setFont(QFont("", 18));
     lineEdit->setText(values[settingsID].toString());
 
     // When the current value changes, call the updateSettings method to save the changes
