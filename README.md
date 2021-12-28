@@ -52,7 +52,7 @@ Although it is possible to build QT 5.15.2 using the guide here https://www.tal.
 it is warmly suggested to use a clean install of Raspberry Pi Os version 4 or later.
 Some apps need QT 5.15.2 MultimediaWidgets and WebEngineWidgets, but those packages are not included in the Rasberry Pi OS version 4.
 
-In order to walkaround this issue, it is possible using Debian Bulleyes packages:
+In order to walkaround this issue, it is possible using Debian Bulleyes packages (https://forums.raspberrypi.com/viewtopic.php?t=325552):
 
 - Login under the pi account.
 
