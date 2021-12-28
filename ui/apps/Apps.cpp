@@ -20,9 +20,13 @@ fairwind::ui::apps::Apps::Apps(QWidget *parent) :
     ui->setupUi(this);
 
     // Create a new grid layout
-    QGridLayout *layout = new QGridLayout(ui->scrollAreaWidgetContents);
+    auto *layout = new QGridLayout(ui->scrollAreaWidgetContents);
+    auto scrollArea = ui->scrollArea;
     // Set the UI scroll area with the newly created layout
     ui->scrollAreaWidgetContents->setLayout(layout);
+
+    auto buttonLeft = ui->toolButton_Left;
+    auto buttonRight = ui->toolButton_Right;
 
     // Set the grid layout to have 4 columns and two rows
     int cols = 4, rows = 2;
@@ -83,6 +87,10 @@ fairwind::ui::apps::Apps::Apps(QWidget *parent) :
             col++;
         }
     }
+
+    connect(buttonLeft, static_cast<void (QToolButton::*)(bool state)>(&QToolButton::clicked), this, [scrollArea]() {
+        scrollArea->horizontalScrollBar()->setValue(scrollArea->horizontalScrollBar()->value() + 10);
+    })
 }
 
 /*
