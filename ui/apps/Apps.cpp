@@ -3,6 +3,8 @@
 //
 
 #include <FairWindSdk/FairWind.hpp>
+#include <QScreen>
+#include <QRect>
 
 #include "Apps.hpp"
 #include "ui_Apps.h"
@@ -44,6 +46,10 @@ fairwind::ui::apps::Apps::Apps(QWidget *parent) :
     // Get the available apps list from the FairWind singleton itself
     auto apps = fairWind->getApps();
 
+    QRect rec = QGuiApplication::primaryScreen()->geometry();
+
+    int size = ((64 * rec.height()) / 480) * (rec.height() / 480);
+
     // Iterate on the available apps' hash values
     for (auto &hash: apps.keys()) {
         // Get the hash value
@@ -61,7 +67,7 @@ fairwind::ui::apps::Apps::Apps(QWidget *parent) :
             // Set the app's icon as the button's icon
             button->setIcon(QPixmap::fromImage(icon));
             // Give the button's icon a fixed square size of 256x256
-            button->setIconSize(QSize(64, 64));
+            button->setIconSize(QSize(size, size));
             // Set the button's style to have an icon and some text beneath it
             button->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
             // Launch the app when the button is clicked

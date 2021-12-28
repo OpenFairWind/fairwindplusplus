@@ -4,6 +4,7 @@
 
 #include <QTableWidgetItem>
 #include <FairWindSdk/FairWind.hpp>
+#include <QGridLayout>
 
 #include "Applications.hpp"
 #include "ui_Applications.h"
@@ -23,6 +24,10 @@ fairwind::ui::settings::applications::Applications::Applications(QWidget *parent
 
     // Setup the user interface
     ui->setupUi(this);
+
+    auto layout = ui->gridLayout_4;
+    layout->setColumnStretch(0, 1);
+    layout->setColumnStretch(1, 2);
 
     // Get the table AppsList
     auto tableAppsList = ui->table_AppsList;
@@ -166,12 +171,8 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
 
     // Check if a current row is selected
     if (current.row() >= 0) {
-
-        // Get the application unique key by index
-        auto key = apps.keys().at(current.row());
-
         // Get the reference to the application
-        auto app = apps[key];
+        auto app = apps.values().at(current.row());
 
         // Store the extension id
         mExtension = app->getExtension();
@@ -185,43 +186,37 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
         // Get the extension's config
         auto configs = extension->getConfig();
 
-        // Prepare the settings container widget
-        auto settingsTable = new QTableWidget;
-        settingsTable->setColumnCount(1);
-        settingsTable->setRowCount(0);
-        settingsTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-        settingsTable->horizontalHeader()->setVisible(false);
-        settingsTable->verticalHeader()->setVisible(false);
-
         // Get the 'Settings' object from the config
         auto settings = configs["Settings"].toArray();
         // Get the 'Values' object from the config
         auto values = configs["Values"].toObject();
 
+        // Prepare the settings container widget
+        auto settingsContainer = new QWidget;
+        auto layout = new QGridLayout;
+
         // Iterate on all the extension's settings
         for (int i = 0; i < settings.size(); i++) {
             // Generate the widget according to the provided class name
             auto widget = fairWind->instanceSettings(settings[i].toObject()["widgetClassName"].toString());
+            // Create a label
+            auto label = new QLabel(settings[i].toObject()["displayName"].toString() + ":");
+            label->setFont(QFont("", 12));
 
             // Check if the widget is valid
             if (widget != nullptr) {
-                // Create a label
-                auto label = new QLabel(settings[i].toObject()["displayName"].toString() + ":");
-
-                // Insert the label
-                settingsTable->insertRow(settingsTable->rowCount());
-                settingsTable->setCellWidget(settingsTable->rowCount() - 1, 0, label);
-
                 // Set the details for the widget
                 widget->setDetails(settings[i].toObject(), values, extension);
 
+                // Add the label
+                layout->addWidget(label, i, 0);
                 // Add the widget to the container
-                settingsTable->insertRow(settingsTable->rowCount());
-                settingsTable->setCellWidget(settingsTable->rowCount() - 1, 0, dynamic_cast<QWidget *>(widget));
+                layout->addWidget(dynamic_cast<QWidget *>(widget), i, 1);
             }
         }
 
         // Set the settings widget in the scroll area
-        ui->scrollArea_Apps->setWidget(settingsTable);
+        settingsContainer->setLayout(layout);
+        ui->scrollArea_Apps->setWidget(settingsContainer);
     }
 }

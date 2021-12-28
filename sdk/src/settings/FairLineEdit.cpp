@@ -1,7 +1,6 @@
 #include <QLineEdit>
 #include <QJsonObject>
 #include <QJsonArray>
-#include <QDebug>
 
 #include <FairWindSdk/FairWind.hpp>
 #include <FairWindSdk/IApp.hpp>
@@ -11,12 +10,13 @@ void fairwind::ui::settings::FairLineEdit::setDetails(QJsonObject settings, QJso
     // Get the settings ID
     auto settingsID = settings["id"].toString();
 
-    // Set the current value
+    this->setFont(QFont("", 14));
+    this->setStyleSheet("background:#404040");
     this->setText(values[settingsID].toString());
 
     // When the current value changes, call the updateSettings method to save the changes
     connect(this,static_cast<void (QLineEdit::*)(const QString& newValue)>(&QLineEdit::textChanged), this, [settingsID, extension](QString newValue) {
-        extension->updateSettings(settingsID, newValue);
+        extension->updateSettings(settingsID, std::move(newValue));
     });
 }
 

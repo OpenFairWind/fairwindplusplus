@@ -62,7 +62,7 @@ fairwind::FairWind::FairWind() {
  * getAppByExtensionId
  * Return the pointer to a FairWind++ app given the id
  */
-fairwind::apps::IApp *fairwind::FairWind::getAppByExtensionId(QString id) {
+fairwind::apps::IApp *fairwind::FairWind::getAppByExtensionId(const QString& id) {
     // Return the app pointer
     return m_mapFairWindApps[id];
 }
@@ -309,7 +309,7 @@ void fairwind::FairWind::loadConfig() {
                             QMap <QString, QVariant> params;
 
                             // For each key in the object connection dictionary
-                            for (auto key: objectConnection.keys()) {
+                            for (const auto& key: objectConnection.keys()) {
 
                                 // Save the key/value in the dictionary
                                 params[key] = objectConnection[key].toVariant();
@@ -426,7 +426,7 @@ SignalKDocument *fairwind::FairWind::getSignalKDocument() {
 bool fairwind::FairWind::registerLayer(fairwind::layers::ILayer *dummy) {
     bool result = false;
     QString className = dummy->getClassName();
-    if (m_registeredLayers.contains(className) == false) {
+    if (!m_registeredLayers.contains(className)) {
         qDebug() << "fairwind::FairWind::registerLayer:" << className;
         m_registeredLayers[className] = dummy;
 
@@ -472,7 +472,7 @@ fairwind::displays::IDisplay *fairwind::FairWind::instanceDisplay(const QString 
 bool fairwind::FairWind::registerDisplay(fairwind::displays::IDisplay *dummy) {
     bool result = false;
     QString className = dummy->getClassName();
-    if (m_registeredDisplays.contains(className) == false) {
+    if (!m_registeredDisplays.contains(className)) {
         m_registeredDisplays[className] = dummy;
 
     }
@@ -497,7 +497,7 @@ fairwind::connections::IConnection *fairwind::FairWind::instanceConnection(const
 bool fairwind::FairWind::registerConnection(fairwind::connections::IConnection *dummy) {
     bool result = false;
     QString className = dummy->getClassName();
-    if (m_registeredConnections.contains(className) == false) {
+    if (!m_registeredConnections.contains(className)) {
         //qDebug() << "fairwind::FairWind::registerConnection: " << className;
         m_registeredConnections[className] = dummy;
 
@@ -527,7 +527,7 @@ fairwind::ui::settings::ISettingsTab *fairwind::FairWind::instanceSettingsTab(co
     return nullptr;
 }
 
-fairwind::ui::settings::ISettings *fairwind::FairWind::instanceSettings(const QString className) {
+fairwind::ui::settings::ISettings *fairwind::FairWind::instanceSettings(const QString& className) {
     if (m_registeredSettings.contains(className)) {
         return m_registeredSettings[className]->getNewInstance();
     }
@@ -555,7 +555,7 @@ bool fairwind::FairWind::registerLayout(fairwind::layouts::ILayout *dummy) {
 bool fairwind::FairWind::registerSettingsTab(fairwind::ui::settings::ISettingsTab *dummy) {
     bool result = false;
     QString className = dummy->getClassName();
-    if (m_registeredSettingsTab.contains(className) == false) {
+    if (!m_registeredSettingsTab.contains(className)) {
         qDebug() << "fairwind::FairWind::registerSettingsTab: " << className;
         m_registeredSettingsTab[className] = dummy;
         m_listSettings.append(dummy);
@@ -569,7 +569,7 @@ bool fairwind::FairWind::registerSettings(fairwind::ui::settings::ISettings *dum
     bool result = false;
     QString className = dummy->getClassName();
     qDebug() << "2";
-    if (m_registeredSettings.contains(className) == false) {
+    if (!m_registeredSettings.contains(className)) {
         qDebug() << "fairwind::FairWind::registerSettings: " << className;
         m_registeredSettings[className] = dummy;
         result = true;

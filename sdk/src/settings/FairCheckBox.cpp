@@ -2,7 +2,6 @@
 #include <QString>
 #include <QJsonObject>
 #include <QJsonArray>
-#include <QDebug>
 
 #include <FairWindSdk/FairWind.hpp>
 #include <FairWindSdk/IApp.hpp>
@@ -11,6 +10,8 @@
 void fairwind::ui::settings::FairCheckBox::setDetails(QJsonObject settings, QJsonObject values, fairwind::apps::IApp* extension) {
     // Get the settings ID
     auto settingsID = settings["id"].toString();
+
+    this->setStyleSheet("background:#404040");
 
     // Get the settings current value
     QString checkState = values[settingsID].toString();

@@ -34,7 +34,7 @@ namespace fairwind {
         static FairWind *getInstance();
 
         void loadApps();
-        apps::IApp *getAppByExtensionId(QString id);
+        apps::IApp *getAppByExtensionId(const QString& id);
 
         void setApplicationDirPath(QString qString);
         void loadConfig();
@@ -57,7 +57,7 @@ namespace fairwind {
         bool registerSettingsTab(fairwind::ui::settings::ISettingsTab *dummy);
         bool registerSettings(fairwind::ui::settings::ISettings *dummy);
         ui::settings::ISettingsTab *instanceSettingsTab(const QString& className);
-        ui::settings::ISettings *instanceSettings(const QString className);
+        ui::settings::ISettings *instanceSettings(const QString& className);
 
         QMap<QString, fairwind::layers::ILayer *> *getLayers();
         QMap<QString, fairwind::displays::IDisplay *> *getDisplays();

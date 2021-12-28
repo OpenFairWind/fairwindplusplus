@@ -13,13 +13,16 @@ void fairwind::ui::settings::FairComboBox::setDetails(QJsonObject settings, QJso
     // Get the settings possible values
     auto domain = settings["domain"].toArray();
 
+    this->setFont(QFont("", 14));
+    this->setStyleSheet("background:#404040");
+
     // Add the current value
     this->addItem(values[settingsID].toString());
 
     // Add the remaining values from the domain
-    for (int j = 0; j < domain.size(); j++) {
-        if (domain[j].toString() != values[settingsID].toString())
-            this->addItem(domain[j].toString());
+    for (auto && j : domain) {
+        if (j.toString() != values[settingsID].toString())
+            this->addItem(j.toString());
     }
 
     // When the current value changes, call the updateSettings method to save the changes
