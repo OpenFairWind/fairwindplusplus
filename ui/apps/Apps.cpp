@@ -36,7 +36,6 @@ fairwind::ui::apps::Apps::Apps(QWidget *parent) :
     for (int row = 0; row < rows; row++) {
         // Set the row height for each row
         layout->setRowMinimumHeight(row, 64);
-        layout->setRowStretch(row, 1);
     }
 
     int row = 0, col = 0, page = 0;
@@ -63,7 +62,7 @@ fairwind::ui::apps::Apps::Apps(QWidget *parent) :
             // Set the app's icon as the button's icon
             button->setIcon(QPixmap::fromImage(icon));
             // Give the button's icon a fixed square size of 256x256
-            //button->setIconSize(QSize(64, 64));
+            button->setIconSize(QSize(64, 64));
             // Set the button's style to have an icon and some text beneath it
             button->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
             // Launch the app when the button is clicked
@@ -71,7 +70,6 @@ fairwind::ui::apps::Apps::Apps(QWidget *parent) :
 
             // Add the newly created button to the grid layout as a widget
             layout->addWidget(button, row, col);
-            layout->setColumnStretch(col, 1);
         }
 
         row++;
