@@ -48,8 +48,7 @@ fairwind::ui::apps::Apps::Apps(QWidget *parent) :
 
     QRect rec = QGuiApplication::primaryScreen()->geometry();
 
-    int size = (64 * rec.height()) / 480;
-
+    int size = ((64 * rec.height()) / 480) * (rec.height() / 480);
 
     // Iterate on the available apps' hash values
     for (auto &hash: apps.keys()) {
