@@ -3,6 +3,7 @@
 //
 
 #include <FairWindSdk/FairWind.hpp>
+#include <QGridLayout>
 
 #include "Apps.hpp"
 #include "ui_Apps.h"
@@ -35,6 +36,7 @@ fairwind::ui::apps::Apps::Apps(QWidget *parent) :
     for (int row = 0; row < rows; row++) {
         // Set the row height for each row
         layout->setRowMinimumHeight(row, 64);
+        layout->setRowStretch(row, 1);
     }
 
     int row = 0, col = 0, page = 0;
@@ -69,6 +71,7 @@ fairwind::ui::apps::Apps::Apps(QWidget *parent) :
 
             // Add the newly created button to the grid layout as a widget
             layout->addWidget(button, row, col);
+            layout->setColumnStretch(col, 1);
         }
 
         row++;
