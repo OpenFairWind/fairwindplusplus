@@ -160,19 +160,25 @@ make
 
 - Install Qt from [this link](https://www.qt.io/download-qt-installer?hsCtaTracking=99d9dd4f-5681-48d2-b096-470725510d34%7C074ddad0-fdef-4e53-8aa8-5e8a876d6ab4). You have to download 5.15.2 version or above. From the installer select the checkbox for installing QtWebEngine. In order to properly install these widgets, you have to choose the MSVC compiler (QtWebEngine is not supported by MinGW compilers).
 
-- git clone https://github.com/OpenFairWind/fairwindplusplus.git
+- Clone FairWind's repository:
+```console
+git clone https://github.com/OpenFairWind/fairwindplusplus.git
+```
 
 - Edit CMakeLists.txt file from the root and uncomment the line #set(CMAKE_PREFIX_PATH "C:\\Qt\\5.15.2\\msvc2019_64\\") and change the CMAKE_PREFIX_PATH variable with the Qt installation folder.
 
-- Enter fairwindplusplus directory
+- Prepare the build environment:
+```console
+cd fairwindplusplus
+mkdir build
+cd build
+```
 
-- Create Build directory
-
-- Enter Build directory
-
-- cmake ..
-
-- cmake . --build
+- Buid:
+```console
+cmake ..
+cmake . --build
+```
 
 - Run the executable created.
 
