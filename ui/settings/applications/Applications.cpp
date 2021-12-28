@@ -198,14 +198,19 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
         for (int i = 0; i < settings.size(); i++) {
             // Generate the widget according to the provided class name
             auto widget = fairWind->instanceSettings(settings[i].toObject()["widgetClassName"].toString());
+            // Create a label
+            auto label = new QLabel(settings["displayName"].toString() + ":");
+            label->setFont(QFont("", 12));
 
             // Check if the widget is valid
             if (widget != nullptr) {
                 // Set the details for the widget
                 widget->setDetails(settings[i].toObject(), values, extension);
 
+                // Add the label
+                layout->addWidget(label, i, 0);
                 // Add the widget to the container
-                layout->addWidget(dynamic_cast<QWidget *>(widget), i, 0);
+                layout->addWidget(dynamic_cast<QWidget *>(widget), i, 1);
             }
         }
 

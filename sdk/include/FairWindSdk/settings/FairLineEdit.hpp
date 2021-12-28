@@ -7,14 +7,14 @@
 
 #include <FairWindSdk/ISettings.hpp>
 #include <FairWindSdk/IApp.hpp>
-#include <QGroupBox>
+#include <QLineEdit>
 
 namespace fairwind::ui::settings {
     /*
      * FairLineEdit
      * This widget is an editable line of text
      */
-    class FairLineEdit : public QWidget, public ISettings {
+    class FairLineEdit : public QLineEdit, public ISettings {
         Q_OBJECT
 
     public:

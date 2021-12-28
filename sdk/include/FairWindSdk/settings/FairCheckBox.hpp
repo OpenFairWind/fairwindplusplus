@@ -14,7 +14,7 @@ namespace fairwind::ui::settings {
      * FairCheckBox
      * This widget is a check box and presents a two-state box (checked/unchecked)
      */
-    class FairCheckBox : public QWidget, public ISettings {
+    class FairCheckBox : public QCheckBox, public ISettings {
     Q_OBJECT
 
     public:
