@@ -4,6 +4,7 @@
 
 #include <QTableWidgetItem>
 #include <FairWindSdk/FairWind.hpp>
+#include <QGridLayout>
 
 #include "Applications.hpp"
 #include "ui_Applications.h"
@@ -199,7 +200,7 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
             // Generate the widget according to the provided class name
             auto widget = fairWind->instanceSettings(settings[i].toObject()["widgetClassName"].toString());
             // Create a label
-            auto label = new QLabel(settings["displayName"].toString() + ":");
+            auto label = new QLabel(settings[i].toObject()["displayName"].toString() + ":");
             label->setFont(QFont("", 12));
 
             // Check if the widget is valid

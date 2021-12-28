@@ -2,7 +2,6 @@
 #include <QString>
 #include <QJsonObject>
 #include <QJsonArray>
-#include <QDebug>
 
 #include <FairWindSdk/FairWind.hpp>
 #include <FairWindSdk/IApp.hpp>

@@ -26,7 +26,7 @@ void fairwind::ui::settings::FairComboBox::setDetails(QJsonObject settings, QJso
     }
 
     // When the current value changes, call the updateSettings method to save the changes
-    connect(comboBox,static_cast<void (QComboBox::*)(int index)>(&QComboBox::currentIndexChanged), this, [settingsID, extension]() {
+    connect(this,static_cast<void (QComboBox::*)(int index)>(&QComboBox::currentIndexChanged), this, [settingsID, extension, this]() {
         extension->updateSettings(settingsID, this->currentText());
     });
 }
