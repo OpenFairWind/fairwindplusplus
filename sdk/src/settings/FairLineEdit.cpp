@@ -11,7 +11,6 @@ void fairwind::ui::settings::FairLineEdit::setDetails(QJsonObject settings, QJso
     auto settingsID = settings["id"].toString();
 
     this->setFont(QFont("", 14));
-    this->setStyleSheet("background:#404040");
     this->setText(values[settingsID].toString());
 
     // When the current value changes, call the updateSettings method to save the changes

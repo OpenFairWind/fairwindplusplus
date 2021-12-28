@@ -31,6 +31,8 @@ fairwind::ui::settings::applications::Applications::Applications(QWidget *parent
 
     // Get the table AppsList
     auto tableAppsList = ui->table_AppsList;
+    auto scrollArea = ui->scrollArea_Apps;
+    this->setStyleSheet("background:#303030");
 
     // Set the table with one single column
     tableAppsList->setColumnCount(1);

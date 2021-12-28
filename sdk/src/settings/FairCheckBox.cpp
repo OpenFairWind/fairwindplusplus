@@ -11,8 +11,6 @@ void fairwind::ui::settings::FairCheckBox::setDetails(QJsonObject settings, QJso
     // Get the settings ID
     auto settingsID = settings["id"].toString();
 
-    this->setStyleSheet("background:#404040");
-
     // Get the settings current value
     QString checkState = values[settingsID].toString();
 
