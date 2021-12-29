@@ -223,9 +223,10 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
             auto display = fairWind->instanceDisplay(displays[i].toObject()["class"].toString());
 
             if (display != nullptr) {
+                auto icon = new QIcon(QPixmap::fromImage(display->getIcon()));
                 auto label = new QLabel;
 
-                label->setPixmap(QPixmap::fromImage(display->getIcon()));
+                icon->
                 label->setText(displays[i].toObject()["class"].toString());
                 label->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 
