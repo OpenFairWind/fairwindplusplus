@@ -4,14 +4,10 @@
 
 #include <QTableWidgetItem>
 #include <FairWindSdk/FairWind.hpp>
-#include <QGridLayout>
 
 #include "Applications.hpp"
 #include "ui_Applications.h"
 #include "QJsonArray"
-#include "QComboBox"
-#include "QCheckBox"
-#include "QLineEdit"
 #include "QLabel"
 
 /*
@@ -31,7 +27,6 @@ fairwind::ui::settings::applications::Applications::Applications(QWidget *parent
 
     // Get the table AppsList
     auto tableAppsList = ui->table_AppsList;
-    auto scrollArea = ui->scrollArea_Apps;
     this->setStyleSheet("background:#303030");
 
     // Set the table with one single column
@@ -216,6 +211,27 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
                 layout->addWidget(dynamic_cast<QWidget *>(widget), i, 1);
             }
         }
+
+        auto displays = configs["Displays"].toArray();
+        auto displaysList = new QGroupBox;
+        auto displaysLayout = new QGridLayout;
+
+        for (int i = 0; i < displays.size(); i++) {
+            auto display = fairWind->instanceDisplay(displays[i].toObject()["class"].toString());
+
+            if (display != nullptr) {
+                auto label = new QLabel;
+
+                label->setPixmap(QPixMap::fromImage(display->getIcon));
+                label->setText(displays[i].toObject()["class"].toString());
+
+                displaysList->addWidget(label, i, 0);
+            }
+        }
+
+        displaysList->setLayout(displaysLayout);
+
+        layout->addWidget(displaysList, layout->rows(), 0);
 
         // Set the settings widget in the scroll area
         settingsContainer->setLayout(layout);
