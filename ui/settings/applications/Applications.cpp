@@ -8,6 +8,8 @@
 #include "Applications.hpp"
 #include "ui_Applications.h"
 #include "QJsonArray"
+#include "QGroupBox"
+#include "QPixmap"
 #include "QLabel"
 
 /*
@@ -222,16 +224,16 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
             if (display != nullptr) {
                 auto label = new QLabel;
 
-                label->setPixmap(QPixMap::fromImage(display->getIcon));
+                label->setPixmap(QPixmap::fromImage(display->getIcon()));
                 label->setText(displays[i].toObject()["class"].toString());
 
-                displaysList->addWidget(label, i, 0);
+                displaysLayout->addWidget(label, i, 0);
             }
         }
 
         displaysList->setLayout(displaysLayout);
 
-        layout->addWidget(displaysList, layout->rows(), 0);
+        layout->addWidget(displaysList, layout->rowCount(), 0);
 
         // Set the settings widget in the scroll area
         settingsContainer->setLayout(layout);
