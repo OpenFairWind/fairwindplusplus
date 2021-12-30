@@ -17,6 +17,20 @@ QString fairwind::AppBase::getId() const {
     return m_metaData["FairWind"]["App"]["Id"].toString();
 }
 
+
+/*
+ * getSettings
+ * Returns the app's settings model
+ */
+QJsonObject fairwind::AppBase::getSettings() {
+    return m_settings;
+}
+
+void fairwind::AppBase::setSettings(QJsonObject settings) {
+    m_settings = settings;
+}
+
+
 /*
  * getConfig
  * Returns the app's configuration
@@ -229,6 +243,45 @@ void fairwind::AppBase::onInit(QJsonObject *metaData) {
 
                     // Write the config file
                     appConfigFile.write(jsonDocument.toJson());
+                }
+
+                // Check if the app object has the Settings key
+                if (objectApp.contains("Settings") && objectApp["Settings"].isObject()) {
+
+                    // Set the config object
+                    m_settings = objectApp["Settings"].toObject();
+
+                    // Check if the app config file doesn't exist
+                    if (!appConfigFile.exists()) {
+
+                        // Create a config.json from Settings
+                        // ...
+
+                        // Open the config.json file in write mode
+                        appConfigFile.open(QFile::WriteOnly);
+
+                        // Create a json document
+                        QJsonDocument jsonDocument;
+
+                        // Initialize the json document with the config data
+                        jsonDocument.setObject(m_config);
+
+                        // Write the config file
+                        appConfigFile.write(jsonDocument.toJson());
+                    }
+
+                    // Check if the app config file exists
+                    if (appConfigFile.exists()) {
+                        // Open the config.json file in read mode
+                        appConfigFile.open(QFile::ReadOnly);
+
+                        // Read the configuration file
+                        auto configDoc = QJsonDocument::fromJson(appConfigFile.readAll());
+
+                        // Check if the config.json complains the json schema
+                        // ...
+
+                    }
                 }
             }
         }
