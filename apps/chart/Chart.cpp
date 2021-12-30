@@ -134,3 +134,11 @@ void fairwind::apps::chart::Chart::updateSettings(QString settingsID, QString ne
 void fairwind::apps::chart::Chart::setConfig(QJsonObject config) {
     AppBase::setConfig(config);
 }
+
+void fairwind::apps::chart::Chart::setSettings(QJsonObject config) {
+    AppBase::setSettings(config);
+}
+
+QJsonObject fairwind::apps::chart::Chart::getSettings() {
+    return AppBase::getSettings();
+}

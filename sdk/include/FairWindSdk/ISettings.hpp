@@ -20,7 +20,7 @@ namespace fairwind::ui::settings {
          * setDetails
          * This method sets the state of the widget
          */
-        virtual void setDetails(QJsonObject settings, QJsonObject values, fairwind::apps::IApp* extension) = 0;
+        virtual void setDetails(QString settingsID, QJsonObject settings, fairwind::apps::IApp* extension) = 0;
 
         /*
          * getNewInstance

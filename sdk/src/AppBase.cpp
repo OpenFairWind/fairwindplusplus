@@ -160,11 +160,11 @@ void fairwind::AppBase::updateSettings(QString settingsID, QString newValue) {
     QJsonObject configs = getConfig();
 
     // Find the 'Values' object inside the configs
-    QJsonValueRef ref = configs.find("Values").value();
-    QJsonObject values = ref.toObject();
+    QJsonValueRef ref = configs.find(settingsID).value();
+    QString values = ref.toString();
 
     // Update the settings value
-    values.insert(settingsID, newValue);
+    values = newValue;
 
     // Save the changes
     ref = values;
@@ -199,61 +199,41 @@ void fairwind::AppBase::onInit(QJsonObject *metaData) {
     // Set the config.json file
     QFile appConfigFile(appDataPath.absolutePath() + QDir::separator() + "config.json");
 
-    // Check if the file exists
-    if (appConfigFile.exists()) {
+    // Check if metadata contains the FairWind key
+    if (m_metaData.contains("FairWind") && m_metaData["FairWind"].isObject()) {
+        // Get the fairwind object
+        QJsonObject objectFairWind = m_metaData["FairWind"].toObject();
 
-        // Open the file in read only mode
-        appConfigFile.open(QFile::ReadOnly);
+        // Check if the fairwind object contains the App key
+        if (objectFairWind.contains("App") && objectFairWind["App"].isObject()) {
+            // Get the app object
+            QJsonObject objectApp = objectFairWind["App"].toObject();
 
-        // Read the file
-        QString jsonString = appConfigFile.readAll();
+            // Check if the app object has the Settings key
+            if (objectApp.contains("Settings") && objectApp["Settings"].isObject()) {
+                // Set the config object
+                m_settings = objectApp["Settings"].toObject();
 
-        // Initialize a json document
-        QJsonDocument jsonDocument = QJsonDocument::fromJson(jsonString.toUtf8());
+                // Check if the app config file doesn't exist
+                if (!appConfigFile.exists()) {
+                    // Check if the app object has the Config key
+                    if (objectApp.contains("Config") && objectApp["Config"].isObject()) {
 
-        // Set the config object
-        m_config = jsonDocument.object();
-    } else {
-        // Check if metadata contains the FairWind key
-        if (m_metaData.contains("FairWind") && m_metaData["FairWind"].isObject()) {
+                        // Set the config object
+                        m_config = objectApp["Config"].toObject();
 
-            // Get the fairwind object
-            QJsonObject objectFairWind = m_metaData["FairWind"].toObject();
+                        // Open the config.json file in write mode
+                        appConfigFile.open(QFile::WriteOnly);
 
-            // Check if the fairwind object contains the App key
-            if (objectFairWind.contains("App") && objectFairWind["App"].isObject()) {
+                        // Create a json document
+                        QJsonDocument jsonDocument;
 
-                // Get the app object
-                QJsonObject objectApp = objectFairWind["App"].toObject();
+                        // Initialize the json document with the config data
+                        jsonDocument.setObject(m_config);
 
-                // Check if the app object has the Config key
-                if (objectApp.contains("Config") && objectApp["Config"].isObject()) {
-
-                    // Set the config object
-                    m_config = objectApp["Config"].toObject();
-
-                    // Open the config.json file in write mode
-                    appConfigFile.open(QFile::WriteOnly);
-
-                    // Create a json document
-                    QJsonDocument jsonDocument;
-
-                    // Initialize the json document with the config data
-                    jsonDocument.setObject(m_config);
-
-                    // Write the config file
-                    appConfigFile.write(jsonDocument.toJson());
-                }
-
-                // Check if the app object has the Settings key
-                if (objectApp.contains("Settings") && objectApp["Settings"].isObject()) {
-
-                    // Set the config object
-                    m_settings = objectApp["Settings"].toObject();
-
-                    // Check if the app config file doesn't exist
-                    if (!appConfigFile.exists()) {
-
+                        // Write the config file
+                        appConfigFile.write(jsonDocument.toJson());
+                    } else {
                         // Create a config.json from Settings
                         // ...
 
@@ -269,19 +249,19 @@ void fairwind::AppBase::onInit(QJsonObject *metaData) {
                         // Write the config file
                         appConfigFile.write(jsonDocument.toJson());
                     }
+                }
 
-                    // Check if the app config file exists
-                    if (appConfigFile.exists()) {
-                        // Open the config.json file in read mode
-                        appConfigFile.open(QFile::ReadOnly);
+                // Check if the app config file exists
+                if (appConfigFile.exists()) {
+                    // Open the config.json file in read mode
+                    appConfigFile.open(QFile::ReadOnly);
 
-                        // Read the configuration file
-                        auto configDoc = QJsonDocument::fromJson(appConfigFile.readAll());
+                    // Read the configuration file
+                    auto configDoc = QJsonDocument::fromJson(appConfigFile.readAll());
 
-                        // Check if the config.json complains the json schema
-                        // ...
+                    // Check if the config.json complains the json schema
+                    // ...
 
-                    }
                 }
             }
         }

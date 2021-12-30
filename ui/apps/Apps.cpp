@@ -5,6 +5,7 @@
 #include <FairWindSdk/FairWind.hpp>
 #include <QScreen>
 #include <QRect>
+#include <QScrollBar>
 
 #include "Apps.hpp"
 #include "ui_Apps.h"
@@ -20,9 +21,14 @@ fairwind::ui::apps::Apps::Apps(QWidget *parent) :
     ui->setupUi(this);
 
     // Create a new grid layout
-    QGridLayout *layout = new QGridLayout(ui->scrollAreaWidgetContents);
+    auto *layout = new QGridLayout(ui->scrollAreaWidgetContents);
+    auto scrollArea = ui->scrollArea;
     // Set the UI scroll area with the newly created layout
     ui->scrollAreaWidgetContents->setLayout(layout);
+    scrollArea->horizontalScrollBar()->setVisible(false);
+
+    auto buttonLeft = ui->toolButton_Left;
+    auto buttonRight = ui->toolButton_Right;
 
     // Set the grid layout to have 4 columns and two rows
     int cols = 4, rows = 2;
@@ -46,9 +52,8 @@ fairwind::ui::apps::Apps::Apps(QWidget *parent) :
     // Get the available apps list from the FairWind singleton itself
     auto apps = fairWind->getApps();
 
-    QRect rec = QGuiApplication::primaryScreen()->geometry();
-
-    int size = ((64 * rec.height()) / 480) * (rec.height() / 480);
+    int screenHeight = QGuiApplication::primaryScreen()->geometry().height();
+    int size = (64 * screenHeight) / 480;
 
     // Iterate on the available apps' hash values
     for (auto &hash: apps.keys()) {
@@ -67,7 +72,7 @@ fairwind::ui::apps::Apps::Apps(QWidget *parent) :
             // Set the app's icon as the button's icon
             button->setIcon(QPixmap::fromImage(icon));
             // Give the button's icon a fixed square size of 256x256
-            button->setIconSize(QSize(size, size));
+            button->setIconSize(QSize(size * screenHeight / 480, size * screenHeight / 480));
             // Set the button's style to have an icon and some text beneath it
             button->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
             // Launch the app when the button is clicked
@@ -83,6 +88,13 @@ fairwind::ui::apps::Apps::Apps(QWidget *parent) :
             col++;
         }
     }
+
+    connect(buttonLeft, static_cast<void (QToolButton::*)(bool state)>(&QToolButton::clicked), this, [scrollArea, size, screenHeight]() {
+        scrollArea->horizontalScrollBar()->setValue(scrollArea->horizontalScrollBar()->value() - (size * screenHeight / 480) * 2);
+    });
+    connect(buttonRight, static_cast<void (QToolButton::*)(bool state)>(&QToolButton::clicked), this, [scrollArea, size, screenHeight]() {
+        scrollArea->horizontalScrollBar()->setValue(scrollArea->horizontalScrollBar()->value() + (size * screenHeight / 480) * 2);
+    });
 }
 
 /*

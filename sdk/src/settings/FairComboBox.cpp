@@ -1,28 +1,26 @@
 #include <QComboBox>
 #include <QJsonObject>
+#include <QString>
 #include <QJsonArray>
 
 #include <FairWindSdk/FairWind.hpp>
 #include <FairWindSdk/IApp.hpp>
 #include <FairWindSdk/settings/FairComboBox.hpp>
 
-void fairwind::ui::settings::FairComboBox::setDetails(QJsonObject settings, QJsonObject values, fairwind::apps::IApp* extension) {
-    // Get the settings ID
-    auto settingsID = settings["id"].toString();
-
+void fairwind::ui::settings::FairComboBox::setDetails(QString settingsID, QJsonObject settings, fairwind::apps::IApp* extension) {
+    auto config = extension->getConfig();
     // Get the settings possible values
     auto domain = settings["domain"].toArray();
 
     this->setFont(QFont("", 14));
-    this->setStyleSheet("background:#404040");
 
     // Add the current value
-    this->addItem(values[settingsID].toString());
+    this->addItem(config[settingsID].toString());
 
     // Add the remaining values from the domain
     for (auto && j : domain) {
-        if (j.toString() != values[settingsID].toString())
-            this->addItem(j.toString());
+        if (j.toObject()["key"].toString() != config[settingsID].toString())
+            this->addItem(j.toObject()["key"].toString());
     }
 
     // When the current value changes, call the updateSettings method to save the changes

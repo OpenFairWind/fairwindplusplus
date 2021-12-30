@@ -26,7 +26,7 @@ fairwind::displays::DisplayGauge::~DisplayGauge() {
 }
 
 QImage fairwind::displays::DisplayGauge::getIcon() const {
-    return QImage(":resources/images/icons/signalk_icon.png");
+    return QImage(":signalk_icon.png");
 }
 
 QWidget *fairwind::displays::DisplayGauge::onSettings() {
