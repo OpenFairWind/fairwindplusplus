@@ -18,7 +18,7 @@ namespace fairwind::ui::settings {
     Q_OBJECT
 
     public:
-        void setDetails(QJsonObject settings, QJsonObject values, fairwind::apps::IApp* extension) override;
+        void setDetails(QString settingsID, QJsonObject settings, fairwind::apps::IApp* extension) override;
         ISettings* getNewInstance() override;
         QString getClassName() override;
     };

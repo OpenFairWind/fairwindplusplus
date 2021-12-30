@@ -184,28 +184,27 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
     if (extension != nullptr) {
         // Get the extension's config
         auto configs = extension->getConfig();
-
-        // Get the 'Settings' object from the config
-        auto settings = configs["Settings"].toArray();
-        // Get the 'Values' object from the config
-        auto values = configs["Values"].toObject();
+        // Get the 'Settings' object
+        auto settings = extension->getSettings()["properties"].toObject()["Options"].toObject()["properties"].toObject();
 
         // Prepare the settings container widget
         auto settingsContainer = new QWidget;
         auto layout = new QGridLayout;
 
         // Iterate on all the extension's settings
-        for (int i = 0; i < settings.size(); i++) {
+        for (int i = 0; i < settings.keys().size(); i++) {
+            auto key = settings.keys()[i];
             // Generate the widget according to the provided class name
-            auto widget = fairWind->instanceSettings(settings[i].toObject()["widgetClassName"].toString());
+            auto widget = fairWind->instanceSettings(settings[key].toObject()["widgetClassName"].toString());
+            qDebug() << "cISO" << settings[key].toObject()["widgetClassName"].toString();
             // Create a label
-            auto label = new QLabel(settings[i].toObject()["displayName"].toString() + ":");
+            auto label = new QLabel(settings[key].toObject()["displayName"].toString() + ":");
             label->setFont(QFont("", 12));
 
             // Check if the widget is valid
             if (widget != nullptr) {
                 // Set the details for the widget
-                widget->setDetails(settings[i].toObject(), values, extension);
+                widget->setDetails(key, settings[key].toObject(), extension);
 
                 // Add the label
                 layout->addWidget(label, i, 0);

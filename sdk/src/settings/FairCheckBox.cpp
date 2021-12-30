@@ -1,18 +1,18 @@
 #include <QCheckBox>
 #include <QString>
 #include <QJsonObject>
+#include <QString>
 #include <QJsonArray>
 
 #include <FairWindSdk/FairWind.hpp>
 #include <FairWindSdk/IApp.hpp>
 #include <FairWindSdk/settings/FairCheckBox.hpp>
 
-void fairwind::ui::settings::FairCheckBox::setDetails(QJsonObject settings, QJsonObject values, fairwind::apps::IApp* extension) {
-    // Get the settings ID
-    auto settingsID = settings["id"].toString();
+void fairwind::ui::settings::FairCheckBox::setDetails(QString settingsID, QJsonObject settings, fairwind::apps::IApp* extension) {
+    auto config = extension->getConfig();
 
     // Get the settings current value
-    QString checkState = values[settingsID].toString();
+    QString checkState = config[settingsID].toString();
 
     // Set the checkbox's state according to the current value
     if (checkState.toInt() == 0)

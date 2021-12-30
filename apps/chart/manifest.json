@@ -90,65 +90,66 @@
               }
             ]
           },
-          "center_map": {
-            "type": "boolean",
-            "defaultValue": false,
-            "displayName": "Center Map",
-            "domain": [
-              {
-                "key": "No",
-                "value": false
+          "Options": {
+            "type": "object",
+            "properties": {
+              "center_map": {
+                "type": "string",
+                "defaultValue": "yes",
+                "displayName": "Center Map",
+                "domain": [
+                  {
+                    "key": "No",
+                    "value": "false"
+                  },
+                  {
+                    "key": "Yes",
+                    "value": "true"
+                  }
+                ],
+                "widgetClassName": "fairwind::ui::settings::FairComboBox"
               },
-              {
-                "key": "Yes",
-                "value": true
-              }
-            ],
-            "widgetClassName": "fairwind::ui::settings::FairComboBox"
-          },
-          "orientation": {
-            "type": "string",
-            "defaultValue": "north",
-            "displayName": "Orientation",
-            "domain": [
-              {
-                "key": "North Up",
-                "value": "north"
+              "orientation": {
+                "type": "string",
+                "defaultValue": "north",
+                "displayName": "Orientation",
+                "domain": [
+                  {
+                    "key": "North Up",
+                    "value": "north"
+                  },
+                  {
+                    "key": "Course Up",
+                    "value": "course"
+                  }
+                ],
+                "widgetClassName": "fairwind::ui::settings::FairComboBox"
               },
-              {
-                "key": "Course Up",
-                "value": "course"
+              "position": {
+                "type": "string",
+                "defaultValue": "${self}.navigation.position",
+                "displayName": "Position",
+                "widgetClassName": "fairwind::ui::settings::SignalKKey"
+              },
+              "heading": {
+                "type": "string",
+                "defaultValue": "${self}.navigation.courseOverGroundMagnetic",
+                "displayName": "Heading",
+                "widgetClassName": "fairwind::ui::settings::SignalKKey"
+              },
+              "speed": {
+                "type": "string",
+                "defaultValue": "${self}.navigation.speedOverGround",
+                "displayName": "Speed",
+                "widgetClassName": "fairwind::ui::settings::SignalKKey"
               }
-            ],
-            "widgetClassName": "fairwind::ui::settings::FairComboBox"
-          },
-          "position": {
-            "type": "string",
-            "defaultValue": "${self}.navigation.position",
-            "displayName": "Position",
-            "widgetClassName": "fairwind::ui::settings::SignalKKey"
-          },
-          "heading": {
-            "type": "string",
-            "defaultValue": "${self}.navigation.courseOverGroundMagnetic",
-            "displayName": "Heading",
-            "widgetClassName": "fairwind::ui::settings::SignalKKey"
-          },
-          "speed": {
-            "type": "string",
-            "defaultValue": "${self}.navigation.speedOverGround",
-            "displayName": "Speed",
-            "widgetClassName": "fairwind::ui::settings::SignalKKey"
+            }
           }
         },
         "required": [
           "Displays",
           "Layers",
-          "center_map",
-          "orientation",
-          "position",
-          "heading",
-          "speed"
+          "Options"
         ]
       },
       "Config": {
@@ -265,8 +266,8 @@
             "name": "Self"
           }
         ],
-        "center_map": true,
-        "orientation": "north",
+        "center_map": "Yes",
+        "orientation": "North Up",
         "position":"${self}.navigation.position",
         "heading":"${self}.navigation.courseOverGroundMagnetic",
         "speed":"${self}.navigation.speedOverGround"

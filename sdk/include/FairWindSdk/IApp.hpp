@@ -61,6 +61,12 @@ namespace fairwind::apps {
         // Returns the app's configuration
         virtual QJsonObject getConfig() = 0;
 
+        // Returns the app's settings definition
+        virtual QJsonObject getSettings() = 0;
+
+        // Sets the settings file
+        virtual void setSettings(QJsonObject config) = 0;
+
         // Returns the app's metadata
         virtual QJsonObject getMetaData() = 0;
     };
