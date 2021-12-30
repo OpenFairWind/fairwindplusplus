@@ -25,12 +25,15 @@ namespace fairwind {
 
             virtual QJsonObject getConfig();
             virtual void setConfig(QJsonObject config);
+            virtual QJsonObject getSettings();
+            virtual void setSettings(QJsonObject config);
             virtual QJsonObject getMetaData();
             virtual void updateSettings(QString settingsID, QString newValue);
 
             private:
             QJsonObject m_metaData;
             QJsonObject m_config;
+            QJsonObject m_settings;
     };
 }
 

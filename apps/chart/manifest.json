@@ -12,6 +12,145 @@
     "App": {
       "Email": "fairwind@uniparthenope.it",
       "Id": "it.uniparthenope.fairwind.apps.chart",
+      "Settings": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {
+          "Displays": {
+            "type": "array",
+            "widgetClassName": "fairwind::ui::settings::Displays",
+            "items": [
+              {
+                "type": "object",
+                "widgetClassName": "fairwind::ui::settings::Display",
+                "properties": {
+                  "active": {
+                    "type": "boolean"
+                  },
+                  "class": {
+                    "type": "string"
+                  },
+                  "fullPath": {
+                    "type": "string"
+                  },
+                  "layout": {
+                    "type": "string"
+                  },
+                  "maxValue": {
+                    "type": "integer"
+                  },
+                  "minValue": {
+                    "type": "integer"
+                  },
+                  "step": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "active",
+                  "class",
+                  "fullPath",
+                  "layout"
+                ]
+              }
+            ]
+          },
+          "Layers": {
+            "type": "array",
+            "widgetClassName": "fairwind::ui::settings::Layers",
+            "items": [
+              {
+                "type": "object",
+                "widgetClassName": "fairwind::ui::settings::Layer",
+                "properties": {
+                  "active": {
+                    "type": "boolean"
+                  },
+                  "class": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "url": {
+                    "type": "string"
+                  },
+                  "fullPath": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "active",
+                  "class",
+                  "name"
+                ]
+              }
+            ]
+          },
+          "center_map": {
+            "type": "boolean",
+            "defaultValue": false,
+            "displayName": "Center Map",
+            "domain": [
+              {
+                "key": "No",
+                "value": false
+              },
+              {
+                "key": "Yes",
+                "value": true
+              }
+            ],
+            "widgetClassName": "fairwind::ui::settings::FairComboBox"
+          },
+          "orientation": {
+            "type": "string",
+            "defaultValue": "north",
+            "displayName": "Orientation",
+            "domain": [
+              {
+                "key": "North Up",
+                "value": "north"
+              },
+              {
+                "key": "Course Up",
+                "value": "course"
+              }
+            ],
+            "widgetClassName": "fairwind::ui::settings::FairComboBox"
+          },
+          "position": {
+            "type": "string",
+            "defaultValue": "${self}.navigation.position",
+            "displayName": "Position",
+            "widgetClassName": "fairwind::ui::settings::SignalKKey"
+          },
+          "heading": {
+            "type": "string",
+            "defaultValue": "${self}.navigation.courseOverGroundMagnetic",
+            "displayName": "Heading",
+            "widgetClassName": "fairwind::ui::settings::SignalKKey"
+          },
+          "speed": {
+            "type": "string",
+            "defaultValue": "${self}.navigation.speedOverGround",
+            "displayName": "Speed",
+            "widgetClassName": "fairwind::ui::settings::SignalKKey"
+          }
+        },
+        "required": [
+          "Displays",
+          "Layers",
+          "center_map",
+          "orientation",
+          "position",
+          "heading",
+          "speed"
+        ]
+      },
       "Config": {
         "Displays": [
           {
@@ -126,53 +265,11 @@
             "name": "Self"
           }
         ],
-        "Settings": [
-          {
-            "defaultValue": "No",
-            "domain": [
-              "No",
-              "Yes"
-            ],
-            "id": "chart.settings.center_map",
-            "displayName": "Center Map",
-            "widgetClassName": "fairwind::ui::settings::FairComboBox"
-          },
-          {
-            "defaultValue": "${self}.navigation.courseOverGroundMagnetic",
-            "id": "chart.settings.heading",
-            "displayName": "Heading",
-            "widgetClassName": "fairwind::ui::settings::FairLineEdit"
-          },
-          {
-            "defaultValue": "North Up",
-            "domain": [
-              "North Up",
-              "Course Up"
-            ],
-            "id": "chart.settings.orientation",
-            "displayName": "Orientation",
-            "widgetClassName": "fairwind::ui::settings::FairComboBox"
-          },
-          {
-            "defaultValue": "${self}.navigation.position",
-            "id": "chart.settings.position",
-            "displayName": "Position",
-            "widgetClassName": "fairwind::ui::settings::FairLineEdit"
-          },
-          {
-            "defaultValue": "${self}.navigation.speedOverGround",
-            "id": "chart.settings.speed",
-            "displayName": "Speed",
-            "widgetClassName": "fairwind::ui::settings::FairLineEdit"
-          }
-        ],
-        "Values": {
-          "chart.settings.center_map": "Yes",
-          "chart.settings.heading": "${self}.navigation.courseOverGroundMagnetic",
-          "chart.settings.orientation": "North Up",
-          "chart.settings.position": "${self}.navigation.position",
-          "chart.settings.speed": "${self}.navigation.speedOverGround"
-        }
+        "center_map": true,
+        "orientation": "north",
+        "position":"${self}.navigation.position",
+        "heading":"${self}.navigation.courseOverGroundMagnetic",
+        "speed":"${self}.navigation.speedOverGround"
       }
     }
   }
