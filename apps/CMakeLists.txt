@@ -12,5 +12,8 @@ MACRO(SUBDIRLIST result curdir)
 ENDMACRO()
 
 SUBDIRLIST(SUBDIRS ${CMAKE_CURRENT_SOURCE_DIR})
-ADD_SUBDIRECTORY(./chart)
 
+FOREACH(subdir ${SUBDIRS})
+    message("Adding ${subdir} subdirectory.")
+    ADD_SUBDIRECTORY(${subdir})
+ENDFOREACH()
