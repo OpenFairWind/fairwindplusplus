@@ -1,11 +1,25 @@
 # FairWind++
-Integrated multifunctional navigation software based on open technologies
+Integrated multifunctional navigation system based on open technologies.
+
+![The FairWind++ launcher.](figures/launcher01.jpeg)
+
+FairWind++ is a novel execution environment for marine electronics, automotive, and home automation.
+It serves as a graphical user interface in the DYNAMO ecosystem.
+FairWind++ leverages the [SignalK](http://signalk.org) free and Open Source universal marine data exchange format.
+
+FairWind++ enables third parties in building custom open/closed source apps providing an SDK.
+
+FairWind++ has been tested on Linux (including Raspberry Pi 3b+ and 4), macOS, Windows.
+It was developed at the Department of Science and Technologies, University of Naples "Parthenope" within the DYNAMO project with the final goal of providing a citizen science platform for coastal marine data gathering and concentration homogenization and diffusion.
+More information [here](http://fairwind.uniparthenope.it).
+
 
 ### Prerequisites
 
  - C++ compiler (gcc, CLang)
  - GIT client
  - CMake
+ - QT5 version 5.15.2
 
 ### Building on Ubuntu Linux
 
