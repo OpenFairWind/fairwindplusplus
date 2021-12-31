@@ -11,7 +11,91 @@
   "FairWind": {
     "App": {
       "Email": "fairwind@uniparthenope.it",
-      "Id": "it.uniparthenope.fairwind.apps.web"
+      "Id": "it.uniparthenope.fairwind.apps.web",
+      "Settings": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {
+          "Routes": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "Id": {
+                    "type": "string"
+                  },
+                  "Args": {
+                    "type": "object",
+                    "properties": {
+                      "Name": {
+                        "type": "string"
+                      },
+                      "Desc": {
+                        "type": "string"
+                      },
+                      "Icon": {
+                        "type": "string"
+                      },
+                      "Url": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "Name",
+                      "Icon",
+                      "Url"
+                    ]
+                  }
+                },
+                "required": [
+                  "Id",
+                  "Args"
+                ]
+              }
+            ]
+          }
+        },
+        "required": [
+          "Routes"
+        ]
+      },
+      "Config": {
+        "Routes": [
+          {
+            "Id": "signalk",
+            "Args":{
+              "Name":"Signal K Server",
+              "Icon":":/resources/images/icons/signalk_server_icon.png",
+              "Url":"http://localhost:3000"
+            }
+          },
+          {
+            "Id": "netflix",
+            "Args":{
+              "Name":"Netflix",
+              "Icon":":/resources/images/icons/netflix_icon.png",
+              "Url":"https://www.netflix.com"
+            }
+          },
+          {
+            "Id": "youtube",
+            "Args":{
+            "Name":"YouTube",
+            "Icon":":/resources/images/icons/youtube_icon.png",
+            "Url":"https://www.youtube.com"
+          }},
+          {
+            "Id": "spotify",
+            "Args": {
+              "Name": "Spotify",
+              "Desc": "Listening is Everything",
+              "Icon": ":/resources/images/icons/spotify_icon.png",
+              "Url": "https://www.spotify.com"
+            }
+          }
+        ]
+      }
     }
   }
 }

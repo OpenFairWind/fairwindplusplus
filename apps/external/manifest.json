@@ -11,7 +11,18 @@
   "FairWind": {
     "App": {
       "Email": "fairwind@uniparthenope.it",
-      "Id": "it.uniparthenope.fairwind.apps.native"
+      "Id": "it.uniparthenope.fairwind.apps.native",
+      "Config": {
+        "Routes": [
+          { "Id": "opencpn",
+            "Args":{
+              "Name":"Open CPN",
+              "Icon":":/resources/images/icons/opencpn_icon.png",
+              "Command":"/Applications/OpenCPN.app/Contents/MacOS/OpenCPN -fullscreen"
+            }
+          }
+        ]
+      }
     }
   }
 }
