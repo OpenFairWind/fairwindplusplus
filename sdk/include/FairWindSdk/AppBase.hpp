@@ -32,7 +32,7 @@ namespace fairwind {
 
             private:
             QJsonObject m_metaData;
-            QJsonObject m_config;
+            //QJsonObject m_config;
             QJsonObject m_settings;
     };
 }

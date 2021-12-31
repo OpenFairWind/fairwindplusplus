@@ -36,11 +36,44 @@ void fairwind::AppBase::setSettings(QJsonObject settings) {
  * Returns the app's configuration
  */
 QJsonObject fairwind::AppBase::getConfig() {
-    return m_config;
+
+    // Get the application data path
+    QDir appDataPath = QDir(m_metaData["dataRoot"].toString() + QDir::separator() + getId());
+
+    // Create the path if needed
+    appDataPath.mkpath(appDataPath.absolutePath());
+
+    // Set the config.json file
+    QFile appConfigFile(appDataPath.absolutePath() + QDir::separator() + "config.json");
+
+    appConfigFile.open(QFile::ReadOnly);
+
+    QJsonDocument jsonDocument = QJsonDocument::fromJson(appConfigFile.readAll());
+
+    return jsonDocument.object();
 }
 
 void fairwind::AppBase::setConfig(QJsonObject config) {
-    m_config = config;
+    // Get the application data path
+    QDir appDataPath = QDir(m_metaData["dataRoot"].toString() + QDir::separator() + getId());
+
+    // Create the path if needed
+    appDataPath.mkpath(appDataPath.absolutePath());
+
+    // Set the config.json file
+    QFile appConfigFile(appDataPath.absolutePath() + QDir::separator() + "config.json");
+
+    // Open the config.json file in write mode
+    appConfigFile.open(QFile::WriteOnly);
+
+    // Create a json document
+    QJsonDocument jsonDocument;
+
+    // Initialize the json document with the config data
+    jsonDocument.setObject(config);
+
+    // Write the config file
+    appConfigFile.write(jsonDocument.toJson());
 }
 
 /*
@@ -220,7 +253,7 @@ void fairwind::AppBase::onInit(QJsonObject *metaData) {
                     if (objectApp.contains("Config") && objectApp["Config"].isObject()) {
 
                         // Set the config object
-                        m_config = objectApp["Config"].toObject();
+                        QJsonObject config = objectApp["Config"].toObject();
 
                         // Open the config.json file in write mode
                         appConfigFile.open(QFile::WriteOnly);
@@ -229,13 +262,14 @@ void fairwind::AppBase::onInit(QJsonObject *metaData) {
                         QJsonDocument jsonDocument;
 
                         // Initialize the json document with the config data
-                        jsonDocument.setObject(m_config);
+                        jsonDocument.setObject(config);
 
                         // Write the config file
                         appConfigFile.write(jsonDocument.toJson());
                     } else {
                         // Create a config.json from Settings
                         // ...
+                        QJsonObject config;
 
                         // Open the config.json file in write mode
                         appConfigFile.open(QFile::WriteOnly);
@@ -244,7 +278,7 @@ void fairwind::AppBase::onInit(QJsonObject *metaData) {
                         QJsonDocument jsonDocument;
 
                         // Initialize the json document with the config data
-                        jsonDocument.setObject(m_config);
+                        jsonDocument.setObject(config);
 
                         // Write the config file
                         appConfigFile.write(jsonDocument.toJson());
