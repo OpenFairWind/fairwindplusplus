@@ -127,3 +127,11 @@ void fairwind::apps::web::Web::updateSettings(QString settingsID, QString newVal
 void fairwind::apps::web::Web::setConfig(QJsonObject config) {
     AppBase::setConfig(config);
 }
+
+void fairwind::apps::web::Web::setSettings(QJsonObject config) {
+    AppBase::setSettings(config);
+}
+
+QJsonObject fairwind::apps::web::Web::getSettings() {
+    return AppBase::getSettings();
+}

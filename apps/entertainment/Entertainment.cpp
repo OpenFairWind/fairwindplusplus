@@ -495,3 +495,11 @@ void fairwind::apps::entertainment::Entertainment::updateSettings(QString settin
 void fairwind::apps::entertainment::Entertainment::setConfig(QJsonObject config) {
     AppBase::setConfig(config);
 }
+
+void fairwind::apps::entertainment::Entertainment::setSettings(QJsonObject config) {
+    AppBase::setSettings(config);
+}
+
+QJsonObject fairwind::apps::entertainment::Entertainment::getSettings() {
+    return AppBase::getSettings();
+}

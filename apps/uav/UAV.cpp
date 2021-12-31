@@ -76,3 +76,11 @@ void fairwind::apps::uav::UAV::updateSettings(QString settingsID, QString newVal
 void fairwind::apps::uav::UAV::setConfig(QJsonObject config) {
     AppBase::setConfig(config);
 }
+
+void fairwind::apps::uav::UAV::setSettings(QJsonObject config) {
+    AppBase::setSettings(config);
+}
+
+QJsonObject fairwind::apps::uav::UAV::getSettings() {
+    return AppBase::getSettings();
+}

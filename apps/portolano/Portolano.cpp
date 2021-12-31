@@ -77,3 +77,11 @@ void fairwind::apps::portolano::Portolano::updateSettings(QString settingsID, QS
 void fairwind::apps::portolano::Portolano::setConfig(QJsonObject config) {
     AppBase::setConfig(config);
 }
+
+void fairwind::apps::portolano::Portolano::setSettings(QJsonObject config) {
+    AppBase::setSettings(config);
+}
+
+QJsonObject fairwind::apps::portolano::Portolano::getSettings() {
+    return AppBase::getSettings();
+}

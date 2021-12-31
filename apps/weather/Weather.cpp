@@ -76,3 +76,11 @@ void fairwind::apps::weather::Weather::updateSettings(QString settingsID, QStrin
 void fairwind::apps::weather::Weather::setConfig(QJsonObject config) {
     AppBase::setConfig(config);
 }
+
+void fairwind::apps::weather::Weather::setSettings(QJsonObject config) {
+    AppBase::setSettings(config);
+}
+
+QJsonObject fairwind::apps::weather::Weather::getSettings() {
+    return AppBase::getSettings();
+}

@@ -39,6 +39,8 @@ namespace it::gov::guardiacostiera::gc1530 {
 
         QJsonObject getConfig() override;
         void setConfig(QJsonObject config) override;
+        QJsonObject getSettings() override;
+        void setSettings(QJsonObject config) override;
         QJsonObject getMetaData() override;
 
     private:

@@ -76,3 +76,12 @@ void fairwind::apps::sonar::Sonar::updateSettings(QString settingsID, QString ne
 void fairwind::apps::sonar::Sonar::setConfig(QJsonObject config) {
     AppBase::setConfig(config);
 }
+
+void fairwind::apps::sonar::Sonar::setSettings(QJsonObject config) {
+    AppBase::setSettings(config);
+}
+
+QJsonObject fairwind::apps::sonar::Sonar::getSettings() {
+    return AppBase::getSettings();
+}
+

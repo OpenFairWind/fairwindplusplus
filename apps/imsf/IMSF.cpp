@@ -78,3 +78,11 @@ void fairwind::apps::imsf::IMSF::updateSettings(QString settingsID, QString newV
 void fairwind::apps::imsf::IMSF::setConfig(QJsonObject config) {
     AppBase::setConfig(config);
 }
+
+void fairwind::apps::imsf::IMSF::setSettings(QJsonObject config) {
+    AppBase::setSettings(config);
+}
+
+QJsonObject fairwind::apps::imsf::IMSF::getSettings() {
+    return AppBase::getSettings();
+}

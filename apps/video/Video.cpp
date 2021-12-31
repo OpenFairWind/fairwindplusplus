@@ -76,3 +76,11 @@ void fairwind::apps::video::Video::updateSettings(QString settingsID, QString ne
 void fairwind::apps::video::Video::setConfig(QJsonObject config) {
     AppBase::setConfig(config);
 }
+
+void fairwind::apps::video::Video::setSettings(QJsonObject config) {
+    AppBase::setSettings(config);
+}
+
+QJsonObject fairwind::apps::video::Video::getSettings() {
+    return AppBase::getSettings();
+}

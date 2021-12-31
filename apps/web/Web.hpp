@@ -35,6 +35,8 @@ namespace fairwind::apps::web {
 
         QJsonObject getConfig() override;
         void setConfig(QJsonObject config) override;
+        QJsonObject getSettings() override;
+        void setSettings(QJsonObject config) override;
         QJsonObject getMetaData() override;
 
     private:

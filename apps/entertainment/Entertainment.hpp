@@ -59,6 +59,8 @@ namespace fairwind::apps::entertainment {
 
         QJsonObject getConfig() override;
         void setConfig(QJsonObject config) override;
+        QJsonObject getSettings() override;
+        void setSettings(QJsonObject config) override;
         QJsonObject getMetaData() override;
 
         bool isPlayerAvailable() const;

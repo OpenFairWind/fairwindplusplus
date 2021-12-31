@@ -144,3 +144,11 @@ void fairwind::apps::dashboard::Dashboard::updateSettings(QString settingsID, QS
 void fairwind::apps::dashboard::Dashboard::setConfig(QJsonObject config) {
     AppBase::setConfig(config);
 }
+
+void fairwind::apps::dashboard::Dashboard::setSettings(QJsonObject config) {
+    AppBase::setSettings(config);
+}
+
+QJsonObject fairwind::apps::dashboard::Dashboard::getSettings() {
+    return AppBase::getSettings();
+}

@@ -78,3 +78,11 @@ void fairwind::apps::chandlery::Chandlery::updateSettings(QString settingsID, QS
 void fairwind::apps::chandlery::Chandlery::setConfig(QJsonObject config) {
     AppBase::setConfig(config);
 }
+
+void fairwind::apps::chandlery::Chandlery::setSettings(QJsonObject config) {
+    AppBase::setSettings(config);
+}
+
+QJsonObject fairwind::apps::chandlery::Chandlery::getSettings() {
+    return AppBase::getSettings();
+}

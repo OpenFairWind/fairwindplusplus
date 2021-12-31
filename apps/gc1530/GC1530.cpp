@@ -127,3 +127,11 @@ void it::gov::guardiacostiera::gc1530::GC1530::updateSettings(QString settingsID
 void it::gov::guardiacostiera::gc1530::GC1530::setConfig(QJsonObject config) {
     AppBase::setConfig(config);
 }
+
+void it::gov::guardiacostiera::gc1530::GC1530::setSettings(QJsonObject config) {
+    AppBase::setSettings(config);
+}
+
+QJsonObject it::gov::guardiacostiera::gc1530::GC1530::getSettings() {
+    return AppBase::getSettings();
+}

@@ -37,6 +37,8 @@ namespace fairwind::apps::uav {
 
         QJsonObject getConfig() override;
         void setConfig(QJsonObject config) override;
+        QJsonObject getSettings() override;
+        void setSettings(QJsonObject config) override;
         QJsonObject getMetaData() override;
 
     private:

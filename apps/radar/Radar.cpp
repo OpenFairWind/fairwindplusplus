@@ -77,3 +77,11 @@ void fairwind::apps::radar::Radar::updateSettings(QString settingsID, QString ne
 void fairwind::apps::radar::Radar::setConfig(QJsonObject config) {
     AppBase::setConfig(config);
 }
+
+void fairwind::apps::radar::Radar::setSettings(QJsonObject config) {
+    AppBase::setSettings(config);
+}
+
+QJsonObject fairwind::apps::radar::Radar::getSettings() {
+    return AppBase::getSettings();
+}
