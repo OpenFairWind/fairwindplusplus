@@ -10,7 +10,7 @@ FairWind++ leverages the [SignalK](http://signalk.org) free and Open Source univ
 FairWind++ enables third parties in building custom open/closed source apps providing an SDK.
 
 FairWind++ has been tested on Linux (including Raspberry Pi 3b+ and 4), macOS, Windows.
-It was developed at the Department of Science and Technologies, University of Naples "Parthenope" within the DYNAMO project with the final goal of providing a citizen science platform for coastal marine data gathering and concentration homogenization and diffusion.
+It was developed at the [Department of Science and Technologies](http://dist.uniparthenope.it), [University of Naples "Parthenope"](http://www.uniparthenope.it) within the DYNAMO project with the final goal of providing a citizen science platform for coastal marine data gathering and concentration homogenization and diffusion.
 More information [here](http://fairwind.uniparthenope.it).
 
 
