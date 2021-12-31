@@ -350,6 +350,18 @@ void fairwind::FairWind::loadConfig() {
                     // Get the app id as a string
                     QString appId = jsonAppObject["Id"].toString();
 
+                    // Check if the app as a route
+                    int firstSlashPosition=appId.indexOf("/");
+
+                    // Set the default route
+                    QString route="";
+
+                    if (firstSlashPosition>-1) {
+                        route = appId.right(appId.length()-(firstSlashPosition+1));
+                        appId = appId.left(firstSlashPosition);
+                        qDebug() << "appId:" << appId << " route:" << route << "\n";
+                    }
+
                     // Declare a pointer to an app and set it to the null pointer
                     App *app = nullptr;
 
@@ -373,6 +385,36 @@ void fairwind::FairWind::loadConfig() {
 
                                 // Save the key/value in the dictionary
                                 args[key] = jsonArgs[key].toVariant();
+                            }
+                        } else if (!route.isEmpty()) {
+                            // Get the app config
+                            QJsonObject jsonConfigObject=fairWindApp->getConfig();
+
+                            // Check if the app config contains the "Routes" key
+                            if (jsonConfigObject.contains("Routes") && jsonConfigObject["Routes"].isArray()) {
+                                auto jsonRoutesArray = jsonConfigObject["Routes"].toArray();
+                                for (auto jsonRoute: jsonRoutesArray) {
+                                    auto jsonRouteObject = jsonRoute.toObject();
+                                    if (jsonRouteObject.contains("Id") && jsonRouteObject["Id"].isString()) {
+                                        auto routeId = jsonRouteObject["Id"].toString();
+                                        if (route == routeId) {
+                                            // Check if the app object contains the "Args" key
+                                            if (jsonRouteObject.contains("Args") && jsonRouteObject["Args"].isObject()) {
+
+                                                // Get the app json object
+                                                QJsonObject jsonArgs = jsonRouteObject["Args"].toObject();
+
+                                                // For each key in the json object
+                                                for (const auto &key: jsonArgs.keys()) {
+
+                                                    // Save the key/value in the dictionary
+                                                    args[key] = jsonArgs[key].toVariant();
+                                                }
+                                            }
+                                            break;
+                                        }
+                                    }
+                                }
                             }
                         }
 
