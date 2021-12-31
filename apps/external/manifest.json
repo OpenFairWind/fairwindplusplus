@@ -12,6 +12,7 @@
     "App": {
       "Email": "fairwind@uniparthenope.it",
       "Id": "it.uniparthenope.fairwind.apps.native",
+      "Settings": {},
       "Config": {
         "Routes": [
           { "Id": "opencpn",
