@@ -2,8 +2,8 @@ set(NATIVE_RESOURCE resourcesNative.qrc)
 qt5_add_resources(NATIVE_RESOURCE_ADDED ${NATIVE_RESOURCE})
 
 add_library(Native SHARED
-        Native.cpp
-        Native.hpp
+        External.cpp
+        External.hpp
         ${NATIVE_RESOURCE_ADDED}
         )
 

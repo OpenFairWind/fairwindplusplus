@@ -2,20 +2,20 @@
 // Created by Raffaele Montella on 01/04/21.
 //
 
-#ifndef FAIRWIND_NATIVE_HPP
-#define FAIRWIND_NATIVE_HPP
+#ifndef FAIRWIND_EXTERNAL_HPP
+#define FAIRWIND_EXTERNAL_HPP
 
 #include <FairWindSdk/AppBase.hpp>
 #include <FairWindSdk/IApp.hpp>
 
 namespace fairwind::apps::native {
-    class Native : public QObject, AppBase, IApp {
+    class External : public QObject, AppBase, IApp {
         Q_OBJECT
         Q_PLUGIN_METADATA(IID IID_FAIRWIND_APPS FILE "manifest.json")
         Q_INTERFACES(fairwind::apps::IApp)
 
     public:
-        ~Native() = default;
+        ~External() = default;
 
         void onInit(QJsonObject *metaData) override;
 
@@ -33,6 +33,8 @@ namespace fairwind::apps::native {
 
         QJsonObject getConfig() override;
         void setConfig(QJsonObject config) override;
+        QJsonObject getSettings() override;
+        void setSettings(QJsonObject config) override;
         QJsonObject getMetaData() override;
 
     private:
@@ -41,4 +43,4 @@ namespace fairwind::apps::native {
 }
 
 
-#endif //FAIRWIND_NATIVE_HPP
+#endif //FAIRWIND_EXTERNAL_HPP
