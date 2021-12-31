@@ -1,5 +1,5 @@
 {
-  "Name" : "Native",
+  "Name" : "External",
   "Version" : "0.0.1",
   "CompatVersion" : "0.0.1",
   "Vendor" : "University of Naples Parthenope",
@@ -7,12 +7,56 @@
   "License" : "Apache 2.0",
   "Category" : "Plugins",
   "Description" : "A launcher for external programs",
-  "Url" : "http://fairwind.uniparthenope.it/fairwindplusplus/apps/native",
+  "Url" : "http://fairwind.uniparthenope.it/fairwindplusplus/apps/external",
   "FairWind": {
     "App": {
       "Email": "fairwind@uniparthenope.it",
-      "Id": "it.uniparthenope.fairwind.apps.native",
-      "Settings": {},
+      "Id": "it.uniparthenope.fairwind.apps.external",
+      "Settings": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {
+          "Routes": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "Id": {
+                    "type": "string"
+                  },
+                  "Args": {
+                    "type": "object",
+                    "properties": {
+                      "Name": {
+                        "type": "string"
+                      },
+                      "Icon": {
+                        "type": "string"
+                      },
+                      "Command": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "Name",
+                      "Icon",
+                      "Command"
+                    ]
+                  }
+                },
+                "required": [
+                  "Id",
+                  "Args"
+                ]
+              }
+            ]
+          }
+        },
+        "required": [
+          "Routes"
+        ]
+      },
       "Config": {
         "Routes": [
           { "Id": "opencpn",

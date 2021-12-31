@@ -12,8 +12,25 @@
     "App": {
       "Email": "fairwind@uniparthenope.it",
       "Id": "fairwind.apps.chandlery",
+      "Settings": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {
+          "Url": {
+            "type": "string"
+          },
+          "PubKey": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "Url",
+          "PubKey"
+        ]
+      },
       "Config": {
-
+        "Url": "https://fairwind.uniparthenope.it/chanderly/store",
+        "PubKey": ""
       }
     }
   }
