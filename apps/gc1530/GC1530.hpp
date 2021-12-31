@@ -11,7 +11,6 @@
 #include <FairWindSdk/IApp.hpp>
 #include <QWebEngineProfile>
 #include "ui_GC1530.h"
-#include "ui_GC1530_Settings.h"
 #include "WebView.hpp"
 
 namespace it::gov::guardiacostiera::gc1530 {
@@ -47,9 +46,7 @@ namespace it::gov::guardiacostiera::gc1530 {
         void toolButton_home_clicked();
 
         Ui::GC1530 *ui;
-        Ui::gc1530_Settings *uiSettings;
         QWidget *m_widget= nullptr;
-        QWidget *m_settings= nullptr;
         WebView *m_webView = nullptr;
 
         QWebEngineProfile *m_profile;

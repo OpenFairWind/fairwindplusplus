@@ -10,7 +10,6 @@
 #include <FairWindSdk/AppBase.hpp>
 #include <FairWindSdk/IApp.hpp>
 #include "ui_Portolano.h"
-#include "ui_Portolano_Settings.h"
 
 namespace fairwind::apps::portolano {
     class Portolano : public QObject, ::fairwind::AppBase, ::fairwind::apps::IApp {
@@ -43,7 +42,6 @@ namespace fairwind::apps::portolano {
 
     private:
         Ui::Portolano *ui;
-        Ui::portolano_Settings *uiSettings;
         QWidget *m_widget= nullptr;
     };
 }

@@ -10,7 +10,6 @@
 #include <FairWindSdk/AppBase.hpp>
 #include <FairWindSdk/IApp.hpp>
 #include "ui_IMSF.h"
-#include "ui_IMSF_Settings.h"
 
 namespace fairwind::apps::imsf {
     class IMSF : public QObject, ::fairwind::AppBase, ::fairwind::apps::IApp {
@@ -43,7 +42,6 @@ namespace fairwind::apps::imsf {
 
     private:
         Ui::IMSF *ui;
-        Ui::imsf_Settings *uiSettings;
         QWidget *m_widget= nullptr;
     };
 }

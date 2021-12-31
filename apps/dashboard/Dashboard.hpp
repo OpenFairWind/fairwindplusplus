@@ -10,7 +10,6 @@
 #include <FairWindSdk/AppBase.hpp>
 #include <FairWindSdk/IApp.hpp>
 #include "ui_Dashboard.h"
-#include "ui_Dashboard_Settings.h"
 
 namespace fairwind::apps::dashboard {
     class Dashboard : public QObject, AppBase, IApp {
@@ -43,8 +42,6 @@ namespace fairwind::apps::dashboard {
 
     private:
         Ui::Dashboard *ui;
-        Ui::dashboard_Settings *uiSettings;
-        QWidget *m_settings = nullptr;
     };
 }
 

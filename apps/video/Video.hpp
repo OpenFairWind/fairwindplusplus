@@ -10,7 +10,6 @@
 #include <FairWindSdk/AppBase.hpp>
 #include <FairWindSdk/IApp.hpp>
 #include "ui_Video.h"
-#include "ui_Video_Settings.h"
 
 namespace fairwind::apps::video {
     class Video : public QObject, ::fairwind::AppBase, ::fairwind::apps::IApp {
@@ -43,7 +42,6 @@ namespace fairwind::apps::video {
 
     private:
         Ui::Video *ui;
-        Ui::video_Settings *uiSettings;
         QWidget *m_widget= nullptr;
     };
 }

@@ -10,7 +10,6 @@
 #include <FairWindSdk/AppBase.hpp>
 #include <FairWindSdk/IApp.hpp>
 #include "ui_Radar.h"
-#include "ui_Radar_Settings.h"
 
 namespace fairwind::apps::radar {
     class Radar : public QObject, ::fairwind::AppBase, ::fairwind::apps::IApp {
@@ -43,7 +42,6 @@ namespace fairwind::apps::radar {
 
     private:
         Ui::Radar *ui;
-        Ui::radar_Settings *uiSettings;
         QWidget *m_widget= nullptr;
     };
 }

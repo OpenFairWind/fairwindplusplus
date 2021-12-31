@@ -10,7 +10,6 @@
 #include <FairWindSdk/AppBase.hpp>
 #include <FairWindSdk/IApp.hpp>
 #include "ui_Chandlery.h"
-#include "ui_Chandlery_Settings.h"
 
 namespace fairwind::apps::chandlery {
     class Chandlery : public QObject, ::fairwind::AppBase, ::fairwind::apps::IApp {
@@ -43,7 +42,6 @@ namespace fairwind::apps::chandlery {
 
     private:
         Ui::Chandlery *ui;
-        Ui::chandlery_Settings *uiSettings;
         QWidget *m_widget= nullptr;
     };
 }

@@ -10,7 +10,6 @@
 #include <FairWindSdk/AppBase.hpp>
 #include <FairWindSdk/IApp.hpp>
 #include "ui_UAV.h"
-#include "ui_UAV_Settings.h"
 
 namespace fairwind::apps::uav {
     class UAV : public QObject, ::fairwind::AppBase, ::fairwind::apps::IApp {
@@ -43,7 +42,6 @@ namespace fairwind::apps::uav {
 
     private:
         Ui::UAV *ui;
-        Ui::uav_Settings *uiSettings;
         QWidget *m_widget= nullptr;
     };
 }

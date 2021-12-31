@@ -10,7 +10,6 @@
 #include <FairWindSdk/AppBase.hpp>
 #include <FairWindSdk/IApp.hpp>
 #include "ui_Sonar.h"
-#include "ui_Sonar_Settings.h"
 
 namespace fairwind::apps::sonar {
     class Sonar : public QObject, ::fairwind::AppBase, ::fairwind::apps::IApp {
@@ -43,7 +42,6 @@ namespace fairwind::apps::sonar {
 
     private:
         Ui::Sonar *ui;
-        Ui::sonar_Settings *uiSettings;
         QWidget *m_widget= nullptr;
     };
 }

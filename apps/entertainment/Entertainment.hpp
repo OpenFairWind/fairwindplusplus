@@ -10,7 +10,7 @@
 #include <FairWindSdk/AppBase.hpp>
 #include <FairWindSdk/IApp.hpp>
 #include "ui_Entertainment.h"
-#include "ui_Entertainment_Settings.h"
+
 #include "PlaylistModel.hpp"
 #include "HistogramWidget.hpp"
 
@@ -94,7 +94,7 @@ namespace fairwind::apps::entertainment {
 
     private:
         Ui::Entertainment *ui;
-        Ui::entertainment_Settings *uiSettings;
+
         QWidget *m_widget= nullptr;
 
         void clearHistogram();

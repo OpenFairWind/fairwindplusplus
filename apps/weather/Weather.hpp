@@ -10,7 +10,6 @@
 #include <FairWindSdk/AppBase.hpp>
 #include <FairWindSdk/IApp.hpp>
 #include "ui_Weather.h"
-#include "ui_Weather_Settings.h"
 
 namespace fairwind::apps::weather {
     class Weather : public QObject, ::fairwind::AppBase, ::fairwind::apps::IApp {
@@ -43,7 +42,6 @@ namespace fairwind::apps::weather {
 
     private:
         Ui::Weather *ui;
-        Ui::weather_Settings *uiSettings;
         QWidget *m_widget= nullptr;
     };
 }
