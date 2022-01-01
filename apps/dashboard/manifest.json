@@ -12,7 +12,102 @@
     "App": {
       "Email": "fairwind@uniparthenope.it",
       "Id": "it.uniparthenope.fairwind.apps.dashboard",
-      "Settings": {},
+      "Settings": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {
+          "Routes": {
+            "type": "array",
+            "displayName": "Routes",
+            "widgetClassName": "fairwind::ui::settings::FairListView",
+            "widgetClassAttributes": ["add", "remove", "edit"],
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "Id": {
+                    "type": "string",
+                    "defaultValue": "mydata",
+                    "displayName": "Route",
+                    "widgetClassName": "fairwind::ui::settings::FairLineEdit"
+                  },
+                  "Args": {
+                    "type": "object",
+                    "properties": {
+                      "Name": {
+                        "type": "string",
+                        "defaultValue": "myData",
+                        "displayName": "Name",
+                        "widgetClassName": "fairwind::ui::settings::FairLineEdit"
+                      },
+                      "Desc": {
+                        "type": "string",
+                        "defaultValue": "My data dashboard",
+                        "displayName": "Description",
+                        "widgetClassName": "fairwind::ui::settings::FairLineEdit"
+                      },
+                      "Icon": {
+                        "type": "string",
+                        "defaultValue": "resources/images/default_icon.png",
+                        "displayName": "Icon",
+                        "widgetClassName": "fairwind::ui::settings::FairImageBrowser"
+                      },
+                      "Config": {
+                        "type": "object",
+                        "properties": {
+                          "default": {
+                            "type": "string"
+                          },
+                          "pages": {
+                            "type": "array",
+                            "widgetClassName": "fairwind::apps::dashboard::ui::settings::Pages",
+                            "items": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "class": {
+                                    "type": "string"
+                                  },
+                                  "displays": {
+                                    "type": "array",
+                                    "widgetClassName": "fairwind::apps::dashboard::ui::settings::Displays",
+                                    "items": {
+                                      "$ref": "#/$defs/display"
+                                    }
+                                  }
+                                },
+                                "required": [
+                                  "name",
+                                  "class",
+                                  "displays"
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        "required": [
+                          "pages"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "Name",
+                      "Config"
+                    ]
+                  }
+                },
+                "required": [
+                  "Id",
+                  "Args"
+                ]
+              }
+            ]
+          }
+        }
+      },
       "Config": {
         "Routes": [
           {
