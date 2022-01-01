@@ -19,76 +19,14 @@
           "Displays": {
             "type": "array",
             "widgetClassName": "fairwind::ui::settings::Displays",
-            "items": [
-              {
-                "type": "object",
-                "widgetClassName": "fairwind::ui::settings::Display",
-                "properties": {
-                  "active": {
-                    "type": "boolean"
-                  },
-                  "class": {
-                    "type": "string"
-                  },
-                  "fullPath": {
-                    "type": "string"
-                  },
-                  "layout": {
-                    "type": "string"
-                  },
-                  "maxValue": {
-                    "type": "integer"
-                  },
-                  "minValue": {
-                    "type": "integer"
-                  },
-                  "step": {
-                    "type": "integer"
-                  }
-                },
-                "required": [
-                  "active",
-                  "class",
-                  "fullPath",
-                  "layout"
-                ]
-              }
-            ]
+            "items": { "$ref": "#/$defs/display"}
           },
           "Layers": {
             "type": "array",
             "widgetClassName": "fairwind::ui::settings::Layers",
-            "items": [
-              {
-                "type": "object",
-                "widgetClassName": "fairwind::ui::settings::Layer",
-                "properties": {
-                  "active": {
-                    "type": "boolean"
-                  },
-                  "class": {
-                    "type": "string"
-                  },
-                  "description": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "url": {
-                    "type": "string"
-                  },
-                  "fullPath": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "active",
-                  "class",
-                  "name"
-                ]
-              }
-            ]
+            "items": {
+              "$ref": "#/$defs/layer"
+            }
           },
           "Options": {
             "type": "object",
