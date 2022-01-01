@@ -19,6 +19,29 @@ find_package(Qt5 REQUIRED COMPONENTS
 #endif()
 #set(LIBMARNAV ${LIBMARNAV} PARENT_SCOPE)
 
+
+
+ExternalProject_Add(QtJsonSchema
+        GIT_REPOSITORY https://github.com/OpenFairWind/QtJsonSchema.git
+        CMAKE_ARGS -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH} -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
+        TIMEOUT 360
+        )
+set(LIBQTJSONSCHEMA ${EXTERNAL_INSTALL_LOCATION}/lib/libqtjsonschema.so)
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    set(LIBQTJSONSCHEMA ${EXTERNAL_INSTALL_LOCATION}/lib/static/qtjsonschema.lib)
+    add_custom_command(
+            TARGET QtJsonSchema
+            POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy
+            ${EXTERNAL_INSTALL_LOCATION}/bin/qtjsonschema.dll
+            ${CMAKE_BINARY_DIR}
+    )
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+    set(LIBQTJSONSCHEMA ${EXTERNAL_INSTALL_LOCATION}/lib/libqtjsonschema.dylib)
+endif()
+set(LIBQTJSONSCHEMA ${LIBQTJSONSCHEMA} PARENT_SCOPE)
+
+
 ExternalProject_Add(QcGaugeWidget
         GIT_REPOSITORY https://github.com/OpenFairWind/Qt-custom-gauge-widget.git
         CMAKE_ARGS -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH} -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
@@ -157,7 +180,7 @@ target_link_libraries(fairwindsdk
         Qt5::Widgets
         Qt5::WebSockets
         #${LIBMARNAV}
-        ${LIBQCGAUGEWIDGET} ${LIBQGEOVIEW}
+        ${LIBQTJSONSCHEMA} ${LIBQCGAUGEWIDGET} ${LIBQGEOVIEW}
         )
 
 add_library(FairWindSdk ALIAS fairwindsdk)
