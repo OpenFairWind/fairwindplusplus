@@ -18,24 +18,45 @@
         "properties": {
           "Routes": {
             "type": "array",
+            "displayName": "Routes",
+            "widgetClassName": "fairwind::ui::settings::FairListView",
+            "widgetClassAttributes": ["add", "remove", "edit"],
             "items": [
               {
                 "type": "object",
                 "properties": {
                   "Id": {
-                    "type": "string"
+                    "type": "string",
+                    "defaultValue": "fairwind",
+                    "displayName": "Route",
+                    "widgetClassName": "fairwind::ui::settings::FairLineEdit"
                   },
                   "Args": {
                     "type": "object",
                     "properties": {
                       "Name": {
-                        "type": "string"
+                        "type": "string",
+                        "defaultValue": "ExternalApp",
+                        "displayName": "Name",
+                        "widgetClassName": "fairwind::ui::settings::FairLineEdit"
+                      },
+                      "Desc": {
+                        "type": "string",
+                        "defaultValue": "A not-native application",
+                        "displayName": "Description",
+                        "widgetClassName": "fairwind::ui::settings::FairLineEdit"
                       },
                       "Icon": {
-                        "type": "string"
+                        "type": "string",
+                        "defaultValue": "resources/images/default_icon.png",
+                        "displayName": "Icon",
+                        "widgetClassName": "fairwind::ui::settings::FairImageBrowser"
                       },
                       "Command": {
-                        "type": "string"
+                        "type": "string",
+                        "defaultValue": "",
+                        "displayName": "Command",
+                        "widgetClassName": "fairwind::ui::settings::FairFileBrowser"
                       }
                     },
                     "required": [
