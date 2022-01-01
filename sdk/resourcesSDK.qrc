@@ -9,5 +9,7 @@
         <file>resources/images/ais_shore.png</file>
         <file>resources/images/ship_red.png</file>
         <file>resources/images/icons/signalk_icon.png</file>
+        <file>resources/schemas/display.json</file>
+        <file>resources/schemas/layer.json</file>
     </qresource>
 </RCC>
