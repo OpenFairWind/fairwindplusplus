@@ -170,8 +170,10 @@ target_compile_definitions(fairwindsdk
 
 #add_dependencies(fairwindsdk variant)
 #add_dependencies(fairwindsdk marnav)
+add_dependencies(fairwindsdk QtJsonSchema)
 add_dependencies(fairwindsdk QcGaugeWidget)
 add_dependencies(fairwindsdk QGeoView)
+
 target_link_libraries(fairwindsdk
         PRIVATE
         Qt5::Core
