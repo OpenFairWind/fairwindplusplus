@@ -18,27 +18,45 @@
         "properties": {
           "Routes": {
             "type": "array",
+            "displayName": "Routes",
+            "widgetClassName": "fairwind::ui::settings::FairListView",
+            "attributes": ["add", "remove", "edit"],
             "items": [
               {
                 "type": "object",
                 "properties": {
                   "Id": {
-                    "type": "string"
+                    "type": "string",
+                    "defaultValue": "fairwind",
+                    "displayName": "Route",
+                    "widgetClassName": "fairwind::ui::settings::FairLineEdit"
                   },
                   "Args": {
                     "type": "object",
                     "properties": {
                       "Name": {
-                        "type": "string"
+                        "type": "string",
+                        "defaultValue": "FairWind",
+                        "displayName": "Name",
+                        "widgetClassName": "fairwind::ui::settings::FairLineEdit"
                       },
                       "Desc": {
-                        "type": "string"
+                        "type": "string",
+                        "defaultValue": "The FairWind home portal",
+                        "displayName": "Description",
+                        "widgetClassName": "fairwind::ui::settings::FairLineEdit"
                       },
                       "Icon": {
-                        "type": "string"
+                        "type": "string",
+                        "defaultValue": "resources/images/default_icon.png",
+                        "displayName": "Icon",
+                        "widgetClassName": "fairwind::ui::settings::FairImageBrowser"
                       },
                       "Url": {
-                        "type": "string"
+                        "type": "string",
+                        "defaultValue": "http://fairwind.uniparthenope.it",
+                        "displayName": "Url",
+                        "widgetClassName": "fairwind::ui::settings::FairLineEdit"
                       }
                     },
                     "required": [
