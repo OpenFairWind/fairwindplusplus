@@ -1,0 +1,43 @@
+{
+  "$defs": {
+    "display": {
+      "widgetClassName": "fairwind::ui::settings::Display",
+      "type": "object",
+      "properties": {
+        "active": {
+          "type": "boolean",
+          "description": "Active (visible) status"
+        },
+        "class": {
+          "type": "string",
+          "description": "The class implementing the display"
+        },
+        "fullPath": {
+          "type": "string",
+          "description": "The Signal K path string"
+        },
+        "layout": {
+          "type": "string",
+          "description": "The layout position where the display is added"
+        },
+        "maxValue": {
+          "type": "integer",
+          "description": "Upper scale limit"
+        },
+        "minValue": {
+          "type": "integer",
+          "description": "Lower scale limit"
+        },
+        "step": {
+          "type": "integer",
+          "description": "Scale tick"
+        }
+      },
+      "required": [
+        "active",
+        "class",
+        "fullPath"
+      ]
+    }
+  }
+}

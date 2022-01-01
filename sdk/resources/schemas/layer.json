@@ -1,0 +1,33 @@
+{
+  "$defs": {
+    "leyer": {
+      "type": "object",
+      "widgetClassName": "fairwind::ui::settings::Layer",
+      "properties": {
+        "active": {
+          "type": "boolean"
+        },
+        "class": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "fullPath": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "active",
+        "class",
+        "name"
+      ]
+    }
+  }
+}
