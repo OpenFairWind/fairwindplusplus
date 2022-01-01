@@ -294,7 +294,12 @@ void fairwind::AppBase::onInit(QJsonObject *metaData) {
                     auto configDoc = QJsonDocument::fromJson(appConfigFile.readAll());
 
                     // Check if the config.json complains the json schema
-                    // ...
+                    JsonSchema jsonSchema = JsonSchema::fromJson(m_settings);
+                    jsonSchema.validate(configDoc);
+
+                    if (jsonSchema.isValid()) {
+                        qDebug() << getName() << ": config fits the schema!\n";
+                    }
 
                 }
             }
