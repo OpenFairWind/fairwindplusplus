@@ -293,8 +293,40 @@ void fairwind::AppBase::onInit(QJsonObject *metaData) {
                     // Read the configuration file
                     auto configDoc = QJsonDocument::fromJson(appConfigFile.readAll());
 
+                    QJsonObject settings = m_settings;
+                    if (!settings.contains("$defs")) {
+                        settings["$defs"] = {};
+                    }
+
+                    QJsonObject objectSettingsDefs=settings["$defs"].toObject();
+
+                    QStringList schemas = { ":/resources/schemas/display.json", ":/resources/schemas/layer.json"};
+                    for(auto schema:schemas) {
+                        QFile schemaFile(schema);
+                        if (schemaFile.exists()) {
+                            schemaFile.open(QFile::ReadOnly);
+                            if (schemaFile.isOpen()) {
+                                auto displaySchemaDoc = QJsonDocument::fromJson(schemaFile.readAll());
+                                QJsonObject objectDisplaySchema = displaySchemaDoc.object();
+                                if (objectDisplaySchema.contains("$defs") && objectDisplaySchema["$defs"].isObject()) {
+                                    QJsonObject objectDefs = objectDisplaySchema["$defs"].toObject();
+                                    for (auto key: objectDefs.keys()) {
+                                        objectSettingsDefs[key] = objectDefs[key];
+                                    }
+                                }
+                                schemaFile.close();
+                            }
+                        }
+                    }
+                    settings["$defs"] = objectSettingsDefs;
+
+                    QJsonDocument tmpDoc(settings);
+                    QFile tmpFile(getId()+".schema.json");
+                    tmpFile.open(QFile::WriteOnly);
+                    tmpFile.write(tmpDoc.toJson());
+
                     // Check if the config.json complains the json schema
-                    JsonSchema jsonSchema = JsonSchema::fromJson(m_settings);
+                    JsonSchema jsonSchema = JsonSchema::fromJson(settings);
                     jsonSchema.validate(configDoc);
 
                     if (jsonSchema.isValid()) {
