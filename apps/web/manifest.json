@@ -20,7 +20,7 @@
             "type": "array",
             "displayName": "Routes",
             "widgetClassName": "fairwind::ui::settings::FairListView",
-            "attributes": ["add", "remove", "edit"],
+            "widgetClassAttributes": ["add", "remove", "edit"],
             "items": [
               {
                 "type": "object",
