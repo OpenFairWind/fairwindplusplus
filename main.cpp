@@ -20,10 +20,18 @@
  * FairWind++ starting point
  */
 int main(int argc, char *argv[]) {
+
+    // Enable OpenGL shared contexts
+    QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts );
+
     // Enable DPI scaling
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+
     // Enable high DPI support
     QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+
+    // Create the application
+
     QApplication app(argc, argv);
     // Get the splash screen logo
     QPixmap pixmap(":/resources/images/icons/splash_logo.png");
