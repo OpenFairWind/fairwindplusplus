@@ -1,5 +1,5 @@
 {
-  "$defs": {
+  "definitions": {
     "display": {
       "widgetClassName": "fairwind::ui::settings::Display",
       "type": "object",

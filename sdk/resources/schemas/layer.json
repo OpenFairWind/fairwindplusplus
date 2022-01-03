@@ -1,5 +1,5 @@
 {
-  "$defs": {
+  "definitions": {
     "layer": {
       "type": "object",
       "widgetClassName": "fairwind::ui::settings::Layer",
