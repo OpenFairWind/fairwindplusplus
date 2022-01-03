@@ -13,7 +13,7 @@
       "Email": "fairwind@uniparthenope.it",
       "Id": "it.uniparthenope.fairwind.apps.dashboard",
       "Settings": {
-        "$schema": "http://json-schema.org/draft-04/schema#",
+        "$schema": "http://json-schema.org/draft-07/schema",
         "type": "object",
         "properties": {
           "Routes": {
@@ -75,7 +75,7 @@
                                     "type": "array",
                                     "widgetClassName": "fairwind::apps::dashboard::ui::settings::Displays",
                                     "items": {
-                                      "$ref": "#/$defs/display"
+                                      "$ref": "#/definitions/display"
                                     }
                                   }
                                 },

@@ -13,24 +13,57 @@
       "Email": "fairwind@uniparthenope.it",
       "Id": "fairwind.apps.chandlery",
       "Settings": {
-        "$schema": "http://json-schema.org/draft-04/schema#",
+        "$schema": "http://json-schema.org/draft-07/schema#",
         "type": "object",
         "properties": {
           "Url": {
-            "type": "string"
+            "type": "string",
+            "defaultValue": "https://fairwind.uniparthenope.it/chanderly/store",
+            "displayName": "Url",
+            "widgetClassName": "fairwind::ui::settings::FairLineEdit",
+            "widgetClassAttributes": ["readonly"]
           },
           "PubKey": {
-            "type": "string"
+            "type": "string",
+            "defaultValue": "-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC3dcCohSEhvZg7kK3b1W4XnDfZ\n6MNM6yJ6FEDt6hcEs7OLUsDhckaW3F4/QWMq2cUmaNkA3Wzbzx7ZsEBNqdVyaluS\nM1Y9Kc5/yBkXc5V++0r1MQBL3RbMaolSyghCtsnpor934FKySfcd8vSZLUIfnZsL\n0DkQl6KmRycq1YKR9QIDAQAB\n-----END PUBLIC KEY-----",
+            "displayName": "Store Public Key",
+            "widgetClassName": "fairwind::ui::settings::FairTextEdit",
+            "widgetClassAttributes": ["readonly"]
+          },
+          "User": {
+            "type": "string",
+            "defaultValue": "",
+            "displayName": "User name",
+            "widgetClassName": "fairwind::ui::settings::FairLineEdit"
+          },
+          "Password": {
+            "type": "string",
+            "defaultValue": "",
+            "displayName": "User name",
+            "widgetClassName": "fairwind::ui::settings::FairLineEdit",
+            "widgetClassAttributes": ["password"]
+          },
+          "Signed": {
+            "type": "boolean",
+            "defaultValue": true,
+            "displayName": "Stay signed",
+            "domain": [
+              {
+                "key": "No",
+                "value": false
+              },
+              {
+                "key": "Yes",
+                "value": true
+              }
+            ],
+            "widgetClassName": "fairwind::ui::settings::FairComboBox"
           }
         },
         "required": [
           "Url",
           "PubKey"
         ]
-      },
-      "Config": {
-        "Url": "https://fairwind.uniparthenope.it/chanderly/store",
-        "PubKey": ""
       }
     }
   }
