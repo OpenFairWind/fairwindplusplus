@@ -6,7 +6,6 @@
 #define FAIRWIND_APPBASE_HPP
 
 #include <QJsonObject>
-#include <QtJsonSchema/jsonschema.h>
 #include <FairWindSdk/FairWindSDK.hpp>
 
 namespace fairwind {

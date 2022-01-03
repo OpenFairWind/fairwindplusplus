@@ -8,6 +8,7 @@
 #include <AppBase.hpp>
 #include <FairWindSdk/AppBase.hpp>
 #include <FairWindSdk/FairWind.hpp>
+#include <util/ExtendedJsonSchema.hpp>
 
 /*
  * getId
@@ -266,22 +267,26 @@ void fairwind::AppBase::onInit(QJsonObject *metaData) {
 
                         // Write the config file
                         appConfigFile.write(jsonDocument.toJson());
+
+                        // Close the config.json
+                        appConfigFile.close();
+
                     } else {
                         // Create a config.json from Settings
-                        // ...
-                        QJsonObject config;
+                        ExtendedJsonSchema jsonExtendedSchema(m_settings);
 
                         // Open the config.json file in write mode
                         appConfigFile.open(QFile::WriteOnly);
 
                         // Create a json document
-                        QJsonDocument jsonDocument;
-
-                        // Initialize the json document with the config data
-                        jsonDocument.setObject(config);
+                        QJsonDocument jsonDocument = jsonExtendedSchema.getDefaultConfig();
 
                         // Write the config file
                         appConfigFile.write(jsonDocument.toJson());
+
+                        // Close the config.json
+                        appConfigFile.close();
+                        
                     }
                 }
 
@@ -293,46 +298,19 @@ void fairwind::AppBase::onInit(QJsonObject *metaData) {
                     // Read the configuration file
                     auto configDoc = QJsonDocument::fromJson(appConfigFile.readAll());
 
-                    QJsonObject settings = m_settings;
-                    if (!settings.contains("$defs")) {
-                        settings["$defs"] = {};
-                    }
+                    ExtendedJsonSchema jsonExtendedSchema(m_settings);
 
-                    QJsonObject objectSettingsDefs=settings["$defs"].toObject();
 
-                    QStringList schemas = { ":/resources/schemas/display.json", ":/resources/schemas/layer.json"};
-                    for(auto schema:schemas) {
-                        QFile schemaFile(schema);
-                        if (schemaFile.exists()) {
-                            schemaFile.open(QFile::ReadOnly);
-                            if (schemaFile.isOpen()) {
-                                auto displaySchemaDoc = QJsonDocument::fromJson(schemaFile.readAll());
-                                QJsonObject objectDisplaySchema = displaySchemaDoc.object();
-                                if (objectDisplaySchema.contains("$defs") && objectDisplaySchema["$defs"].isObject()) {
-                                    QJsonObject objectDefs = objectDisplaySchema["$defs"].toObject();
-                                    for (auto key: objectDefs.keys()) {
-                                        objectSettingsDefs[key] = objectDefs[key];
-                                    }
-                                }
-                                schemaFile.close();
-                            }
-                        }
-                    }
-                    settings["$defs"] = objectSettingsDefs;
-
-                    QJsonDocument tmpDoc(settings);
+                    // Only for debug
                     QFile tmpFile(getId()+".schema.json");
                     tmpFile.open(QFile::WriteOnly);
-                    tmpFile.write(tmpDoc.toJson());
+                    tmpFile.write(jsonExtendedSchema.toDocument().toJson());
 
-                    // Check if the config.json complains the json schema
-                    JsonSchema jsonSchema = JsonSchema::fromJson(settings);
-                    jsonSchema.validate(configDoc);
 
-                    if (jsonSchema.isValid()) {
+                    if (jsonExtendedSchema.validate(configDoc)) {
                         qDebug() << getName() << ": config fits the schema!\n";
                     }
-
+                    appConfigFile.close();
                 }
             }
         }
