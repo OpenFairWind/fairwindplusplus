@@ -118,6 +118,7 @@ add_library(fairwindsdk SHARED
         include/FairWindSdk/layouts/VHGLayout.hpp
         include/FairWindSdk/layouts/GridLayout.hpp
         include/FairWindSdk/util/Units.hpp
+        include/FairWindSdk/util/ExtendedJsonSchema.hpp
         include/FairWindSdk/connections/SignalKAPIClient.hpp
         include/FairWindSdk/connections/SignalKWSClient.hpp
         include/FairWindSdk/ISettings.hpp
@@ -149,12 +150,13 @@ add_library(fairwindsdk SHARED
         src/layouts/VHGLayout.cpp
         src/layouts/GridLayout.cpp
         src/util/Units.cpp
+        src/util/ExtendedJsonSchema.cpp
         src/connections/SignalKAPIClient.cpp
         src/connections/SignalKWSClient.cpp
         src/settings/FairComboBox.cpp
         src/settings/FairLineEdit.cpp
         src/settings/FairCheckBox.cpp
-        ${FAIRWINDSDK_RESOURCE_ADDED})
+        ${FAIRWINDSDK_RESOURCE_ADDED}  )
 
 target_include_directories(fairwindsdk
         PUBLIC
