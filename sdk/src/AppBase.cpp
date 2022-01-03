@@ -275,11 +275,11 @@ void fairwind::AppBase::onInit(QJsonObject *metaData) {
                         // Create a config.json from Settings
                         ExtendedJsonSchema jsonExtendedSchema(m_settings);
 
-                        // Open the config.json file in write mode
-                        appConfigFile.open(QFile::WriteOnly);
-
                         // Create a json document
                         QJsonDocument jsonDocument = jsonExtendedSchema.getDefaultConfig();
+
+                        // Open the config.json file in write mode
+                        appConfigFile.open(QFile::WriteOnly);
 
                         // Write the config file
                         appConfigFile.write(jsonDocument.toJson());
