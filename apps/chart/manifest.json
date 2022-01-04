@@ -18,12 +18,12 @@
         "properties": {
           "Displays": {
             "type": "array",
-            "widgetClassName": "fairwind::ui::settings::Displays",
+            "widgetClassName": "fairwind::ui::settings::DisplaysBrowser",
             "items": { "$ref": "#/definitions/display"}
           },
           "Layers": {
             "type": "array",
-            "widgetClassName": "fairwind::ui::settings::Layers",
+            "widgetClassName": "fairwind::ui::settings::LayersBrowser",
             "items": {
               "$ref": "#/definitions/layer"
             }

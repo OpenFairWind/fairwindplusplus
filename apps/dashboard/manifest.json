@@ -55,9 +55,6 @@
                       "Config": {
                         "type": "object",
                         "properties": {
-                          "default": {
-                            "type": "string"
-                          },
                           "pages": {
                             "type": "array",
                             "widgetClassName": "fairwind::apps::dashboard::ui::settings::Pages",
@@ -66,14 +63,35 @@
                                 "type": "object",
                                 "properties": {
                                   "name": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "displayName": "Page name",
+                                    "widgetClassName": "fairwind::ui::settings::FairLineEdit"
                                   },
                                   "class": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "defaultValue": "fairwind::layouts::GridLayout::GridLayout",
+                                    "displayName": "Layout",
+                                    "widgetClassName": "fairwind::ui::settings::LayoutsBrowser"
+                                  },
+                                  "default": {
+                                    "type": "boolean",
+                                    "defaultValue": false,
+                                    "displayName": "Default Page",
+                                    "domain": [
+                                      {
+                                        "key": "No",
+                                        "value": false
+                                      },
+                                      {
+                                        "key": "Yes",
+                                        "value": true
+                                      }
+                                    ],
+                                    "widgetClassName": "fairwind::ui::settings::FairComboBox"
                                   },
                                   "displays": {
                                     "type": "array",
-                                    "widgetClassName": "fairwind::apps::dashboard::ui::settings::Displays",
+                                    "widgetClassName": "fairwind::ui::settings::DisplaysBrowser",
                                     "items": {
                                       "$ref": "#/definitions/display"
                                     }
