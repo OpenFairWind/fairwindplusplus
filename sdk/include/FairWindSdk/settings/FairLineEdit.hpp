@@ -14,7 +14,7 @@ namespace fairwind::ui::settings {
      * FairLineEdit
      * This widget is an editable line of text
      */
-    class FairLineEdit : public QLineEdit, public ISettings {
+    class FAIRWINDSDK_LIB_DECL FairLineEdit : public QLineEdit, public ISettings {
         Q_OBJECT
 
     public:
