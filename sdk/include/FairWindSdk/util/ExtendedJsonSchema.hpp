@@ -14,6 +14,7 @@ namespace fairwind {
      */
     class ExtendedJsonSchema {
     public:
+        ExtendedJsonSchema(QJsonObject schema, const QStringList& schemas);
         ExtendedJsonSchema(QJsonObject schema);
 
 
