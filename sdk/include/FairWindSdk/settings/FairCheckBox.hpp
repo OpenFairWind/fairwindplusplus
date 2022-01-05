@@ -5,6 +5,8 @@
 #ifndef FAIRWIND_FAIRCHECKBOX_HPP
 #define FAIRWIND_FAIRCHECKBOX_HPP
 
+#include <FairWindSdk/FairWindSDK.hpp>
+
 #include <FairWindSdk/ISettings.hpp>
 #include <FairWindSdk/IApp.hpp>
 #include <QCheckBox>
@@ -14,7 +16,7 @@ namespace fairwind::ui::settings {
      * FairCheckBox
      * This widget is a check box and presents a two-state box (checked/unchecked)
      */
-    class FairCheckBox : public QCheckBox, public ISettings {
+    class FAIRWINDSDK_LIB_DECL FairCheckBox : public QCheckBox, public ISettings {
     Q_OBJECT
 
     public:
