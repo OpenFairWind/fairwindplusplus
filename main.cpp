@@ -7,6 +7,8 @@
 #include <FairWindSdk/settings/FairComboBox.hpp>
 #include <FairWindSdk/settings/FairLineEdit.hpp>
 #include <FairWindSdk/settings/FairCheckBox.hpp>
+#include <FairWindSdk/settings/DisplaysBrowser.hpp>
+#include <FairWindSdk/settings/LayersBrowser.hpp>
 #include <ui/settings/connections/Connections.hpp>
 #include <ui/settings/generic/Generic.hpp>
 #include <ui/settings/applications/Applications.hpp>
@@ -52,6 +54,8 @@ int main(int argc, char *argv[]) {
     fairWind->registerSettings(new fairwind::ui::settings::FairComboBox());
     fairWind->registerSettings(new fairwind::ui::settings::FairLineEdit());
     fairWind->registerSettings(new fairwind::ui::settings::FairCheckBox());
+    fairWind->registerSettings(new fairwind::ui::settings::DisplaysBrowser());
+    fairWind->registerSettings(new fairwind::ui::settings::LayersBrowser());
 
     splash.showMessage("Loading Applications ...", 500, Qt::white);
 
