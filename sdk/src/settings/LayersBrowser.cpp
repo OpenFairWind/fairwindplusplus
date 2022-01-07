@@ -26,10 +26,11 @@ void fairwind::ui::settings::LayersBrowser::setDetails(QString settingsID, QJson
             auto vWidget = new QWidget;
             auto hWidget = new QWidget;
             auto label = new QLabel;
+            auto icon = new QLabel;
             auto description = new QLabel;
             auto checkBox = new QCheckBox;
 
-            label->setPixmap(QPixmap::fromImage(layer->getIcon()));
+            icon->setPixmap(QPixmap::fromImage(layer->getIcon()));
             label->setText(layers[i].toObject()["name"].toString());
             label->setFont(QFont("", 14));
 
@@ -54,6 +55,7 @@ void fairwind::ui::settings::LayersBrowser::setDetails(QString settingsID, QJson
                 //extension->updateSettings(settingsID, checkState == "0" ? "2" : "0");
             });
 
+            hLayout->addWidget(icon);
             hLayout->addWidget(vWidget);
             hLayout->addWidget(checkBox);
 

@@ -23,9 +23,10 @@ void fairwind::ui::settings::DisplaysBrowser::setDetails(QString settingsID, QJs
             auto layout = new QHBoxLayout;
             auto widget = new QWidget;
             auto label = new QLabel;
+            auto icon = new QLabel;
             auto checkBox = new QCheckBox;
 
-            label->setPixmap(QPixmap::fromImage(display->getIcon()));
+            icon->setPixmap(QPixmap::fromImage(display->getIcon()));
             label->setText(displays[i].toObject()["class"].toString());
             label->setFont(QFont("", 14));
             label->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
@@ -43,6 +44,7 @@ void fairwind::ui::settings::DisplaysBrowser::setDetails(QString settingsID, QJs
                 //extension->updateSettings(ref, checkState == "0" ? "2" : "0");
             });
 
+            layout->addWidget(icon);
             layout->addWidget(label);
             layout->addWidget(checkBox);
 
