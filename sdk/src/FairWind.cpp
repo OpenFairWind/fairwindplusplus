@@ -223,7 +223,7 @@ void fairwind::FairWind::loadApps() {
                         metaData["dataRoot"] = m_dataRoot.absolutePath();
 
                         // Initialize the app with the plugin metadata
-                        fairWindApp->onInit(&metaData);
+                        fairWindApp->onCreate(&metaData);
 
                         // Store the FairWind++ app pointer in the m_mapFairWindApps dictionary
                         m_mapFairWindApps[fairWindApp->getId()] = fairWindApp;

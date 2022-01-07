@@ -15,7 +15,7 @@ QImage fairwind::apps::uav::UAV::getIcon() const {
 /*
  * Called by the FairWind framework when the app is invoked for the first time
  */
-QWidget *fairwind::apps::uav::UAV::onGui(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
+QWidget *fairwind::apps::uav::UAV::onStart(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
 
     m_widget=new QWidget();
     ui=new Ui::UAV();
@@ -57,8 +57,24 @@ QString fairwind::apps::uav::UAV::getLicense() const {
     return fairwind::AppBase::getLicense();
 }
 
-void fairwind::apps::uav::UAV::onInit(QJsonObject *metaData) {
-    AppBase::onInit(metaData);
+void fairwind::apps::uav::UAV::onCreate(QJsonObject *metaData) {
+    AppBase::onCreate(metaData);
+}
+
+void fairwind::apps::uav::UAV::onResume() {
+    AppBase::onResume();
+}
+
+void fairwind::apps::uav::UAV::onPause() {
+    AppBase::onPause();
+}
+
+void fairwind::apps::uav::UAV::onStop() {
+    AppBase::onStop();
+}
+
+void fairwind::apps::uav::UAV::onDestroy() {
+    AppBase::onDestroy();
 }
 
 QJsonObject fairwind::apps::uav::UAV::getConfig() {
@@ -75,10 +91,6 @@ void fairwind::apps::uav::UAV::updateSettings(QString settingsID, QString newVal
 
 void fairwind::apps::uav::UAV::setConfig(QJsonObject config) {
     AppBase::setConfig(config);
-}
-
-void fairwind::apps::uav::UAV::setSettings(QJsonObject config) {
-    AppBase::setSettings(config);
 }
 
 QJsonObject fairwind::apps::uav::UAV::getSettings() {

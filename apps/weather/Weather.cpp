@@ -15,7 +15,7 @@ QImage fairwind::apps::weather::Weather::getIcon() const {
 /*
  * Called by the FairWind framework when the app is invoked for the first time
  */
-QWidget *fairwind::apps::weather::Weather::onGui(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
+QWidget *fairwind::apps::weather::Weather::onStart(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
 
     m_widget=new QWidget();
     ui=new Ui::Weather();
@@ -57,8 +57,24 @@ QString fairwind::apps::weather::Weather::getLicense() const {
     return fairwind::AppBase::getLicense();
 }
 
-void fairwind::apps::weather::Weather::onInit(QJsonObject *metaData) {
-    AppBase::onInit(metaData);
+void fairwind::apps::weather::Weather::onCreate(QJsonObject *metaData) {
+    AppBase::onCreate(metaData);
+}
+
+void fairwind::apps::weather::Weather::onResume() {
+    AppBase::onResume();
+}
+
+void fairwind::apps::weather::Weather::onPause() {
+    AppBase::onPause();
+}
+
+void fairwind::apps::weather::Weather::onStop() {
+    AppBase::onStop();
+}
+
+void fairwind::apps::weather::Weather::onDestroy() {
+    AppBase::onDestroy();
 }
 
 QJsonObject fairwind::apps::weather::Weather::getConfig() {
@@ -77,9 +93,7 @@ void fairwind::apps::weather::Weather::setConfig(QJsonObject config) {
     AppBase::setConfig(config);
 }
 
-void fairwind::apps::weather::Weather::setSettings(QJsonObject config) {
-    AppBase::setSettings(config);
-}
+
 
 QJsonObject fairwind::apps::weather::Weather::getSettings() {
     return AppBase::getSettings();

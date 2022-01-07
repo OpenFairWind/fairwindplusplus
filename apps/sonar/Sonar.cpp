@@ -15,7 +15,7 @@ QImage fairwind::apps::sonar::Sonar::getIcon() const {
 /*
  * Called by the FairWind framework when the app is invoked for the first time
  */
-QWidget *fairwind::apps::sonar::Sonar::onGui(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
+QWidget *fairwind::apps::sonar::Sonar::onStart(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
 
     m_widget=new QWidget();
     ui=new Ui::Sonar();
@@ -57,8 +57,24 @@ QString fairwind::apps::sonar::Sonar::getLicense() const {
     return fairwind::AppBase::getLicense();
 }
 
-void fairwind::apps::sonar::Sonar::onInit(QJsonObject *metaData) {
-    AppBase::onInit(metaData);
+void fairwind::apps::sonar::Sonar::onCreate(QJsonObject *metaData) {
+    AppBase::onCreate(metaData);
+}
+
+void fairwind::apps::sonar::Sonar::onResume() {
+    AppBase::onResume();
+}
+
+void fairwind::apps::sonar::Sonar::onPause() {
+    AppBase::onPause();
+}
+
+void fairwind::apps::sonar::Sonar::onStop() {
+    AppBase::onStop();
+}
+
+void fairwind::apps::sonar::Sonar::onDestroy() {
+    AppBase::onDestroy();
 }
 
 QJsonObject fairwind::apps::sonar::Sonar::getConfig() {
@@ -75,10 +91,6 @@ void fairwind::apps::sonar::Sonar::updateSettings(QString settingsID, QString ne
 
 void fairwind::apps::sonar::Sonar::setConfig(QJsonObject config) {
     AppBase::setConfig(config);
-}
-
-void fairwind::apps::sonar::Sonar::setSettings(QJsonObject config) {
-    AppBase::setSettings(config);
 }
 
 QJsonObject fairwind::apps::sonar::Sonar::getSettings() {

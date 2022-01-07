@@ -23,7 +23,22 @@ namespace fairwind::apps {
         virtual ~IApp() = default;
 
         // Initialisation method
-        virtual void onInit(QJsonObject *metaData) = 0;
+        virtual void onCreate(QJsonObject *metaData) = 0;
+
+        // Method called when the app is first launched by the user (only one time in the lifecycle)
+        virtual QWidget *onStart(QMainWindow *mainWindow, QMap <QString, QVariant> args) = 0;
+
+        // Called when the application is going in foreground
+        virtual void onResume() = 0;
+
+        // Called when the application is going in background
+        virtual void onPause() = 0;
+
+        // Called when the application is going to be stopped (only one time in the lifecycle)
+        virtual void onStop() = 0;
+
+        // Finalization method
+        virtual void onDestroy() = 0;
 
         // Returns the app's id
         virtual QString getId() const = 0;
@@ -49,8 +64,7 @@ namespace fairwind::apps {
         // Returns the app's icon
         virtual QImage getIcon() const = 0;
 
-        // Method called when the app is first launched by the user
-        virtual QWidget *onGui(QMainWindow *mainWindow, QMap <QString, QVariant> args) = 0;
+
 
         // Method called to update the value of a settings
         virtual void updateSettings(QString settingsID, QString newValue) = 0;
@@ -63,10 +77,7 @@ namespace fairwind::apps {
 
         // Returns the app's settings definition
         virtual QJsonObject getSettings() = 0;
-
-        // Sets the settings file
-        virtual void setSettings(QJsonObject config) = 0;
-
+        
         // Returns the app's metadata
         virtual QJsonObject getMetaData() = 0;
     };

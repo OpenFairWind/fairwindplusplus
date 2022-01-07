@@ -20,7 +20,7 @@ QImage fairwind::apps::chart::Chart::getIcon() const {
 /*
  * Called by the FairWind framework when the app is invoked for the first time
  */
-QWidget *fairwind::apps::chart::Chart::onGui(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
+QWidget *fairwind::apps::chart::Chart::onStart(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
 
     auto widget = new QWidget();
     auto ui = new Ui::Chart();
@@ -115,8 +115,24 @@ QString fairwind::apps::chart::Chart::getLicense() const {
 }
 
 
-void fairwind::apps::chart::Chart::onInit(QJsonObject *metaData) {
-    AppBase::onInit(metaData);
+void fairwind::apps::chart::Chart::onCreate(QJsonObject *metaData) {
+    AppBase::onCreate(metaData);
+}
+
+void fairwind::apps::chart::Chart::onResume()  {
+    AppBase::onResume();
+}
+
+void fairwind::apps::chart::Chart::onPause()  {
+    AppBase::onPause();
+}
+
+void fairwind::apps::chart::Chart::onStop()  {
+    AppBase::onStop();
+}
+
+void fairwind::apps::chart::Chart::onDestroy()  {
+    AppBase::onDestroy();
 }
 
 QJsonObject fairwind::apps::chart::Chart::getConfig() {
@@ -133,10 +149,6 @@ void fairwind::apps::chart::Chart::updateSettings(QString settingsID, QString ne
 
 void fairwind::apps::chart::Chart::setConfig(QJsonObject config) {
     AppBase::setConfig(config);
-}
-
-void fairwind::apps::chart::Chart::setSettings(QJsonObject config) {
-    AppBase::setSettings(config);
 }
 
 QJsonObject fairwind::apps::chart::Chart::getSettings() {

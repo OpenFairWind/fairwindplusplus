@@ -13,6 +13,64 @@ FairWind++ has been tested on Linux (including Raspberry Pi 3b+ and 4), macOS, W
 It was developed at the [Department of Science and Technologies](http://dist.uniparthenope.it), [University of Naples "Parthenope"](http://www.uniparthenope.it) within the DYNAMO project with the final goal of providing a citizen science platform for coastal marine data gathering and concentration homogenization and diffusion.
 More information [here](http://fairwind.uniparthenope.it).
 
+## FairWind++ Apps
+FairWind++ is an execution environment for Apps using the same metaphor of mobile devices
+but designed for leisure boats. FairWind++ works on top of an operating system like but is not
+limited to Linux, macOS, and Windows.
+
+FairWind++ offers an SDK enabling third parties in App development.
+In FairWInd++ can run and co-exist 3 types of Apps:
+
+- **FairWind Apps**
+
+  The FairWind Apps are applications designed to run in the FairWind++ environment.
+
+  The developers built those applications using C++ 17, the FairWind++ SDK, and the QT5.15.2 library.
+  The applications can be open or closed-source, tested on a development environment,
+  and published on a store.
+
+  The applications similarly work as QT plug-ins to mobile apps.
+  Nevertheless, the applications access the onboard sensors, data, and actuators.
+
+  An example of FairWind App the Chart application. 
+
+  ![The Chart App.](figures/chart01.jpeg)
+
+- **Web Apps**
+
+  Web applications are locally hosted or remotely hosted on the internet.
+
+  The Web FairWind App enables the user to create web applications defining a "route" to identify the web app univocally.
+
+  The FairWind app shows the web apps on the launcher as regular applications.
+
+  An example of web application are the
+  [Navionics Web App](https://webapp.navionics.com) and the [Signal K](http://signalk.org) Apps.
+
+  ![The Navionics Web App (hosted on the Internet).](figures/webapp01.jpeg)
+
+  ![A Signalk K App (hosted on board).](figures/webapp02.jpeg)
+
+- **External Apps**
+
+  External applications are executed by the operating system not explicitly designed to run in the FairWind++ environment.
+  The External FairWind app enables the user to define External apps identifying them univocally using a "route".
+  Candidate external apps can run in fullscreen non-windowed mode.
+  The drawback is that there is no chance to return to the FairWind++ launcher without using a physical key combination or an external device as a sort of "Home button".
+
+  An example of external application is [OpenCPN](https://opencpn.org).
+
+## Building FairWind++
+We tested FairWind++ on diverse and different computer architectures and operating system combinations.
+FairWind++ is developed in C++ 17 and QT5.12.2.
+The following list is an incomplete set of tested working conditions:
+
+- MacOs, Intel
+- MacOs, Apple Silicon (the web applications are not working)
+- Ubuntu Linux, ARM64
+- Ubuntu Linux, X86_64
+- Raspberry Pi OS, ARM32
+- Windows 10, Intel
 
 ### Prerequisites
 
