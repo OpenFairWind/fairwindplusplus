@@ -101,21 +101,28 @@ void fairwind::ui::MainWindow::setForegroundApp(QString hash) {
 
     // Get the map containing all the loaded apps and pick the one that matches the provided hash
     auto app = fairWind->getApps()[hash];
+
+    // Get the fairwind app
+    fairwind::apps::IApp *fairWindApp = fairWind->getAppByExtensionId(app->getExtension());
+
+    // The QT widget implementing the app
     QWidget *widgetApp = nullptr;
 
     // Check if the requested app has been already launched by the user
-    if (mapWidgets.find(hash) != mapWidgets.end()) {
+    if (mapWidgets.contains(hash)) {
+
         // If yes, get its widget from mapWidgets
         widgetApp = mapWidgets[hash];
     } else {
-        // Otherwise, get its widget from the FairWind singleton itself
-        fairwind::apps::IApp *fairWindApp = fairWind->getAppByExtensionId(app->getExtension());
-        widgetApp = fairWindApp->onGui(this, app->getArgs());
+        // invoke the app onStart method
+        widgetApp = fairWindApp->onStart(this, app->getArgs());
 
         // Check if the widget is valid
         if (widgetApp) {
+
             // Add it to the UI
             ui->stackedWidget_Center->addWidget(widgetApp);
+
             // Store it in mapWidgets for future usage
             mapWidgets.insert(hash, widgetApp);
         }
@@ -123,8 +130,22 @@ void fairwind::ui::MainWindow::setForegroundApp(QString hash) {
 
     // Check if the widget is valid
     if (widgetApp) {
+
+        // Check if there is an app on foreground
+        if (m_fairWindApp) {
+
+            // Call the foreground app onPause method
+            m_fairWindApp->onPause();
+        }
+
+        // Set the current app
+        m_fairWindApp = fairWindApp;
+
         // Update the UI with the new widget
         ui->stackedWidget_Center->setCurrentWidget(widgetApp);
+
+        // Call the new foreground app onResume method
+        m_fairWindApp->onResume();
     }
 }
 

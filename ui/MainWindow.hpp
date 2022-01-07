@@ -57,6 +57,9 @@ namespace fairwind::ui {
         topbar::TopBar *m_topBar = nullptr;
         // QWidget containing navigation buttons
         bottombar::BottomBar *m_bottonBar = nullptr;
+
+        // The pointer to the foregraund app
+        fairwind::apps::IApp *m_fairWindApp = nullptr;
     };
 }
 
