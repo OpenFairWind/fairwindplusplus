@@ -17,77 +17,78 @@
         "type": "object",
         "properties": {
           "Displays": {
+            "displayName": "Displays",
             "type": "array",
             "widgetClassName": "fairwind::ui::settings::DisplaysBrowser",
             "items": { "$ref": "#/definitions/display"}
           },
           "Layers": {
+            "displayName": "Layers",
             "type": "array",
             "widgetClassName": "fairwind::ui::settings::LayersBrowser",
             "items": {
               "$ref": "#/definitions/layer"
             }
           },
-          "Options": {
-            "type": "object",
-            "properties": {
-              "center_map": {
-                "type": "boolean",
-                "defaultValue": true,
-                "displayName": "Center Map",
-                "domain": [
-                  {
-                    "key": "No",
-                    "value": false
-                  },
-                  {
-                    "key": "Yes",
-                    "value": true
-                  }
-                ],
-                "widgetClassName": "fairwind::ui::settings::FairComboBox"
+          "center_map": {
+            "type": "boolean",
+            "defaultValue": true,
+            "displayName": "Center Map",
+            "domain": [
+              {
+                "key": "No",
+                "value": false
               },
-              "orientation": {
-                "type": "string",
-                "defaultValue": "north",
-                "displayName": "Orientation",
-                "domain": [
-                  {
-                    "key": "North Up",
-                    "value": "north"
-                  },
-                  {
-                    "key": "Course Up",
-                    "value": "course"
-                  }
-                ],
-                "widgetClassName": "fairwind::ui::settings::FairComboBox"
-              },
-              "position": {
-                "type": "string",
-                "defaultValue": "${self}.navigation.position",
-                "displayName": "Position",
-                "widgetClassName": "fairwind::ui::settings::SignalKKey"
-              },
-              "heading": {
-                "type": "string",
-                "defaultValue": "${self}.navigation.courseOverGroundMagnetic",
-                "displayName": "Heading",
-                "widgetClassName": "fairwind::ui::settings::SignalKKey"
-              },
-              "speed": {
-                "type": "string",
-                "defaultValue": "${self}.navigation.speedOverGround",
-                "displayName": "Speed",
-                "widgetClassName": "fairwind::ui::settings::SignalKKey"
+              {
+                "key": "Yes",
+                "value": true
               }
-            }
+            ],
+            "widgetClassName": "fairwind::ui::settings::FairComboBox"
+          },
+          "orientation": {
+            "type": "string",
+            "defaultValue": "north",
+            "displayName": "Orientation",
+            "domain": [
+              {
+                "key": "North Up",
+                "value": "north"
+              },
+              {
+                "key": "Course Up",
+                "value": "course"
+              }
+            ],
+            "widgetClassName": "fairwind::ui::settings::FairComboBox"
+          },
+          "position": {
+            "type": "string",
+            "defaultValue": "${self}.navigation.position",
+            "displayName": "Position",
+            "widgetClassName": "fairwind::ui::settings::SignalKKey"
+          },
+          "heading": {
+            "type": "string",
+            "defaultValue": "${self}.navigation.courseOverGroundMagnetic",
+            "displayName": "Heading",
+            "widgetClassName": "fairwind::ui::settings::SignalKKey"
+          },
+          "speed": {
+            "type": "string",
+            "defaultValue": "${self}.navigation.speedOverGround",
+            "displayName": "Speed",
+            "widgetClassName": "fairwind::ui::settings::SignalKKey"
           }
         },
         "required": [
           "Displays",
           "Layers",
-          "Options"
+          "center_map",
+          "orientation",
+          "position",
+          "heading",
+          "speed"
         ]
       },
       "Config": {
