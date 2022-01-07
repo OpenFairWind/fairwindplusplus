@@ -52,7 +52,7 @@ fairwind::displays::DisplaySingleText::~DisplaySingleText() {
 }
 
 QImage fairwind::displays::DisplaySingleText::getIcon() const {
-    return QImage(":resources/images/icons/signalk_icon.png");
+    return QImage(":resources/images/icons/display_simpletext_icon.png");
 }
 
 QWidget *fairwind::displays::DisplaySingleText::onSettings() {

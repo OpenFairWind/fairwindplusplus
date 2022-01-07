@@ -14,7 +14,7 @@ fairwind::layers::TiledLayer::~TiledLayer() {
 }
 
 QImage fairwind::layers::TiledLayer::getIcon() const {
-    return QImage(":resources/images/icons/tiled_icon.png");;
+    return QImage(":resources/images/icons/layer_tiled_icon.png");;
 }
 
 void fairwind::layers::TiledLayer::onInit(QMap<QString, QVariant> params) {

@@ -17,7 +17,7 @@ fairwind::displays::DisplayDoubleText::~DisplayDoubleText() {
 }
 
 QImage fairwind::displays::DisplayDoubleText::getIcon() const {
-    return QImage(":resources/images/icons/signalk_icon.png");
+    return QImage(":resources/images/icons/display_doubletext_icon.png");
 }
 
 QWidget *fairwind::displays::DisplayDoubleText::onSettings() {

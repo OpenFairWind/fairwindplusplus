@@ -57,7 +57,7 @@ fairwind::displays::DisplayChart::~DisplayChart() {
  * Returns the display's icon
  */
 QImage fairwind::displays::DisplayChart::getIcon() const {
-    return QImage(":resources/images/icons/signalk_icon.png");
+    return QImage(":resources/images/icons/display_chart_icon.png");
 }
 
 /*
