@@ -159,7 +159,9 @@ add_library(fairwindsdk SHARED
         src/settings/FairLineEdit.cpp
         src/settings/FairCheckBox.cpp
         src/settings/DisplaysBrowser.cpp
-        src/settings/LayersBrowser.cpp)
+        src/settings/LayersBrowser.cpp
+
+        ${FAIRWINDSDK_RESOURCE_ADDED})
 
 target_include_directories(fairwindsdk
         PUBLIC
