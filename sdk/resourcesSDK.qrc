@@ -9,6 +9,16 @@
         <file>resources/images/ais_shore.png</file>
         <file>resources/images/ship_red.png</file>
         <file>resources/images/icons/signalk_icon.png</file>
+        <file>resources/images/icons/display_icon.png</file>
+        <file>resources/images/icons/display_doubletext_icon.png</file>
+        <file>resources/images/icons/display_singletext_icon.png</file>
+        <file>resources/images/icons/display_windangle_icon.png</file>
+        <file>resources/images/icons/display_gauge_icon.png</file>
+        <file>resources/images/icons/display_chart_icon.png</file>
+        <file>resources/images/icons/layer_icon.png</file>
+        <file>resources/images/icons/layer_signalk_icon.png</file>
+        <file>resources/images/icons/layer_osm_icon.png</file>
+        <file>resources/images/icons/layer_tiled_icon.png</file>
         <file>resources/schemas/display.json</file>
         <file>resources/schemas/layer.json</file>
     </qresource>
