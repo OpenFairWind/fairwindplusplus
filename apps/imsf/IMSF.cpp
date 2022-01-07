@@ -15,7 +15,7 @@ QImage fairwind::apps::imsf::IMSF::getIcon() const {
 /*
  * Called by the FairWind framework when the app is invoked for the first time
  */
-QWidget *fairwind::apps::imsf::IMSF::onGui(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
+QWidget *fairwind::apps::imsf::IMSF::onStart(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
 
     m_widget=new QWidget();
     ui=new Ui::IMSF();
@@ -58,10 +58,25 @@ QString fairwind::apps::imsf::IMSF::getLicense() const {
 }
 
 
-void fairwind::apps::imsf::IMSF::onInit(QJsonObject *metaData) {
-    AppBase::onInit(metaData);
+void fairwind::apps::imsf::IMSF::onCreate(QJsonObject *metaData) {
+    AppBase::onCreate(metaData);
 }
 
+void fairwind::apps::imsf::IMSF::onResume() {
+    AppBase::onResume();
+}
+
+void fairwind::apps::imsf::IMSF::onPause() {
+    AppBase::onPause();
+}
+
+void fairwind::apps::imsf::IMSF::onStop() {
+    AppBase::onStop();
+}
+
+void fairwind::apps::imsf::IMSF::onDestroy() {
+    AppBase::onDestroy();
+}
 
 QJsonObject fairwind::apps::imsf::IMSF::getConfig() {
     return AppBase::getConfig();
@@ -77,10 +92,6 @@ void fairwind::apps::imsf::IMSF::updateSettings(QString settingsID, QString newV
 
 void fairwind::apps::imsf::IMSF::setConfig(QJsonObject config) {
     AppBase::setConfig(config);
-}
-
-void fairwind::apps::imsf::IMSF::setSettings(QJsonObject config) {
-    AppBase::setSettings(config);
 }
 
 QJsonObject fairwind::apps::imsf::IMSF::getSettings() {

@@ -15,7 +15,7 @@ QImage fairwind::apps::video::Video::getIcon() const {
 /*
  * Called by the FairWind framework when the app is invoked for the first time
  */
-QWidget *fairwind::apps::video::Video::onGui(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
+QWidget *fairwind::apps::video::Video::onStart(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
 
     m_widget=new QWidget();
     ui=new Ui::Video();
@@ -25,6 +25,22 @@ QWidget *fairwind::apps::video::Video::onGui(QMainWindow *mainWindow, QMap<QStri
     auto config = getConfig();
 
     return m_widget;
+}
+
+void fairwind::apps::video::Video::onResume() {
+    AppBase::onResume();
+}
+
+void fairwind::apps::video::Video::onPause() {
+    AppBase::onPause();
+}
+
+void fairwind::apps::video::Video::onStop() {
+    AppBase::onStop();
+}
+
+void fairwind::apps::video::Video::onDestroy() {
+    AppBase::onDestroy();
 }
 
 
@@ -57,8 +73,8 @@ QString fairwind::apps::video::Video::getLicense() const {
     return fairwind::AppBase::getLicense();
 }
 
-void fairwind::apps::video::Video::onInit(QJsonObject *metaData) {
-    AppBase::onInit(metaData);
+void fairwind::apps::video::Video::onCreate(QJsonObject *metaData) {
+    AppBase::onCreate(metaData);
 }
 
 QJsonObject fairwind::apps::video::Video::getConfig() {
@@ -77,9 +93,7 @@ void fairwind::apps::video::Video::setConfig(QJsonObject config) {
     AppBase::setConfig(config);
 }
 
-void fairwind::apps::video::Video::setSettings(QJsonObject config) {
-    AppBase::setSettings(config);
-}
+
 
 QJsonObject fairwind::apps::video::Video::getSettings() {
     return AppBase::getSettings();

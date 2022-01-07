@@ -15,7 +15,7 @@ QImage fairwind::apps::radar::Radar::getIcon() const {
 /*
  * Called by the FairWind framework when the app is invoked for the first time
  */
-QWidget *fairwind::apps::radar::Radar::onGui(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
+QWidget *fairwind::apps::radar::Radar::onStart(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
 
     m_widget=new QWidget();
     ui=new Ui::Radar();
@@ -58,8 +58,24 @@ QString fairwind::apps::radar::Radar::getLicense() const {
 }
 
 
-void fairwind::apps::radar::Radar::onInit(QJsonObject *metaData) {
-    AppBase::onInit(metaData);
+void fairwind::apps::radar::Radar::onCreate(QJsonObject *metaData) {
+    AppBase::onCreate(metaData);
+}
+
+void fairwind::apps::radar::Radar::onResume() {
+    AppBase::onResume();
+}
+
+void fairwind::apps::radar::Radar::onPause() {
+    AppBase::onPause();
+}
+
+void fairwind::apps::radar::Radar::onStop() {
+    AppBase::onStop();
+}
+
+void fairwind::apps::radar::Radar::onDestroy() {
+    AppBase::onDestroy();
 }
 
 QJsonObject fairwind::apps::radar::Radar::getConfig() {
@@ -76,10 +92,6 @@ void fairwind::apps::radar::Radar::updateSettings(QString settingsID, QString ne
 
 void fairwind::apps::radar::Radar::setConfig(QJsonObject config) {
     AppBase::setConfig(config);
-}
-
-void fairwind::apps::radar::Radar::setSettings(QJsonObject config) {
-    AppBase::setSettings(config);
 }
 
 QJsonObject fairwind::apps::radar::Radar::getSettings() {

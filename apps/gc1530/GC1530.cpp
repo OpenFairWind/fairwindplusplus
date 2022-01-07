@@ -20,7 +20,7 @@ QImage it::gov::guardiacostiera::gc1530::GC1530::getIcon() const {
 /*
  * Called by the FairWind framework when the app is invoked for the first time
  */
-QWidget *it::gov::guardiacostiera::gc1530::GC1530::onGui(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
+QWidget *it::gov::guardiacostiera::gc1530::GC1530::onStart(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
 
     m_widget=new QWidget();
     ui=new Ui::GC1530();
@@ -93,19 +93,35 @@ QString it::gov::guardiacostiera::gc1530::GC1530::getLicense() const {
 }
 
 
-void it::gov::guardiacostiera::gc1530::GC1530::onInit(QJsonObject *metaData) {
+void it::gov::guardiacostiera::gc1530::GC1530::onCreate(QJsonObject *metaData) {
     QWebEngineSettings::defaultSettings()->setAttribute(QWebEngineSettings::PluginsEnabled, true);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
     QWebEngineSettings::defaultSettings()->setAttribute(QWebEngineSettings::DnsPrefetchEnabled, true);
     QWebEngineProfile::defaultProfile()->setUseForGlobalCertificateVerification();
 #endif
     m_profile = QWebEngineProfile::defaultProfile();
-    AppBase::onInit(metaData);
+    AppBase::onCreate(metaData);
 
     auto fairWind = fairwind::FairWind::getInstance();
     //fairWind->registerLayer(new NavionicsLayer());
 
     m_url = "https://www.guardiacostiera.gov.it";
+}
+
+void it::gov::guardiacostiera::gc1530::GC1530::onResume() {
+    AppBase::onResume();
+}
+
+void it::gov::guardiacostiera::gc1530::GC1530::onPause() {
+    AppBase::onPause();
+}
+
+void it::gov::guardiacostiera::gc1530::GC1530::onStop() {
+    AppBase::onStop();
+}
+
+void it::gov::guardiacostiera::gc1530::GC1530::onDestroy() {
+    AppBase::onDestroy();
 }
 
 QJsonObject it::gov::guardiacostiera::gc1530::GC1530::getConfig() {
@@ -126,10 +142,6 @@ void it::gov::guardiacostiera::gc1530::GC1530::updateSettings(QString settingsID
 
 void it::gov::guardiacostiera::gc1530::GC1530::setConfig(QJsonObject config) {
     AppBase::setConfig(config);
-}
-
-void it::gov::guardiacostiera::gc1530::GC1530::setSettings(QJsonObject config) {
-    AppBase::setSettings(config);
 }
 
 QJsonObject it::gov::guardiacostiera::gc1530::GC1530::getSettings() {

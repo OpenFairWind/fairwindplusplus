@@ -15,7 +15,7 @@ QImage fairwind::apps::chandlery::Chandlery::getIcon() const {
 /*
  * Called by the FairWind framework when the app is invoked for the first time
  */
-QWidget *fairwind::apps::chandlery::Chandlery::onGui(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
+QWidget *fairwind::apps::chandlery::Chandlery::onStart(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
 
     m_widget=new QWidget();
     ui=new Ui::Chandlery();
@@ -58,8 +58,24 @@ QString fairwind::apps::chandlery::Chandlery::getLicense() const {
 }
 
 
-void fairwind::apps::chandlery::Chandlery::onInit(QJsonObject *metaData) {
-    AppBase::onInit(metaData);
+void fairwind::apps::chandlery::Chandlery::onCreate(QJsonObject *metaData) {
+    AppBase::onCreate(metaData);
+}
+
+void fairwind::apps::chandlery::Chandlery::onResume()  {
+    AppBase::onResume();
+}
+
+void fairwind::apps::chandlery::Chandlery::onPause()  {
+    AppBase::onPause();
+}
+
+void fairwind::apps::chandlery::Chandlery::onStop()  {
+    AppBase::onStop();
+}
+
+void fairwind::apps::chandlery::Chandlery::onDestroy()  {
+    AppBase::onDestroy();
 }
 
 QJsonObject fairwind::apps::chandlery::Chandlery::getConfig() {
@@ -77,10 +93,6 @@ void fairwind::apps::chandlery::Chandlery::updateSettings(QString settingsID, QS
 
 void fairwind::apps::chandlery::Chandlery::setConfig(QJsonObject config) {
     AppBase::setConfig(config);
-}
-
-void fairwind::apps::chandlery::Chandlery::setSettings(QJsonObject config) {
-    AppBase::setSettings(config);
 }
 
 QJsonObject fairwind::apps::chandlery::Chandlery::getSettings() {

@@ -11,11 +11,11 @@
 #include <QProcess>
 
 
-QImage fairwind::apps::native::External::getIcon() const {
+QImage fairwind::apps::external::External::getIcon() const {
     return QImage(":resources/images/icons/native_icon.png");
 }
 
-QWidget *fairwind::apps::native::External::onGui(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
+QWidget *fairwind::apps::external::External::onStart(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
     if (args.contains("Command")) {
         QString command=args["Command"].toString();
         QStringList commandArgs;
@@ -26,59 +26,73 @@ QWidget *fairwind::apps::native::External::onGui(QMainWindow *mainWindow, QMap<Q
     return nullptr;
 }
 
-QString fairwind::apps::native::External::getId() const {
+QString fairwind::apps::external::External::getId() const {
     return fairwind::AppBase::getId();
 }
 
-QString fairwind::apps::native::External::getName() const {
+QString fairwind::apps::external::External::getName() const {
     return fairwind::AppBase::getName();
 }
 
-QString fairwind::apps::native::External::getDesc() const {
+QString fairwind::apps::external::External::getDesc() const {
     return fairwind::AppBase::getDesc();
 }
 
-QString fairwind::apps::native::External::getVersion() const {
+QString fairwind::apps::external::External::getVersion() const {
     return fairwind::AppBase::getVersion();
 }
 
-QString fairwind::apps::native::External::getVendor() const {
+QString fairwind::apps::external::External::getVendor() const {
     return fairwind::AppBase::getVendor();
 }
 
-QString fairwind::apps::native::External::getCopyright() const {
+QString fairwind::apps::external::External::getCopyright() const {
     return fairwind::AppBase::getCopyright();
 }
 
-QString fairwind::apps::native::External::getLicense() const {
+QString fairwind::apps::external::External::getLicense() const {
     return fairwind::AppBase::getLicense();
 }
 
 
-void fairwind::apps::native::External::onInit(QJsonObject *metaData) {
-    AppBase::onInit(metaData);
+void fairwind::apps::external::External::onCreate(QJsonObject *metaData) {
+    AppBase::onCreate(metaData);
 }
 
-QJsonObject fairwind::apps::native::External::getConfig() {
+void fairwind::apps::external::External::onResume() {
+    AppBase::onResume();
+}
+
+void fairwind::apps::external::External::onPause() {
+    AppBase::onPause();
+}
+
+void fairwind::apps::external::External::onStop() {
+    AppBase::onStop();
+}
+
+void fairwind::apps::external::External::onDestroy() {
+    AppBase::onDestroy();
+}
+
+QJsonObject fairwind::apps::external::External::getConfig() {
     return AppBase::getConfig();
 }
 
-QJsonObject fairwind::apps::native::External::getMetaData() {
+QJsonObject fairwind::apps::external::External::getMetaData() {
     return AppBase::getMetaData();
 }
 
-void fairwind::apps::native::External::updateSettings(QString settingsID, QString newValue) {
+void fairwind::apps::external::External::updateSettings(QString settingsID, QString newValue) {
     AppBase::updateSettings(settingsID, newValue);
 }
 
-void fairwind::apps::native::External::setConfig(QJsonObject config) {
+void fairwind::apps::external::External::setConfig(QJsonObject config) {
     AppBase::setConfig(config);
 }
 
-void fairwind::apps::native::External::setSettings(QJsonObject config) {
-    AppBase::setSettings(config);
-}
 
-QJsonObject fairwind::apps::native::External::getSettings() {
+
+QJsonObject fairwind::apps::external::External::getSettings() {
     return AppBase::getSettings();
 }
