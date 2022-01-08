@@ -146,6 +146,9 @@ void fairwind::ui::MainWindow::setForegroundApp(QString hash) {
 
         // Call the new foreground app onResume method
         m_fairWindApp->onResume();
+
+        // Set the current app in ui components
+        m_topBar->setFairWindApp(m_fairWindApp);
     }
 }
 
@@ -154,8 +157,22 @@ void fairwind::ui::MainWindow::setForegroundApp(QString hash) {
  * Method called when the user clicks the Apps button on the BottomBar object
  */
 void fairwind::ui::MainWindow::onApps() {
+
+    // Check if there is an app on foreground
+    if (m_fairWindApp) {
+
+        // Call the foreground app onPause method
+        m_fairWindApp->onPause();
+    }
+
+    // No current app
+    m_fairWindApp = nullptr;
+
     // Show the apps view
     ui->stackedWidget_Center->setCurrentWidget(m_apps);
+
+    // Set the current app in ui components
+    m_topBar->setFairWindApp(m_fairWindApp);
 }
 
 /*

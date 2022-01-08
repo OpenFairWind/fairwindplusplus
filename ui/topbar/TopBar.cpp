@@ -5,6 +5,7 @@
 #include <QTimer>
 
 #include <FairWindSdk/FairWind.hpp>
+#include <QAbstractButton>
 
 #include "TopBar.hpp"
 #include "ui_TopBar.h"
@@ -18,6 +19,17 @@ fairwind::ui::topbar::TopBar::TopBar(QWidget *parent) :
         ui(new Ui::TopBar) {
     // Setup the UI
     ui->setupUi(parent);
+
+    ui->toolButton_UL->setIcon(QPixmap::fromImage(QImage(":/resources/images/icons/fairwind_icon.png")));
+    ui->toolButton_UL->setIconSize(QSize(32,32));
+
+    ui->toolButton_UR->setIcon(QPixmap::fromImage(QImage(":/resources/images/icons/apps_icon.png")));
+    ui->toolButton_UR->setIconSize(QSize(32,32));
+
+    // emit a signal when the Apps tool button from the UI is clicked
+    connect(ui->toolButton_UL, &QToolButton::released, this, &TopBar::toolbuttonUL_clicked);
+    // emit a signal when the Settings tool button from the UI is clicked
+    connect(ui->toolButton_UR, &QToolButton::released, this, &TopBar::toolbuttonUR_clicked);
 
     // Create a new timer which will contain the current time
     QTimer *timer = new QTimer(this);
@@ -70,6 +82,24 @@ void fairwind::ui::topbar::TopBar::updateTime() {
     text = dateTime.toString("dd-MM-yyyy");
     // Set the date label from the UI to the formatted date
     ui->label_Date->setText(text);
+}
+
+/*
+ * settings_clicked
+ * Method called when the user wants to view the settings screen
+ */
+void fairwind::ui::topbar::TopBar::toolbuttonUL_clicked() {
+    // Emit the signal to tell the MainWindow to update the UI and show the settings screen
+    emit clickedToolbuttonUL();
+}
+
+/*
+ * apps_clicked
+ * Method called when the user wants to view the apps screen
+ */
+void fairwind::ui::topbar::TopBar::toolbuttonUR_clicked() {
+    // Emit the signal to tell the MainWindow to update the UI and show the apps screen
+    emit clickedToolbuttonUR();
 }
 
 /*
@@ -160,5 +190,16 @@ void fairwind::ui::topbar::TopBar::updateNavigationSpeedOverGround(const QJsonOb
         sSpeedOverGround = QString{"%1"}.arg(speedverGround, 3, 'f', 1, '0');
         // Set the speed over ground label from the UI to the formatted value
         ui->label_SOG->setText(sSpeedOverGround);
+    }
+}
+
+void fairwind::ui::topbar::TopBar::setFairWindApp(fairwind::apps::IApp *fairWindApp) {
+    m_fairWindApp = fairWindApp;
+    if (m_fairWindApp) {
+        ui->toolButton_UR->setIcon(QPixmap::fromImage(fairWindApp->getIcon()));
+        ui->toolButton_UR->setIconSize(QSize(32, 32));
+    } else {
+        ui->toolButton_UR->setIcon(QPixmap::fromImage(QImage(":resources/images/icons/apps_icon.png")));
+        ui->toolButton_UR->setIconSize(QSize(32, 32));
     }
 }

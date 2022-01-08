@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
 
     QApplication app(argc, argv);
     // Get the splash screen logo
-    QPixmap pixmap(":/resources/images/icons/splash_logo.png");
+    QPixmap pixmap(":/resources/images/splash_logo.png");
     // Create a splash screen containing the logo
     QSplashScreen splash(pixmap);
     // Show the logo
