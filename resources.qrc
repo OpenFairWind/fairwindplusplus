@@ -1,13 +1,16 @@
 <!DOCTYPE RCC><RCC version="1.0">
     <qresource>
         <file>resources/images/carbon_base.png</file>
+        <file>resources/images/splash_logo.png</file>
 
         <file>resources/images/icons/imagebutton_mydata.png</file>
         <file>resources/images/icons/imagebutton_mob.png</file>
         <file>resources/images/icons/imagebutton_apps.png</file>
         <file>resources/images/icons/imagebutton_alarms.png</file>
         <file>resources/images/icons/imagebutton_settings.png</file>
-        <file>resources/images/icons/splash_logo.png</file>
+
+        <file>resources/images/icons/fairwind_icon.png</file>
+        <file>resources/images/icons/apps_icon.png</file>
 
 	<file>resources/images/icons/toolbutton_left.png</file>
 	<file>resources/images/icons/toolbutton_right.png</file>
