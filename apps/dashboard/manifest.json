@@ -322,7 +322,7 @@
                       {
                         "class":"fairwind::displays::DisplayGauge",
                         "active":true,
-                        "layout":"0,2,4,1",
+                        "layout":"4,2,4,1",
                         "maxValue": 18,
                         "minValue": 9,
                         "step": 1,
@@ -331,28 +331,25 @@
                       {
                         "class":"fairwind::displays::DisplayGauge",
                         "active":true,
-                        "layout":"0,3,4,1",
+                        "layout":"4,3,4,1",
                         "maxValue": 60,
                         "minValue": 0,
-                        "step": 10,
                         "fullPath":"${self}.electrical.batteries.1.current"
                       },
                       {
-                        "class":"fairwind::displays::DisplayVerticalBarGauge",
+                        "class":"fairwind::displays::DisplayBarGauge",
                         "active":true,
-                        "layout":"4,2,4,1",
-                        "maxValue": 0,
-                        "minValue": 100,
-                        "step": 10,
-                        "fullPath":"${self}.tanks.fuel.1.currentLevel"
-                      },
-                      {
-                        "class":"fairwind::displays::DisplayVerticalBarGauge",
-                        "active":true,
-                        "layout":"4,3,4,1",
+                        "layout":"0,2,4,1",
                         "maxValue": 100,
                         "minValue": 0,
-                        "step": 10,
+                        "fullPath":"${self}.tanks.freshWater.1.currentLevel"
+                      },
+                      {
+                        "class":"fairwind::displays::DisplayBarGauge",
+                        "active":true,
+                        "layout":"0,3,4,1",
+                        "maxValue": 100,
+                        "minValue": 0,
                         "fullPath":"${self}.tanks.freshWater.1.currentLevel"
                       }
                     ]

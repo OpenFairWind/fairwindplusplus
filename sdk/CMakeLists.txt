@@ -42,26 +42,48 @@ endif()
 set(LIBQTJSONSCHEMA ${LIBQTJSONSCHEMA} PARENT_SCOPE)
 
 
-ExternalProject_Add(QcGaugeWidget
-        GIT_REPOSITORY https://github.com/OpenFairWind/Qt-custom-gauge-widget.git
-        CMAKE_ARGS -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH} -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
-        TIMEOUT 360
-        )
+#ExternalProject_Add(QcGaugeWidget
+#        GIT_REPOSITORY https://github.com/OpenFairWind/Qt-custom-gauge-widget.git
+#        CMAKE_ARGS -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH} -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
+#        TIMEOUT 360
+#        )
 
-set(LIBQCGAUGEWIDGET ${EXTERNAL_INSTALL_LOCATION}/lib/libqcgaugewidget.so)
-if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
-    set(LIBQCGAUGEWIDGET ${EXTERNAL_INSTALL_LOCATION}/lib/static/qcgaugewidget.lib)
-    add_custom_command(
-            TARGET QcGaugeWidget
-            POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy
-            ${EXTERNAL_INSTALL_LOCATION}/bin/qcgaugewidget.dll
-            ${CMAKE_BINARY_DIR}
-    )
+#set(LIBQCGAUGEWIDGET ${EXTERNAL_INSTALL_LOCATION}/lib/libqcgaugewidget.so)
+#if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+#    set(LIBQCGAUGEWIDGET ${EXTERNAL_INSTALL_LOCATION}/lib/static/qcgaugewidget.lib)
+#    add_custom_command(
+#            TARGET QcGaugeWidget
+#            POST_BUILD
+#            COMMAND ${CMAKE_COMMAND} -E copy
+#            ${EXTERNAL_INSTALL_LOCATION}/bin/qcgaugewidget.dll
+#            ${CMAKE_BINARY_DIR}
+#    )
+#elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+#    set(LIBQCGAUGEWIDGET ${EXTERNAL_INSTALL_LOCATION}/lib/libqcgaugewidget.dylib)
+#endif()
+#set(LIBQCGAUGEWIDGET ${LIBQCGAUGEWIDGET} PARENT_SCOPE)
+
+ExternalProject_Add(QcGaugeWidget
+                GIT_REPOSITORY https://github.com/Fpepe943/Qt-custom-gauge-widget.git
+                CMAKE_ARGS -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH} -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
+                TIMEOUT 360
+                )
+
+        set(LIBQCGAUGEWIDGET ${EXTERNAL_INSTALL_LOCATION}/lib/libqcgaugewidget.so)
+        if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+        set(LIBQCGAUGEWIDGET ${EXTERNAL_INSTALL_LOCATION}/lib/static/qcgaugewidget.lib)
+        add_custom_command(
+        TARGET QcGaugeWidget
+        POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+        ${EXTERNAL_INSTALL_LOCATION}/bin/qcgaugewidget.dll
+        ${CMAKE_BINARY_DIR}
+        )
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
-    set(LIBQCGAUGEWIDGET ${EXTERNAL_INSTALL_LOCATION}/lib/libqcgaugewidget.dylib)
+set(LIBQCGAUGEWIDGET ${EXTERNAL_INSTALL_LOCATION}/lib/libqcgaugewidget.dylib)
 endif()
 set(LIBQCGAUGEWIDGET ${LIBQCGAUGEWIDGET} PARENT_SCOPE)
+
 
 ExternalProject_Add(QGeoView
         GIT_REPOSITORY https://github.com/OpenFairWind/QGeoView.git
@@ -102,7 +124,7 @@ add_library(fairwindsdk SHARED
         include/FairWindSdk/displays/DisplaySingleText.hpp
         include/FairWindSdk/displays/DisplayDoubleText.hpp
         include/FairWindSdk/displays/DisplayGauge.hpp
-        include/FairWindSdk/displays/DisplayVerticalBarGauge.hpp
+        include/FairWindSdk/displays/DisplayBarGauge.hpp
         include/FairWindSdk/displays/DisplaySimpleSwitch.hpp
         include/FairWindSdk/displays/DisplayWindAngleGauge.hpp
         include/FairWindSdk/displays/DisplayChart.hpp
@@ -136,7 +158,7 @@ add_library(fairwindsdk SHARED
         src/displays/base/singletext/DisplaySingleText.cpp
         src/displays/base/doubletext/DisplayDoubleText.cpp
         src/displays/base/gauge/DisplayGauge.cpp
-        src/displays/base/gauge/DisplayVerticalBarGauge.cpp
+        src/displays/base/gauge/DisplayBarGauge.cpp
         src/displays/base/switch/DisplaySimpleSwitch.cpp
         src/displays/wind/DisplayWindAngleGauge.cpp
         src/displays/chart/DisplayChart.cpp
@@ -161,7 +183,7 @@ add_library(fairwindsdk SHARED
         src/settings/DisplaysBrowser.cpp
         src/settings/LayersBrowser.cpp
 
-        ${FAIRWINDSDK_RESOURCE_ADDED})
+        )
 
 target_include_directories(fairwindsdk
         PUBLIC
