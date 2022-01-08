@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>875</width>
-    <height>89</height>
+    <height>99</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,6 +35,19 @@ color: rgb(250, 255, 255);</string>
    </property>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QToolButton" name="toolButton_UL">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
+      </widget>
+     </item>
      <item>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
@@ -238,6 +251,19 @@ color: rgb(250, 255, 255);</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="toolButton_UR">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
        </property>
       </widget>
      </item>
