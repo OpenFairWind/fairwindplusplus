@@ -43,6 +43,8 @@ namespace fairwind::ui {
         void onApps();
 
         void onSettings();
+        void onUpperLeft();
+        void onUpperRight();
 
     private:
         Ui::MainWindow *ui;

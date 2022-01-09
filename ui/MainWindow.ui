@@ -72,7 +72,7 @@ color: rgb(255, 255, 255);</string>
   </widget>
  </widget>
  <resources>
-  <include location="../../FairWind/resources.qrc"/>
+  <include location="../resources.qrc"/>
  </resources>
  <connections/>
 </ui>
