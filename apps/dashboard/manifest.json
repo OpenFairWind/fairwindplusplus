@@ -326,9 +326,9 @@
                         "class":"fairwind::displays::DisplayBarGauge",
                         "active":true,
                         "layout":"0,2,4,1",
-                        "maxValue": 100,
+                        "maxValue": 200,
                         "minValue": 0,
-                        "fullPath":"${self}.tanks.freshWater.1.currentLevel"
+                        "fullPath":"${self}.electrical.batteries.1.current"
                       },
                       {
                         "class":"fairwind::displays::DisplayBarGauge",
