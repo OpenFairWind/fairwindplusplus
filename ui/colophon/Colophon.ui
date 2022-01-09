@@ -47,7 +47,7 @@
             <string/>
            </property>
            <property name="pixmap">
-            <pixmap resource="../../resources.qrc">:/resources/images/icons/splash_logo.png</pixmap>
+            <pixmap>:/resources/images/icons/splash_logo.png</pixmap>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -134,7 +134,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>446</width>
+              <width>493</width>
               <height>468</height>
              </rect>
             </property>
@@ -143,6 +143,12 @@
               <layout class="QHBoxLayout" name="horizontalLayout_7">
                <item>
                 <widget class="QLabel" name="label_20">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
                  <property name="text">
                   <string/>
                  </property>
@@ -208,24 +214,6 @@
                </item>
               </layout>
              </item>
-             <item row="5" column="0">
-              <layout class="QHBoxLayout" name="horizontalLayout_2">
-               <item>
-                <widget class="QLabel" name="label_9">
-                 <property name="text">
-                  <string/>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLabel" name="label_10">
-                 <property name="text">
-                  <string>Gennaro Mellone - Developer</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
              <item row="1" column="0">
               <layout class="QHBoxLayout" name="horizontalLayout_4">
                <item>
@@ -278,8 +266,17 @@
               <layout class="QHBoxLayout" name="horizontalLayout_3">
                <item>
                 <widget class="QLabel" name="label_12">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
                  <property name="text">
                   <string/>
+                 </property>
+                 <property name="pixmap">
+                  <pixmap resource="../../resources.qrc">:/resources/images/colophon/cgdevita_64x64.png</pixmap>
                  </property>
                 </widget>
                </item>
@@ -296,6 +293,12 @@
               <layout class="QHBoxLayout" name="horizontalLayout_8">
                <item>
                 <widget class="QLabel" name="label_22">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
                  <property name="text">
                   <string/>
                  </property>
@@ -305,6 +308,36 @@
                 <widget class="QLabel" name="label_21">
                  <property name="text">
                   <string>Federica Izzo - Media &amp; Contents</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="5" column="0">
+              <layout class="QHBoxLayout" name="horizontalLayout_2">
+               <item>
+                <widget class="QLabel" name="label_9">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="pixmap">
+                  <pixmap resource="../../resources.qrc">:/resources/images/colophon/gmellone_64x64.png</pixmap>
+                 </property>
+                 <property name="scaledContents">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_10">
+                 <property name="text">
+                  <string>Gennaro Mellone - Developer</string>
                  </property>
                 </widget>
                </item>
@@ -337,7 +370,7 @@
  </widget>
  <resources>
   <include location="../../resources.qrc"/>
-  <include location="../../../../Documents/Documents - Raffaele Montella’s MacBook Pro (2)/XCodeProjects/fairwindplusplus/resources.qrc"/>
+  <include location="../../resources.qrc"/>
  </resources>
  <connections>
   <connection>
