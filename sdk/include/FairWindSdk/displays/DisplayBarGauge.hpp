@@ -40,7 +40,7 @@ namespace fairwind::displays {
     private:
         QcBar *vbar;
         QLabel *mLabel;
-        QLabel *mUnits;
+        QString mUnits;
         Ui::DisplayBarGauge *ui;
 
         float _minValue;

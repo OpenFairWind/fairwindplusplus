@@ -14,8 +14,6 @@ fairwind::displays::DisplayBarGauge::DisplayBarGauge(QWidget *parent) :
         ui(new Ui::DisplayBarGauge) {
 
     ui->setupUi(this);
-   // _minValue= 0;
-  //  _maxValue=10;
     _currentValue=0;
     _precision = 1;
     _shortStep= 1;
@@ -24,12 +22,9 @@ fairwind::displays::DisplayBarGauge::DisplayBarGauge(QWidget *parent) :
 void fairwind::displays::DisplayBarGauge::onInit(QMap<QString, QVariant> params) {
 
     qDebug() << "fairwind::displays::DisplayBarGauge::onInit: " << params;
-
-    // Setup parameters
     if (params.contains("minValue")) {
         _minValue = (float)params["minValue"].toDouble();
     }
-
     if (params.contains("maxValue")) {
         _maxValue = (float)params["maxValue"].toDouble();
     }
@@ -39,25 +34,7 @@ void fairwind::displays::DisplayBarGauge::onInit(QMap<QString, QVariant> params)
     if (params.contains("longStep")) {
         _longStep = (float)params["longtStep"].toDouble();
     }
-    if (params.contains("fullPath")) {
-        subscribe(params["fullPath"].toString());
-    }
-    if (params.contains("label")) {
-        setLabel(params["label"].toString());
-    }
-
-    if (params.contains("description")) {
-        setToolTip(params["description"].toString());
-    }
-
-    if (params.contains("units")) {
-        setUnits(params["units"].toString());
-    }
-    if (params.contains("value")) {
-        setValue(params["value"].toString());
-    }
-
-    // Create the gauge widget
+// Create the Bargauge widget
     vbar = new QcBar;
     vbar->setDirection(QcBar::DirectionEnum::Vertical);
     vbar->setBgColor(Qt::darkGray);
@@ -70,8 +47,7 @@ void fairwind::displays::DisplayBarGauge::onInit(QMap<QString, QVariant> params)
     vbar->setLongStep(_longStep);
     vbar->setRulerRight(true);
     vbar->setRulerLeft(true);
-    //vbar->setMargin(0);
-    //vbar->setSpacing(1);
+
     float h = this->height();
     float labelHeight = h*0.10;
 
@@ -79,11 +55,27 @@ void fairwind::displays::DisplayBarGauge::onInit(QMap<QString, QVariant> params)
     mLabel->setMaximumHeight(labelHeight);
     mLabel->setAlignment(Qt::AlignCenter);
     mLabel->setStyleSheet("QLabel {color: darkGrey;}");
-    mLabel->setText("%");
+
+    // Setup parameters
+
+    if (params.contains("fullPath")) {
+        subscribe(params["fullPath"].toString());
+    }
+    if (params.contains("label")) {
+        setLabel(params["label"].toString());
+    }
+    if (params.contains("description")) {
+        setToolTip(params["description"].toString());
+    }
+    if (params.contains("units")) {
+        setUnits(params["units"].toString());
+    }
+    if (params.contains("value")) {
+        setValue(params["value"].toString());
+    }
 
     ui->verticalLayout->addWidget(vbar);
     ui->verticalLayout->addWidget(mLabel);
-
 }
 
 fairwind::displays::DisplayBarGauge::~DisplayBarGauge() {
@@ -106,30 +98,31 @@ QString fairwind::displays::DisplayBarGauge::getClassName() const {
     return this->metaObject()->className();
 }
 void fairwind::displays::DisplayBarGauge::update(const QJsonObject update) {
-
-    DisplayBase::update(update);
+   DisplayBase::update(update);
 }
 void fairwind::displays::DisplayBarGauge::subscribe(QString fullPath) {
     auto fairWind = fairwind::FairWind::getInstance();
     auto signalKDocument = fairWind->getSignalKDocument();
 
     DisplayBase::subscribe(fullPath);
+
     setToolTip(getDescription());
     signalKDocument->subscribe( getFullPath(),
                                 this,SLOT(DisplayBarGauge::update));
 }
 
 void fairwind::displays::DisplayBarGauge::setLabel(QString label) {
-    mLabel->setText(label);
+    if(mLabel!=0){
+       mLabel->setText(label + " " + mUnits);
+    }
 }
 
 void fairwind::displays::DisplayBarGauge::setUnits(QString units) {
-    mUnits->setText(units);
+    mUnits= units;
 }
 
 void fairwind::displays::DisplayBarGauge::setValue(QString text) {
     double value=text.toDouble();
-    mLabel->setText(QString::number(value)+ "%");
+    mLabel->setText(QString::number(value)+" " +mUnits);
     vbar->setCurrentValue(value);
-
 }
