@@ -250,19 +250,12 @@
                         "fullPath":"${self}.electrical.switches.navigationLight"
                       },
                       {
-                        "class":"fairwind::displays::DisplaySimpleSwitch",
-                        "active":true,
-                        "layout":"6,0",
-                        "label": "Keel Bilge Pump",
-                        "fullPath":"${self}.electrical.switches.keelBilgePump"
-                      },
-                      {
-                        "class":"fairwind::displays::DisplaySimpleSwitch",
-                        "active":true,
-                        "layout":"7,0",
-                        "label": "Anchor Windlass",
-                        "fullPath":"${self}.electrical.switches.anchorWindlass"
-                      },
+                       "class":"fairwind::displays::DisplaySimpleSwitch",
+                       "active":true,
+                       "layout":"6,0",
+                       "label": "Keel Bilge Pump",
+                       "fullPath":"${self}.electrical.switches.keelBilgePump"
+                       },
                       {
                         "class":"fairwind::displays::DisplaySimpleSwitch",
                         "active":true,
@@ -306,23 +299,16 @@
                         "fullPath":"${self}.electrical.switches.waterPump"
                       },
                       {
-                        "class":"fairwind::displays::DisplaySimpleSwitch",
-                        "active":true,
-                        "layout":"6,1",
-                        "label": "Shower Pump",
-                        "fullPath":"${self}.electrical.switches.showerPump"
-                      },
-                      {
-                        "class":"fairwind::displays::DisplaySimpleSwitch",
-                        "active":true,
-                        "layout":"7,1",
-                        "label": "FairWind++",
-                        "fullPath":"${self}.electrical.switches.fairWindPlusPlus"
+                      "class":"fairwind::displays::DisplaySimpleSwitch",
+                      "active":true,
+                      "layout":"6,1",
+                      "label": "Shower Pump",
+                      "fullPath":"${self}.electrical.switches.showerPump"
                       },
                       {
                         "class":"fairwind::displays::DisplayGauge",
                         "active":true,
-                        "layout":"0,2,4,1",
+                        "layout":"4,2,4,1",
                         "maxValue": 18,
                         "minValue": 9,
                         "step": 1,
@@ -331,28 +317,25 @@
                       {
                         "class":"fairwind::displays::DisplayGauge",
                         "active":true,
-                        "layout":"0,3,4,1",
+                        "layout":"4,3,4,1",
                         "maxValue": 60,
                         "minValue": 0,
-                        "step": 10,
                         "fullPath":"${self}.electrical.batteries.1.current"
                       },
                       {
-                        "class":"fairwind::displays::DisplayVerticalBarGauge",
+                        "class":"fairwind::displays::DisplayBarGauge",
                         "active":true,
-                        "layout":"4,2,4,1",
-                        "maxValue": 0,
-                        "minValue": 100,
-                        "step": 10,
-                        "fullPath":"${self}.tanks.fuel.1.currentLevel"
+                        "layout":"0,2,4,1",
+                        "maxValue": 200,
+                        "minValue": 0,
+                        "fullPath":"${self}.electrical.batteries.1.current"
                       },
                       {
-                        "class":"fairwind::displays::DisplayVerticalBarGauge",
+                        "class":"fairwind::displays::DisplayBarGauge",
                         "active":true,
-                        "layout":"4,3,4,1",
+                        "layout":"0,3,4,1",
                         "maxValue": 100,
                         "minValue": 0,
-                        "step": 10,
                         "fullPath":"${self}.tanks.freshWater.1.currentLevel"
                       }
                     ]

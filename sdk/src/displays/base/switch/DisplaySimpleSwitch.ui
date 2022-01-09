@@ -6,57 +6,50 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>158</width>
-    <height>88</height>
+    <width>440</width>
+    <height>241</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>SwicthWidget</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <property name="spacing">
+    <number>3</number>
+   </property>
    <property name="leftMargin">
     <number>0</number>
    </property>
    <property name="topMargin">
-    <number>4</number>
+    <number>0</number>
    </property>
    <property name="rightMargin">
     <number>0</number>
    </property>
    <property name="bottomMargin">
-    <number>4</number>
+    <number>0</number>
    </property>
    <item>
-    <widget class="QGroupBox" name="labelGroupBox">
+    <widget class="QGroupBox" name="groupBox">
      <property name="title">
       <string>Label</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout">
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="spacing">
+       <number>1</number>
+      </property>
       <property name="leftMargin">
-       <number>0</number>
+       <number>1</number>
       </property>
       <property name="topMargin">
-       <number>0</number>
+       <number>1</number>
       </property>
       <property name="rightMargin">
-       <number>0</number>
+       <number>1</number>
       </property>
       <property name="bottomMargin">
-       <number>0</number>
+       <number>1</number>
       </property>
-      <item row="0" column="0">
-       <widget class="QPushButton" name="switchButton">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
      </layout>
     </widget>
    </item>
