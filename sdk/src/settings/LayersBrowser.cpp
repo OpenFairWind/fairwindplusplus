@@ -42,13 +42,13 @@ void fairwind::ui::settings::LayersBrowser::setDetails(QString settingsID, QJson
             vWidget->setLayout(vLayout);
             vWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 
-            QString checkState = layers[i].toObject()["active"].toString();
+            auto checkState = layers[i].toObject()["active"].toBool();
 
             // Set the checkbox's state according to the current value
-            if (checkState.toInt() == 0)
-                checkBox->setCheckState(Qt::CheckState::Unchecked);
-            else
+            if (checkState)
                 checkBox->setCheckState(Qt::CheckState::Checked);
+            else
+                checkBox->setCheckState(Qt::CheckState::Unchecked);
 
             // When the current value changes, call the updateSettings method to save the changes
             connect(checkBox,static_cast<void (QCheckBox::*)(int state)>(&QCheckBox::stateChanged), this, [settingsID, extension, checkState]() {
