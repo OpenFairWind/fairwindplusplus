@@ -11,6 +11,7 @@
 #include <FairWindSdk/displays/DisplayBase.hpp>
 #include <FairWindSdk/IDisplay.hpp>
 #include <qcgaugewidget.h>
+#include <QHBoxLayout>
 
 namespace Ui {
     class DisplayBarGauge; }
@@ -40,7 +41,9 @@ namespace fairwind::displays {
     private:
         QcBar *vbar;
         QLabel *mLabel;
-        QString mUnits;
+        QLabel *mUnits;
+        QLabel *mValue;
+        QHBoxLayout *hLayout;
         Ui::DisplayBarGauge *ui;
 
         float _minValue;

@@ -43,22 +43,21 @@ QWidget *fairwind::displays::DisplaySimpleSwitch::onSettings() {
 void fairwind::displays::DisplaySimpleSwitch::onInit(QMap<QString, QVariant> params) {
     qDebug() << "DisplaySingleText::onInit(" << params << ")";
 
-    if (params.contains("fullPath")) {
-        subscribe(params["fullPath"].toString());
-    }
     if (params.contains("label")) {
         setLabel(params["label"].toString());
     }
-
-    if (params.contains("description")) {
-        setToolTip(params["description"].toString());
-    }
-
     if (params.contains("value")) {
         setValue(params["value"].toString());
     }
     sbtn = new SwitchButton();
-    sbtn->setStylesheet(":resources/images/switches/toggle_off.png",":resources/images/switches/toggle_on.png");
+    sbtn->setStylesheet(":resources/images/switches/simple_switch_off.png",":resources/images/switches/simple_switch_on.png");
+
+    if (params.contains("fullPath")) {
+        subscribe(params["fullPath"].toString());
+    }
+    if (params.contains("description")) {
+        setToolTip(params["description"].toString());
+    }
 
     ui->verticalLayout->addWidget(sbtn);
 }
@@ -68,13 +67,12 @@ fairwind::displays::IDisplay *fairwind::displays::DisplaySimpleSwitch::getNewIns
 }
 
 void fairwind::displays::DisplaySimpleSwitch::setLabel(QString label) {
-    //ui->labelGroupBox->setTitle(label);
+    ui->groupBox->setTitle(label);
 }
 
 void fairwind::displays::DisplaySimpleSwitch::setUnits(QString units) {
-    //ui->label_Units->setText(units);
-}
 
+}
 void fairwind::displays::DisplaySimpleSwitch::setValue(QString value) {
     //ui->label_Value1->setText(value);
     if (value.contains("on")) {
@@ -89,16 +87,11 @@ void fairwind::displays::DisplaySimpleSwitch::setValue(QString value) {
 
 void fairwind::displays::DisplaySimpleSwitch::updateStatus() {
     if (status) {
-       // ui->switchButton->setText("simpleswitch_on");
+        //ui->witchButton->setText("simpleswitch_on");
     } else {
-       // ui->switchButton->setText("simpleswitch_off");
+        //ui->switchButton->setText("simpleswitch_off");
     }
 }
-
-
-
-
-
 
 void fairwind::displays::DisplaySimpleSwitch::subscribe(QString fullPath) {
     auto fairWind = fairwind::FairWind::getInstance();

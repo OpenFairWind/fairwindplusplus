@@ -49,12 +49,24 @@ void fairwind::displays::DisplayBarGauge::onInit(QMap<QString, QVariant> params)
     vbar->setRulerLeft(true);
 
     float h = this->height();
-    float labelHeight = h*0.10;
+    float labelHeight = h*0.15;
+
+    hLayout = new QHBoxLayout();
 
     mLabel=new QLabel();
     mLabel->setMaximumHeight(labelHeight);
-    mLabel->setAlignment(Qt::AlignCenter);
+    mLabel->setAlignment(Qt::AlignLeft);
     mLabel->setStyleSheet("QLabel {color: darkGrey;}");
+
+    mValue = new QLabel();
+    mValue->setMaximumHeight(labelHeight);
+    mValue->setAlignment(Qt::AlignCenter);
+    mValue->setStyleSheet("QLabel {color: darkGrey;}");
+
+    mUnits = new QLabel();
+    mUnits->setMaximumHeight(labelHeight);
+    mUnits->setAlignment(Qt::AlignLeft);
+    mUnits->setStyleSheet("QLabel {color: darkGrey;}");
 
     // Setup parameters
 
@@ -75,7 +87,13 @@ void fairwind::displays::DisplayBarGauge::onInit(QMap<QString, QVariant> params)
     }
 
     ui->verticalLayout->addWidget(vbar);
-    ui->verticalLayout->addWidget(mLabel);
+    hLayout->addWidget(mLabel);
+    hLayout->addWidget(mValue);
+    hLayout->addWidget(mUnits);
+    ui->verticalLayout->addLayout(hLayout);
+
+
+    //ui->verticalLayout->addWidget(mLabel);
 }
 
 fairwind::displays::DisplayBarGauge::~DisplayBarGauge() {
@@ -112,17 +130,15 @@ void fairwind::displays::DisplayBarGauge::subscribe(QString fullPath) {
 }
 
 void fairwind::displays::DisplayBarGauge::setLabel(QString label) {
-    if(mLabel!=0){
-       mLabel->setText(label + " " + mUnits);
-    }
+       mLabel->setText(label);
 }
 
 void fairwind::displays::DisplayBarGauge::setUnits(QString units) {
-    mUnits= units;
+    mUnits->setText(units);
 }
 
 void fairwind::displays::DisplayBarGauge::setValue(QString text) {
+    mValue->setText(text);
     double value=text.toDouble();
-    mLabel->setText(QString::number(value)+" " +mUnits);
     vbar->setCurrentValue(value);
 }
