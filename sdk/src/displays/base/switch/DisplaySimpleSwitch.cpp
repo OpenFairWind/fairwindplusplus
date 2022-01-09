@@ -4,11 +4,9 @@
 
 
 #include "ui_DisplaySimpleSwitch.h"
+#include "FairWind.hpp"
 
 #include <QJsonArray>
-#include <FairWindSdk/FairWind.hpp>
-#include <FairWindSdk/displays/DisplayBase.hpp>
-#include <FairWindSdk/displays/DisplaySimpleSwitch.hpp>
 #include <displays/DisplaySimpleSwitch.hpp>
 
 
@@ -24,7 +22,7 @@ ui(new Ui::DisplaySimpleSwitch) {
 
     // Initialize the user interface
     ui->setupUi(this);
-    connect(ui->switchButton, &QPushButton::released, this, &DisplaySimpleSwitch::onRelease);
+    //connect(ui->switchButton, &QPushButton::released, this, &DisplaySimpleSwitch::onRelease);
 }
 
 /**
@@ -59,6 +57,10 @@ void fairwind::displays::DisplaySimpleSwitch::onInit(QMap<QString, QVariant> par
     if (params.contains("value")) {
         setValue(params["value"].toString());
     }
+    sbtn = new SwitchButton();
+    sbtn->setStylesheet(":resources/images/switches/toggle_off.png",":resources/images/switches/toggle_on.png");
+
+    ui->verticalLayout->addWidget(sbtn);
 }
 
 fairwind::displays::IDisplay *fairwind::displays::DisplaySimpleSwitch::getNewInstance() {
@@ -66,7 +68,7 @@ fairwind::displays::IDisplay *fairwind::displays::DisplaySimpleSwitch::getNewIns
 }
 
 void fairwind::displays::DisplaySimpleSwitch::setLabel(QString label) {
-    ui->labelGroupBox->setTitle(label);
+    //ui->labelGroupBox->setTitle(label);
 }
 
 void fairwind::displays::DisplaySimpleSwitch::setUnits(QString units) {
@@ -87,9 +89,9 @@ void fairwind::displays::DisplaySimpleSwitch::setValue(QString value) {
 
 void fairwind::displays::DisplaySimpleSwitch::updateStatus() {
     if (status) {
-        ui->switchButton->setText("simpleswitch_on");
+       // ui->switchButton->setText("simpleswitch_on");
     } else {
-        ui->switchButton->setText("simpleswitch_off");
+       // ui->switchButton->setText("simpleswitch_off");
     }
 }
 

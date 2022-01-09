@@ -84,6 +84,26 @@ set(LIBQCGAUGEWIDGET ${EXTERNAL_INSTALL_LOCATION}/lib/libqcgaugewidget.dylib)
 endif()
 set(LIBQCGAUGEWIDGET ${LIBQCGAUGEWIDGET} PARENT_SCOPE)
 
+ExternalProject_Add(QcSwitchWidget
+        GIT_REPOSITORY https://github.com/Fpepe943/Qt-custom-switch-widget.git
+        CMAKE_ARGS -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH} -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
+        TIMEOUT 360
+        )
+
+set(LIBQCSWITCHWIDGET ${EXTERNAL_INSTALL_LOCATION}/lib/libqcswitchwidget.so)
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    set(LIBQCSWITCHWIDGET ${EXTERNAL_INSTALL_LOCATION}/lib/static/qcswitchwidget.lib)
+    add_custom_command(
+            TARGET QcSwitchWidget
+            POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy
+            ${EXTERNAL_INSTALL_LOCATION}/bin/qcswitchwidget.dll
+            ${CMAKE_BINARY_DIR}
+    )
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+    set(LIBQCSWITCHWIDGET ${EXTERNAL_INSTALL_LOCATION}/lib/libqcswitchwidget.dylib)
+endif()
+set(LIBQCSWITCHWIDGET ${LIBQCSWITCHWIDGET} PARENT_SCOPE)
 
 ExternalProject_Add(QGeoView
         GIT_REPOSITORY https://github.com/OpenFairWind/QGeoView.git
@@ -183,6 +203,7 @@ add_library(fairwindsdk SHARED
         src/settings/DisplaysBrowser.cpp
         src/settings/LayersBrowser.cpp
 
+        ${FAIRWINDSDK_RESOURCE_ADDED}
         )
 
 target_include_directories(fairwindsdk
@@ -201,6 +222,7 @@ target_compile_definitions(fairwindsdk
 #add_dependencies(fairwindsdk marnav)
 add_dependencies(fairwindsdk QtJsonSchema)
 add_dependencies(fairwindsdk QcGaugeWidget)
+add_dependencies(fairwindsdk QcSwitchWidget)
 add_dependencies(fairwindsdk QGeoView)
 
 target_link_libraries(fairwindsdk
@@ -211,7 +233,7 @@ target_link_libraries(fairwindsdk
         Qt5::Widgets
         Qt5::WebSockets
         #${LIBMARNAV}
-        ${LIBQTJSONSCHEMA} ${LIBQCGAUGEWIDGET} ${LIBQGEOVIEW}
+        ${LIBQTJSONSCHEMA} ${LIBQCGAUGEWIDGET} ${LIBQCSWITCHWIDGET} ${LIBQGEOVIEW}
         )
 
 add_library(FairWindSdk ALIAS fairwindsdk)

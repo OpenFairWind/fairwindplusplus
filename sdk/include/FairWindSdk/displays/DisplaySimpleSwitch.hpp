@@ -9,6 +9,7 @@
 #include <FairWindSdk/FairWindSDK.hpp>
 #include <FairWindSdk/displays/DisplayBase.hpp>
 #include <FairWindSdk/IDisplay.hpp>
+#include <qcswitchwidget.hpp>
 
 
 namespace Ui {
@@ -42,6 +43,7 @@ namespace fairwind::displays {
 
     private:
         Ui::DisplaySimpleSwitch *ui;
+        SwitchButton *sbtn;
         bool status;
 
     };

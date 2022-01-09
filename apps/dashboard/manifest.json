@@ -250,19 +250,12 @@
                         "fullPath":"${self}.electrical.switches.navigationLight"
                       },
                       {
-                        "class":"fairwind::displays::DisplaySimpleSwitch",
-                        "active":true,
-                        "layout":"6,0",
-                        "label": "Keel Bilge Pump",
-                        "fullPath":"${self}.electrical.switches.keelBilgePump"
-                      },
-                      {
-                        "class":"fairwind::displays::DisplaySimpleSwitch",
-                        "active":true,
-                        "layout":"7,0",
-                        "label": "Anchor Windlass",
-                        "fullPath":"${self}.electrical.switches.anchorWindlass"
-                      },
+                       "class":"fairwind::displays::DisplaySimpleSwitch",
+                       "active":true,
+                       "layout":"6,0",
+                       "label": "Keel Bilge Pump",
+                       "fullPath":"${self}.electrical.switches.keelBilgePump"
+                       },
                       {
                         "class":"fairwind::displays::DisplaySimpleSwitch",
                         "active":true,
@@ -306,18 +299,11 @@
                         "fullPath":"${self}.electrical.switches.waterPump"
                       },
                       {
-                        "class":"fairwind::displays::DisplaySimpleSwitch",
-                        "active":true,
-                        "layout":"6,1",
-                        "label": "Shower Pump",
-                        "fullPath":"${self}.electrical.switches.showerPump"
-                      },
-                      {
-                        "class":"fairwind::displays::DisplaySimpleSwitch",
-                        "active":true,
-                        "layout":"7,1",
-                        "label": "FairWind++",
-                        "fullPath":"${self}.electrical.switches.fairWindPlusPlus"
+                      "class":"fairwind::displays::DisplaySimpleSwitch",
+                      "active":true,
+                      "layout":"6,1",
+                      "label": "Shower Pump",
+                      "fullPath":"${self}.electrical.switches.showerPump"
                       },
                       {
                         "class":"fairwind::displays::DisplayGauge",
