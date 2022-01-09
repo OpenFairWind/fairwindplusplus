@@ -11,6 +11,7 @@
 #include "ui/topbar/TopBar.hpp"
 #include "ui/bottombar/BottomBar.hpp"
 #include "ui/settings/Settings.hpp"
+#include "ui/colophon/Colophon.hpp"
 #include "ui_MainWindow.h"
 
 /*
@@ -45,6 +46,12 @@ fairwind::ui::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(
 
     // Show the settings view when the user clicks on the Settings button inside the BottomBar object
     QObject::connect(m_bottonBar, &bottombar::BottomBar::setSettings, this, &MainWindow::onSettings);
+
+    // Show the settings view when the user clicks on the Settings button inside the BottomBar object
+    QObject::connect(m_topBar, &topbar::TopBar::clickedToolbuttonUL, this, &MainWindow::onUpperLeft);
+
+    // Show the settings view when the user clicks on the Settings button inside the BottomBar object
+    QObject::connect(m_topBar, &topbar::TopBar::clickedToolbuttonUR, this, &MainWindow::onUpperRight);
 
     QTimer::singleShot(0, this, SLOT(showFullScreen()));
 }
@@ -182,4 +189,23 @@ void fairwind::ui::MainWindow::onApps() {
 void fairwind::ui::MainWindow::onSettings() {
     // Show the settings view
     ui->stackedWidget_Center->setCurrentWidget(m_settings);
+}
+
+/*
+ * onUpperLeft
+ * Method called when the user clicks the upper left icon
+ */
+void fairwind::ui::MainWindow::onUpperLeft() {
+    // Show the settings view
+    colophon::Colophon colophon(m_apps);
+    colophon.setWindowTitle("About...");
+    colophon.exec();
+}
+
+/*
+ * onUpperRight
+ * Method called when the user clicks the upper right icon
+ */
+void fairwind::ui::MainWindow::onUpperRight() {
+    // Show the settings view
 }

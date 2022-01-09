@@ -1,5 +1,7 @@
 <!DOCTYPE RCC><RCC version="1.0">
     <qresource>
+        <file>resources/images/colophon/rmontella_64x64.png</file>
+
         <file>resources/images/carbon_base.png</file>
         <file>resources/images/splash_logo.png</file>
 
