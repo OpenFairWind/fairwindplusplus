@@ -177,7 +177,7 @@ color: rgb(65, 107, 195);</string>
               <x>0</x>
               <y>0</y>
               <width>446</width>
-              <height>478</height>
+              <height>622</height>
              </rect>
             </property>
             <layout class="QGridLayout" name="gridLayout_2">
@@ -274,6 +274,9 @@ color: rgb(65, 107, 195);</string>
                  <property name="text">
                   <string/>
                  </property>
+                 <property name="pixmap">
+                  <pixmap resource="../../resources.qrc">:/resources/images/colophon/ddiluccio_64x64.png</pixmap>
+                 </property>
                 </widget>
                </item>
                <item>
@@ -310,6 +313,9 @@ color: rgb(65, 107, 195);</string>
                  </property>
                  <property name="text">
                   <string/>
+                 </property>
+                 <property name="pixmap">
+                  <pixmap resource="../../resources.qrc">:/resources/images/colophon/aciaramella_64x64.png</pixmap>
                  </property>
                 </widget>
                </item>
@@ -427,6 +433,9 @@ color: rgb(65, 107, 195);</string>
                  </property>
                  <property name="text">
                   <string/>
+                 </property>
+                 <property name="pixmap">
+                  <pixmap resource="../../resources.qrc">:/resources/images/colophon/fizzo_64x64.png</pixmap>
                  </property>
                 </widget>
                </item>
