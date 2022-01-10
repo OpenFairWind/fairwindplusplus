@@ -208,7 +208,7 @@
                     "class":"fairwind::layouts::GridLayout",
                     "displays":[
                       {
-                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "class":"fairwind::displays::DisplayToggleSwitch",
                         "active":true,
                         "layout":"0,0",
                         "label": "Cabin Lights 1",

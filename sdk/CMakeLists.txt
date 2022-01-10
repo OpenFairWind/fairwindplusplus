@@ -129,6 +129,7 @@ set(FAIRWINDSDK_RESOURCE resourcesSDK.qrc)
 qt5_add_resources(FAIRWINDSDK_RESOURCE_ADDED ${FAIRWINDSDK_RESOURCE})
 
 add_library(fairwindsdk SHARED
+        ${FAIRWINDSDK_RESOURCE_ADDED}
         include/FairWindSdk/FairWindSDK.hpp
         include/FairWindSdk/IApp.hpp
         include/FairWindSdk/ILayer.hpp
@@ -146,6 +147,7 @@ add_library(fairwindsdk SHARED
         include/FairWindSdk/displays/DisplayGauge.hpp
         include/FairWindSdk/displays/DisplayBarGauge.hpp
         include/FairWindSdk/displays/DisplaySimpleSwitch.hpp
+        include/FairWindSdk/displays/DisplayToggleSwitch.hpp
         include/FairWindSdk/displays/DisplayWindAngleGauge.hpp
         include/FairWindSdk/displays/DisplayChart.hpp
         include/FairWindSdk/layers/ItemVessel.hpp
@@ -180,6 +182,7 @@ add_library(fairwindsdk SHARED
         src/displays/base/gauge/DisplayGauge.cpp
         src/displays/base/gauge/DisplayBarGauge.cpp
         src/displays/base/switch/DisplaySimpleSwitch.cpp
+        src/displays/base/switch/DisplayToggleSwitch.cpp
         src/displays/wind/DisplayWindAngleGauge.cpp
         src/displays/chart/DisplayChart.cpp
         src/layers/ItemDefault.cpp
@@ -202,8 +205,6 @@ add_library(fairwindsdk SHARED
         src/settings/FairCheckBox.cpp
         src/settings/DisplaysBrowser.cpp
         src/settings/LayersBrowser.cpp
-
-        ${FAIRWINDSDK_RESOURCE_ADDED}
         )
 
 target_include_directories(fairwindsdk
