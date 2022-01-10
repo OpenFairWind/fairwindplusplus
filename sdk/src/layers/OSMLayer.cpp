@@ -12,7 +12,7 @@ fairwind::layers::OSMLayer::OSMLayer(): QGVLayerOSM() {
 fairwind::layers::OSMLayer::~OSMLayer() {}
 
 QImage fairwind::layers::OSMLayer::getIcon() const {
-    return QImage(":resources/images/icons/osm_icon.png");;
+    return QImage(":resources/images/icons/layer_osm_icon.png");;
 }
 
 void fairwind::layers::OSMLayer::onInit(QMap<QString, QVariant> params) {}

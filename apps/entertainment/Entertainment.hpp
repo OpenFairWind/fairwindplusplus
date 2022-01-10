@@ -43,7 +43,13 @@ namespace fairwind::apps::entertainment {
     public:
         ~Entertainment() = default;
 
-        void onInit(QJsonObject *metaData) override;
+        // App lifecycle
+        void onCreate(QJsonObject *metaData) override;
+        QWidget *onStart(QMainWindow *mainWindow, QMap<QString, QVariant> args) override;
+        void onResume() override;
+        void onPause() override;
+        void onStop() override;
+        void onDestroy() override;
 
         QString getId() const override;
         QString getName() const override;
@@ -54,13 +60,13 @@ namespace fairwind::apps::entertainment {
         QString getLicense() const override;
 
         QImage getIcon() const override;
-        QWidget *onGui(QMainWindow *mainWindow, QMap<QString, QVariant> args) override;
+
         void updateSettings(QString settingsID, QString newValue) override;
 
         QJsonObject getConfig() override;
         void setConfig(QJsonObject config) override;
         QJsonObject getSettings() override;
-        void setSettings(QJsonObject config) override;
+
         QJsonObject getMetaData() override;
 
         bool isPlayerAvailable() const;

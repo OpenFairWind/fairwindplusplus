@@ -47,21 +47,21 @@ QImage fairwind::apps::web::Web::getIcon() const {
     return QImage(":/resources/images/icons/web_icon.png");
 }
 
-void fairwind::apps::web::Web::onInit(QJsonObject *metaData) {
+void fairwind::apps::web::Web::onCreate(QJsonObject *metaData) {
     QWebEngineSettings::defaultSettings()->setAttribute(QWebEngineSettings::PluginsEnabled, true);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
     QWebEngineSettings::defaultSettings()->setAttribute(QWebEngineSettings::DnsPrefetchEnabled, true);
     QWebEngineProfile::defaultProfile()->setUseForGlobalCertificateVerification();
 #endif
     m_profile = QWebEngineProfile::defaultProfile();
-    AppBase::onInit(metaData);
+    AppBase::onCreate(metaData);
 
     auto fairWind = fairwind::FairWind::getInstance();
 
     m_url = "http://fairwind.uniparthenope.it";
 }
 
-QWidget *fairwind::apps::web::Web::onGui(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
+QWidget *fairwind::apps::web::Web::onStart(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
 
     if (args.contains("Url")) {
         m_url = args["Url"].toString();
@@ -112,6 +112,22 @@ void fairwind::apps::web::Web::toolButton_home_clicked() {
     ((WebView *)(m_widgetWebApp->children()[0]))->load(QUrl(m_url));
 }
 
+void fairwind::apps::web::Web::onResume() {
+    AppBase::onResume();
+}
+
+void fairwind::apps::web::Web::onPause() {
+    AppBase::onPause();
+}
+
+void fairwind::apps::web::Web::onStop() {
+    AppBase::onStop();
+}
+
+void fairwind::apps::web::Web::onDestroy() {
+    AppBase::onDestroy();
+}
+
 QJsonObject fairwind::apps::web::Web::getConfig() {
     return AppBase::getConfig();
 }
@@ -128,9 +144,7 @@ void fairwind::apps::web::Web::setConfig(QJsonObject config) {
     AppBase::setConfig(config);
 }
 
-void fairwind::apps::web::Web::setSettings(QJsonObject config) {
-    AppBase::setSettings(config);
-}
+
 
 QJsonObject fairwind::apps::web::Web::getSettings() {
     return AppBase::getSettings();

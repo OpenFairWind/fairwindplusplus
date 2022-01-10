@@ -7,6 +7,8 @@
 #include <FairWindSdk/settings/FairComboBox.hpp>
 #include <FairWindSdk/settings/FairLineEdit.hpp>
 #include <FairWindSdk/settings/FairCheckBox.hpp>
+#include <FairWindSdk/settings/DisplaysBrowser.hpp>
+#include <FairWindSdk/settings/LayersBrowser.hpp>
 #include <ui/settings/connections/Connections.hpp>
 #include <ui/settings/generic/Generic.hpp>
 #include <ui/settings/applications/Applications.hpp>
@@ -34,7 +36,7 @@ int main(int argc, char *argv[]) {
 
     QApplication app(argc, argv);
     // Get the splash screen logo
-    QPixmap pixmap(":/resources/images/icons/splash_logo.png");
+    QPixmap pixmap(":/resources/images/splash_logo.png");
     // Create a splash screen containing the logo
     QSplashScreen splash(pixmap);
     // Show the logo
@@ -52,6 +54,8 @@ int main(int argc, char *argv[]) {
     fairWind->registerSettings(new fairwind::ui::settings::FairComboBox());
     fairWind->registerSettings(new fairwind::ui::settings::FairLineEdit());
     fairWind->registerSettings(new fairwind::ui::settings::FairCheckBox());
+    fairWind->registerSettings(new fairwind::ui::settings::DisplaysBrowser());
+    fairWind->registerSettings(new fairwind::ui::settings::LayersBrowser());
 
     splash.showMessage("Loading Applications ...", 500, Qt::white);
 

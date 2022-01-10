@@ -11,6 +11,7 @@
 #include "ui/topbar/TopBar.hpp"
 #include "ui/bottombar/BottomBar.hpp"
 #include "ui/settings/Settings.hpp"
+#include "ui/colophon/Colophon.hpp"
 #include "ui_MainWindow.h"
 
 /*
@@ -45,6 +46,12 @@ fairwind::ui::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(
 
     // Show the settings view when the user clicks on the Settings button inside the BottomBar object
     QObject::connect(m_bottonBar, &bottombar::BottomBar::setSettings, this, &MainWindow::onSettings);
+
+    // Show the settings view when the user clicks on the Settings button inside the BottomBar object
+    QObject::connect(m_topBar, &topbar::TopBar::clickedToolbuttonUL, this, &MainWindow::onUpperLeft);
+
+    // Show the settings view when the user clicks on the Settings button inside the BottomBar object
+    QObject::connect(m_topBar, &topbar::TopBar::clickedToolbuttonUR, this, &MainWindow::onUpperRight);
 
     QTimer::singleShot(0, this, SLOT(showFullScreen()));
 }
@@ -101,21 +108,28 @@ void fairwind::ui::MainWindow::setForegroundApp(QString hash) {
 
     // Get the map containing all the loaded apps and pick the one that matches the provided hash
     auto app = fairWind->getApps()[hash];
+
+    // Get the fairwind app
+    fairwind::apps::IApp *fairWindApp = fairWind->getAppByExtensionId(app->getExtension());
+
+    // The QT widget implementing the app
     QWidget *widgetApp = nullptr;
 
     // Check if the requested app has been already launched by the user
-    if (mapWidgets.find(hash) != mapWidgets.end()) {
+    if (mapWidgets.contains(hash)) {
+
         // If yes, get its widget from mapWidgets
         widgetApp = mapWidgets[hash];
     } else {
-        // Otherwise, get its widget from the FairWind singleton itself
-        fairwind::apps::IApp *fairWindApp = fairWind->getAppByExtensionId(app->getExtension());
-        widgetApp = fairWindApp->onGui(this, app->getArgs());
+        // invoke the app onStart method
+        widgetApp = fairWindApp->onStart(this, app->getArgs());
 
         // Check if the widget is valid
         if (widgetApp) {
+
             // Add it to the UI
             ui->stackedWidget_Center->addWidget(widgetApp);
+
             // Store it in mapWidgets for future usage
             mapWidgets.insert(hash, widgetApp);
         }
@@ -123,8 +137,25 @@ void fairwind::ui::MainWindow::setForegroundApp(QString hash) {
 
     // Check if the widget is valid
     if (widgetApp) {
+
+        // Check if there is an app on foreground
+        if (m_fairWindApp) {
+
+            // Call the foreground app onPause method
+            m_fairWindApp->onPause();
+        }
+
+        // Set the current app
+        m_fairWindApp = fairWindApp;
+
         // Update the UI with the new widget
         ui->stackedWidget_Center->setCurrentWidget(widgetApp);
+
+        // Call the new foreground app onResume method
+        m_fairWindApp->onResume();
+
+        // Set the current app in ui components
+        m_topBar->setFairWindApp(m_fairWindApp);
     }
 }
 
@@ -133,8 +164,22 @@ void fairwind::ui::MainWindow::setForegroundApp(QString hash) {
  * Method called when the user clicks the Apps button on the BottomBar object
  */
 void fairwind::ui::MainWindow::onApps() {
+
+    // Check if there is an app on foreground
+    if (m_fairWindApp) {
+
+        // Call the foreground app onPause method
+        m_fairWindApp->onPause();
+    }
+
+    // No current app
+    m_fairWindApp = nullptr;
+
     // Show the apps view
     ui->stackedWidget_Center->setCurrentWidget(m_apps);
+
+    // Set the current app in ui components
+    m_topBar->setFairWindApp(m_fairWindApp);
 }
 
 /*
@@ -144,4 +189,23 @@ void fairwind::ui::MainWindow::onApps() {
 void fairwind::ui::MainWindow::onSettings() {
     // Show the settings view
     ui->stackedWidget_Center->setCurrentWidget(m_settings);
+}
+
+/*
+ * onUpperLeft
+ * Method called when the user clicks the upper left icon
+ */
+void fairwind::ui::MainWindow::onUpperLeft() {
+    // Show the settings view
+    colophon::Colophon colophon(m_apps);
+    colophon.setWindowTitle("About...");
+    colophon.exec();
+}
+
+/*
+ * onUpperRight
+ * Method called when the user clicks the upper right icon
+ */
+void fairwind::ui::MainWindow::onUpperRight() {
+    // Show the settings view
 }

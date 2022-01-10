@@ -6,6 +6,7 @@
 #define FAIRWIND_TOPBAR_HPP
 
 #include <QWidget>
+#include <FairWindSdk/FairWind.hpp>
 
 namespace Ui {
     class TopBar;
@@ -19,6 +20,11 @@ namespace fairwind::ui::topbar {
 
         ~TopBar();
 
+        void setFairWindApp(fairwind::apps::IApp *fairWindApp);
+
+    public slots:
+        void toolbuttonUL_clicked();
+        void toolbuttonUR_clicked();
 
     public slots:
 
@@ -30,8 +36,13 @@ namespace fairwind::ui::topbar {
 
         void updateTime();
 
+        signals:
+        void clickedToolbuttonUL();
+        void clickedToolbuttonUR();
+
     private:
         Ui::TopBar *ui;
+        fairwind::apps::IApp *m_fairWindApp;
     };
 }
 

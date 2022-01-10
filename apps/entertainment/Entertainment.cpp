@@ -28,7 +28,7 @@ QImage fairwind::apps::entertainment::Entertainment::getIcon() const {
 /*
  * Called by the FairWind framework when the app is invoked for the first time
  */
-QWidget *fairwind::apps::entertainment::Entertainment::onGui(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
+QWidget *fairwind::apps::entertainment::Entertainment::onStart(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
 
     m_widget=new QWidget();
     ui=new Ui::Entertainment();
@@ -214,8 +214,24 @@ QString fairwind::apps::entertainment::Entertainment::getLicense() const {
     return fairwind::AppBase::getLicense();
 }
 
-void fairwind::apps::entertainment::Entertainment::onInit(QJsonObject *metaData) {
-    AppBase::onInit(metaData);
+void fairwind::apps::entertainment::Entertainment::onCreate(QJsonObject *metaData) {
+    AppBase::onCreate(metaData);
+}
+
+void fairwind::apps::entertainment::Entertainment::onResume() {
+    AppBase::onResume();
+}
+
+void fairwind::apps::entertainment::Entertainment::onPause() {
+    AppBase::onPause();
+}
+
+void fairwind::apps::entertainment::Entertainment::onStop() {
+    AppBase::onStop();
+}
+
+void fairwind::apps::entertainment::Entertainment::onDestroy() {
+    AppBase::onDestroy();
 }
 
 QJsonObject fairwind::apps::entertainment::Entertainment::getConfig() {
@@ -494,10 +510,6 @@ void fairwind::apps::entertainment::Entertainment::updateSettings(QString settin
 
 void fairwind::apps::entertainment::Entertainment::setConfig(QJsonObject config) {
     AppBase::setConfig(config);
-}
-
-void fairwind::apps::entertainment::Entertainment::setSettings(QJsonObject config) {
-    AppBase::setSettings(config);
 }
 
 QJsonObject fairwind::apps::entertainment::Entertainment::getSettings() {

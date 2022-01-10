@@ -35,7 +35,7 @@ fairwind::displays::DisplayVerticalBarGauge::~DisplayVerticalBarGauge() {
 }
 
 QImage fairwind::displays::DisplayVerticalBarGauge::getIcon() const {
-    return QImage(":resources/images/icons/signalk_icon.png");
+    return QImage(":resources/images/icons/display_icon.png");
 }
 
 QWidget *fairwind::displays::DisplayVerticalBarGauge::onSettings() {

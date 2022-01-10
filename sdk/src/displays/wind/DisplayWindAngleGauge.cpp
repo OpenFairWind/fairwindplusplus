@@ -34,7 +34,7 @@ fairwind::displays::DisplayWindAngleGauge::~DisplayWindAngleGauge() {}
  * Returns the display's icon
  */
 QImage fairwind::displays::DisplayWindAngleGauge::getIcon() const {
-    return QImage(":resources/images/icons/signalk_icon.png");
+    return QImage(":resources/images/icons/display_windangle_icon.png");
 }
 
 /*

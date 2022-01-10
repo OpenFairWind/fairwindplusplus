@@ -41,12 +41,28 @@ QImage fairwind::apps::dashboard::Dashboard::getIcon() const {
     return QImage(":/resources/images/icons/dashboard_icon.png");
 }
 
-void fairwind::apps::dashboard::Dashboard::onInit(QJsonObject *metaData) {
+void fairwind::apps::dashboard::Dashboard::onCreate(QJsonObject *metaData) {
     // Invoke the base onInit method
-    fairwind::AppBase::onInit(metaData);
+    fairwind::AppBase::onCreate(metaData);
 }
 
-QWidget *fairwind::apps::dashboard::Dashboard::onGui(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
+void fairwind::apps::dashboard::Dashboard::onResume()  {
+    AppBase::onResume();
+}
+
+void fairwind::apps::dashboard::Dashboard::onPause()  {
+    AppBase::onPause();
+}
+
+void fairwind::apps::dashboard::Dashboard::onStop()  {
+    AppBase::onStop();
+}
+
+void fairwind::apps::dashboard::Dashboard::onDestroy()  {
+    AppBase::onDestroy();
+}
+
+QWidget *fairwind::apps::dashboard::Dashboard::onStart(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
     QWidget *widget=new QWidget();
     ui=new Ui::Dashboard();
 
@@ -143,10 +159,6 @@ void fairwind::apps::dashboard::Dashboard::updateSettings(QString settingsID, QS
 
 void fairwind::apps::dashboard::Dashboard::setConfig(QJsonObject config) {
     AppBase::setConfig(config);
-}
-
-void fairwind::apps::dashboard::Dashboard::setSettings(QJsonObject config) {
-    AppBase::setSettings(config);
 }
 
 QJsonObject fairwind::apps::dashboard::Dashboard::getSettings() {

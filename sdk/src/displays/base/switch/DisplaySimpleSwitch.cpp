@@ -35,7 +35,7 @@ fairwind::displays::DisplaySimpleSwitch::~DisplaySimpleSwitch() {
 }
 
 QImage fairwind::displays::DisplaySimpleSwitch::getIcon() const {
-    return QImage(":resources/images/icons/signalk_icon.png");
+    return QImage(":resources/images/icons/display_icon.png");
 }
 
 QWidget *fairwind::displays::DisplaySimpleSwitch::onSettings() {

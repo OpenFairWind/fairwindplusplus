@@ -15,7 +15,7 @@ QImage fairwind::apps::portolano::Portolano::getIcon() const {
 /*
  * Called by the FairWind framework when the app is invoked for the first time
  */
-QWidget *fairwind::apps::portolano::Portolano::onGui(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
+QWidget *fairwind::apps::portolano::Portolano::onStart(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
 
     m_widget=new QWidget();
     ui=new Ui::Portolano();
@@ -58,8 +58,24 @@ QString fairwind::apps::portolano::Portolano::getLicense() const {
 }
 
 
-void fairwind::apps::portolano::Portolano::onInit(QJsonObject *metaData) {
-    AppBase::onInit(metaData);
+void fairwind::apps::portolano::Portolano::onCreate(QJsonObject *metaData) {
+    AppBase::onCreate(metaData);
+}
+
+void fairwind::apps::portolano::Portolano::onResume() {
+    AppBase::onResume();
+}
+
+void fairwind::apps::portolano::Portolano::onPause() {
+    AppBase::onPause();
+}
+
+void fairwind::apps::portolano::Portolano::onStop() {
+    AppBase::onStop();
+}
+
+void fairwind::apps::portolano::Portolano::onDestroy() {
+    AppBase::onDestroy();
 }
 
 QJsonObject fairwind::apps::portolano::Portolano::getConfig() {
@@ -76,10 +92,6 @@ void fairwind::apps::portolano::Portolano::updateSettings(QString settingsID, QS
 
 void fairwind::apps::portolano::Portolano::setConfig(QJsonObject config) {
     AppBase::setConfig(config);
-}
-
-void fairwind::apps::portolano::Portolano::setSettings(QJsonObject config) {
-    AppBase::setSettings(config);
 }
 
 QJsonObject fairwind::apps::portolano::Portolano::getSettings() {

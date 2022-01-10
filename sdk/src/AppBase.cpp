@@ -27,10 +27,11 @@ QJsonObject fairwind::AppBase::getSettings() {
     return m_settings;
 }
 
+/*
 void fairwind::AppBase::setSettings(QJsonObject settings) {
     m_settings = settings;
 }
-
+*/
 
 /*
  * getConfig
@@ -220,7 +221,7 @@ void fairwind::AppBase::updateSettings(QString settingsID, QString newValue) {
  * onInit
  * Initialisation method
  */
-void fairwind::AppBase::onInit(QJsonObject *metaData) {
+void fairwind::AppBase::onCreate(QJsonObject *metaData) {
     // Copy the metadata in a member object
     m_metaData = QJsonObject(*metaData);
 
@@ -328,3 +329,8 @@ void fairwind::AppBase::onInit(QJsonObject *metaData) {
         appDataPath.mkpath("resources/images/icons");
     }
 }
+
+void fairwind::AppBase::onResume() {}
+void fairwind::AppBase::onPause() {}
+void fairwind::AppBase::onStop() {}
+void fairwind::AppBase::onDestroy() {}

@@ -125,6 +125,8 @@ add_library(fairwindsdk SHARED
         include/FairWindSdk/settings/FairComboBox.hpp
         include/FairWindSdk/settings/FairLineEdit.hpp
         include/FairWindSdk/settings/FairCheckBox.hpp
+        include/FairWindSdk/settings/DisplaysBrowser.hpp
+        include/FairWindSdk/settings/LayersBrowser.hpp
 
         src/FairWind.cpp
         src/App.cpp
@@ -156,7 +158,10 @@ add_library(fairwindsdk SHARED
         src/settings/FairComboBox.cpp
         src/settings/FairLineEdit.cpp
         src/settings/FairCheckBox.cpp
-        ${FAIRWINDSDK_RESOURCE_ADDED}  )
+        src/settings/DisplaysBrowser.cpp
+        src/settings/LayersBrowser.cpp
+
+        ${FAIRWINDSDK_RESOURCE_ADDED})
 
 target_include_directories(fairwindsdk
         PUBLIC

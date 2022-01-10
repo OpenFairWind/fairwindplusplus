@@ -92,6 +92,7 @@
                                   "displays": {
                                     "type": "array",
                                     "widgetClassName": "fairwind::ui::settings::DisplaysBrowser",
+                                    "widgetClassAttributes": ["add", "remove", "edit", "sort"],
                                     "items": {
                                       "$ref": "#/definitions/display"
                                     }

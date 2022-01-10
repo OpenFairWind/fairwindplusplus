@@ -185,7 +185,7 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
         // Get the extension's config
         auto configs = extension->getConfig();
         // Get the 'Settings' object
-        auto settings = extension->getSettings()["properties"].toObject()["Options"].toObject()["properties"].toObject();
+        auto settings = extension->getSettings()["properties"].toObject();
 
         // Prepare the settings container widget
         auto settingsContainer = new QWidget;
@@ -196,7 +196,6 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
             auto key = settings.keys()[i];
             // Generate the widget according to the provided class name
             auto widget = fairWind->instanceSettings(settings[key].toObject()["widgetClassName"].toString());
-            qDebug() << "cISO" << settings[key].toObject()["widgetClassName"].toString();
             // Create a label
             auto label = new QLabel(settings[key].toObject()["displayName"].toString() + ":");
             label->setFont(QFont("", 12));
@@ -212,29 +211,6 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
                 layout->addWidget(dynamic_cast<QWidget *>(widget), i, 1);
             }
         }
-
-        auto displays = configs["Displays"].toArray();
-        auto displaysList = new QGroupBox;
-        displaysList->setTitle("Displays");
-        auto displaysLayout = new QGridLayout;
-
-        for (int i = 0; i < displays.size(); i++) {
-            auto display = fairWind->instanceDisplay(displays[i].toObject()["class"].toString());
-
-            if (display != nullptr) {
-                auto label = new QLabel;
-
-                label->setPixmap(QPixmap::fromImage(display->getIcon()));
-                label->setText(displays[i].toObject()["class"].toString());
-                label->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-
-                displaysLayout->addWidget(label, i, 0);
-            }
-        }
-
-        displaysList->setLayout(displaysLayout);
-
-        layout->addWidget(displaysList, layout->rowCount(), 0);
 
         // Set the settings widget in the scroll area
         settingsContainer->setLayout(layout);

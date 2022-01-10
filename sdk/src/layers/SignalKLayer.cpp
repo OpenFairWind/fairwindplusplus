@@ -26,7 +26,7 @@ fairwind::layers::SignalKLayer::~SignalKLayer() {
 
 
 QImage fairwind::layers::SignalKLayer::getIcon() const {
-    return QImage(":resources/images/icons/signalk_icon.png");
+    return QImage(":resources/images/icons/layer_signalk_icon.png");
 }
 
 QWidget *fairwind::layers::SignalKLayer::onLegenda() {
