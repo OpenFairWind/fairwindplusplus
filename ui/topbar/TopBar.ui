@@ -6,15 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>875</width>
-    <height>99</height>
+    <width>863</width>
+    <height>295</height>
    </rect>
+  </property>
+  <property name="tabletTracking">
+   <bool>false</bool>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(0, 0, 0);
+   <string notr="true">background-color: rgba(26, 26, 26, 191);
 color: rgb(250, 255, 255);</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0">
@@ -37,6 +43,12 @@ color: rgb(250, 255, 255);</string>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QToolButton" name="toolButton_UL">
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -52,6 +64,9 @@ color: rgb(250, 255, 255);</string>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
         <widget class="QLabel" name="label_TextLatitude">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+         </property>
          <property name="text">
           <string>Latitude</string>
          </property>
@@ -59,6 +74,9 @@ color: rgb(250, 255, 255);</string>
        </item>
        <item>
         <widget class="QLabel" name="label_Lat">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+         </property>
          <property name="text">
           <string>40°30'.521 N</string>
          </property>
@@ -76,6 +94,9 @@ color: rgb(250, 255, 255);</string>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
         <widget class="QLabel" name="label_TextLongitude">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+         </property>
          <property name="text">
           <string>Longitude</string>
          </property>
@@ -83,6 +104,9 @@ color: rgb(250, 255, 255);</string>
        </item>
        <item>
         <widget class="QLabel" name="label_Lon">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+         </property>
          <property name="text">
           <string>14°22'.975 E</string>
          </property>
@@ -100,6 +124,9 @@ color: rgb(250, 255, 255);</string>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
         <widget class="QLabel" name="label_TextCOG">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+         </property>
          <property name="text">
           <string>COG</string>
          </property>
@@ -107,6 +134,9 @@ color: rgb(250, 255, 255);</string>
        </item>
        <item>
         <widget class="QLabel" name="label_COG">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+         </property>
          <property name="text">
           <string>273°</string>
          </property>
@@ -118,6 +148,9 @@ color: rgb(250, 255, 255);</string>
       <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
         <widget class="QLabel" name="label_TextSOG">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+         </property>
          <property name="text">
           <string>SOG</string>
          </property>
@@ -125,6 +158,9 @@ color: rgb(250, 255, 255);</string>
        </item>
        <item>
         <widget class="QLabel" name="label_SOG">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+         </property>
          <property name="text">
           <string>5.75 Kn</string>
          </property>
@@ -147,6 +183,9 @@ color: rgb(250, 255, 255);</string>
      </item>
      <item>
       <widget class="QLabel" name="label_Role">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+       </property>
        <property name="text">
         <string>Captain</string>
        </property>
@@ -169,6 +208,9 @@ color: rgb(250, 255, 255);</string>
       <layout class="QVBoxLayout" name="verticalLayout_5">
        <item>
         <widget class="QLabel" name="label_TextWaypoint">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+         </property>
          <property name="text">
           <string>Waypoint</string>
          </property>
@@ -176,6 +218,9 @@ color: rgb(250, 255, 255);</string>
        </item>
        <item>
         <widget class="QLabel" name="label_Waypoint">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+         </property>
          <property name="text">
           <string>--</string>
          </property>
@@ -187,6 +232,9 @@ color: rgb(250, 255, 255);</string>
       <layout class="QVBoxLayout" name="verticalLayout_6">
        <item>
         <widget class="QLabel" name="label_TextInfo">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+         </property>
          <property name="text">
           <string>Info</string>
          </property>
@@ -194,6 +242,9 @@ color: rgb(250, 255, 255);</string>
        </item>
        <item>
         <widget class="QLabel" name="label_Info">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+         </property>
          <property name="text">
           <string>--</string>
          </property>
@@ -205,6 +256,9 @@ color: rgb(250, 255, 255);</string>
       <layout class="QVBoxLayout" name="verticalLayout_7">
        <item>
         <widget class="QLabel" name="label_TextBearing">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+         </property>
          <property name="text">
           <string>Bearing</string>
          </property>
@@ -212,6 +266,9 @@ color: rgb(250, 255, 255);</string>
        </item>
        <item>
         <widget class="QLabel" name="label_Bearing">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+         </property>
          <property name="text">
           <string>--.--</string>
          </property>
@@ -223,6 +280,9 @@ color: rgb(250, 255, 255);</string>
       <layout class="QVBoxLayout" name="verticalLayout_8">
        <item>
         <widget class="QLabel" name="label_TextVMG">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+         </property>
          <property name="text">
           <string>VMG</string>
          </property>
@@ -230,6 +290,9 @@ color: rgb(250, 255, 255);</string>
        </item>
        <item>
         <widget class="QLabel" name="label_VMG">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+         </property>
          <property name="text">
           <string>--.--</string>
          </property>
@@ -239,6 +302,9 @@ color: rgb(250, 255, 255);</string>
      </item>
      <item>
       <widget class="QLabel" name="label_Date">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+       </property>
        <property name="text">
         <string>Sat 17 Apr</string>
        </property>
@@ -246,6 +312,9 @@ color: rgb(250, 255, 255);</string>
      </item>
      <item>
       <widget class="QLabel" name="label_Time">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+       </property>
        <property name="text">
         <string>11:30</string>
        </property>
@@ -256,6 +325,9 @@ color: rgb(250, 255, 255);</string>
      </item>
      <item>
       <widget class="QToolButton" name="toolButton_UR">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+       </property>
        <property name="text">
         <string/>
        </property>

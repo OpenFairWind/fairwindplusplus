@@ -14,8 +14,8 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(0, 0, 0);
-color: rgb(255, 255, 255);</string>
+   <string notr="true">background-color: rgba(26, 26, 26, 191);
+color: rgb(250, 255, 255);</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <property name="leftMargin">
@@ -50,6 +50,9 @@ color: rgb(255, 255, 255);</string>
      </item>
      <item>
       <widget class="QToolButton" name="toolButton_MyData">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+       </property>
        <property name="text">
         <string>My Data</string>
        </property>
@@ -70,6 +73,9 @@ color: rgb(255, 255, 255);</string>
      </item>
      <item>
       <widget class="QToolButton" name="toolButton_MOB">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+       </property>
        <property name="text">
         <string>MOB</string>
        </property>
@@ -90,6 +96,9 @@ color: rgb(255, 255, 255);</string>
      </item>
      <item>
       <widget class="QToolButton" name="toolButton_Apps">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+       </property>
        <property name="text">
         <string>Apps</string>
        </property>
@@ -110,6 +119,9 @@ color: rgb(255, 255, 255);</string>
      </item>
      <item>
       <widget class="QToolButton" name="toolButton_Alarms">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+       </property>
        <property name="text">
         <string>Alarms</string>
        </property>
@@ -130,6 +142,9 @@ color: rgb(255, 255, 255);</string>
      </item>
      <item>
       <widget class="QToolButton" name="toolButton_Settings">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+       </property>
        <property name="text">
         <string>Settings</string>
        </property>
