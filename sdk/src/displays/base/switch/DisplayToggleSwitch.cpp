@@ -41,7 +41,8 @@ void fairwind::displays::DisplayToggleSwitch::onInit(QMap<QString, QVariant> par
         setToolTip(params["description"].toString());
     }
 
-    ui->verticalLayout_2->addWidget(toggle);
+    toggle->setMaximumWidth(80);
+    ui->layoutFrameTS->addWidget(toggle);
 }
 
 QImage fairwind::displays::DisplayToggleSwitch::getIcon() const {
@@ -57,7 +58,7 @@ fairwind::displays::IDisplay *fairwind::displays::DisplayToggleSwitch::getNewIns
 }
 
 void fairwind::displays::DisplayToggleSwitch::setLabel(QString label) {
-    ui->groupBox->setTitle(label);
+    ui->labelToggleSwitch->setText(label);
 }
 
 void fairwind::displays::DisplayToggleSwitch::setUnits(QString units) {

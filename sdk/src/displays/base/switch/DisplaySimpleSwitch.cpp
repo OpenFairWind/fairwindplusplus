@@ -22,7 +22,8 @@ ui(new Ui::DisplaySimpleSwitch) {
 
     // Initialize the user interface
     ui->setupUi(this);
-    //connect(ui->switchButton, &QPushButton::released, this, &DisplaySimpleSwitch::onRelease);
+
+    setMaximumWidth(500);
 }
 
 /**
@@ -59,7 +60,7 @@ void fairwind::displays::DisplaySimpleSwitch::onInit(QMap<QString, QVariant> par
         setToolTip(params["description"].toString());
     }
 
-    ui->verticalLayout->addWidget(sbtn);
+    ui->layoutFrameS->addWidget(sbtn);
 }
 
 fairwind::displays::IDisplay *fairwind::displays::DisplaySimpleSwitch::getNewInstance() {
@@ -67,7 +68,7 @@ fairwind::displays::IDisplay *fairwind::displays::DisplaySimpleSwitch::getNewIns
 }
 
 void fairwind::displays::DisplaySimpleSwitch::setLabel(QString label) {
-    ui->groupBox->setTitle(label);
+    ui->labelSimpleSwitch->setText(label);
 }
 
 void fairwind::displays::DisplaySimpleSwitch::setUnits(QString units) {
