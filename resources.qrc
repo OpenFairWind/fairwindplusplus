@@ -1,9 +1,17 @@
 <!DOCTYPE RCC><RCC version="1.0">
     <qresource>
         <file>resources/images/colophon/rmontella_64x64.png</file>
+        <file>resources/images/colophon/gmellone_64x64.png</file>
+        <file>resources/images/colophon/cgdevita_64x64.png</file>
+        <file>resources/images/colophon/mdicapua_64x64.png</file>
+        <file>resources/images/colophon/nmarinello_64x64.png</file>
+        <file>resources/images/colophon/ddiluccio_64x64.png</file>
+        <file>resources/images/colophon/aciaramella_64x64.png</file>
+        <file>resources/images/colophon/fizzo_64x64.png</file>
 
-        <file>resources/images/carbon_base.png</file>
-        <file>resources/images/splash_logo.png</file>
+
+        <file>resources/images/other/carbon_base.png</file>
+        <file>resources/images/other/splash_logo.png</file>
 
         <file>resources/images/icons/imagebutton_mydata.png</file>
         <file>resources/images/icons/imagebutton_mob.png</file>

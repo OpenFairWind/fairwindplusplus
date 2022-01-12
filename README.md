@@ -66,7 +66,7 @@ FairWind++ is developed in C++ 17 and QT5.12.2.
 The following list is an incomplete set of tested working conditions:
 
 - MacOs, Intel
-- MacOs, Apple Silicon (the web applications are not working)
+- MacOs, Apple Silicon
 - Ubuntu Linux, ARM64
 - Ubuntu Linux, X86_64
 - Raspberry Pi OS, ARM32
@@ -194,9 +194,50 @@ make
 ./FairWind
 ```
 
-### Building on MacOS
+## Building on MacOS
+### Apple Silicon
+***ATTENTION: Qt5 is not yet fully compatible with Apple Silicon SoCs. You can instal qt@5 package but it won't include the qtwebengine widgets, which are necessary to build some FairWind's applications. 
+For this reason Rosetta will emulate x86_64 version of Qt@5***
 
-***ATTENTION: Qt5 is not yet fully compatible with Apple Silicon SoCs. You can instal qt@5 package but it won't include the qtwebengine widgets, which are necessary to build some FairWind's applications.***
+Make sure Rosetta is installed
+```console
+softwareupdate --install-rosetta
+```
+
+Then install Homebrew (explained here https://github.com/Homebrew/brew/issues/9173)
+```console
+arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+```
+- Install Qt5 from homebrew:
+```console
+arch -x86_64 /usr/local/Homebrew/bin/brew install cmake qt@5
+```
+
+- Clone FairWind's repository:
+```console
+brew install git
+git clone https://github.com/OpenFairWind/fairwindplusplus.git
+```
+
+- Prepare build environment:
+```console
+cd fairwindplusplus
+mkdir build
+cd build
+```
+
+- Build:
+```console
+arch -x86_64 /usr/local/Cellar/cmake/3.22.1/bin/cmake -DCMAKE_PREFIX_PATH="/usr/local/opt/qt5/" ..
+make
+```
+
+- Launch FairWind++:
+```console
+./FairWind
+```
+
+### Intel
 
 - Install Qt5 from homebrew:
 ```console
