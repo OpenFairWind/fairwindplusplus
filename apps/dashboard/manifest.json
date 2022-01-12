@@ -211,12 +211,14 @@
                         "class":"fairwind::displays::DisplayToggleSwitch",
                         "active":true,
                         "layout":"0,0",
+                        "value": "on",
                         "label": "Cabin Lights 1",
                         "fullPath":"${self}.electrical.switches.cabinLights1"
                       },
                       {
                         "class":"fairwind::displays::DisplaySimpleSwitch",
                         "active":true,
+                        "value": "on",
                         "layout":"1,0",
                         "label": "Cabin Lights 2",
                         "fullPath":"${self}.electrical.switches.cabinLights2"
@@ -224,6 +226,7 @@
                       {
                         "class":"fairwind::displays::DisplaySimpleSwitch",
                         "active":true,
+                        "value": "on",
                         "layout":"2,0",
                         "label": "Cabin Lights 3",
                         "fullPath":"${self}.electrical.switches.cabinLights3"
@@ -231,6 +234,7 @@
                       {
                         "class":"fairwind::displays::DisplaySimpleSwitch",
                         "active":true,
+                        "value": "on",
                         "layout":"3,0",
                         "label": "Top Light",
                         "fullPath":"${self}.electrical.switches.topLight"
@@ -238,6 +242,7 @@
                       {
                         "class":"fairwind::displays::DisplaySimpleSwitch",
                         "active":true,
+                        "value": "on",
                         "layout":"4,0",
                         "label": "Steaming Light",
                         "fullPath":"${self}.electrical.switches.steamingLight"
@@ -245,6 +250,7 @@
                       {
                         "class":"fairwind::displays::DisplaySimpleSwitch",
                         "active":true,
+                        "value": "on",
                         "layout":"5,0",
                         "label": "Navigation Light",
                         "fullPath":"${self}.electrical.switches.navigationLight"
@@ -252,6 +258,7 @@
                       {
                        "class":"fairwind::displays::DisplaySimpleSwitch",
                        "active":true,
+                        "value": "on",
                        "layout":"6,0",
                        "label": "Keel Bilge Pump",
                        "fullPath":"${self}.electrical.switches.keelBilgePump"
@@ -259,6 +266,7 @@
                       {
                         "class":"fairwind::displays::DisplaySimpleSwitch",
                         "active":true,
+                        "value": "on",
                         "layout":"0,1",
                         "label": "Sailing Instruments",
                         "fullPath":"${self}.electrical.switches.sailingInstruments"
@@ -266,6 +274,7 @@
                       {
                         "class":"fairwind::displays::DisplaySimpleSwitch",
                         "active":true,
+                        "value": "on",
                         "layout":"1,1",
                         "label": "Navigation Instruments",
                         "fullPath":"${self}.electrical.switches.navigationInstruments"
@@ -273,6 +282,7 @@
                       {
                         "class":"fairwind::displays::DisplaySimpleSwitch",
                         "active":true,
+                        "value": "on",
                         "layout":"2,1",
                         "label": "VHF",
                         "fullPath":"${self}.electrical.switches.vhf"
@@ -281,6 +291,7 @@
                         "class":"fairwind::displays::DisplaySimpleSwitch",
                         "active":true,
                         "layout":"3,1",
+                        "value": "on",
                         "label": "Radio Recorder",
                         "fullPath":"${self}.electrical.switches.radioRecorder"
                       },
@@ -288,6 +299,7 @@
                         "class":"fairwind::displays::DisplaySimpleSwitch",
                         "active":true,
                         "layout":"4,1",
+                        "value": "on",
                         "label": "Refrigerator",
                         "fullPath":"${self}.electrical.switches.refrigerator"
                       },
@@ -295,6 +307,7 @@
                         "class":"fairwind::displays::DisplaySimpleSwitch",
                         "active":true,
                         "layout":"5,1",
+                        "value": "on",
                         "label": "Water Pump",
                         "fullPath":"${self}.electrical.switches.waterPump"
                       },
@@ -302,6 +315,7 @@
                       "class":"fairwind::displays::DisplaySimpleSwitch",
                       "active":true,
                       "layout":"6,1",
+                        "value": "on",
                       "label": "Shower Pump",
                       "fullPath":"${self}.electrical.switches.showerPump"
                       },

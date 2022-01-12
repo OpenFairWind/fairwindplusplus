@@ -8,6 +8,7 @@
 
 #include <QJsonArray>
 #include <displays/DisplaySimpleSwitch.hpp>
+#include <qnetworkaccessmanager.h>
 
 
 /**
@@ -24,6 +25,8 @@ ui(new Ui::DisplaySimpleSwitch) {
     ui->setupUi(this);
 
     setMaximumWidth(500);
+
+    networkAccessManager = new QNetworkAccessManager(this);
 }
 
 /**
@@ -44,15 +47,17 @@ QWidget *fairwind::displays::DisplaySimpleSwitch::onSettings() {
 void fairwind::displays::DisplaySimpleSwitch::onInit(QMap<QString, QVariant> params) {
     qDebug() << "DisplaySingleText::onInit(" << params << ")";
 
+    sbtn = new SwitchButton();
+    connect(sbtn, &SwitchButton::onClick, this, &DisplaySimpleSwitch::slotOnClick);
+    sbtn->setIcons(":resources/images/switches/simple_switch_off.png",":resources/images/switches/simple_switch_on.png");
+    //sbtn->setStatus(true);
+
     if (params.contains("label")) {
         setLabel(params["label"].toString());
     }
     if (params.contains("value")) {
         setValue(params["value"].toString());
     }
-    sbtn = new SwitchButton();
-    sbtn->setStylesheet(":resources/images/switches/simple_switch_off.png",":resources/images/switches/simple_switch_on.png");
-
     if (params.contains("fullPath")) {
         subscribe(params["fullPath"].toString());
     }
@@ -74,24 +79,10 @@ void fairwind::displays::DisplaySimpleSwitch::setLabel(QString label) {
 void fairwind::displays::DisplaySimpleSwitch::setUnits(QString units) {
 
 }
-void fairwind::displays::DisplaySimpleSwitch::setValue(QString value) {
-    //ui->label_Value1->setText(value);
-    if (value.contains("on")) {
-        status=true;
-    } else {
-        status=false;
-    }
-
-    updateStatus();
-}
-
-
-void fairwind::displays::DisplaySimpleSwitch::updateStatus() {
-    if (status) {
-        //ui->witchButton->setText("simpleswitch_on");
-    } else {
-        //ui->switchButton->setText("simpleswitch_off");
-    }
+void fairwind::displays::DisplaySimpleSwitch::setValue(QString value)
+{
+    qDebug()<<"DisplaySimpleSwitch::setValue "<<value;
+    sbtn->setStatus(value.contains("on") ? true : false);
 }
 
 void fairwind::displays::DisplaySimpleSwitch::subscribe(QString fullPath) {
@@ -115,9 +106,8 @@ QString fairwind::displays::DisplaySimpleSwitch::getClassName() const {
     return this->metaObject()->className();
 }
 
-void fairwind::displays::DisplaySimpleSwitch::onRelease() {
-    status=!status;
-    updateStatus();
-}
+void fairwind::displays::DisplaySimpleSwitch::slotOnClick(bool status)
+{
 
+}
 

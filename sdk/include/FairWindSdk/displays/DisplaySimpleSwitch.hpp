@@ -11,6 +11,7 @@
 #include <FairWindSdk/IDisplay.hpp>
 #include <qcswitchwidget.hpp>
 
+class QNetworkAccessManager;
 
 namespace Ui {
     class DisplaySimpleSwitch;
@@ -35,16 +36,16 @@ namespace fairwind::displays {
         void setValue(QString value) override;
         void subscribe(QString fullPath) override;
 
-        void updateStatus();
 
         public slots:
         void update(const QJsonObject update) override;
-        void onRelease();
+        void slotOnClick(bool checked);
 
     private:
         Ui::DisplaySimpleSwitch *ui;
-        SwitchButton *sbtn;
+        SwitchButton *sbtn = nullptr;
         bool status;
+        QNetworkAccessManager* networkAccessManager= nullptr;
 
     };
 }
