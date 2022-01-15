@@ -12,9 +12,8 @@
     "App": {
       "Email": "fairwind@uniparthenope.it",
       "Id": "fairwind.apps.weather",
-      "Config": {
-
-      }
+      "Icon": ":/resources/images/icons/weather_icon.png",
+      "Settings": {}
     }
   }
 }

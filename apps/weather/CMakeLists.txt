@@ -6,7 +6,7 @@ add_library(Weather SHARED
         Weather.cpp
         Weather.hpp
         ${WEATHER_RESOURCE_ADDED}
-        )
+        MainPage.cpp MainPage.hpp MainPage.ui)
 
 add_dependencies(Weather FairWindSdk)
 target_link_libraries(Weather PRIVATE Qt5::Widgets Qt5::Network  ${LIBFAIRWINDSDK})

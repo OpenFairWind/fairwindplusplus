@@ -20,7 +20,7 @@ namespace fairwind::ui::topbar {
 
         ~TopBar();
 
-        void setFairWindApp(fairwind::apps::IApp *fairWindApp);
+        void setFairWindApp(fairwind::apps::IFairWindApp *fairWindApp);
 
     public slots:
         void toolbuttonUL_clicked();
@@ -42,7 +42,7 @@ namespace fairwind::ui::topbar {
 
     private:
         Ui::TopBar *ui;
-        fairwind::apps::IApp *m_fairWindApp;
+        fairwind::apps::IFairWindApp *m_fairWindApp;
     };
 }
 

@@ -1,5 +1,48 @@
 <!DOCTYPE RCC><RCC version="1.0">
     <qresource>
+        <file>resources/content/data.json</file>
+
+        <file>resources/images/flags/code.png</file>
+        <file>resources/images/flags/1str.png</file>
+        <file>resources/images/flags/2ndr.png</file>
+        <file>resources/images/flags/3rdr.png</file>
+
+        <file>resources/images/flags/0.png</file>
+        <file>resources/images/flags/1.png</file>
+        <file>resources/images/flags/2.png</file>
+        <file>resources/images/flags/3.png</file>
+        <file>resources/images/flags/4.png</file>
+        <file>resources/images/flags/5.png</file>
+        <file>resources/images/flags/6.png</file>
+        <file>resources/images/flags/7.png</file>
+        <file>resources/images/flags/8.png</file>
+        <file>resources/images/flags/9.png</file>
+
+        <file>resources/images/flags/a.png</file>
+        <file>resources/images/flags/b.png</file>
+        <file>resources/images/flags/c.png</file>
+        <file>resources/images/flags/d.png</file>
+        <file>resources/images/flags/e.png</file>
+        <file>resources/images/flags/f.png</file>
+        <file>resources/images/flags/g.png</file>
+        <file>resources/images/flags/h.png</file>
+        <file>resources/images/flags/i.png</file>
+        <file>resources/images/flags/j.png</file>
+        <file>resources/images/flags/k.png</file>
+        <file>resources/images/flags/l.png</file>
+        <file>resources/images/flags/m.png</file>
+        <file>resources/images/flags/n.png</file>
+        <file>resources/images/flags/o.png</file>
+        <file>resources/images/flags/p.png</file>
+        <file>resources/images/flags/q.png</file>
+        <file>resources/images/flags/r.png</file>
+        <file>resources/images/flags/s.png</file>
+        <file>resources/images/flags/t.png</file>
+        <file>resources/images/flags/u.png</file>
+        <file>resources/images/flags/v.png</file>
+        <file>resources/images/flags/w.png</file>
+        <file>resources/images/flags/y.png</file>
+        <file>resources/images/flags/z.png</file>
         <file>resources/images/icons/imsf_icon.png</file>
     </qresource>
 </RCC>

@@ -14,24 +14,26 @@ class QWebEngineProfile;
 class QWebEngineView;
 QT_END_NAMESPACE
 
-class WebView;
+namespace fairwind::apps::web {
+    class WebView;
 
-class WebPopupWindow : public QWidget
-{
-Q_OBJECT
+    class WebPopupWindow : public QWidget {
+    Q_OBJECT
 
-public:
-    WebPopupWindow(QWebEngineProfile *profile);
-    WebView *view() const;
+    public:
+        WebPopupWindow(QWebEngineProfile *profile);
 
-private slots:
-    void handleGeometryChangeRequested(const QRect &newGeometry);
+        WebView *view() const;
 
-private:
-    QLineEdit *m_urlLineEdit;
-    QAction *m_favAction;
-    WebView *m_view;
-};
+    private slots:
 
+        void handleGeometryChangeRequested(const QRect &newGeometry);
+
+    private:
+        QLineEdit *m_urlLineEdit;
+        QAction *m_favAction;
+        WebView *m_view;
+    };
+}
 
 #endif //FAIRWIND_WEBPOPUPWINDOW_HPP

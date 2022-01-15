@@ -4,6 +4,7 @@
 
 #include <QCryptographicHash>
 #include <utility>
+#include <FairWindSdk/FairWindApp.hpp>
 
 #include "include/FairWindSdk/App.hpp"
 #include "include/FairWindSdk/FairWind.hpp"
@@ -28,50 +29,20 @@ fairwind::App::App(const fairwind::App &app) {
 /*
  * Public Constructor
  */
-fairwind::App::App(fairwind::apps::IApp *fairWindApp, QMap <QString, QVariant> args, bool active, int order) {
+fairwind::App::App(fairwind::apps::FairWindApp *fairWindApp, bool active, int order) {
     // Get the app's infos and store them for future usage
     m_extension = fairWindApp->getId();
+    m_route = fairWindApp->getRoute();
+    m_args = fairWindApp->getArgs();
     m_name = fairWindApp->getName();
     m_desc = fairWindApp->getDesc();
     m_version = fairWindApp->getVersion();
-    m_vendor = fairWindApp->getVersion();
+    m_vendor = fairWindApp->getVendor();
     m_copyright = fairWindApp->getCopyright();
     m_license = fairWindApp->getLicense();
     m_icon = fairWindApp->getIcon();
     m_order = order;
     m_active = active;
-    m_args = std::move(args);
-
-    // Check if app's arguments contain a name
-    if (m_args.contains("Name")) {
-        // Set the app's name
-        m_name = m_args["Name"].toString();
-    }
-
-    // Check if app's arguments contain a description
-    if (m_args.contains("Description")) {
-        // Set the app's description
-        m_desc = m_args["Description"].toString();
-    }
-
-    // Check if app's arguments contain an icon
-    if (m_args.contains("Icon")) {
-        // Get the icon's path
-        QString iconFilePath = m_args["Icon"].toString();
-        QDir iconFile(iconFilePath);
-
-        // Check if the directory containing the icon is relative
-        if (iconFile.isRelative()) {
-            // Build the full icon's path
-            iconFilePath =
-                    fairWindApp->getMetaData()["dataRoot"].toString() + QDir::separator() + fairWindApp->getId() +
-                    QDir::separator() + iconFilePath;
-
-        }
-        //qDebug() << "fairwind::App::App: iconFilePath: " << iconFilePath;
-        // Set the app's icon
-        m_icon = QImage(iconFilePath);
-    }
 
     generateHash();
 }
@@ -152,12 +123,16 @@ QString fairwind::App::getHash() {
  * Generates a new hash value for the app
  */
 void fairwind::App::generateHash() {
-    QString text = m_extension;
+    QString text = m_extension+"/"+m_route;
     for (QString key: m_args.keys()) {
         text = text + " " + key + "=" + "\"" + m_args[key].toString() + "\"";
     }
 
     m_hash = QString(QCryptographicHash::hash((text.toUtf8()), QCryptographicHash::Md5).toHex());
+}
+
+QString fairwind::App::getRoute() {
+    return m_route;
 }
 
 /*
@@ -199,3 +174,5 @@ QString fairwind::App::getCopyright() {
 QString fairwind::App::getLicense() {
     return m_license;
 }
+
+

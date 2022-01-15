@@ -1,0 +1,220 @@
+{
+  "flags": {
+    "a": {
+      "resource": ":/resources/images/flags/a.png",
+      "letter": "A",
+      "codeWord": "Alpha",
+      "pronunciation": "AL FAH"
+    },
+    "b": {
+      "resource": ":/resources/images/flags/b.png",
+      "letter": "B",
+      "codeWord": "Bravo",
+      "pronunciation": "BRAH VOH"
+    },
+    "c": {
+      "resource": ":/resources/images/flags/c.png",
+      "letter": "C",
+      "codeWord": "Bravo",
+      "pronunciation": "CHAR LEE"
+    },
+    "d": {
+      "resource": ":/resources/images/flags/d.png",
+      "letter": "D",
+      "codeWord": "Delta",
+      "pronunciation": "DELL TAH"
+    },
+    "e": {
+      "resource": ":/resources/images/flags/e.png",
+      "letter": "E",
+      "codeWord": "Echo",
+      "pronunciation": "ECK OH"
+    },
+    "f": {
+      "resource": ":/resources/images/flags/f.png",
+      "letter": "F",
+      "codeWord": "Foxtrot",
+      "pronunciation": "FOKS TROT"
+    },
+    "g": {
+      "resource": ":/resources/images/flags/g.png",
+      "letter": "G",
+      "codeWord": "Golf",
+      "pronunciation": "GOLF"
+    },
+    "h": {
+      "resource": ":/resources/images/flags/h.png",
+      "letter": "H",
+      "codeWord": "Hotel",
+      "pronunciation": "HOH TELL"
+    },
+    "i": {
+      "resource": ":/resources/images/flags/i.png",
+      "letter": "I",
+      "codeWord": "India",
+      "pronunciation": "IN DEE AH"
+    },
+    "j": {
+      "resource": ":/resources/images/flags/j.png",
+      "letter": "J",
+      "codeWord": "Juliett",
+      "pronunciation": "JEW LEE ETT"
+    },
+    "k": {
+      "resource": ":/resources/images/flags/k.png",
+      "letter": "K",
+      "codeWord": "Kilo",
+      "pronunciation": "KEY LOH"
+    },
+    "l": {
+      "resource": ":/resources/images/flags/l.png",
+      "letter": "L",
+      "codeWord": "Lima",
+      "pronunciation": "LEE MAH"
+    },
+    "m": {
+      "resource": ":/resources/images/flags/m.png",
+      "letter": "M",
+      "codeWord": "Mike",
+      "pronunciation": "MIKE"
+    },
+    "n": {
+      "resource": ":/resources/images/flags/n.png",
+      "letter": "N",
+      "codeWord": "November",
+      "pronunciation": "NO VEM BER"
+    },
+    "o": {
+      "resource": ":/resources/images/flags/o.png",
+      "letter": "O",
+      "codeWord": "Oscar",
+      "pronunciation": "OSS CAH"
+    },
+    "p": {
+      "resource": ":/resources/images/flags/p.png",
+      "letter": "P",
+      "codeWord": "Papa",
+      "pronunciation": "PAH PAH"
+    },
+    "q": {
+      "resource": ":/resources/images/flags/q.png",
+      "letter": "Q",
+      "codeWord": "Quebec",
+      "pronunciation": "KEH BECK"
+    },
+    "r": {
+      "resource": ":/resources/images/flags/r.png",
+      "letter": "R",
+      "codeWord": "Romeo",
+      "pronunciation": "ROW ME OH"
+    },
+    "s": {
+      "resource": ":/resources/images/flags/s.png",
+      "letter": "S",
+      "codeWord": "Sierra",
+      "pronunciation": "SEE AIR RAH"
+    },
+    "t": {
+      "resource": ":/resources/images/flags/t.png",
+      "letter": "T",
+      "codeWord": "Tango",
+      "pronunciation": "TANG GO"
+    },
+    "u": {
+      "resource": ":/resources/images/flags/u.png",
+      "letter": "U",
+      "codeWord": "Uniform",
+      "pronunciation": "YOU NEE FORM"
+    },
+    "v": {
+      "resource": ":/resources/images/flags/v.png",
+      "letter": "V",
+      "codeWord": "Victor",
+      "pronunciation": "VIK TAH"
+    },
+    "w": {
+      "resource": ":/resources/images/flags/w.png",
+      "letter": "W",
+      "codeWord": "Whiskey",
+      "pronunciation": "WISS KEY"
+    },
+    "x": {
+      "resource": ":/resources/images/flags/x.png",
+      "letter": "X",
+      "codeWord": "X-ray",
+      "pronunciation": "ECKS RAY"
+    },
+    "y": {
+      "resource": ":/resources/images/flags/y.png",
+      "letter": "Y",
+      "codeWord": "Yankee",
+      "pronunciation": "YANG KEY"
+    },
+    "z": {
+      "resource": ":/resources/images/flags/z.png",
+      "letter": "Z",
+      "codeWord": "Zulu",
+      "pronunciation": "ZOO LOO"
+    },
+    "0": {
+      "resource": ":/resources/images/flags/0.png",
+      "letter": "0",
+      "codeWord": "Nadazero",
+      "pronunciation": "NAH-DAH-ZAY-RO"
+    },
+    "1": {
+      "resource": ":/resources/images/flags/1.png",
+      "letter": "1",
+      "codeWord": "Unaone",
+      "pronunciation": "OO-NAH-WUN"
+    },
+    "2": {
+      "resource": ":/resources/images/flags/2.png",
+      "letter": "2",
+      "codeWord": "Bissotwo",
+      "pronunciation": "BEES-SOH-TOO"
+    },
+    "3": {
+      "resource": ":/resources/images/flags/3.png",
+      "letter": "3",
+      "codeWord": "Terratree",
+      "pronunciation": "TAY-RAH-TREE"
+    },
+    "4": {
+      "resource": ":/resources/images/flags/4.png",
+      "letter": "4",
+      "codeWord": "Kartefour",
+      "pronunciation": "KAR-TAY-FOWER"
+    },
+    "5": {
+      "resource": ":/resources/images/flags/5.png",
+      "letter": "5",
+      "codeWord": "Pantafive",
+      "pronunciation": "PAN-TAH-FIVE"
+    },
+    "6": {
+      "resource": ":/resources/images/flags/6.png",
+      "letter": "6",
+      "codeWord": "Soxisix",
+      "pronunciation": "SOK-SEE-SIX"
+    },
+    "7": {
+      "resource": ":/resources/images/flags/7.png",
+      "letter": "7",
+      "codeWord": "Setteseven",
+      "pronunciation": "SAY-TAY-SEVEN"
+    },
+    "8": {
+      "resource": ":/resources/images/flags/8.png",
+      "letter": "8",
+      "codeWord": "Octoeight",
+      "pronunciation": "OK-TOH-AIT"
+    },
+    "9": {
+      "resource": ":/resources/images/flags/9.png",
+      "letter": "9",
+      "codeWord": "Novenine",
+      "pronunciation": "NO-VAY-NINER"
+    }
+  }
+}

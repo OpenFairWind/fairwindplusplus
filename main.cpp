@@ -75,10 +75,14 @@ int main(int argc, char *argv[]) {
     QCoreApplication::setOrganizationName("uniparthenope");
 
     // Set the window icon
-    app.setWindowIcon(QIcon(QStringLiteral(":resources/images/fairwind_logo.png")));
+    app.setWindowIcon(QIcon(QPixmap::fromImage(QImage(":/resources/images/icons/fairwind_icon.png"))));
 
     // Create a new MainWindow object
     fairwind::ui::MainWindow w;
+
+    // Register the main window
+    fairWind->setMainWindow(&w);
+
     // Close the splash screen presenting the MainWindow UI
     splash.finish(&w);
     return QApplication::exec();

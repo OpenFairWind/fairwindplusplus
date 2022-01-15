@@ -12,9 +12,8 @@
     "App": {
       "Email": "fairwind@uniparthenope.it",
       "Id": "fairwind.apps.portolano",
-      "Config": {
-
-      }
+      "Icon": ":/resources/images/icons/portolano_icon.png",
+      "Settings": {}
     }
   }
 }

@@ -6,12 +6,13 @@
 #include <QToolButton>
 
 #include <FairWindSdk/FairWind.hpp>
+#include <FairWindSdk/FairWindApp.hpp>
 
 #include "MainWindow.hpp"
 #include "ui/topbar/TopBar.hpp"
 #include "ui/bottombar/BottomBar.hpp"
 #include "ui/settings/Settings.hpp"
-#include "ui/colophon/Colophon.hpp"
+#include "ui/about/About.hpp"
 #include "ui_MainWindow.h"
 
 /*
@@ -110,7 +111,7 @@ void fairwind::ui::MainWindow::setForegroundApp(QString hash) {
     auto app = fairWind->getApps()[hash];
 
     // Get the fairwind app
-    fairwind::apps::IApp *fairWindApp = fairWind->getAppByExtensionId(app->getExtension());
+    fairwind::apps::IFairWindApp *fairWindApp = fairWind->getAppByExtensionId(app->getExtension());
 
     // The QT widget implementing the app
     QWidget *widgetApp = nullptr;
@@ -121,8 +122,17 @@ void fairwind::ui::MainWindow::setForegroundApp(QString hash) {
         // If yes, get its widget from mapWidgets
         widgetApp = mapWidgets[hash];
     } else {
+        // Set the route
+        fairWindApp->setRoute(app->getRoute());
+
+        // Set the args
+        fairWindApp->setArgs(app->getArgs());
+
         // invoke the app onStart method
-        widgetApp = fairWindApp->onStart(this, app->getArgs());
+        fairWindApp->onStart();
+
+        // Get the app widget
+        widgetApp = ((fairwind::apps::FairWindApp *)fairWindApp)->getWidget();
 
         // Check if the widget is valid
         if (widgetApp) {
@@ -197,9 +207,20 @@ void fairwind::ui::MainWindow::onSettings() {
  */
 void fairwind::ui::MainWindow::onUpperLeft() {
     // Show the settings view
-    colophon::Colophon colophon(m_apps);
-    colophon.setWindowTitle("About...");
-    colophon.exec();
+    auto aboutPage = new about::About(this, ui->stackedWidget_Center->currentWidget());
+    ui->widget_Top->setDisabled(true);
+    ui->widget_Bottom->setDisabled(true);
+    ui->stackedWidget_Center->addWidget(aboutPage);
+    ui->stackedWidget_Center->setCurrentWidget(aboutPage);
+
+    connect(aboutPage,&about::About::accepted,this, &MainWindow::onAboutAccepted);
+}
+
+void fairwind::ui::MainWindow::onAboutAccepted(fairwind::ui::about::About *aboutPage) {
+    ui->widget_Top->setDisabled(false);
+    ui->widget_Bottom->setDisabled(false);
+    ui->stackedWidget_Center->removeWidget(aboutPage);
+    ui->stackedWidget_Center->setCurrentWidget(aboutPage->getCurrentWidget());
 }
 
 /*
@@ -208,4 +229,11 @@ void fairwind::ui::MainWindow::onUpperLeft() {
  */
 void fairwind::ui::MainWindow::onUpperRight() {
     // Show the settings view
+    if (m_fairWindApp) {
+        m_fairWindApp->colophon();
+    }
 }
+
+
+
+

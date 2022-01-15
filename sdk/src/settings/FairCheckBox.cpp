@@ -5,11 +5,12 @@
 #include <QJsonArray>
 
 #include <FairWindSdk/FairWind.hpp>
-#include <FairWindSdk/IApp.hpp>
+#include <FairWindSdk/IFairWindApp.hpp>
 #include <FairWindSdk/settings/FairCheckBox.hpp>
+#include <FairWindApp.hpp>
 
-void fairwind::ui::settings::FairCheckBox::setDetails(QString settingsID, QJsonObject settings, fairwind::apps::IApp* extension) {
-    auto config = extension->getConfig();
+void fairwind::ui::settings::FairCheckBox::setDetails(QString settingsID, QJsonObject settings, fairwind::apps::IFairWindApp* extension) {
+    auto config = ((fairwind::apps::FairWindApp *)extension)->getConfig();
 
     // Get the settings current value
     QString checkState = config[settingsID].toString();

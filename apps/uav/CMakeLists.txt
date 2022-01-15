@@ -6,7 +6,7 @@ add_library(UAV SHARED
         UAV.cpp
         UAV.hpp
         ${UAV_RESOURCE_ADDED}
-        )
+        MainPage.cpp MainPage.hpp MainPage.ui)
 
 add_dependencies(UAV FairWindSdk)
 target_link_libraries(UAV PRIVATE Qt5::Widgets Qt5::Network  ${LIBFAIRWINDSDK})

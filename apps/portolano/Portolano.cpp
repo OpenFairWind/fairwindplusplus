@@ -4,96 +4,39 @@
 
 #include <FairWindSdk/FairWind.hpp>
 #include "Portolano.hpp"
+#include "MainPage.hpp"
 
-/*
- * Returns the application icon
- */
-QImage fairwind::apps::portolano::Portolano::getIcon() const {
-    return QImage(":/resources/images/icons/portolano_icon.png");
+
+void fairwind::apps::portolano::Portolano::onCreate() {
+    FairWindApp::onCreate();
 }
-
 /*
  * Called by the FairWind framework when the app is invoked for the first time
  */
-QWidget *fairwind::apps::portolano::Portolano::onStart(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
+void fairwind::apps::portolano::Portolano::onStart() {
+    FairWindApp::onStart();
 
-    m_widget=new QWidget();
-    ui=new Ui::Portolano();
-    ui->setupUi(m_widget);
-
-    auto fairwind=::fairwind::FairWind::getInstance();
-    auto config = getConfig();
-
-    return m_widget;
-}
-
-
-
-QString fairwind::apps::portolano::Portolano::getId() const {
-    return AppBase::getId();
-}
-
-QString fairwind::apps::portolano::Portolano::getName() const {
-    return AppBase::getName();
-}
-
-QString fairwind::apps::portolano::Portolano::getDesc() const {
-    return AppBase::getDesc();
-}
-
-QString fairwind::apps::portolano::Portolano::getVersion() const {
-    return fairwind::AppBase::getVersion();
-}
-
-QString fairwind::apps::portolano::Portolano::getVendor() const {
-    return fairwind::AppBase::getVendor();
-}
-
-QString fairwind::apps::portolano::Portolano::getCopyright() const {
-    return fairwind::AppBase::getCopyright();
-}
-
-QString fairwind::apps::portolano::Portolano::getLicense() const {
-    return fairwind::AppBase::getLicense();
-}
-
-
-void fairwind::apps::portolano::Portolano::onCreate(QJsonObject *metaData) {
-    AppBase::onCreate(metaData);
+    auto mainPage = new MainPage();
+    add(mainPage);
+    show();
 }
 
 void fairwind::apps::portolano::Portolano::onResume() {
-    AppBase::onResume();
+    FairWindApp::onResume();
 }
 
 void fairwind::apps::portolano::Portolano::onPause() {
-    AppBase::onPause();
+    FairWindApp::onPause();
 }
 
 void fairwind::apps::portolano::Portolano::onStop() {
-    AppBase::onStop();
+    FairWindApp::onStop();
 }
 
 void fairwind::apps::portolano::Portolano::onDestroy() {
-    AppBase::onDestroy();
-}
-
-QJsonObject fairwind::apps::portolano::Portolano::getConfig() {
-    return AppBase::getConfig();
-}
-
-QJsonObject fairwind::apps::portolano::Portolano::getMetaData() {
-    return AppBase::getMetaData();
+    FairWindApp::onDestroy();
 }
 
 void fairwind::apps::portolano::Portolano::updateSettings(QString settingsID, QString newValue) {
-    AppBase::updateSettings(settingsID, newValue);
-}
-
-void fairwind::apps::portolano::Portolano::setConfig(QJsonObject config) {
-    AppBase::setConfig(config);
-}
-
-QJsonObject fairwind::apps::portolano::Portolano::getSettings() {
-    return AppBase::getSettings();
+    FairWindApp::updateSettings(settingsID, newValue);
 }

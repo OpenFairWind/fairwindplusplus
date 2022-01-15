@@ -8,12 +8,13 @@ if (Qt5Multimedia_FOUND AND Qt5MultimediaWidgets_FOUND)
 	add_library(Entertainment SHARED
         	Entertainment.cpp
         	Entertainment.hpp
-        	PlayerControls.cpp PlayerControls.hpp
+			MainPage.cpp MainPage.hpp MainPage.ui
+        	PlayerControls.cpp PlayerControls.hpp PlayerControls.ui
         	PlaylistModel.cpp PlaylistModel.hpp
         	HistogramWidget.cpp HistogramWidget.hpp
         	VideoWidget.cpp VideoWidget.hpp
         	${ENTERTAINMENT_RESOURCE_ADDED}
-        )
+            )
 
 	add_dependencies(Entertainment FairWindSdk)
 	target_link_libraries(Entertainment PRIVATE Qt5::Widgets Qt5::Multimedia Qt5::MultimediaWidgets Qt5::Network Qt5::Xml  ${LIBFAIRWINDSDK})

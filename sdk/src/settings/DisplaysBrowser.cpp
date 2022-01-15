@@ -7,12 +7,13 @@
 #include <QDebug>
 
 #include <FairWindSdk/FairWind.hpp>
-#include <FairWindSdk/IApp.hpp>
+#include <FairWindSdk/IFairWindApp.hpp>
 #include <FairWindSdk/settings/DisplaysBrowser.hpp>
+#include <FairWindApp.hpp>
 
-void fairwind::ui::settings::DisplaysBrowser::setDetails(QString settingsID, QJsonObject settings, fairwind::apps::IApp* extension) {
+void fairwind::ui::settings::DisplaysBrowser::setDetails(QString settingsID, QJsonObject settings, fairwind::apps::IFairWindApp* extension) {
     auto fairWind = fairwind::FairWind::getInstance();
-    auto configs = extension->getConfig();
+    auto configs = ((fairwind::apps::FairWindApp *)extension)->getConfig();
     auto displays = configs[settingsID].toArray();
     auto displaysLayout = new QVBoxLayout;
 

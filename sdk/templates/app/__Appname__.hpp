@@ -7,8 +7,8 @@
 
 #include <QObject>
 #include <QtPlugin>
-#include <FairWindSdk/AppBase.hpp>
-#include <FairWindSdk/IApp.hpp>
+#include <FairWindSdk/FairWindApp.hpp>
+#include <FairWindSdk/IFairWindApp.hpp>
 #include "ui___Appname__.h"
 #include "ui___Appname___Settings.h"
 

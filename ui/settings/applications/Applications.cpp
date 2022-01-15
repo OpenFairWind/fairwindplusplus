@@ -4,6 +4,7 @@
 
 #include <QTableWidgetItem>
 #include <FairWindSdk/FairWind.hpp>
+#include <FairWindSdk/FairWindApp.hpp>
 
 #include "Applications.hpp"
 #include "ui_Applications.h"
@@ -183,9 +184,9 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
     // Check if the extension is valid
     if (extension != nullptr) {
         // Get the extension's config
-        auto configs = extension->getConfig();
+        auto configs = ((fairwind::apps::FairWindApp *)extension)->getConfig();
         // Get the 'Settings' object
-        auto settings = extension->getSettings()["properties"].toObject();
+        auto settings = ((fairwind::apps::FairWindApp *)extension)->getSettings()["properties"].toObject();
 
         // Prepare the settings container widget
         auto settingsContainer = new QWidget;

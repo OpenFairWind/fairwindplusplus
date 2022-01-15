@@ -1,20 +1,20 @@
-set(NATIVE_RESOURCE resourcesNative.qrc)
-qt5_add_resources(NATIVE_RESOURCE_ADDED ${NATIVE_RESOURCE})
+set(EXTERNAL_RESOURCE resourcesExternal.qrc)
+qt5_add_resources(EXTERNAL_RESOURCE_ADDED ${EXTERNAL_RESOURCE})
 
-add_library(Native SHARED
+add_library(External SHARED
         External.cpp
         External.hpp
-        ${NATIVE_RESOURCE_ADDED}
+        ${EXTERNAL_RESOURCE_ADDED}
         )
 
-add_dependencies(Native FairWindSdk)
-target_link_libraries(Native PRIVATE Qt5::Widgets ${LIBFAIRWINDSDK})
-target_compile_options(Native PRIVATE ${COMPILE_OPTIONS})
+add_dependencies(External FairWindSdk)
+target_link_libraries(External PRIVATE Qt5::Widgets Qt5::Network ${LIBFAIRWINDSDK})
+target_compile_options(External PRIVATE ${COMPILE_OPTIONS})
 
 add_custom_command(
-        TARGET Native
+        TARGET External
         POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy
-        $<TARGET_FILE:Native>
-        $<TARGET_FILE_DIR:${PROJECT_NAME}>/apps/$<TARGET_FILE_NAME:Native>
+        $<TARGET_FILE:External>
+        $<TARGET_FILE_DIR:${PROJECT_NAME}>/apps/$<TARGET_FILE_NAME:External>
 )

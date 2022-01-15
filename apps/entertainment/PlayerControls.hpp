@@ -15,6 +15,10 @@ class QComboBox;
 QT_END_NAMESPACE
 
 namespace fairwind::apps::entertainment {
+    QT_BEGIN_NAMESPACE
+    namespace Ui { class PlayerControls; }
+    QT_END_NAMESPACE
+
     class PlayerControls : public QWidget
     {
     Q_OBJECT
@@ -50,15 +54,10 @@ namespace fairwind::apps::entertainment {
         void onVolumeSliderValueChanged();
 
     private:
+        Ui::PlayerControls *ui;
+
         QMediaPlayer::State m_playerState = QMediaPlayer::StoppedState;
         bool m_playerMuted = false;
-        QAbstractButton *m_playButton = nullptr;
-        QAbstractButton *m_stopButton = nullptr;
-        QAbstractButton *m_nextButton = nullptr;
-        QAbstractButton *m_previousButton = nullptr;
-        QAbstractButton *m_muteButton = nullptr;
-        QAbstractSlider *m_volumeSlider = nullptr;
-        QComboBox *m_rateBox = nullptr;
     };
 }
 

@@ -4,11 +4,12 @@
 #include <QJsonArray>
 
 #include <FairWindSdk/FairWind.hpp>
-#include <FairWindSdk/IApp.hpp>
+#include <FairWindSdk/IFairWindApp.hpp>
 #include <FairWindSdk/settings/FairLineEdit.hpp>
+#include <FairWindApp.hpp>
 
-void fairwind::ui::settings::FairLineEdit::setDetails(QString settingsID, QJsonObject settings, fairwind::apps::IApp* extension) {
-    auto config = extension->getConfig();
+void fairwind::ui::settings::FairLineEdit::setDetails(QString settingsID, QJsonObject settings, fairwind::apps::IFairWindApp* extension) {
+    auto config = ((fairwind::apps::FairWindApp *)extension)->getConfig();
 
     this->setFont(QFont("", 14));
     this->setText(config[settingsID].toString());
