@@ -11,6 +11,7 @@
 
 #include <ui/topbar/TopBar.hpp>
 #include <ui/bottombar/BottomBar.hpp>
+#include <ui/about/About.hpp>
 
 #include "FairWindSdk/App.hpp"
 #include "ui/apps/Apps.hpp"
@@ -37,14 +38,17 @@ namespace fairwind::ui {
 
     public
         slots:
-                void setForegroundApp(QString
-        hash);
+                void setForegroundApp(QString hash);
 
         void onApps();
 
         void onSettings();
         void onUpperLeft();
         void onUpperRight();
+
+        void onAboutAccepted(about::About *aboutPage);
+
+
 
     private:
         Ui::MainWindow *ui;
@@ -61,7 +65,9 @@ namespace fairwind::ui {
         bottombar::BottomBar *m_bottonBar = nullptr;
 
         // The pointer to the foregraund app
-        fairwind::apps::IApp *m_fairWindApp = nullptr;
+        fairwind::apps::IFairWindApp *m_fairWindApp = nullptr;
+
+
     };
 }
 
