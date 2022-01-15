@@ -2,16 +2,23 @@
 // Created by Raffaele Montella on 08/04/21.
 //
 
-#ifndef FAIRWIND_APPBASE_HPP
-#define FAIRWIND_APPBASE_HPP
+#ifndef FAIRWIND_FAIRWINDAPP_HPP
+#define FAIRWIND_FAIRWINDAPP_HPP
 
 #include <QJsonObject>
 #include <FairWindSdk/FairWindSDK.hpp>
 
-namespace fairwind {
-    class FAIRWINDSDK_LIB_DECL AppBase{
+
+namespace fairwind::apps {
+
+    class FAIRWINDSDK_LIB_DECL FairWindApp: public QObject{
+    Q_OBJECT
+
     public:
-        ~AppBase() = default;
+        ~FairWindApp();
+
+        // Get the app icon
+        virtual QImage getIcon() const;
 
         // Get the app id as reverse FQDN
         virtual QString getId() const;
@@ -35,7 +42,10 @@ namespace fairwind {
         virtual QString getLicense() const;
 
         // Called by the app loader when the app is loaded
-        virtual void onCreate(QJsonObject *metaData);
+        virtual void onCreate();
+
+        // Method called when the app is first launched by the user (only one time in the lifecycle)
+        virtual void onStart();
 
         // Called when the app is going to be in foreground
         virtual void onResume();
@@ -65,13 +75,46 @@ namespace fairwind {
 
         virtual void updateSettings(QString settingsID, QString newValue);
 
+        QWidget *getWidget();
+        void add(QWidget *page, const QString& route = "/");
+        void show(const QString& route = "/");
+        void show(QWidget *page);
+        void remove(const QString& route);
+        void remove(QWidget *page);
+
+        QString getRoute();
+        QMap<QString, QVariant> getArgs();
+
+        void warning(const QString& message, const QString& details);
+
+        void colophon();
+
+        // ToDo: make this method private and accessible only by the FairWind class.
+        void init(QJsonObject *metaData);
+
+        // ToDo: make this method private and accessible only by MainWindow class
+        void setArgs(QMap<QString, QVariant> args);
+
+        // ToDo: make this method private and accessible only by MainWindow class
+        void setRoute(QString route);
+
     private:
-        // The metatadata embedded with the app
+        QWidget *m_widget;
+        QMap<QString,QWidget *> m_mapWidget;
+
+        // The metadata embedded with the app
         QJsonObject m_metaData;
 
         // The extended json schema for the settings system
         QJsonObject m_settings;
+
+        // The route
+        QString m_route;
+
+        // The args passed by a route
+        QMap<QString, QVariant> m_args;
+
     };
 }
 
-#endif //FAIRWIND_APPBASE_HPP
+#endif //FAIRWIND_FAIRWINDAPP_HPP
