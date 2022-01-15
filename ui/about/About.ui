@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>fairwind::ui::colophon::Colophon</class>
- <widget class="QDialog" name="fairwind::ui::colophon::Colophon">
+ <class>fairwind::ui::about::About</class>
+ <widget class="QWidget" name="fairwind::ui::about::About">
   <property name="windowModality">
    <enum>Qt::ApplicationModal</enum>
   </property>
@@ -25,12 +25,6 @@
   <property name="styleSheet">
    <string notr="true">background-color: rgba(26, 26, 26, 191);
 color: rgb(250, 255, 255);</string>
-  </property>
-  <property name="sizeGripEnabled">
-   <bool>false</bool>
-  </property>
-  <property name="modal">
-   <bool>true</bool>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
@@ -195,7 +189,7 @@ color: rgb(65, 107, 195);</string>
                   <string/>
                  </property>
                  <property name="pixmap">
-                  <pixmap resource="../../resources.qrc">:/resources/images/colophon/nmarinello_64x64.png</pixmap>
+                  <pixmap resource="../../resources.qrc">:/resources/images/about/nmarinello_64x64.png</pixmap>
                  </property>
                 </widget>
                </item>
@@ -235,7 +229,7 @@ color: rgb(65, 107, 195);</string>
                   <string/>
                  </property>
                  <property name="pixmap">
-                  <pixmap resource="../../resources.qrc">:/resources/images/colophon/rmontella_64x64.png</pixmap>
+                  <pixmap resource="../../resources.qrc">:/resources/images/about/rmontella_64x64.png</pixmap>
                  </property>
                 </widget>
                </item>
@@ -275,7 +269,7 @@ color: rgb(65, 107, 195);</string>
                   <string/>
                  </property>
                  <property name="pixmap">
-                  <pixmap resource="../../resources.qrc">:/resources/images/colophon/ddiluccio_64x64.png</pixmap>
+                  <pixmap resource="../../resources.qrc">:/resources/images/about/ddiluccio_64x64.png</pixmap>
                  </property>
                 </widget>
                </item>
@@ -315,7 +309,7 @@ color: rgb(65, 107, 195);</string>
                   <string/>
                  </property>
                  <property name="pixmap">
-                  <pixmap resource="../../resources.qrc">:/resources/images/colophon/aciaramella_64x64.png</pixmap>
+                  <pixmap resource="../../resources.qrc">:/resources/images/about/aciaramella_64x64.png</pixmap>
                  </property>
                 </widget>
                </item>
@@ -355,7 +349,7 @@ color: rgb(65, 107, 195);</string>
                   <string/>
                  </property>
                  <property name="pixmap">
-                  <pixmap resource="../../resources.qrc">:/resources/images/colophon/mdicapua_64x64.png</pixmap>
+                  <pixmap resource="../../resources.qrc">:/resources/images/about/mdicapua_64x64.png</pixmap>
                  </property>
                 </widget>
                </item>
@@ -395,7 +389,7 @@ color: rgb(65, 107, 195);</string>
                   <string/>
                  </property>
                  <property name="pixmap">
-                  <pixmap resource="../../resources.qrc">:/resources/images/colophon/cgdevita_64x64.png</pixmap>
+                  <pixmap resource="../../resources.qrc">:/resources/images/about/cgdevita_64x64.png</pixmap>
                  </property>
                 </widget>
                </item>
@@ -435,7 +429,7 @@ color: rgb(65, 107, 195);</string>
                   <string/>
                  </property>
                  <property name="pixmap">
-                  <pixmap resource="../../resources.qrc">:/resources/images/colophon/fizzo_64x64.png</pixmap>
+                  <pixmap resource="../../resources.qrc">:/resources/images/about/fizzo_64x64.png</pixmap>
                  </property>
                 </widget>
                </item>
@@ -475,7 +469,7 @@ color: rgb(65, 107, 195);</string>
                   <string/>
                  </property>
                  <property name="pixmap">
-                  <pixmap resource="../../resources.qrc">:/resources/images/colophon/gmellone_64x64.png</pixmap>
+                  <pixmap resource="../../resources.qrc">:/resources/images/about/gmellone_64x64.png</pixmap>
                  </property>
                  <property name="scaledContents">
                   <bool>false</bool>
@@ -531,40 +525,6 @@ color: rgb(65, 107, 195);</string>
  </widget>
  <resources>
   <include location="../../resources.qrc"/>
-  <include location="../../resources.qrc"/>
  </resources>
- <connections>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>accepted()</signal>
-   <receiver>fairwind::ui::colophon::Colophon</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>157</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>fairwind::ui::colophon::Colophon</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>286</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+<connections/>
 </ui>
