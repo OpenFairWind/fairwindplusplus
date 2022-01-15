@@ -5,7 +5,7 @@
 #ifndef FAIRWIND_ISETTINGS_H
 #define FAIRWIND_ISETTINGS_H
 
-#include <FairWindSdk/IApp.hpp>
+#include <FairWindSdk/IFairWindApp.hpp>
 
 namespace fairwind::ui::settings {
     /*
@@ -20,7 +20,7 @@ namespace fairwind::ui::settings {
          * setDetails
          * This method sets the state of the widget
          */
-        virtual void setDetails(QString settingsID, QJsonObject settings, fairwind::apps::IApp* extension) = 0;
+        virtual void setDetails(QString settingsID, QJsonObject settings, fairwind::apps::IFairWindApp* extension) = 0;
 
         /*
          * getNewInstance
