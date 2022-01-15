@@ -10,36 +10,43 @@
 
 class WebPage;
 
-class WebView : public QWebEngineView
-{
-Q_OBJECT
+namespace fairwind::apps::web {
+    class WebView : public QWebEngineView {
+    Q_OBJECT
 
-public:
-    WebView(QWidget *parent = nullptr);
-    void setPage(WebPage *page);
+    public:
+        WebView(QWidget *parent = nullptr);
 
-    int loadProgress() const;
-    bool isWebActionEnabled(QWebEnginePage::WebAction webAction) const;
-    QIcon favIcon() const;
+        void setPage(WebPage *page);
 
-public slots:
+        int loadProgress() const;
 
-protected:
-    void contextMenuEvent(QContextMenuEvent *event) override;
-    QWebEngineView *createWindow(QWebEnginePage::WebWindowType type) override;
+        bool isWebActionEnabled(QWebEnginePage::WebAction webAction) const;
 
-signals:
-    void webActionEnabledChanged(QWebEnginePage::WebAction webAction, bool enabled);
-    void favIconChanged(const QIcon &icon);
-    void devToolsRequested(QWebEnginePage *source);
+        QIcon favIcon() const;
+
+    public slots:
+
+    protected:
+        void contextMenuEvent(QContextMenuEvent *event) override;
+
+        QWebEngineView *createWindow(QWebEnginePage::WebWindowType type) override;
+
+    signals:
+
+        void webActionEnabledChanged(QWebEnginePage::WebAction webAction, bool enabled);
+
+        void favIconChanged(const QIcon &icon);
+
+        void devToolsRequested(QWebEnginePage *source);
 
 
-private:
-    void createWebActionTrigger(QWebEnginePage *page, QWebEnginePage::WebAction);
+    private:
+        void createWebActionTrigger(QWebEnginePage *page, QWebEnginePage::WebAction);
 
-private:
-    int m_loadProgress;
-};
-
+    private:
+        int m_loadProgress;
+    };
+}
 
 #endif //FAIRWINDS_WEBVIEW_HPP
