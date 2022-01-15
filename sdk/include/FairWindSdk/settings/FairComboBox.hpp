@@ -6,7 +6,7 @@
 #define FAIRWIND_FAIRCOMBOBOX_HPP
 
 #include <FairWindSdk/ISettings.hpp>
-#include <FairWindSdk/IApp.hpp>
+#include <FairWindSdk/IFairWindApp.hpp>
 #include <QComboBox>
 #include <QString>
 
@@ -19,7 +19,7 @@ namespace fairwind::ui::settings {
     Q_OBJECT
 
     public:
-        void setDetails(QString settingID, QJsonObject settings, fairwind::apps::IApp* extension) override;
+        void setDetails(QString settingID, QJsonObject settings, fairwind::apps::IFairWindApp* extension) override;
         ISettings* getNewInstance() override;
         QString getClassName() override;
     };

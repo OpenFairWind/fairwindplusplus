@@ -8,12 +8,13 @@
 #include <QDebug>
 
 #include <FairWindSdk/FairWind.hpp>
-#include <FairWindSdk/IApp.hpp>
+#include <FairWindSdk/IFairWindApp.hpp>
 #include <FairWindSdk/settings/LayersBrowser.hpp>
+#include <FairWindApp.hpp>
 
-void fairwind::ui::settings::LayersBrowser::setDetails(QString settingsID, QJsonObject settings, fairwind::apps::IApp* extension) {
+void fairwind::ui::settings::LayersBrowser::setDetails(QString settingsID, QJsonObject settings, fairwind::apps::IFairWindApp* extension) {
     auto fairWind = fairwind::FairWind::getInstance();
-    auto configs = extension->getConfig();
+    auto configs = ((fairwind::apps::FairWindApp *)extension)->getConfig();
     auto layers = configs[settingsID].toArray();
     auto layersLayout = new QVBoxLayout;
 
