@@ -13,7 +13,7 @@
 #include <QGeoView/QGVLayer.h>
 
 #include "FairWindSDK.hpp"
-#include "IApp.hpp"
+#include "IFairWindApp.hpp"
 #include "ILayer.hpp"
 #include "SignalKDocument.hpp"
 #include "App.hpp"
@@ -34,7 +34,8 @@ namespace fairwind {
         static FairWind *getInstance();
 
         void loadApps();
-        apps::IApp *getAppByExtensionId(const QString& id);
+
+        apps::IFairWindApp *getAppByExtensionId(const QString& id);
 
         void setApplicationDirPath(QString qString);
         void loadConfig();
@@ -70,12 +71,16 @@ namespace fairwind {
 
         QJsonObject &getConfig();
 
+        void setMainWindow(QMainWindow *mainWindow);
+        QMainWindow *getMainWindow();
+
     private:
+        QMainWindow *m_mainWindow;
         QJsonObject m_config;
 
         SignalKDocument m_signalkDocument;
 
-        QMap<QString, fairwind::apps::IApp *> m_mapFairWindApps;
+        QMap<QString, fairwind::apps::IFairWindApp *> m_mapFairWindApps;
 
         QMap<QString, App *> m_mapApps;
 
@@ -95,6 +100,8 @@ namespace fairwind {
 
         QDir m_appsRoot;
         QDir m_dataRoot;
+
+
     };
 }
 
