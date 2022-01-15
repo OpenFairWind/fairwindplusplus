@@ -10,8 +10,11 @@
 #include <FairWindSdk/displays/DisplayBase.hpp>
 #include <FairWindSdk/IDisplay.hpp>
 #include <qcswitchwidget.hpp>
-
-class QNetworkAccessManager;
+#include <QNetworkAccessManager>
+#include <QUrlQuery>
+#include <QNetworkReply>
+//class QNetworkAccessManager;
+//class QNetworkReply;
 
 namespace Ui {
     class DisplaySimpleSwitch;
@@ -40,12 +43,14 @@ namespace fairwind::displays {
         public slots:
         void update(const QJsonObject update) override;
         void slotOnClick(bool checked);
+        void onFinished(QNetworkReply *);
 
     private:
         Ui::DisplaySimpleSwitch *ui;
         SwitchButton *sbtn = nullptr;
         bool status;
         QNetworkAccessManager* networkAccessManager= nullptr;
+        QNetworkReply *reply = nullptr;
 
     };
 }
