@@ -6,7 +6,7 @@ add_library(Portolano SHARED
         Portolano.cpp
         Portolano.hpp
         ${PORTOLANO_RESOURCE_ADDED}
-        )
+        MainPage.cpp MainPage.hpp MainPage.ui)
 
 add_dependencies(Portolano FairWindSdk)
 target_link_libraries(Portolano PRIVATE Qt5::Widgets Qt5::Network  ${LIBFAIRWINDSDK})

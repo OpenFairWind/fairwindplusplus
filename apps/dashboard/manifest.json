@@ -12,6 +12,7 @@
     "App": {
       "Email": "fairwind@uniparthenope.it",
       "Id": "it.uniparthenope.fairwind.apps.dashboard",
+      "Icon": ":/resources/images/icons/dashboard_icon.png",
       "Settings": {
         "$schema": "http://json-schema.org/draft-07/schema",
         "type": "object",

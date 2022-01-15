@@ -12,9 +12,8 @@
     "App": {
       "Email": "fairwind@uniparthenope.it",
       "Id": "fairwind.apps.video",
-      "Config": {
-
-      }
+      "Icon": ":/resources/images/icons/video_icon.png",
+      "Settings": {}
     }
   }
 }

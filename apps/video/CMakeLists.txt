@@ -6,7 +6,7 @@ add_library(Video SHARED
         Video.cpp
         Video.hpp
         ${VIDEO_RESOURCE_ADDED}
-        )
+        MainPage.cpp MainPage.hpp MainPage.ui)
 
 add_dependencies(Video FairWindSdk)
 target_link_libraries(Video PRIVATE Qt5::Widgets Qt5::Network  ${LIBFAIRWINDSDK})

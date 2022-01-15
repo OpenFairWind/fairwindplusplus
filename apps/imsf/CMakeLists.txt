@@ -5,6 +5,8 @@ qt5_add_resources(IMSF_RESOURCE_ADDED ${IMSF_RESOURCE})
 add_library(IMSF SHARED
         IMSF.cpp
         IMSF.hpp
+        MainPage.cpp MainPage.hpp MainPage.ui
+        Flag.cpp Flag.hpp Flag.ui
         ${IMSF_RESOURCE_ADDED}
         )
 

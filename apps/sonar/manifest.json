@@ -12,9 +12,8 @@
     "App": {
       "Email": "fairwind@uniparthenope.it",
       "Id": "fairwind.apps.sonar",
-      "Config": {
-
-      }
+      "Icon": ":/resources/images/icons/sonar_icon.png",
+      "Settings": {}
     }
   }
 }

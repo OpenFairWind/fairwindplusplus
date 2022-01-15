@@ -12,9 +12,8 @@
     "App": {
       "Email": "fairwind@uniparthenope.it",
       "Id": "fairwind.apps.radar",
-      "Config": {
-
-      }
+      "Icon": ":/resources/images/icons/radar_icon.png",
+      "Settings": {}
     }
   }
 }

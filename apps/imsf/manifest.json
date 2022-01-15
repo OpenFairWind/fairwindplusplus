@@ -12,9 +12,8 @@
     "App": {
       "Email": "fairwind@uniparthenope.it",
       "Id": "fairwind.apps.imsf",
-      "Config": {
-
-      }
+      "Icon": ":resources/images/icons/imsf_icon.png",
+      "Settings": { }
     }
   }
 }
