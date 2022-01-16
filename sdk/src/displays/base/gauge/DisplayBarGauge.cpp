@@ -16,8 +16,8 @@ fairwind::displays::DisplayBarGauge::DisplayBarGauge(QWidget *parent) :
     ui->setupUi(this);
     _currentValue=0;
     _precision = 1;
-    _shortStep= 1;
-    _longStep = 10;
+    _shortStep= 10;
+    _longStep = 50;
 }
 void fairwind::displays::DisplayBarGauge::onInit(QMap<QString, QVariant> params) {
 
@@ -32,7 +32,7 @@ void fairwind::displays::DisplayBarGauge::onInit(QMap<QString, QVariant> params)
         _shortStep = (float)params["shortStep"].toDouble();
     }
     if (params.contains("longStep")) {
-        _longStep = (float)params["longtStep"].toDouble();
+        _longStep = (float)params["longStep"].toDouble();
     }
 // Create the Bargauge widget
     vbar = new QcBar;
