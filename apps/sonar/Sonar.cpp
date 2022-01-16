@@ -36,9 +36,3 @@ void fairwind::apps::sonar::Sonar::onStop() {
 void fairwind::apps::sonar::Sonar::onDestroy() {
     FairWindApp::onDestroy();
 }
-
-
-
-void fairwind::apps::sonar::Sonar::updateSettings(QString settingsID, QString newValue) {
-    FairWindApp::updateSettings(settingsID, newValue);
-}

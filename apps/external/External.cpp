@@ -28,7 +28,3 @@ void fairwind::apps::external::External::onResume() {}
 void fairwind::apps::external::External::onPause() {}
 void fairwind::apps::external::External::onStop() {}
 void fairwind::apps::external::External::onDestroy() {}
-
-void fairwind::apps::external::External::updateSettings(QString settingsID, QString newValue) {
-    FairWindApp::updateSettings(settingsID, newValue);
-}

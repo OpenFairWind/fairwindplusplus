@@ -40,10 +40,6 @@ namespace fairwind::apps {
 
         // Finalization method
         virtual void onDestroy() = 0;
-
-
-        // Method called to update the value of a settings
-        virtual void updateSettings(QString settingsID, QString newValue) = 0;
     };
 }
 

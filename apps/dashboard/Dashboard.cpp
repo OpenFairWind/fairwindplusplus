@@ -37,9 +37,3 @@ void fairwind::apps::dashboard::Dashboard::onStart() {
 
 fairwind::apps::dashboard::Dashboard::~Dashboard() {
 }
-
-
-
-void fairwind::apps::dashboard::Dashboard::updateSettings(QString settingsID, QString newValue) {
-    FairWindApp::updateSettings(settingsID, newValue);
-}

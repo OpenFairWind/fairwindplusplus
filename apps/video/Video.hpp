@@ -28,8 +28,6 @@ namespace fairwind::apps::video {
         void onStop() override;
         void onDestroy() override;
 
-        void updateSettings(QString settingsID, QString newValue) override;
-
     private:
     };
 }

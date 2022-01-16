@@ -29,11 +29,6 @@ namespace fairwind::apps::chandlery {
         void onStop() override;
         void onDestroy() override;
 
-
-
-
-        void updateSettings(QString settingsID, QString newValue) override;
-
     private:
 
 

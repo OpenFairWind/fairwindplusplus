@@ -183,10 +183,53 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
 
     // Check if the extension is valid
     if (extension != nullptr) {
-        // Get the extension's config
-        auto configs = ((fairwind::apps::FairWindApp *)extension)->getConfig();
         // Get the 'Settings' object
-        auto settings = ((fairwind::apps::FairWindApp *)extension)->getSettings()["properties"].toObject();
+        auto settings = ((fairwind::apps::FairWindApp *)extension)->getSettings();
+
+        // Prepare the settings container widget
+        auto settingsContainer = new QWidget;
+        auto layout = new QGridLayout;
+
+        for (int i = 0; i < settings.keys().size(); i++) {
+            QString key = settings.keys()[i];
+            QJsonObject details = settings[key].toObject();
+            QJsonValue currentValue = ((fairwind::apps::FairWindApp *)extension)->getConfig()[key];
+
+            // Generate the widget according to the provided class name
+            auto widget = fairWind->instanceSettings(details["widgetClassName"].toString());
+            // Create a label
+            auto label = new QLabel(details["displayName"].toString() + ":");
+            label->setFont(QFont("", 12));
+
+            // Check if the widget is valid
+            if (widget != nullptr) {
+                auto slot = [extension, key](QVariant newValue) {
+                    auto config = ((fairwind::apps::FairWindApp *)extension)->getConfig();
+                    QJsonValueRef ref = config[key];
+
+                    ref = QJsonValue::fromVariant(newValue);
+
+                    extension->setConfig(config);
+                };
+                // Set the details for the widget
+                widget->setDetails(slot, details, currentValue);
+
+                // Add the label
+                layout->addWidget(label, i, 0);
+                // Add the widget to the container
+                layout->addWidget(dynamic_cast<QWidget *>(widget), i, 1);
+            }
+        }
+
+        // Set the settings widget in the scroll area
+        settingsContainer->setLayout(layout);
+        ui->scrollArea_Apps->setWidget(settingsContainer);
+
+
+
+
+        // Get the 'Settings' object
+        /*auto settings = ((fairwind::apps::FairWindApp *)extension)->getSettings()["properties"].toObject();
 
         // Prepare the settings container widget
         auto settingsContainer = new QWidget;
@@ -215,6 +258,6 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
 
         // Set the settings widget in the scroll area
         settingsContainer->setLayout(layout);
-        ui->scrollArea_Apps->setWidget(settingsContainer);
+        ui->scrollArea_Apps->setWidget(settingsContainer);*/
     }
 }

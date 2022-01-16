@@ -12,7 +12,7 @@ namespace fairwind::ui::settings {
      * ISettings
      * This interface is used by FairWind to implement a set of allowed and curated settings widgets.
      */
-    class ISettings{
+    class ISettings {
     public:
         virtual ~ISettings() = default;
 
@@ -20,7 +20,7 @@ namespace fairwind::ui::settings {
          * setDetails
          * This method sets the state of the widget
          */
-        virtual void setDetails(QString settingsID, QJsonObject settings, fairwind::apps::IFairWindApp* extension) = 0;
+        virtual void setDetails(std::function<void(QVariant newValue)> slot, QJsonObject details, QJsonValue currentValue) = 0;
 
         /*
          * getNewInstance
@@ -33,6 +33,9 @@ namespace fairwind::ui::settings {
          * Returns the class name of the settings
          */
         virtual QString getClassName() = 0;
+
+        signals:
+        virtual void changed(QVariant newValue) = 0;
     };
 }
 

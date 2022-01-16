@@ -29,8 +29,6 @@ namespace fairwind::apps::chart {
         void onStop() override;
         void onDestroy() override;
 
-        void updateSettings(QString settingsID, QString newValue) override;
-
     public slots:
 
 

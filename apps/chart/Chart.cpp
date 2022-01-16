@@ -22,10 +22,6 @@ void fairwind::apps::chart::Chart::onStart() {
     show();
 }
 
-void fairwind::apps::chart::Chart::updateSettings(QString settingsID, QString newValue) {
-    FairWindApp::updateSettings(settingsID, newValue);
-}
-
 void fairwind::apps::chart::Chart::onCreate() {
 }
 

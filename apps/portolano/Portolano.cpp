@@ -36,7 +36,3 @@ void fairwind::apps::portolano::Portolano::onStop() {
 void fairwind::apps::portolano::Portolano::onDestroy() {
     FairWindApp::onDestroy();
 }
-
-void fairwind::apps::portolano::Portolano::updateSettings(QString settingsID, QString newValue) {
-    FairWindApp::updateSettings(settingsID, newValue);
-}

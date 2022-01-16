@@ -31,8 +31,3 @@ void fairwind::apps::imsf::IMSF::onStop() {}
 
 void fairwind::apps::imsf::IMSF::onDestroy() {}
 
-
-void fairwind::apps::imsf::IMSF::updateSettings(QString settingsID, QString newValue) {
-    FairWindApp::updateSettings(settingsID, newValue);
-}
-

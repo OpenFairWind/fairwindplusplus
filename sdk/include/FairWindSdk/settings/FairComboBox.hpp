@@ -12,16 +12,18 @@
 
 namespace fairwind::ui::settings {
     /*
-     * FairComboBox
+     * FairComboBoxqmake
      * This widget is a combo box and presents a dropwdown list of options
      */
     class FAIRWINDSDK_LIB_DECL FairComboBox : public QComboBox, public ISettings {
     Q_OBJECT
 
     public:
-        void setDetails(QString settingID, QJsonObject settings, fairwind::apps::IFairWindApp* extension) override;
+        void setDetails(std::function<void(QVariant newValue)> slot, QJsonObject details, QJsonValue currentValue) override;
         ISettings* getNewInstance() override;
         QString getClassName() override;
+        signals:
+        void changed(QVariant newValue) override;
     };
 }
 

@@ -37,7 +37,3 @@ void fairwind::apps::uav::UAV::onStop() {
 void fairwind::apps::uav::UAV::onDestroy() {
     FairWindApp::onDestroy();
 }
-
-void fairwind::apps::uav::UAV::updateSettings(QString settingsID, QString newValue) {
-    FairWindApp::updateSettings(settingsID, newValue);
-}

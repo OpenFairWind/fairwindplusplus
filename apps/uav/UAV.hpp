@@ -28,8 +28,6 @@ namespace fairwind::apps::uav {
         void onStop() override;
         void onDestroy() override;
 
-        void updateSettings(QString settingsID, QString newValue) override;
-
     private:
     };
 }

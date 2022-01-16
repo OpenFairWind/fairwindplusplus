@@ -36,8 +36,3 @@ void fairwind::apps::chandlery::Chandlery::onStop()  {
 void fairwind::apps::chandlery::Chandlery::onDestroy()  {
 }
 
-
-void fairwind::apps::chandlery::Chandlery::updateSettings(QString settingsID, QString newValue) {
-    FairWindApp::updateSettings(settingsID, newValue);
-}
-
