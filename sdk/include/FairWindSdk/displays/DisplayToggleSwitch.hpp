@@ -10,10 +10,14 @@
 #include <FairWindSdk/displays/DisplayBase.hpp>
 #include <FairWindSdk/IDisplay.hpp>
 #include <qcswitchwidget.hpp>
+#include <QNetworkAccessManager>
+#include <QUrlQuery>
+#include <QNetworkReply>
 
 
-
-namespace Ui { class DisplayToggleSwitch; }
+namespace Ui {
+    class DisplayToggleSwitch;
+}
 
 namespace fairwind::displays {
     class FAIRWINDSDK_LIB_DECL DisplayToggleSwitch : public QWidget, public fairwind::displays::DisplayBase, public fairwind::displays::IDisplay {
@@ -21,7 +25,6 @@ namespace fairwind::displays {
 
     public:
         explicit DisplayToggleSwitch(QWidget *parent = nullptr);
-
         ~DisplayToggleSwitch() override;
 
         QString getClassName() const override;
@@ -35,15 +38,16 @@ namespace fairwind::displays {
         void setValue(QString value) override;
         void subscribe(QString fullPath) override;
 
-        void updateStatus();
-
     public slots:
         void update(const QJsonObject update) override;
-        void onRelease();
+        void slotOnClick(bool checked);
+        void onFinished(QNetworkReply *);
     private:
         Ui::DisplayToggleSwitch *ui;
         ToggleButton *toggle;
         bool status;
+        QNetworkAccessManager* networkAccessManager= nullptr;
+        QNetworkReply *reply = nullptr;
     };
 
 }

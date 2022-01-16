@@ -16,6 +16,9 @@ fairwind::displays::DisplayToggleSwitch::DisplayToggleSwitch(QWidget *parent) :
         ui(new Ui::DisplayToggleSwitch) {
 
     ui->setupUi(this);
+    networkAccessManager = new QNetworkAccessManager(this);
+    connect(networkAccessManager, SIGNAL(finished(QNetworkReply *)), this, SLOT(onFinished(QNetworkReply *)));
+
 }
 
 fairwind::displays::DisplayToggleSwitch::~DisplayToggleSwitch() {
@@ -66,21 +69,15 @@ void fairwind::displays::DisplayToggleSwitch::setUnits(QString units) {
 }
 void fairwind::displays::DisplayToggleSwitch::setValue(QString value) {
     //ui->label_Value1->setText(value);
-    if (value.contains("on")) {
+ /*   if (value.contains("on")) {
         status=true;
     } else {
         status=false;
     }
 
-    updateStatus();
-}
-
-void fairwind::displays::DisplayToggleSwitch::updateStatus() {
-    if (status) {
-        //ui->witchButton->setText("simpleswitch_on");
-    } else {
-        //ui->switchButton->setText("simpleswitch_off");
-    }
+    updateStatus();*/
+    qDebug()<<"DisplaySimpleSwitch::setValue "<<value;
+    //toggle->setStatus(value.contains("on") ? true : false);
 }
 
 void fairwind::displays::DisplayToggleSwitch::subscribe(QString fullPath) {
@@ -104,8 +101,68 @@ QString fairwind::displays::DisplayToggleSwitch::getClassName() const {
     return this->metaObject()->className();
 }
 
-void fairwind::displays::DisplayToggleSwitch::onRelease() {
-    status=!status;
-    updateStatus();
+
+void fairwind::displays::DisplayToggleSwitch::slotOnClick(bool status)
+{
+    qDebug("DisplayToggleSwitch::slotOnClick ");
+    /*   auto valueToPut = !status ? "on" : "off";
+       QByteArray data;
+       QUrlQuery params;
+       qDebug() << "valueToPut " << valueToPut<<"status"<<status;
+
+       //auto path = DisplayBase::getFullPath();
+      // params.addQueryItem("fullPath", DisplayBase::getFullPath());
+       //params.addQueryItem("value", valueToPut);
+
+
+       //data.append(params.toString().toUtf8());
+       std::string d ="{ \" value\": 1.52, }";
+       data.append(d.c_str());
+       qDebug() << "data " << data << " "<<d.c_str();
+       networkAccessManager->post(QNetworkRequest(QUrl("http://localhost:3000/signalk/v1/api/vessels/self/electrical/electrical/batteries/1/voltage")), data);
+   */
+
+    const QUrl url(QStringLiteral("http://localhost:3000/signalk/v1/api"));
+    if(url.isValid())
+    {
+        qDebug()<<"Url valid";
+    }
+    QNetworkRequest request(url);
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    auto valueToPut = !status ? "on" : "off";
+    auto path = DisplayBase::getFullPath();
+/*
+    QJsonObject obj;
+    obj["requestId"] = "12345-23232-23232";
+    obj["fullPath"] = path;
+    obj["value"] = valueToPut;
+    QJsonDocument doc(obj);
+    QByteArray data = doc.toJson();
+    qDebug() << "data " << data;*/
+
+// or "{  \"requestId\": \"123345-23232-232323\", \"put\": {  \"path\": \"electrical.switches.anchorLight.state\", \"value\": 1  } }"
+    QByteArray data("{  \"requestId\": \"123345-23232-232323\", \"put\": {  \"path\": \"electrical.switches.anchorLight.state\", \"value\": 1  } }");
+    qDebug() << "data " << data;
+    QNetworkReply *reply = networkAccessManager->post(request, data);
+    qDebug() << "dopo post ";
+    QObject::connect(reply, &QNetworkReply::finished, [=](){
+        if(reply->error() == QNetworkReply::NoError){
+            QString contents = QString::fromUtf8(reply->readAll());
+            qDebug()<<"replyRead:" << contents;
+        }
+        else{
+            QString err = reply->errorString();
+            qDebug() << err;
+        }
+        reply->deleteLater();
+    });
+}
+
+void fairwind::displays::DisplayToggleSwitch::onFinished(QNetworkReply *r){
+    qDebug("slot onFinished " );
+    if(r->error() == QNetworkReply::NoError){
+        QString contents = QString::fromUtf8(r->readAll());
+        qDebug()<<"onFinisched Read:" << contents;
+    }
 }
 
