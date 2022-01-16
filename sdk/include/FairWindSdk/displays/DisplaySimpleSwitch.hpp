@@ -13,8 +13,7 @@
 #include <QNetworkAccessManager>
 #include <QUrlQuery>
 #include <QNetworkReply>
-//class QNetworkAccessManager;
-//class QNetworkReply;
+
 
 namespace Ui {
     class DisplaySimpleSwitch;
