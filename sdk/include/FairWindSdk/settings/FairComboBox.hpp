@@ -22,8 +22,6 @@ namespace fairwind::ui::settings {
         void setDetails(std::function<void(QVariant newValue)> slot, QJsonObject details, QJsonValue currentValue) override;
         ISettings* getNewInstance() override;
         QString getClassName() override;
-        signals:
-        void changed(QVariant newValue) override;
     };
 }
 

@@ -33,9 +33,6 @@ namespace fairwind::ui::settings {
          * Returns the class name of the settings
          */
         virtual QString getClassName() = 0;
-
-        signals:
-        virtual void changed(QVariant newValue) = 0;
     };
 }
 
