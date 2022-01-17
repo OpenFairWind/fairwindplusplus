@@ -26,6 +26,7 @@
 #include <displays/DisplayWindAngleGauge.hpp>
 #include <ILayout.hpp>
 #include <ISettingsTab.hpp>
+#include <FairWindSdk/FairWindApp.hpp>
 
 /*
  * FairWind
@@ -62,7 +63,7 @@ fairwind::FairWind::FairWind() {
  * getAppByExtensionId
  * Return the pointer to a FairWind++ app given the id
  */
-fairwind::apps::IApp *fairwind::FairWind::getAppByExtensionId(const QString& id) {
+fairwind::apps::IFairWindApp *fairwind::FairWind::getAppByExtensionId(const QString& id) {
     // Return the app pointer
     return m_mapFairWindApps[id];
 }
@@ -177,6 +178,8 @@ void fairwind::FairWind::loadApps() {
         // Create a plugin instance
         QObject *plugin = loader.instance();
 
+
+
         // Check if the instance has been created
         if (plugin) {
             // Get the interface id from the plugin metadata
@@ -186,7 +189,7 @@ void fairwind::FairWind::loadApps() {
             if (iid == IID_FAIRWIND_APPS) {
 
                 // Handle the plugin as FairWind++
-                fairwind::apps::IApp *fairWindApp = qobject_cast<fairwind::apps::IApp *>(plugin);
+                fairwind::apps::IFairWindApp *fairWindApp = qobject_cast<fairwind::apps::IFairWindApp *>(plugin);
 
                 // Check if it is possible handling the plugin as a FairWind++ app
                 if (fairWindApp) {
@@ -223,10 +226,13 @@ void fairwind::FairWind::loadApps() {
                         metaData["dataRoot"] = m_dataRoot.absolutePath();
 
                         // Initialize the app with the plugin metadata
-                        fairWindApp->onCreate(&metaData);
+                        fairWindApp->init(&metaData);
 
                         // Store the FairWind++ app pointer in the m_mapFairWindApps dictionary
                         m_mapFairWindApps[fairWindApp->getId()] = fairWindApp;
+
+                        // Starts the app lifecycle
+                        fairWindApp->onCreate();
                     }
                 } else {
                     // Unload the plugin
@@ -388,7 +394,7 @@ void fairwind::FairWind::loadConfig() {
                             }
                         } else if (!route.isEmpty()) {
                             // Get the app config
-                            QJsonObject jsonConfigObject=fairWindApp->getConfig();
+                            QJsonObject jsonConfigObject=((fairwind::apps::FairWindApp *)fairWindApp)->getConfig();
 
                             // Check if the app config contains the "Routes" key
                             if (jsonConfigObject.contains("Routes") && jsonConfigObject["Routes"].isArray()) {
@@ -418,8 +424,14 @@ void fairwind::FairWind::loadConfig() {
                             }
                         }
 
+                        // Set the route
+                        fairWindApp->setRoute(route);
+
+                        // Set the args
+                        fairWindApp->setArgs(args);
+
                         // Create a new app item
-                        app = new App(fairWindApp, args);
+                        app = new App(fairWindApp);
                     }
 
                     // Check if the app has a valid pointer
@@ -673,4 +685,12 @@ QList<fairwind::connections::IConnection *> *fairwind::FairWind::getConnectionsL
  */
 QList<fairwind::ui::settings::ISettingsTab *> *fairwind::FairWind::getSettingsList() {
     return &m_listSettings;
+}
+
+void fairwind::FairWind::setMainWindow(QMainWindow *mainWindow) {
+    m_mainWindow = mainWindow;
+}
+
+QMainWindow * fairwind::FairWind::getMainWindow() {
+    return m_mainWindow;
 }

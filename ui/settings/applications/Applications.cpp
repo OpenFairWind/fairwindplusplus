@@ -4,6 +4,7 @@
 
 #include <QTableWidgetItem>
 #include <FairWindSdk/FairWind.hpp>
+#include <FairWindSdk/FairWindApp.hpp>
 
 #include "Applications.hpp"
 #include "ui_Applications.h"
@@ -182,28 +183,36 @@ void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(con
 
     // Check if the extension is valid
     if (extension != nullptr) {
-        // Get the extension's config
-        auto configs = extension->getConfig();
         // Get the 'Settings' object
-        auto settings = extension->getSettings()["properties"].toObject();
+        auto settings = ((fairwind::apps::FairWindApp *)extension)->getSettings();
 
         // Prepare the settings container widget
         auto settingsContainer = new QWidget;
         auto layout = new QGridLayout;
 
-        // Iterate on all the extension's settings
         for (int i = 0; i < settings.keys().size(); i++) {
-            auto key = settings.keys()[i];
+            QString key = settings.keys()[i];
+            QJsonObject details = settings[key].toObject();
+            QJsonValue currentValue = ((fairwind::apps::FairWindApp *)extension)->getConfig()[key];
+
             // Generate the widget according to the provided class name
-            auto widget = fairWind->instanceSettings(settings[key].toObject()["widgetClassName"].toString());
+            auto widget = fairWind->instanceSettings(details["widgetClassName"].toString());
             // Create a label
-            auto label = new QLabel(settings[key].toObject()["displayName"].toString() + ":");
+            auto label = new QLabel(details["displayName"].toString() + ":");
             label->setFont(QFont("", 12));
 
             // Check if the widget is valid
             if (widget != nullptr) {
+                auto slot = [extension, key](QVariant newValue) {
+                    auto config = ((fairwind::apps::FairWindApp *)extension)->getConfig();
+                    QJsonValueRef ref = config[key];
+
+                    ref = QJsonValue::fromVariant(newValue);
+
+                    extension->setConfig(config);
+                };
                 // Set the details for the widget
-                widget->setDetails(key, settings[key].toObject(), extension);
+                widget->setDetails(slot, details, currentValue);
 
                 // Add the label
                 layout->addWidget(label, i, 0);

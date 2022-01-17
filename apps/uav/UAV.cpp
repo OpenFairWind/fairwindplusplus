@@ -4,95 +4,36 @@
 
 #include <FairWindSdk/FairWind.hpp>
 #include "UAV.hpp"
+#include "MainPage.hpp"
 
-/*
- * Returns the application icon
- */
-QImage fairwind::apps::uav::UAV::getIcon() const {
-    return QImage(":/resources/images/icons/uav_icon.png");
+
+void fairwind::apps::uav::UAV::onCreate() {
+    FairWindApp::onCreate();
 }
 
 /*
  * Called by the FairWind framework when the app is invoked for the first time
  */
-QWidget *fairwind::apps::uav::UAV::onStart(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
+void fairwind::apps::uav::UAV::onStart() {
+    FairWindApp::onStart();
 
-    m_widget=new QWidget();
-    ui=new Ui::UAV();
-    ui->setupUi(m_widget);
+    auto mainPage = new MainPage();
+    add(mainPage);
+    show();}
 
-    auto fairwind=::fairwind::FairWind::getInstance();
-    auto config = getConfig();
-
-    return m_widget;
-}
-
-
-
-QString fairwind::apps::uav::UAV::getId() const {
-    return AppBase::getId();
-}
-
-QString fairwind::apps::uav::UAV::getName() const {
-    return AppBase::getName();
-}
-
-QString fairwind::apps::uav::UAV::getDesc() const {
-    return AppBase::getDesc();
-}
-
-QString fairwind::apps::uav::UAV::getVersion() const {
-    return fairwind::AppBase::getVersion();
-}
-
-QString fairwind::apps::uav::UAV::getVendor() const {
-    return fairwind::AppBase::getVendor();
-}
-
-QString fairwind::apps::uav::UAV::getCopyright() const {
-    return fairwind::AppBase::getCopyright();
-}
-
-QString fairwind::apps::uav::UAV::getLicense() const {
-    return fairwind::AppBase::getLicense();
-}
-
-void fairwind::apps::uav::UAV::onCreate(QJsonObject *metaData) {
-    AppBase::onCreate(metaData);
-}
 
 void fairwind::apps::uav::UAV::onResume() {
-    AppBase::onResume();
+    FairWindApp::onResume();
 }
 
 void fairwind::apps::uav::UAV::onPause() {
-    AppBase::onPause();
+    FairWindApp::onPause();
 }
 
 void fairwind::apps::uav::UAV::onStop() {
-    AppBase::onStop();
+    FairWindApp::onStop();
 }
 
 void fairwind::apps::uav::UAV::onDestroy() {
-    AppBase::onDestroy();
-}
-
-QJsonObject fairwind::apps::uav::UAV::getConfig() {
-    return AppBase::getConfig();
-}
-
-QJsonObject fairwind::apps::uav::UAV::getMetaData() {
-    return AppBase::getMetaData();
-}
-
-void fairwind::apps::uav::UAV::updateSettings(QString settingsID, QString newValue) {
-    AppBase::updateSettings(settingsID, newValue);
-}
-
-void fairwind::apps::uav::UAV::setConfig(QJsonObject config) {
-    AppBase::setConfig(config);
-}
-
-QJsonObject fairwind::apps::uav::UAV::getSettings() {
-    return AppBase::getSettings();
+    FairWindApp::onDestroy();
 }

@@ -10,6 +10,9 @@ qt5_add_resources(DASHBOARD_RESOURCE_ADDED ${DASHBOARD_RESOURCE})
 add_library(Dashboard SHARED
         Dashboard.cpp
         Dashboard.hpp
+        MainPage.cpp
+        MainPage.hpp
+        MainPage.ui
         ${DASHBOARD_RESOURCE_ADDED}
         )
 

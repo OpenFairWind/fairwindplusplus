@@ -6,7 +6,7 @@ add_library(Sonar SHARED
         Sonar.cpp
         Sonar.hpp
         ${SONAR_RESOURCE_ADDED}
-        )
+        MainPage.cpp MainPage.hpp MainPage.ui)
 
 add_dependencies(Sonar FairWindSdk)
 target_link_libraries(Sonar PRIVATE Qt5::Widgets Qt5::Network  ${LIBFAIRWINDSDK})

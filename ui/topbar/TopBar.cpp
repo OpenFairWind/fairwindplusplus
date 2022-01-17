@@ -6,6 +6,7 @@
 
 #include <FairWindSdk/FairWind.hpp>
 #include <QAbstractButton>
+#include <FairWindSdk/FairWindApp.hpp>
 
 #include "TopBar.hpp"
 #include "ui_TopBar.h"
@@ -193,10 +194,10 @@ void fairwind::ui::topbar::TopBar::updateNavigationSpeedOverGround(const QJsonOb
     }
 }
 
-void fairwind::ui::topbar::TopBar::setFairWindApp(fairwind::apps::IApp *fairWindApp) {
+void fairwind::ui::topbar::TopBar::setFairWindApp(fairwind::apps::IFairWindApp *fairWindApp) {
     m_fairWindApp = fairWindApp;
     if (m_fairWindApp) {
-        ui->toolButton_UR->setIcon(QPixmap::fromImage(fairWindApp->getIcon()));
+        ui->toolButton_UR->setIcon(QPixmap::fromImage(((fairwind::apps::FairWindApp *)fairWindApp)->getIcon()));
         ui->toolButton_UR->setIconSize(QSize(32, 32));
     } else {
         ui->toolButton_UR->setIcon(QPixmap::fromImage(QImage(":resources/images/icons/apps_icon.png")));

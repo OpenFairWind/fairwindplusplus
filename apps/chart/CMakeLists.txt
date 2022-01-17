@@ -5,6 +5,9 @@ qt5_add_resources(CHART_RESOURCE_ADDED ${CHART_RESOURCE})
 add_library(Chart SHARED
         Chart.cpp
         Chart.hpp
+        MainPage.cpp
+        MainPage.hpp
+        MainPage.ui
         ${CHART_RESOURCE_ADDED}
         )
 

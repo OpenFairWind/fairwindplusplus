@@ -11,7 +11,7 @@ if (Qt5WebEngineWidgets_FOUND)
         	WebPage.cpp WebPage.hpp
         	WebPopupWindow.cpp WebPopupWindow.hpp
         	${WEB_RESOURCE_ADDED}
-        )
+            MainPage.cpp MainPage.hpp MainPage.ui)
 
 	add_dependencies(Web FairWindSdk)
 	target_link_libraries(Web PRIVATE Qt5::Widgets Qt5::WebEngineWidgets ${LIBFAIRWINDSDK})

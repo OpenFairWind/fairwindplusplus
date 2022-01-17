@@ -12,6 +12,7 @@
     "App": {
       "Email": "fairwind@uniparthenope.it",
       "Id": "it.uniparthenope.fairwind.apps.web",
+      "Icon": ":/resources/images/icons/web_icon.png",
       "Settings": {
         "$schema": "http://json-schema.org/draft-04/schema#",
         "type": "object",
@@ -99,10 +100,11 @@
           {
             "Id": "youtube",
             "Args":{
-            "Name":"YouTube",
-            "Icon":":/resources/images/icons/youtube_icon.png",
-            "Url":"https://www.youtube.com"
-          }},
+              "Name":"YouTube",
+              "Icon":":/resources/images/icons/youtube_icon.png",
+              "Url":"https://www.youtube.com"
+            }
+          },
           {
             "Id": "spotify",
             "Args": {

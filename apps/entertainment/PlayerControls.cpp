@@ -11,163 +11,129 @@
 #include <QComboBox>
 #include <QAudio>
 
-fairwind::apps::entertainment::PlayerControls::PlayerControls(QWidget *parent)
-        : QWidget(parent)
-{
-    m_playButton = new QToolButton(this);
-    m_playButton->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
+#include "ui_PlayerControls.h"
 
-    connect(m_playButton, &QAbstractButton::clicked, this, &PlayerControls::playClicked);
+namespace fairwind::apps::entertainment {
+    PlayerControls::PlayerControls(QWidget *parent):
+        QWidget(parent), ui(new Ui::PlayerControls) {
 
-    m_stopButton = new QToolButton(this);
-    m_stopButton->setIcon(style()->standardIcon(QStyle::SP_MediaStop));
-    m_stopButton->setEnabled(false);
+        ui->setupUi(this);
 
-    connect(m_stopButton, &QAbstractButton::clicked, this, &PlayerControls::stop);
+        ui->playButton->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
+        ui->stopButton->setIcon(style()->standardIcon(QStyle::SP_MediaStop));
+        ui->stopButton->setEnabled(false);
+        ui->nextButton->setIcon(style()->standardIcon(QStyle::SP_MediaSkipForward));
+        ui->prevButton->setIcon(style()->standardIcon(QStyle::SP_MediaSkipBackward));
+        ui->muteButton->setIcon(style()->standardIcon(QStyle::SP_MediaVolume));
 
-    m_nextButton = new QToolButton(this);
-    m_nextButton->setIcon(style()->standardIcon(QStyle::SP_MediaSkipForward));
+        ui->volumeSlider->setRange(0, 100);
 
-    connect(m_nextButton, &QAbstractButton::clicked, this, &PlayerControls::next);
+        ui->rateBox->addItem("0.5x", QVariant(0.5));
+        ui->rateBox->addItem("1.0x", QVariant(1.0));
+        ui->rateBox->addItem("2.0x", QVariant(2.0));
+        ui->rateBox->setCurrentIndex(1);
 
-    m_previousButton = new QToolButton(this);
-    m_previousButton->setIcon(style()->standardIcon(QStyle::SP_MediaSkipBackward));
+        connect(ui->playButton, &QAbstractButton::clicked, this, &PlayerControls::playClicked);
+        connect(ui->stopButton, &QAbstractButton::clicked, this, &PlayerControls::stop);
+        connect(ui->nextButton, &QAbstractButton::clicked, this, &PlayerControls::next);
+        connect(ui->prevButton, &QAbstractButton::clicked, this, &PlayerControls::previous);
+        connect(ui->muteButton, &QAbstractButton::clicked, this, &PlayerControls::muteClicked);
+        connect(ui->volumeSlider, &QSlider::valueChanged, this, &PlayerControls::onVolumeSliderValueChanged);
+        connect(ui->rateBox, QOverload<int>::of(&QComboBox::activated), this, &PlayerControls::updateRate);
+    }
 
-    connect(m_previousButton, &QAbstractButton::clicked, this, &PlayerControls::previous);
+    QMediaPlayer::State PlayerControls::state() const {
+        return m_playerState;
+    }
 
-    m_muteButton = new QToolButton(this);
-    m_muteButton->setIcon(style()->standardIcon(QStyle::SP_MediaVolume));
+    void fairwind::apps::entertainment::PlayerControls::setState(QMediaPlayer::State state) {
+        if (state != m_playerState) {
+            m_playerState = state;
 
-    connect(m_muteButton, &QAbstractButton::clicked, this, &PlayerControls::muteClicked);
+            switch (state) {
+                case QMediaPlayer::StoppedState:
+                    ui->stopButton->setEnabled(false);
+                    ui->playButton->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
+                    break;
+                case QMediaPlayer::PlayingState:
+                    ui->stopButton->setEnabled(true);
+                    ui->playButton->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
+                    break;
+                case QMediaPlayer::PausedState:
+                    ui->stopButton->setEnabled(true);
+                    ui->playButton->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
+                    break;
+            }
+        }
+    }
 
-    m_volumeSlider = new QSlider(Qt::Horizontal, this);
-    m_volumeSlider->setRange(0, 100);
+    int fairwind::apps::entertainment::PlayerControls::volume() const {
+        qreal linearVolume = QAudio::convertVolume(ui->volumeSlider->value() / qreal(100),
+                                                   QAudio::LogarithmicVolumeScale,
+                                                   QAudio::LinearVolumeScale);
 
-    connect(m_volumeSlider, &QSlider::valueChanged, this, &PlayerControls::onVolumeSliderValueChanged);
+        return qRound(linearVolume * 100);
+    }
 
-    m_rateBox = new QComboBox(this);
-    m_rateBox->addItem("0.5x", QVariant(0.5));
-    m_rateBox->addItem("1.0x", QVariant(1.0));
-    m_rateBox->addItem("2.0x", QVariant(2.0));
-    m_rateBox->setCurrentIndex(1);
+    void fairwind::apps::entertainment::PlayerControls::setVolume(int volume) {
+        qreal logarithmicVolume = QAudio::convertVolume(volume / qreal(100),
+                                                        QAudio::LinearVolumeScale,
+                                                        QAudio::LogarithmicVolumeScale);
 
-    connect(m_rateBox, QOverload<int>::of(&QComboBox::activated), this, &PlayerControls::updateRate);
+        ui->volumeSlider->setValue(qRound(logarithmicVolume * 100));
+    }
 
-    QBoxLayout *layout = new QHBoxLayout;
-    layout->setContentsMargins(0, 0, 0, 0);
-    layout->addWidget(m_stopButton);
-    layout->addWidget(m_previousButton);
-    layout->addWidget(m_playButton);
-    layout->addWidget(m_nextButton);
-    layout->addWidget(m_muteButton);
-    layout->addWidget(m_volumeSlider);
-    layout->addWidget(m_rateBox);
-    setLayout(layout);
-}
+    bool fairwind::apps::entertainment::PlayerControls::isMuted() const {
+        return m_playerMuted;
+    }
 
-QMediaPlayer::State fairwind::apps::entertainment::PlayerControls::state() const
-{
-    return m_playerState;
-}
+    void fairwind::apps::entertainment::PlayerControls::setMuted(bool muted) {
+        if (muted != m_playerMuted) {
+            m_playerMuted = muted;
 
-void fairwind::apps::entertainment::PlayerControls::setState(QMediaPlayer::State state)
-{
-    if (state != m_playerState) {
-        m_playerState = state;
+            ui->muteButton->setIcon(style()->standardIcon(muted
+                                                        ? QStyle::SP_MediaVolumeMuted
+                                                        : QStyle::SP_MediaVolume));
+        }
+    }
 
-        switch (state) {
+    void fairwind::apps::entertainment::PlayerControls::playClicked() {
+        switch (m_playerState) {
             case QMediaPlayer::StoppedState:
-                m_stopButton->setEnabled(false);
-                m_playButton->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
+            case QMediaPlayer::PausedState:
+                emit play();
                 break;
             case QMediaPlayer::PlayingState:
-                m_stopButton->setEnabled(true);
-                m_playButton->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
-                break;
-            case QMediaPlayer::PausedState:
-                m_stopButton->setEnabled(true);
-                m_playButton->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
+                emit pause();
                 break;
         }
     }
-}
 
-int fairwind::apps::entertainment::PlayerControls::volume() const
-{
-    qreal linearVolume =  QAudio::convertVolume(m_volumeSlider->value() / qreal(100),
-                                                QAudio::LogarithmicVolumeScale,
-                                                QAudio::LinearVolumeScale);
-
-    return qRound(linearVolume * 100);
-}
-
-void fairwind::apps::entertainment::PlayerControls::setVolume(int volume)
-{
-    qreal logarithmicVolume = QAudio::convertVolume(volume / qreal(100),
-                                                    QAudio::LinearVolumeScale,
-                                                    QAudio::LogarithmicVolumeScale);
-
-    m_volumeSlider->setValue(qRound(logarithmicVolume * 100));
-}
-
-bool fairwind::apps::entertainment::PlayerControls::isMuted() const
-{
-    return m_playerMuted;
-}
-
-void fairwind::apps::entertainment::PlayerControls::setMuted(bool muted)
-{
-    if (muted != m_playerMuted) {
-        m_playerMuted = muted;
-
-        m_muteButton->setIcon(style()->standardIcon(muted
-                                                    ? QStyle::SP_MediaVolumeMuted
-                                                    : QStyle::SP_MediaVolume));
+    void fairwind::apps::entertainment::PlayerControls::muteClicked() {
+        emit changeMuting(!m_playerMuted);
     }
-}
 
-void fairwind::apps::entertainment::PlayerControls::playClicked()
-{
-    switch (m_playerState) {
-        case QMediaPlayer::StoppedState:
-        case QMediaPlayer::PausedState:
-            emit play();
-            break;
-        case QMediaPlayer::PlayingState:
-            emit pause();
-            break;
+    qreal fairwind::apps::entertainment::PlayerControls::playbackRate() const {
+        return ui->rateBox->itemData(ui->rateBox->currentIndex()).toDouble();
     }
-}
 
-void fairwind::apps::entertainment::PlayerControls::muteClicked()
-{
-    emit changeMuting(!m_playerMuted);
-}
-
-qreal fairwind::apps::entertainment::PlayerControls::playbackRate() const
-{
-    return m_rateBox->itemData(m_rateBox->currentIndex()).toDouble();
-}
-
-void fairwind::apps::entertainment::PlayerControls::setPlaybackRate(float rate)
-{
-    for (int i = 0; i < m_rateBox->count(); ++i) {
-        if (qFuzzyCompare(rate, float(m_rateBox->itemData(i).toDouble()))) {
-            m_rateBox->setCurrentIndex(i);
-            return;
+    void fairwind::apps::entertainment::PlayerControls::setPlaybackRate(float rate) {
+        for (int i = 0; i < ui->rateBox->count(); ++i) {
+            if (qFuzzyCompare(rate, float(ui->rateBox->itemData(i).toDouble()))) {
+                ui->rateBox->setCurrentIndex(i);
+                return;
+            }
         }
+
+        ui->rateBox->addItem(QString("%1x").arg(rate), QVariant(rate));
+        ui->rateBox->setCurrentIndex(ui->rateBox->count() - 1);
     }
 
-    m_rateBox->addItem(QString("%1x").arg(rate), QVariant(rate));
-    m_rateBox->setCurrentIndex(m_rateBox->count() - 1);
-}
+    void fairwind::apps::entertainment::PlayerControls::updateRate() {
+        emit changeRate(playbackRate());
+    }
 
-void fairwind::apps::entertainment::PlayerControls::updateRate()
-{
-    emit changeRate(playbackRate());
-}
-
-void fairwind::apps::entertainment::PlayerControls::onVolumeSliderValueChanged()
-{
-    emit changeVolume(volume());
+    void fairwind::apps::entertainment::PlayerControls::onVolumeSliderValueChanged() {
+        emit changeVolume(volume());
+    }
 }

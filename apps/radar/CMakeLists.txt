@@ -6,7 +6,7 @@ add_library(Radar SHARED
         Radar.cpp
         Radar.hpp
         ${RADAR_RESOURCE_ADDED}
-        )
+        MainPage.cpp MainPage.hpp MainPage.ui)
 
 add_dependencies(Radar FairWindSdk)
 target_link_libraries(Radar PRIVATE Qt5::Widgets Qt5::Network  ${LIBFAIRWINDSDK})

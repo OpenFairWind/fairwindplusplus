@@ -6,52 +6,30 @@
 #define FAIRWIND_WEB_HPP
 
 
-#include <FairWindSdk/IApp.hpp>
-#include <FairWindSdk/AppBase.hpp>
+#include <FairWindSdk/IFairWindApp.hpp>
+#include <FairWindSdk/FairWindApp.hpp>
 #include <QWebEngineProfile>
 
 namespace fairwind::apps::web {
-    class Web : public QObject, AppBase, IApp {
-        Q_OBJECT
+    class Web : public IFairWindApp {
+    Q_OBJECT
         Q_PLUGIN_METADATA(IID IID_FAIRWIND_APPS FILE "manifest.json")
-        Q_INTERFACES(fairwind::apps::IApp)
+        Q_INTERFACES(fairwind::apps::IFairWindApp)
 
     public:
         ~Web() = default;
 
         // App lifecycle
-        void onCreate(QJsonObject *metaData) override;
-        QWidget *onStart(QMainWindow *mainWindow, QMap<QString, QVariant> args) override;
+        void onCreate() override;
+        void onStart() override;
         void onResume() override;
         void onPause() override;
         void onStop() override;
         void onDestroy() override;
 
-        QString getId() const override;
-        QString getName() const override;
-        QString getDesc() const override;
-        QString getVersion() const override;
-        QString getVendor() const override;
-        QString getCopyright() const override;
-        QString getLicense() const override;
-
-        QImage getIcon() const override;
-
-        void updateSettings(QString settingsID, QString newValue) override;
-
-        QJsonObject getConfig() override;
-        void setConfig(QJsonObject config) override;
-        QJsonObject getSettings() override;
-
-        QJsonObject getMetaData() override;
-
     private:
         QWebEngineProfile *m_profile;
 
-        void toolButton_home_clicked();
-
-        QWidget *m_widgetWebApp= nullptr;
-        QString m_url;
     };
 }
 

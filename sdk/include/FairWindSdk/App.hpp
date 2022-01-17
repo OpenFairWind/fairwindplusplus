@@ -8,7 +8,7 @@
 #include <QMap>
 
 #include "FairWindSDK.hpp"
-#include "IApp.hpp"
+#include "IFairWindApp.hpp"
 
 namespace fairwind {
     class FAIRWINDSDK_LIB_DECL App: QObject {
@@ -16,7 +16,7 @@ namespace fairwind {
     public:
     App();
 
-    App(apps::IApp *fairWindApp, QMap<QString, QVariant> args, bool active=true, int order=1);
+    App(apps::FairWindApp *fairWindApp, bool active=true, int order=1);
 
     App(const App &app);
 
@@ -33,9 +33,8 @@ namespace fairwind {
     QString getCopyright();
     QString getLicense();
     QImage getIcon();
+    QString getRoute();
     QMap<QString, QVariant> getArgs();
-
-    bool isPlugin();
 
     private:
     void generateHash();
@@ -51,6 +50,7 @@ namespace fairwind {
     QString m_copyright;
     QString m_license;
     QImage m_icon;
+    QString m_route;
     QMap<QString, QVariant> m_args;
 };
 }

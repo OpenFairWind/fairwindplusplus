@@ -5,6 +5,7 @@ qt5_add_resources(__APPNAME___RESOURCE_ADDED ${__APPNAME___RESOURCE})
 add_library(__Appname__ SHARED
         __Appname__.cpp
         __Appname__.hpp
+        MainPage.cpp MainPage.hpp MainPage.ui
         ${__APPNAME___RESOURCE_ADDED}
         )
 

@@ -44,7 +44,7 @@ add_subdirectory(apps)
 add_executable(${PROJECT_NAME}
         main.cpp resources.qrc
         ui/MainWindow.ui ui/MainWindow.cpp ui/MainWindow.hpp
-        ui/colophon/Colophon.cpp ui/colophon/Colophon.hpp
+        ui/about/About.cpp ui/about/About.hpp
         ui/topbar/TopBar.cpp ui/topbar/TopBar.hpp
         ui/bottombar/BottomBar.cpp ui/bottombar/BottomBar.hpp
         ui/apps/Apps.cpp ui/apps/Apps.hpp
@@ -82,6 +82,5 @@ add_custom_command(
         ${CMAKE_CURRENT_SOURCE_DIR}/fairwind.json
         $<TARGET_FILE_DIR:${PROJECT_NAME}>/fairwind.json
 )
-
 
 

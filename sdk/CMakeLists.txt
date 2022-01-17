@@ -88,13 +88,14 @@ qt5_add_resources(FAIRWINDSDK_RESOURCE_ADDED ${FAIRWINDSDK_RESOURCE})
 
 add_library(fairwindsdk SHARED
         include/FairWindSdk/FairWindSDK.hpp
-        include/FairWindSdk/IApp.hpp
+        include/FairWindSdk/IFairWindApp.hpp
         include/FairWindSdk/ILayer.hpp
         include/FairWindSdk/IDisplay.hpp
         include/FairWindSdk/IConnection.hpp
         include/FairWindSdk/ILayout.hpp
         include/FairWindSdk/ISettingsTab.hpp
-        include/FairWindSdk/AppBase.hpp
+        include/FairWindSdk/FairWindApp.hpp
+        include/FairWindSdk/PageBase.hpp
         include/FairWindSdk/SignalKDocument.hpp
         include/FairWindSdk/FairWind.hpp
         include/FairWindSdk/App.hpp
@@ -128,9 +129,13 @@ add_library(fairwindsdk SHARED
         include/FairWindSdk/settings/DisplaysBrowser.hpp
         include/FairWindSdk/settings/LayersBrowser.hpp
 
+        src/ui/Warning.cpp include/FairWindSdk/ui/Warning.hpp src/ui/Warning.ui
+        src/ui/Colophon.cpp include/FairWindSdk/ui/Colophon.hpp src/ui/Colophon.ui
+
         src/FairWind.cpp
         src/App.cpp
-        src/AppBase.cpp
+        src/FairWindApp.cpp
+        src/PageBase.cpp
         src/SignalKDocument.cpp
         src/displays/base/DisplayBase.cpp
         src/displays/base/singletext/DisplaySingleText.cpp
@@ -161,7 +166,7 @@ add_library(fairwindsdk SHARED
         src/settings/DisplaysBrowser.cpp
         src/settings/LayersBrowser.cpp
 
-        ${FAIRWINDSDK_RESOURCE_ADDED})
+        ${FAIRWINDSDK_RESOURCE_ADDED}  )
 
 target_include_directories(fairwindsdk
         PUBLIC
@@ -192,7 +197,7 @@ target_link_libraries(fairwindsdk
         ${LIBQTJSONSCHEMA} ${LIBQCGAUGEWIDGET} ${LIBQGEOVIEW}
         )
 
-add_library(FairWindSdk ALIAS fairwindsdk)
+add_library(FairWindSdk ALIAS fairwindsdk )
 
 #install(TARGETS fairwindsdk LIBRARY
 #        RUNTIME DESTINATION bin

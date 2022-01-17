@@ -12,9 +12,8 @@
     "App": {
       "Email": "cgcp@pec.mit.gov.it",
       "Id": "it.gov.guardiacostiera.gc1530",
-      "Config": {
-
-      }
+      "Icon": ":/resources/images/icons/gc1530_icon.png",
+      "Settings": {}
     }
   }
 }

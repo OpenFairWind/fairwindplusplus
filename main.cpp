@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
 
     QApplication app(argc, argv);
     // Get the splash screen logo
-    QPixmap pixmap(":/resources/images/splash_logo.png");
+    QPixmap pixmap(":/resources/images/other/splash_logo.png");
     // Create a splash screen containing the logo
     QSplashScreen splash(pixmap);
     // Show the logo
@@ -75,10 +75,14 @@ int main(int argc, char *argv[]) {
     QCoreApplication::setOrganizationName("uniparthenope");
 
     // Set the window icon
-    app.setWindowIcon(QIcon(QStringLiteral(":resources/images/fairwind_logo.png")));
+    app.setWindowIcon(QIcon(QPixmap::fromImage(QImage(":/resources/images/icons/fairwind_icon.png"))));
 
     // Create a new MainWindow object
     fairwind::ui::MainWindow w;
+
+    // Register the main window
+    fairWind->setMainWindow(&w);
+
     // Close the splash screen presenting the MainWindow UI
     splash.finish(&w);
     return QApplication::exec();
