@@ -2,7 +2,6 @@
 // Created by __author__ on 16/07/2021.
 //
 
-#include <FairWindSdk/FairWind.hpp>
 #include "Portolano.hpp"
 #include "MainPage.hpp"
 

@@ -2,16 +2,13 @@
 // Created by Raffaele Montella on 14/01/22.
 //
 
-#ifndef FAIRWIND_MAINPAGE_HPP
-#define FAIRWIND_MAINPAGE_HPP
+#ifndef PORTOLANO_MAINPAGE_HPP
+#define PORTOLANO_MAINPAGE_HPP
 
-#include <QDebug>
-#include <QJsonArray>
 #include <FairWindSdk/FairWind.hpp>
 #include <FairWindSdk/PageBase.hpp>
 #include <FairWindSdk/FairWindApp.hpp>
 
-#include <utility>
 #include "MainPage.hpp"
 #include "ui_MainPage.h"
 
@@ -33,4 +30,4 @@ namespace fairwind::apps::portolano {
     };
 } // fairwind::appls::portolano
 
-#endif //FAIRWIND_MAINPAGE_HPP
+#endif //PORTOLANO_MAINPAGE_HPP

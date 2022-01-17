@@ -5,7 +5,6 @@
 #ifndef PORTOLANO_HPP
 #define PORTOLANO_HPP
 
-#include <QObject>
 #include <QtPlugin>
 #include <FairWindSdk/FairWindApp.hpp>
 #include <FairWindSdk/IFairWindApp.hpp>
