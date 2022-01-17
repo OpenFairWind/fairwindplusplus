@@ -60,7 +60,3 @@ void fairwind::apps::web::Web::onStop() {
 void fairwind::apps::web::Web::onDestroy() {
     FairWindApp::onDestroy();
 }
-
-void fairwind::apps::web::Web::updateSettings(QString settingsID, QString newValue) {
-    FairWindApp::updateSettings(settingsID, newValue);
-}

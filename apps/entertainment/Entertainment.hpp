@@ -30,12 +30,6 @@ namespace fairwind::apps::entertainment {
         void onStop() override;
         void onDestroy() override;
 
-        void updateSettings(QString settingsID, QString newValue) override;
-
-
-
-
-
     };
 }
 

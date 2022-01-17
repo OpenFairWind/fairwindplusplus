@@ -28,9 +28,3 @@ void fairwind::apps::entertainment::Entertainment::onPause() {}
 void fairwind::apps::entertainment::Entertainment::onStop() {}
 
 void fairwind::apps::entertainment::Entertainment::onDestroy() {}
-
-
-
-void fairwind::apps::entertainment::Entertainment::updateSettings(QString settingsID, QString newValue) {
-    FairWindApp::updateSettings(settingsID, newValue);
-}

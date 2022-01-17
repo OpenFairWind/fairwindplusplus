@@ -38,8 +38,3 @@ void fairwind::apps::radar::Radar::onStop() {
 void fairwind::apps::radar::Radar::onDestroy() {
     FairWindApp::onDestroy();
 }
-
-
-void fairwind::apps::radar::Radar::updateSettings(QString settingsID, QString newValue) {
-    FairWindApp::updateSettings(settingsID, newValue);
-}

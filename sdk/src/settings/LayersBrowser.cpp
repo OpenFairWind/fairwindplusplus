@@ -2,6 +2,8 @@
 #include <QHBoxLayout>
 #include <QJsonObject>
 #include <QCheckBox>
+#include <QLineEdit>
+#include <QSpinBox>
 #include <QString>
 #include <QJsonArray>
 #include <QLabel>
@@ -12,29 +14,28 @@
 #include <FairWindSdk/settings/LayersBrowser.hpp>
 #include <FairWindApp.hpp>
 
-void fairwind::ui::settings::LayersBrowser::setDetails(QString settingsID, QJsonObject settings, fairwind::apps::IFairWindApp* extension) {
+void fairwind::ui::settings::LayersBrowser::setDetails(std::function<void(QVariant newValue)> slot, QJsonObject details, QJsonValue currentValue) {
     auto fairWind = fairwind::FairWind::getInstance();
-    auto configs = ((fairwind::apps::FairWindApp *)extension)->getConfig();
-    auto layers = configs[settingsID].toArray();
     auto layersLayout = new QVBoxLayout;
 
-    for (int i = 0; i < layers.size(); i++) {
-        auto layer = fairWind->instanceLayer(layers[i].toObject()["class"].toString());
+    for (int j = 0; j < currentValue.toArray().size(); j++) {
+        auto item = currentValue.toArray()[j].toObject();
+        auto layer = fairWind->instanceLayer(item["class"].toString());
 
         if (layer != nullptr) {
             auto vLayout = new QVBoxLayout;
             auto hLayout = new QHBoxLayout;
             auto vWidget = new QWidget;
-            auto hWidget = new QWidget;
+            auto hWidget = new QGroupBox;
             auto label = new QLabel;
+            auto icon = new QLabel;
             auto description = new QLabel;
-            auto checkBox = new QCheckBox;
 
-            label->setPixmap(QPixmap::fromImage(layer->getIcon()));
-            label->setText(layers[i].toObject()["name"].toString());
+            icon->setPixmap(QPixmap::fromImage(layer->getIcon()));
+            label->setText(item["name"].toString());
             label->setFont(QFont("", 14));
 
-            description->setText(layers[i].toObject()["description"].toString());
+            description->setText(item["description"].toString());
 
             vLayout->addWidget(label);
             vLayout->addWidget(description);
@@ -42,25 +43,79 @@ void fairwind::ui::settings::LayersBrowser::setDetails(QString settingsID, QJson
             vWidget->setLayout(vLayout);
             vWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 
-            QString checkState = layers[i].toObject()["active"].toString();
-
-            // Set the checkbox's state according to the current value
-            if (checkState.toInt() == 0)
-                checkBox->setCheckState(Qt::CheckState::Unchecked);
-            else
-                checkBox->setCheckState(Qt::CheckState::Checked);
-
-            // When the current value changes, call the updateSettings method to save the changes
-            connect(checkBox,static_cast<void (QCheckBox::*)(int state)>(&QCheckBox::stateChanged), this, [settingsID, extension, checkState]() {
-                //extension->updateSettings(settingsID, checkState == "0" ? "2" : "0");
-            });
-
+            hLayout->addWidget(icon);
             hLayout->addWidget(vWidget);
-            hLayout->addWidget(checkBox);
 
             hWidget->setLayout(hLayout);
 
             layersLayout->addWidget(hWidget);
+
+            auto settingsContainer = new QWidget;
+            auto layout2 = new QGridLayout;
+
+            for (int i = 0; i < item.keys().size(); i++) {
+                QString key = item.keys()[i];
+                QJsonValue currentValue2 = item[key];
+
+                auto label = new QLabel(key + ":");
+                label->setFont(QFont("", 12));
+                // Add the label
+                layout2->addWidget(label, i, 0);
+
+                if (currentValue2.isString()) {
+                    auto valueWidget = new QLineEdit(currentValue2.toString());
+                    // Add the widget to the container
+                    layout2->addWidget(valueWidget, i, 1);
+
+                    connect(valueWidget, &QLineEdit::textChanged, this, [j, key, currentValue, valueWidget, slot](QString newValue) {
+                        QJsonValueRef item = currentValue.toArray()[j];
+                        QJsonValueRef ref = item.toObject()[key];
+
+                        ref = newValue;
+
+                        slot(currentValue);
+                    });
+                } else if (currentValue2.isBool()) {
+                    auto valueWidget = new QCheckBox;
+
+                    if (currentValue2.toBool())
+                        valueWidget->setCheckState(Qt::CheckState::Checked);
+                    else
+                        valueWidget->setCheckState(Qt::CheckState::Unchecked);
+
+                    // Add the label
+                    layout2->addWidget(label, i, 0);
+                    // Add the widget to the container
+                    layout2->addWidget(valueWidget, i, 1);
+
+                    connect(valueWidget, &QCheckBox::stateChanged, this, [j, key, currentValue, valueWidget, slot]() {
+                        QJsonValueRef item = currentValue.toArray()[j];
+                        QJsonValueRef ref = item.toObject()[key];
+
+                        ref = valueWidget->checkState() == 2 ? true : false;
+
+                        slot(currentValue);
+                    });
+                } else if (currentValue2.isDouble()) {
+                    auto valueWidget = new QSpinBox();
+                    // Add the widget to the container
+                    layout2->addWidget(valueWidget, i, 1);
+
+                    valueWidget->setValue(currentValue2.toInt());
+
+                    connect(valueWidget, static_cast<void (QSpinBox::*)(int i)>(&QSpinBox::valueChanged), this, [j, key, currentValue, valueWidget, slot]() {
+                        QJsonValueRef item = currentValue.toArray()[j];
+                        QJsonValueRef ref = item.toObject()[key];
+
+                        ref = valueWidget->value();
+
+                        slot(currentValue);
+                    });
+                }
+            }
+
+            settingsContainer->setLayout(layout2);
+            layersLayout->addWidget(settingsContainer);
         }
     }
 

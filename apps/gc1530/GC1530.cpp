@@ -43,12 +43,6 @@ void it::gov::guardiacostiera::gc1530::GC1530::onPause() {}
 void it::gov::guardiacostiera::gc1530::GC1530::onStop() {}
 void it::gov::guardiacostiera::gc1530::GC1530::onDestroy() {}
 
-
-
-void it::gov::guardiacostiera::gc1530::GC1530::updateSettings(QString settingsID, QString newValue) {
-    FairWindApp::updateSettings(settingsID, newValue);
-}
-
 QString it::gov::guardiacostiera::gc1530::GC1530::getHomeUrl() {
     return m_homeUrl;
 }
