@@ -15,7 +15,7 @@ void fairwind::apps::portolano::Portolano::onCreate() {
 void fairwind::apps::portolano::Portolano::onStart() {
     FairWindApp::onStart();
 
-    auto mainPage = new MainPage();
+    auto mainPage = new MainPage(nullptr, this);
     add(mainPage);
     show();
 }
