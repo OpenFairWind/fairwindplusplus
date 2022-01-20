@@ -48,39 +48,10 @@ add_executable(${PROJECT_NAME}
         ui/topbar/TopBar.cpp ui/topbar/TopBar.hpp
         ui/bottombar/BottomBar.cpp ui/bottombar/BottomBar.hpp
         ui/apps/Apps.cpp ui/apps/Apps.hpp
-        ui/settings/Settings.cpp ui/settings/Settings.hpp
-        ui/settings/generic/Generic.cpp ui/settings/generic/Generic.hpp
-        ui/settings/connections/Connections.cpp ui/settings/connections/Connections.hpp
-        ui/settings/applications/Applications.cpp ui/settings/applications/Applications.hpp
         )
 
 add_dependencies(${PROJECT_NAME} FairWindSdk)
 target_link_libraries(${PROJECT_NAME} PRIVATE ${REQUIRED_LIBS_QUALIFIED} ${LIBFAIRWINDSDK})
 
-
-
-
-if( EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/fairwind.json")
-else()
-    message("Creating default configuration file: ${CMAKE_CURRENT_SOURCE_DIR}/fairwind.json")
-
-    add_custom_command(
-            TARGET ${PROJECT_NAME}
-            POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy
-            ${CMAKE_CURRENT_SOURCE_DIR}/fairwind.json.sample
-            ${CMAKE_CURRENT_SOURCE_DIR}/fairwind.json
-    )
-endif()
-
-
-
-add_custom_command(
-        TARGET ${PROJECT_NAME}
-        POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy
-        ${CMAKE_CURRENT_SOURCE_DIR}/fairwind.json
-        $<TARGET_FILE_DIR:${PROJECT_NAME}>/fairwind.json
-)
 
 
