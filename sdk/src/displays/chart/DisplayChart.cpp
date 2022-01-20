@@ -93,8 +93,16 @@ void fairwind::displays::DisplayChart::onInit(QMap <QString, QVariant> params) {
     // Add different visual components to the display
     m_widgetMap->addWidget(new QGVWidgetCompass());
     m_widgetMap->addWidget(new QGVWidgetZoom());
-    m_widgetMap->addWidget(new QGVWidgetScale(Qt::Horizontal));
-    m_widgetMap->addWidget(new QGVWidgetScale(Qt::Vertical));
+
+    auto widgetScaleH = new QGVWidgetScale(Qt::Horizontal);
+    widgetScaleH->setDistanceUnits(DistanceUnits::NauticalMiles);
+    widgetScaleH->setUseMetersForSmallDistance(true);
+    m_widgetMap->addWidget(widgetScaleH);
+
+    auto widgetScaleV = new QGVWidgetScale(Qt::Vertical);
+    widgetScaleV->setDistanceUnits(DistanceUnits::NauticalMiles);
+    widgetScaleV->setUseMetersForSmallDistance(true);
+    m_widgetMap->addWidget(widgetScaleV);
 
     //auto target = m_widgetMap->getProjection()->boundaryGeoRect();
     //m_widgetMapApp->cameraTo(QGVCameraActions(m_widgetMapApp).scaleTo(target));

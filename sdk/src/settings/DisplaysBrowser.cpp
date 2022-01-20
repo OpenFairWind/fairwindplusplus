@@ -9,9 +9,7 @@
 #include <QDebug>
 
 #include <FairWindSdk/FairWind.hpp>
-#include <FairWindSdk/IFairWindApp.hpp>
 #include <FairWindSdk/settings/DisplaysBrowser.hpp>
-#include <FairWindApp.hpp>
 
 void fairwind::ui::settings::DisplaysBrowser::setDetails(std::function<void(QVariant newValue)> slot, QJsonObject details, QJsonValue currentValue) {
     auto fairWind = fairwind::FairWind::getInstance();
