@@ -1,4 +1,0 @@
-- Be sure Python3 is installed
-- python3 -m venv venv
-- . venv/bin/activate
-- python sdk/scripts/fairwindapp-create.py -t sdk/templates -m sdk/scripts/manifest.json -o apps
