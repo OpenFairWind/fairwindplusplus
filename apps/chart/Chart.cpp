@@ -23,6 +23,8 @@ void fairwind::apps::chart::Chart::onStart() {
 }
 
 void fairwind::apps::chart::Chart::onCreate() {
+    FairWindApp::onCreate();
+
 }
 
 void fairwind::apps::chart::Chart::onResume() {
