@@ -1,4 +1,6 @@
-find_package(Qt5 REQUIRED COMPONENTS
+set(QT_VERSION 5)
+
+find_package(Qt${QT_VERSION} REQUIRED COMPONENTS
         Core
         Gui
         Network
@@ -6,27 +8,12 @@ find_package(Qt5 REQUIRED COMPONENTS
         WebSockets
         )
 
-#ExternalProject_Add(marnav
-#        GIT_REPOSITORY https://github.com/mariokonrad/marnav.git
-#        CMAKE_ARGS -DENABLE_STATIC=OFF -DENABLE_EXAMPLES=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
-#        TIMEOUT 360
-#        )
-#set(LIBMARNAV ${EXTERNAL_INSTALL_LOCATION}/lib/libmarnav.so)
-#if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
-#    set(LIBMARNAV ${EXTERNAL_INSTALL_LOCATION}/lib/libmarnav.dll)
-#elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
-#    set(LIBMARNAV ${EXTERNAL_INSTALL_LOCATION}/lib/libmarnav.dylib)
-#endif()
-#set(LIBMARNAV ${LIBMARNAV} PARENT_SCOPE)
-
-
 
 ExternalProject_Add(QtJsonSchema
         GIT_REPOSITORY https://github.com/OpenFairWind/QtJsonSchema.git
         CMAKE_ARGS -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH} -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
         TIMEOUT 360
         )
-
 set(LIBQTJSONSCHEMA ${EXTERNAL_INSTALL_LOCATION}/lib/libqtjsonschema.so)
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
     set(LIBQTJSONSCHEMA ${EXTERNAL_INSTALL_LOCATION}/lib/static/qtjsonschema.lib)
@@ -66,7 +53,6 @@ set(LIBQCGAUGEWIDGET ${LIBQCGAUGEWIDGET} PARENT_SCOPE)
 
 ExternalProject_Add(QGeoView
         GIT_REPOSITORY https://github.com/OpenFairWind/QGeoView.git
-        #GIT_REPOSITORY https://github.com/zSelimReborn/QGeoView.git
         CMAKE_ARGS -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH} -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
         TIMEOUT 360
         )
@@ -182,35 +168,21 @@ target_compile_definitions(fairwindsdk
         FAIRWINDSDK_EXPORT
         )
 
-#add_dependencies(fairwindsdk variant)
-#add_dependencies(fairwindsdk marnav)
 add_dependencies(fairwindsdk QtJsonSchema)
 add_dependencies(fairwindsdk QcGaugeWidget)
 add_dependencies(fairwindsdk QGeoView)
 
 target_link_libraries(fairwindsdk
         PRIVATE
-        Qt5::Core
-        Qt5::Network
-        Qt5::Gui
-        Qt5::Widgets
-        Qt5::WebSockets
-        #${LIBMARNAV}
+        Qt${QT_VERSION}::Core
+        Qt${QT_VERSION}::Network
+        Qt${QT_VERSION}::Gui
+        Qt${QT_VERSION}::Widgets
+        Qt${QT_VERSION}::WebSockets
         ${LIBQTJSONSCHEMA} ${LIBQCGAUGEWIDGET} ${LIBQGEOVIEW}
         )
 
 add_library(FairWindSdk ALIAS fairwindsdk )
-
-#install(TARGETS fairwindsdk LIBRARY
-#        RUNTIME DESTINATION bin
-#        LIBRARY DESTINATION lib
-#        ARCHIVE DESTINATION lib/static
-#        )
-#
-#install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/
-#        DESTINATION include
-#        FILES_MATCHING PATTERN "*.h*"
-#        )
 
 set(LIBFAIRWINDSDK ${EXTERNAL_INSTALL_LOCATION}/lib/libfairwindsdk.so)
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
