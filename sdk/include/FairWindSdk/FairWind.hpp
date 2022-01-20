@@ -42,7 +42,10 @@ namespace fairwind {
 
         SignalKDocument *getSignalKDocument();
 
-        QMap<QString, App *> getApps();
+        QMap<QString, fairwind::App *> getApps();
+        App *getAppItemByHash(QString hash);
+        QString getAppHashById(QString appId);
+
         bool registerLayer(fairwind::layers::ILayer *dummy);
         layers::ILayer *instanceLayer(const QString& className);
 
@@ -69,20 +72,25 @@ namespace fairwind {
         QList<fairwind::connections::IConnection *> *getConnectionsList();
         QList<ui::settings::ISettingsTab *> *getSettingsList();
 
-        QJsonObject &getConfig();
+        QJsonObject getConfig();
+
+        QString getSettingsFairWindAppId();
+        QString getLauncherFairWindAppId();
 
         void setMainWindow(QMainWindow *mainWindow);
         QMainWindow *getMainWindow();
 
     private:
         QMainWindow *m_mainWindow;
-        QJsonObject m_config;
+
+        QString mSettingsFairWindAppId;
+        QString mLauncherFairWindAppId;
 
         SignalKDocument m_signalkDocument;
 
-        QMap<QString, fairwind::apps::IFairWindApp *> m_mapFairWindApps;
-
-        QMap<QString, App *> m_mapApps;
+        QMap<QString, fairwind::apps::IFairWindApp *> m_mapAppId2FairWindApp;
+        QMap<QString, App *> m_mapHash2AppItem;
+        QMap<QString, QString> m_mapAppId2Hash;
 
         QList<fairwind::connections::IConnection *> m_listConnections;
 
