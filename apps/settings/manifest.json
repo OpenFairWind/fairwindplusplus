@@ -1,0 +1,244 @@
+{
+  "Name" : "Settings",
+  "Version" : "0.0.1",
+  "CompatVersion" : "0.0.1",
+  "Vendor" : "University of Naples Parthenope",
+  "Copyright" : "(C) 2021 The FairWind Team",
+  "License" : "Apache 2.0",
+  "Category" : "Apps",
+  "Description" : "An app for settings",
+  "Url" : "http://fairwind.uniparthenope.it/",
+  "FairWind": {
+    "App": {
+      "Email": "fairwind@uniparthenope.it",
+      "Id": "fairwind.apps.settings",
+      "Icon": ":/resources/images/icons/settings_icon.png",
+      "Settings": {},
+      "Config": {
+        "Options": {
+          "Position": "${self}.navigation.position",
+          "Heading": "${self}.navigation.courseOverGroundMagnetic",
+          "Speed": "${self}.navigation.speedOverGround",
+          "Orientation":"north_up",
+          "CenterMap":false
+        },
+        "SignalK":{
+          "connections":[
+            {
+              "class":"fairwind::connections::SignalKAPIClient",
+              "active":true,
+              "url":"http://demo.signalk.org/signalk/v1/api",
+              "restore":true
+            },
+            {
+              "class":"fairwind::connections::SignalKWSClient",
+              "active":true,
+              "url":"ws://demo.signalk.org/signalk/v1/stream"
+            }
+          ],
+          "keys":{
+            "navigation.speedOverGround":{
+              "label":"SOG",
+              "units":"kn",
+              "format":"f",
+              "fieldWidth":4,
+              "precision":1,
+              "fillChar":"0"
+            },
+            "navigation.courseOverGroundTrue":{
+              "label":"COG (T)",
+              "units":"deg",
+              "format":"f",
+              "fieldWidth":3,
+              "precision":0
+            },
+            "navigation.courseOverGroundMagnetic":{
+              "label":"COG (M)",
+              "units":"deg",
+              "format":"f",
+              "fieldWidth":3,
+              "precision":0
+            },
+            "navigation.speedThroughWater":{
+              "label":"Boat Speed",
+              "units":"kn",
+              "format":"f",
+              "fieldWidth":4,
+              "precision":1,
+              "fillChar":"0"
+            },
+            "navigation.headingTrue":{
+              "label":"Heading (T)",
+              "units":"deg",
+              "format":"f",
+              "fieldWidth":3,
+              "precision":0
+            },
+            "navigation.headingMagnetic":{
+              "label":"Heading (M)",
+              "units":"deg",
+              "format":"f",
+              "fieldWidth":3,
+              "precision":0
+            },
+            "navigation.magneticVarition":{
+              "label":"Mag (°)",
+              "units":"deg",
+              "format":"f",
+              "fieldWidth":1,
+              "precision":0
+            },
+            "environment.wind.speedApparent":{
+              "label":"AWS",
+              "units":"kn",
+              "format":"f",
+              "fieldWidth":3,
+              "precision":1,
+              "fillChar":"0"
+            },
+            "environment.wind.angleApparent":{
+              "label":"AWA",
+              "units":"deg",
+              "format":"f",
+              "fieldWidth":3,
+              "precision":0
+            },
+            "environment.water.temperature":{
+              "label":"Water Temp",
+              "units":"C",
+              "format":"f",
+              "fieldWidth":3,
+              "precision":0
+            },
+            "environment.depth.belowTransducer":{
+              "label":"Depth",
+              "units":"m",
+              "format":"f",
+              "fieldWidth":4,
+              "precision":1
+            },
+            "electrical.batteries.1.voltage": {
+              "label":"Voltage",
+              "units":"v",
+              "format":"f",
+              "fieldWidth":3,
+              "precision":1
+            },
+            "electrical.batteries.1.current": {
+              "label":"Current",
+              "units":"A",
+              "format":"f",
+              "fieldWidth":3,
+              "precision":1
+            }
+          }
+        },
+        "Extensions":{
+          "MyData": "fairwind.apps.mydata",
+          "MOB": "fairwind.apps.mob",
+          "Launcher": "fairwind.apps.launcher",
+          "Anchor": "fairwind.apps.anchor",
+          "Settings": "fairwind.apps.settings",
+
+          "Apps":[
+            {
+              "Id":"fairwind.apps.settings",
+              "Active":true,
+              "Order":1
+            },
+            {
+              "Id":"it.uniparthenope.fairwind.apps.chart",
+              "Active":true,
+              "Order":1
+            },
+            {
+              "Id":"it.gov.guardiacostiera.gc1530",
+              "Active":true,
+              "Order":1
+            },
+            {
+              "Id":"fairwind.apps.portolano",
+              "Active":true,
+              "Order":1
+            },
+            {
+              "Id":"fairwind.apps.sonar",
+              "Active":true,
+              "Order":1
+            },
+            {
+              "Id":"fairwind.apps.radar",
+              "Active":true,
+              "Order":1
+            },
+            {
+              "Id":"it.uniparthenope.fairwind.apps.dashboard/data",
+              "Active":true,
+              "Order":1
+            },
+            {
+              "Id":"it.uniparthenope.fairwind.apps.dashboard/switchpanel",
+              "Active":true,
+              "Order":1
+            },
+            {
+              "Id":"it.uniparthenope.fairwind.apps.entertainment",
+              "Active":true,
+              "Order":1
+            },
+            {
+              "Id":"fairwind.apps.video",
+              "Active":true,
+              "Order":1
+            },
+            {
+              "Id":"fairwind.apps.chandlery",
+              "Active":true,
+              "Order":1
+            },
+            {
+              "Id":"fairwind.apps.uav",
+              "Active":true,
+              "Order":1
+            },
+            {
+              "Id":"fairwind.apps.weather",
+              "Active":true,
+              "Order":1
+            },
+            {
+              "Id":"fairwind.apps.imsf",
+              "Active":true,
+              "Order":1
+            },
+            {
+              "Id":"it.uniparthenope.fairwind.apps.web/signalk",
+              "Active":true,
+              "Order":1
+            },
+            {
+              "Id":"it.uniparthenope.fairwind.apps.external/opencpn",
+              "Active":true,
+              "Order":1
+            },
+            {
+              "Id":"it.uniparthenope.fairwind.apps.web/netflix",
+              "Active":true,
+              "Order":1
+            },
+            {
+              "Id":"it.uniparthenope.fairwind.apps.web/youtube",
+              "Active":true,
+              "Order":1
+            },
+            {
+              "Id": "it.uniparthenope.fairwind.apps.web/spotify",
+              "Active": true,
+              "Order": 1
+            }
+          ]
+        }
+      }
+    }
+  }
+}
