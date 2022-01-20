@@ -2,10 +2,10 @@
 // Created by Raffaele Montella on 16/07/21.
 //
 
-#ifndef FAIRWIND_APPLICATIONS_HPP
-#define FAIRWIND_APPLICATIONS_HPP
+#ifndef FAIRWIND_APPS_SETTINGS_APPLICATIONS_HPP
+#define FAIRWIND_APPS_SETTINGS_APPLICATIONS_HPP
 
-#include <QWidget>
+
 #include <QItemSelection>
 
 #include <FairWindSdk/ISettingsTab.hpp>
@@ -14,8 +14,8 @@ namespace Ui {
     class Applications;
 }
 
-namespace fairwind::ui::settings::applications {
-    class Applications : public QWidget, public ISettingsTab {
+namespace fairwind::apps::settings::applications {
+    class Applications : public QWidget, public ui::settings::ISettingsTab {
         Q_OBJECT
 
     public:
@@ -43,9 +43,10 @@ namespace fairwind::ui::settings::applications {
 
     private:
         Ui::Applications *ui;
+
         QString mExtension;
         QMap<QString, QWidget *> mSettingsByExtensionId;
     };
 }
 
-#endif //FAIRWIND_APPLICATIONS_HPP
+#endif //FAIRWIND_APPS_SETTINGS_APPLICATIONS_HPP

@@ -13,11 +13,12 @@
 #include "QPixmap"
 #include "QLabel"
 
+namespace fairwind::apps::settings::applications {
 /*
  * Applications
  * Public constructor - This will present the available apps in FairWind
  */
-fairwind::ui::settings::applications::Applications::Applications(QWidget *parent) :
+Applications::Applications(QWidget *parent) :
         QWidget(parent),
         ui(new Ui::Applications) {
 
@@ -54,7 +55,7 @@ fairwind::ui::settings::applications::Applications::Applications(QWidget *parent
  * ~Applications
  * Applications' destructor
  */
-fairwind::ui::settings::applications::Applications::~Applications() {
+Applications::~Applications() {
     delete ui;
 }
 
@@ -62,7 +63,7 @@ fairwind::ui::settings::applications::Applications::~Applications() {
  * showEvent
  * Method called when the tab has to be showed
  */
-void fairwind::ui::settings::applications::Applications::showEvent(QShowEvent *event) {
+void Applications::showEvent(QShowEvent *event) {
     qDebug() << "fairwind::ui::settings::applications::Applications::showEvent";
 
     // Get the FairWind singleton instance
@@ -121,7 +122,7 @@ void fairwind::ui::settings::applications::Applications::showEvent(QShowEvent *e
  * getIcon
  * Returns a QImage containing the applications' settings icon
  */
-QImage fairwind::ui::settings::applications::Applications::getIcon() const {
+QImage Applications::getIcon() const {
     return QImage(":resources/images/icons/applications_icon.png");
 }
 
@@ -129,7 +130,7 @@ QImage fairwind::ui::settings::applications::Applications::getIcon() const {
  * getName
  * Returns a string containing the applications' settings name
  */
-QString fairwind::ui::settings::applications::Applications::getName() const {
+QString Applications::getName() const {
     return tr("Applications");
 }
 
@@ -137,7 +138,7 @@ QString fairwind::ui::settings::applications::Applications::getName() const {
  * getNewInstance
  * Returns a new instance of Applications
  */
-fairwind::ui::settings::ISettingsTab *fairwind::ui::settings::applications::Applications::getNewInstance() {
+fairwind::ui::settings::ISettingsTab *Applications::getNewInstance() {
     return static_cast<ISettingsTab *>(new Applications());
 }
 
@@ -145,7 +146,7 @@ fairwind::ui::settings::ISettingsTab *fairwind::ui::settings::applications::Appl
  * getClassName
  * Returns the current Applications instance class name
  */
-QString fairwind::ui::settings::applications::Applications::getClassName() const {
+QString Applications::getClassName() const {
     return this->metaObject()->className();
 }
 
@@ -153,7 +154,7 @@ QString fairwind::ui::settings::applications::Applications::getClassName() const
  * onCurrentChanged
  * Method called when the row is changed
  */
-void fairwind::ui::settings::applications::Applications::onCurrentRowChanged(const QModelIndex &current,
+void Applications::onCurrentRowChanged(const QModelIndex &current,
                                                                              const QModelIndex &previous) {
     qDebug() << "fairwind::ui::settings::applications::Applications::onCurrentRowChanged";
 

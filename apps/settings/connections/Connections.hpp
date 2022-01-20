@@ -2,10 +2,8 @@
 // Created by Raffaele Montella on 16/07/21.
 //
 
-#ifndef FAIRWIND_CONNECTIONS_HPP
-#define FAIRWIND_CONNECTIONS_HPP
-
-#include <QWidget>
+#ifndef FAIRWIND_APPS_SETTINGS_CONNECTIONS_HPP
+#define FAIRWIND_APPS_SETTINGS_CONNECTIONS_HPP
 
 #include <FairWindSdk/ISettingsTab.hpp>
 
@@ -13,8 +11,8 @@ namespace Ui {
     class Connections;
 }
 
-namespace fairwind::ui::settings::connections {
-    class Connections : public QWidget, public ISettingsTab {
+namespace fairwind::apps::settings::connections {
+    class Connections : public QWidget, public ui::settings::ISettingsTab {
         Q_OBJECT
 
     public:
@@ -38,4 +36,4 @@ namespace fairwind::ui::settings::connections {
     };
 }
 
-#endif //FAIRWIND_CONNECTIONS_HPP
+#endif //FAIRWIND_APPS_SETTINGS_CONNECTIONS_HPP

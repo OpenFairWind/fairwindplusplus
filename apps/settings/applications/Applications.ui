@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Connections</class>
- <widget class="QWidget" name="Connections">
+ <class>fairwind::apps::settings::applications::Applications</class>
+ <widget class="QWidget" name="fairwind::apps::settings::applications::Applications">
   <attribute name="title">
-       <string>Connections</string>
+       <string>Apps</string>
       </attribute>
-      <layout class="QGridLayout" name="gridLayout_3">
+      <layout class="QGridLayout" name="gridLayout_4">
        <item row="0" column="0">
-        <widget class="QTableWidget" name="table_ConnectionsList">
+        <widget class="QTableWidget" name="table_AppsList">
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Plain</enum>
+         </property>
          <property name="editTriggers">
           <set>QAbstractItemView::NoEditTriggers</set>
-         </property>
-         <property name="alternatingRowColors">
-          <bool>false</bool>
          </property>
          <property name="selectionMode">
           <enum>QAbstractItemView::SingleSelection</enum>
@@ -26,22 +29,10 @@
            <height>64</height>
           </size>
          </property>
-         <property name="showGrid">
-          <bool>false</bool>
-         </property>
          <property name="gridStyle">
-          <enum>Qt::SolidLine</enum>
-         </property>
-         <property name="sortingEnabled">
-          <bool>true</bool>
-         </property>
-         <property name="columnCount">
-          <number>0</number>
+          <enum>Qt::NoPen</enum>
          </property>
          <attribute name="horizontalHeaderHighlightSections">
-          <bool>false</bool>
-         </attribute>
-         <attribute name="horizontalHeaderStretchLastSection">
           <bool>false</bool>
          </attribute>
          <attribute name="verticalHeaderVisible">
@@ -53,11 +44,12 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QScrollArea" name="scrollArea_Connections">
+        <widget class="QScrollArea" name="scrollArea_Apps">
          <property name="widgetResizable">
           <bool>true</bool>
          </property>
-         <widget class="QWidget" name="scrollAreaWidgetContents_Connections">
+         <!--
+         <widget class="QWidget" name="scrollAreaWidgetContents_Apps">
           <property name="geometry">
            <rect>
             <x>0</x>
@@ -67,6 +59,7 @@
            </rect>
           </property>
          </widget>
+    -->
         </widget>
        </item>
       </layout>
