@@ -26,6 +26,7 @@ ExternalProject_Add(QtJsonSchema
         CMAKE_ARGS -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH} -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
         TIMEOUT 360
         )
+
 set(LIBQTJSONSCHEMA ${EXTERNAL_INSTALL_LOCATION}/lib/libqtjsonschema.so)
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
     set(LIBQTJSONSCHEMA ${EXTERNAL_INSTALL_LOCATION}/lib/static/qtjsonschema.lib)
@@ -65,6 +66,7 @@ set(LIBQCGAUGEWIDGET ${LIBQCGAUGEWIDGET} PARENT_SCOPE)
 
 ExternalProject_Add(QGeoView
         GIT_REPOSITORY https://github.com/OpenFairWind/QGeoView.git
+        #GIT_REPOSITORY https://github.com/zSelimReborn/QGeoView.git
         CMAKE_ARGS -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH} -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
         TIMEOUT 360
         )
