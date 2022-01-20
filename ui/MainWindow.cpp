@@ -11,7 +11,7 @@
 #include "MainWindow.hpp"
 #include "ui/topbar/TopBar.hpp"
 #include "ui/bottombar/BottomBar.hpp"
-#include "ui/settings/Settings.hpp"
+
 #include "ui/about/About.hpp"
 #include "ui_MainWindow.h"
 
@@ -26,10 +26,6 @@ fairwind::ui::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(
     // Instantiate a new Apps object which will contain the loaded apps
     m_apps = new fairwind::ui::apps::Apps(ui->stackedWidget_Center);
     ui->stackedWidget_Center->addWidget(m_apps);
-
-    // Instantiate a new Settings object which will contain the registered settings
-    m_settings = new fairwind::ui::settings::Settings(ui->stackedWidget_Center);
-    ui->stackedWidget_Center->addWidget(m_settings);
 
     // Instantiate TopBar and BottomBar object
     m_topBar = new fairwind::ui::topbar::TopBar(ui->widget_Top);
@@ -62,11 +58,6 @@ fairwind::ui::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(
  * MainWindow's destructor
  */
 fairwind::ui::MainWindow::~MainWindow() {
-    // Delete every property
-    if (m_settings) {
-        delete m_settings;
-        m_settings = nullptr;
-    }
 
     if (m_apps) {
         delete m_apps;
@@ -117,10 +108,10 @@ void fairwind::ui::MainWindow::setForegroundApp(QString hash) {
     QWidget *widgetApp = nullptr;
 
     // Check if the requested app has been already launched by the user
-    if (mapWidgets.contains(hash)) {
+    if (m_mapHash2Widget.contains(hash)) {
 
         // If yes, get its widget from mapWidgets
-        widgetApp = mapWidgets[hash];
+        widgetApp = m_mapHash2Widget[hash];
     } else {
         // Set the route
         fairWindApp->setRoute(app->getRoute());
@@ -141,7 +132,8 @@ void fairwind::ui::MainWindow::setForegroundApp(QString hash) {
             ui->stackedWidget_Center->addWidget(widgetApp);
 
             // Store it in mapWidgets for future usage
-            mapWidgets.insert(hash, widgetApp);
+            m_mapHash2Widget.insert(hash, widgetApp);
+
         }
     }
 
@@ -198,7 +190,12 @@ void fairwind::ui::MainWindow::onApps() {
  */
 void fairwind::ui::MainWindow::onSettings() {
     // Show the settings view
-    ui->stackedWidget_Center->setCurrentWidget(m_settings);
+    auto fairWind = FairWind::getInstance();
+
+    auto settingsFairWindAppId = fairWind->getSettingsFairWindAppId();
+    if (!settingsFairWindAppId.isEmpty()) {
+        setForegroundApp(fairWind->getAppHashById(settingsFairWindAppId));
+    }
 }
 
 /*

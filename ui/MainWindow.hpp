@@ -15,7 +15,7 @@
 
 #include "FairWindSdk/App.hpp"
 #include "ui/apps/Apps.hpp"
-#include "ui/settings/Settings.hpp"
+
 
 class BottomBar;
 
@@ -52,13 +52,13 @@ namespace fairwind::ui {
 
     private:
         Ui::MainWindow *ui;
+
         // This will be populated with the apps launched by the user for quick usage
-        QMap<QString, QWidget *> mapWidgets;
+        QMap<QString, QWidget *> m_mapHash2Widget;
 
         // QWidget containing the loaded apps
         apps::Apps *m_apps = nullptr;
-        // QWidget containing a tab for every registered settings page
-        settings::Settings *m_settings = nullptr;
+
         // QWidget containing useful infos
         topbar::TopBar *m_topBar = nullptr;
         // QWidget containing navigation buttons
