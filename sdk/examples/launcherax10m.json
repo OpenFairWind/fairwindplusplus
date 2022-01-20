@@ -1,0 +1,19 @@
+{
+  "Name" : "LauncherAx10m",
+  "Version" : "0.0.1",
+  "CompatVersion" : "0.0.1",
+  "Vendor" : "University of Naples Parthenope",
+  "Copyright" : "(C) 2021 The FairWind Team",
+  "License" : "Apache 2.0",
+  "Category" : "Apps",
+  "Description" : "A launcher resembling a common fultifucntional display behaviour.",
+  "Url" : "http://fairwind.uniparthenope.it/",
+  "FairWind": {
+    "App": {
+      "Email": "fairwind@uniparthenope.it",
+      "Id": "fairwind.apps.launcherax10m",
+      "Icon": ":/resources/images/icons/settings_launcherax10m.png",
+      "Settings": {}
+    }
+  }
+}
