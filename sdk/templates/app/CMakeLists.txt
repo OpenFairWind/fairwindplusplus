@@ -1,5 +1,5 @@
 
-set(__APPNAME___RESOURCE resources.qrc)
+set(__APPNAME___RESOURCE resources__Appname__.qrc)
 qt5_add_resources(__APPNAME___RESOURCE_ADDED ${__APPNAME___RESOURCE})
 
 add_library(__Appname__ SHARED
