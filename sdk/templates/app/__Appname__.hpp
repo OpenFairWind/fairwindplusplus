@@ -10,14 +10,14 @@
 #include <FairWindSdk/IFairWindApp.hpp>
 
 
-namespace __namespece__ {
+namespace __namespace__ {
     class __Appname__ : public IFairWindApp {
     Q_OBJECT
         Q_PLUGIN_METADATA(IID IID_FAIRWIND_APPS FILE "manifest.json")
         Q_INTERFACES(fairwind::apps::IFairWindApp)
 
     public:
-        ~Portolano() = default;
+        ~__Appname__() = default;
 
         // App lifecycle
         void onCreate() override;
