@@ -6,15 +6,15 @@
 #include <utility>
 #include <FairWindSdk/FairWindApp.hpp>
 
-#include "include/FairWindSdk/App.hpp"
+#include "include/FairWindSdk/AppItem.hpp"
 #include "include/FairWindSdk/FairWind.hpp"
 
-fairwind::App::App() {}
+fairwind::AppItem::AppItem() {}
 
 /*
  * Public Constructor
  */
-fairwind::App::App(const fairwind::App &app) {
+fairwind::AppItem::AppItem(const fairwind::AppItem &app) {
     // Retrieve the app's infos from the provided App instance
     this->m_extension = app.m_extension;
     this->m_active = app.m_active;
@@ -29,7 +29,7 @@ fairwind::App::App(const fairwind::App &app) {
 /*
  * Public Constructor
  */
-fairwind::App::App(fairwind::apps::FairWindApp *fairWindApp, bool active, int order) {
+fairwind::AppItem::AppItem(fairwind::apps::FairWindApp *fairWindApp, bool active, int order) {
     // Get the app's infos and store them for future usage
     m_extension = fairWindApp->getId();
     m_route = fairWindApp->getRoute();
@@ -51,7 +51,7 @@ fairwind::App::App(fairwind::apps::FairWindApp *fairWindApp, bool active, int or
  * getExtension
  * Returns the app's extension
  */
-QString fairwind::App::getExtension() {
+QString fairwind::AppItem::getExtension() {
     return m_extension;
 }
 
@@ -59,7 +59,7 @@ QString fairwind::App::getExtension() {
  * getName
  * Returns the app's name
  */
-QString fairwind::App::getName() {
+QString fairwind::AppItem::getName() {
     return m_name;
 }
 
@@ -67,7 +67,7 @@ QString fairwind::App::getName() {
  * getDesc
  * Returns the app's description
  */
-QString fairwind::App::getDesc() {
+QString fairwind::AppItem::getDesc() {
     return m_desc;
 }
 
@@ -75,7 +75,7 @@ QString fairwind::App::getDesc() {
  * getIcon
  * Returns the app's icon
  */
-QImage fairwind::App::getIcon() {
+QImage fairwind::AppItem::getIcon() {
     return m_icon;
 }
 
@@ -83,14 +83,14 @@ QImage fairwind::App::getIcon() {
  * setOrder
  * Sets the app's order
  */
-void fairwind::App::setOrder(int order) {
+void fairwind::AppItem::setOrder(int order) {
     m_order = order;
 }
 /*
  * getOrder
  * Returns the app's order
  */
-int fairwind::App::getOrder() {
+int fairwind::AppItem::getOrder() {
     return m_order;
 }
 
@@ -98,7 +98,7 @@ int fairwind::App::getOrder() {
  * setActive
  * Sets the app's active state
  */
-void fairwind::App::setActive(bool active) {
+void fairwind::AppItem::setActive(bool active) {
     m_active = active;
 }
 
@@ -106,7 +106,7 @@ void fairwind::App::setActive(bool active) {
  * getActive
  * Returns the app's active state
  */
-bool fairwind::App::getActive() {
+bool fairwind::AppItem::getActive() {
     return m_active;
 }
 
@@ -114,7 +114,7 @@ bool fairwind::App::getActive() {
  * getHash
  * Returns the app's generated hash
  */
-QString fairwind::App::getHash() {
+QString fairwind::AppItem::getHash() {
     return m_hash;
 }
 
@@ -122,7 +122,7 @@ QString fairwind::App::getHash() {
  * generateHash
  * Generates a new hash value for the app
  */
-void fairwind::App::generateHash() {
+void fairwind::AppItem::generateHash() {
     QString text = m_extension+"/"+m_route;
     for (QString key: m_args.keys()) {
         text = text + " " + key + "=" + "\"" + m_args[key].toString() + "\"";
@@ -131,7 +131,7 @@ void fairwind::App::generateHash() {
     m_hash = QString(QCryptographicHash::hash((text.toUtf8()), QCryptographicHash::Md5).toHex());
 }
 
-QString fairwind::App::getRoute() {
+QString fairwind::AppItem::getRoute() {
     return m_route;
 }
 
@@ -139,7 +139,7 @@ QString fairwind::App::getRoute() {
  * getArgs
  * Returns the app's args
  */
-QMap <QString, QVariant> fairwind::App::getArgs() {
+QMap <QString, QVariant> fairwind::AppItem::getArgs() {
     return m_args;
 }
 
@@ -147,7 +147,7 @@ QMap <QString, QVariant> fairwind::App::getArgs() {
  * getVersion
  * Returns the app's version
  */
-QString fairwind::App::getVersion() {
+QString fairwind::AppItem::getVersion() {
     return m_version;
 }
 
@@ -155,7 +155,7 @@ QString fairwind::App::getVersion() {
  * getVendor
  * Returns the app's vendor
  */
-QString fairwind::App::getVendor() {
+QString fairwind::AppItem::getVendor() {
     return m_vendor;
 }
 
@@ -163,7 +163,7 @@ QString fairwind::App::getVendor() {
  * getCopyright
  * Returns the app's copyright
  */
-QString fairwind::App::getCopyright() {
+QString fairwind::AppItem::getCopyright() {
     return m_copyright;
 }
 
@@ -171,7 +171,7 @@ QString fairwind::App::getCopyright() {
  * getLicense
  * Returns the app's license
  */
-QString fairwind::App::getLicense() {
+QString fairwind::AppItem::getLicense() {
     return m_license;
 }
 

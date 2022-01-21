@@ -11,14 +11,14 @@
 #include "IFairWindApp.hpp"
 
 namespace fairwind {
-    class FAIRWINDSDK_LIB_DECL App: QObject {
+    class FAIRWINDSDK_LIB_DECL AppItem: QObject {
     Q_OBJECT
     public:
-    App();
+    AppItem();
 
-    App(apps::FairWindApp *fairWindApp, bool active=true, int order=1);
+    AppItem(apps::FairWindApp *fairWindApp, bool active=false, int order=1);
 
-    App(const App &app);
+    AppItem(const AppItem &app);
 
     QString getHash();
     QString getExtension();
