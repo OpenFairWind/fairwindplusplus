@@ -142,11 +142,6 @@
 
           "Apps":[
             {
-              "Id":"fairwind.apps.settings",
-              "Active":true,
-              "Order":1
-            },
-            {
               "Id":"it.uniparthenope.fairwind.apps.chart",
               "Active":true,
               "Order":1
@@ -154,87 +149,87 @@
             {
               "Id":"it.gov.guardiacostiera.gc1530",
               "Active":true,
-              "Order":1
+              "Order":2
             },
             {
               "Id":"fairwind.apps.portolano",
               "Active":true,
-              "Order":1
+              "Order":3
             },
             {
               "Id":"fairwind.apps.sonar",
               "Active":true,
-              "Order":1
+              "Order":4
             },
             {
               "Id":"fairwind.apps.radar",
               "Active":true,
-              "Order":1
+              "Order":5
             },
             {
               "Id":"it.uniparthenope.fairwind.apps.dashboard/data",
               "Active":true,
-              "Order":1
+              "Order":6
             },
             {
               "Id":"it.uniparthenope.fairwind.apps.dashboard/switchpanel",
               "Active":true,
-              "Order":1
+              "Order":7
             },
             {
               "Id":"it.uniparthenope.fairwind.apps.entertainment",
               "Active":true,
-              "Order":1
+              "Order":8
             },
             {
               "Id":"fairwind.apps.video",
               "Active":true,
-              "Order":1
+              "Order":9
             },
             {
               "Id":"fairwind.apps.chandlery",
               "Active":true,
-              "Order":1
+              "Order":10
             },
             {
               "Id":"fairwind.apps.uav",
               "Active":true,
-              "Order":1
+              "Order":11
             },
             {
               "Id":"fairwind.apps.weather",
               "Active":true,
-              "Order":1
+              "Order":12
             },
             {
               "Id":"fairwind.apps.imsf",
               "Active":true,
-              "Order":1
+              "Order":13
             },
             {
               "Id":"it.uniparthenope.fairwind.apps.web/signalk",
               "Active":true,
-              "Order":1
+              "Order":14
             },
             {
               "Id":"it.uniparthenope.fairwind.apps.external/opencpn",
               "Active":true,
-              "Order":1
+              "Order":15
             },
             {
               "Id":"it.uniparthenope.fairwind.apps.web/netflix",
               "Active":true,
-              "Order":1
+              "Order":16
             },
             {
               "Id":"it.uniparthenope.fairwind.apps.web/youtube",
               "Active":true,
-              "Order":1
+              "Order":17
             },
             {
               "Id": "it.uniparthenope.fairwind.apps.web/spotify",
               "Active": true,
-              "Order": 1
+              "Order": 18
             }
           ]
         }

@@ -22,8 +22,7 @@
         <file>resources/images/icons/fairwind_icon.png</file>
         <file>resources/images/icons/apps_icon.png</file>
 
-	<file>resources/images/icons/toolbutton_left.png</file>
-	<file>resources/images/icons/toolbutton_right.png</file>
+
 	
 
     </qresource>

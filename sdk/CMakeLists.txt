@@ -77,6 +77,7 @@ qt5_add_resources(FAIRWINDSDK_RESOURCE_ADDED ${FAIRWINDSDK_RESOURCE})
 add_library(fairwindsdk SHARED
         include/FairWindSdk/FairWindSDK.hpp
         include/FairWindSdk/IFairWindApp.hpp
+        include/FairWindSdk/IFairWindLauncher.hpp
         include/FairWindSdk/ILayer.hpp
         include/FairWindSdk/IDisplay.hpp
         include/FairWindSdk/IConnection.hpp
@@ -86,7 +87,7 @@ add_library(fairwindsdk SHARED
         include/FairWindSdk/PageBase.hpp
         include/FairWindSdk/SignalKDocument.hpp
         include/FairWindSdk/FairWind.hpp
-        include/FairWindSdk/App.hpp
+        include/FairWindSdk/AppItem.hpp
         include/FairWindSdk/displays/DisplayBase.hpp
         include/FairWindSdk/displays/DisplaySingleText.hpp
         include/FairWindSdk/displays/DisplayDoubleText.hpp
@@ -121,7 +122,7 @@ add_library(fairwindsdk SHARED
         src/ui/Colophon.cpp include/FairWindSdk/ui/Colophon.hpp src/ui/Colophon.ui
 
         src/FairWind.cpp
-        src/App.cpp
+        src/AppItem.cpp
         src/FairWindApp.cpp
         src/PageBase.cpp
         src/SignalKDocument.cpp
@@ -182,7 +183,7 @@ target_link_libraries(fairwindsdk
         ${LIBQTJSONSCHEMA} ${LIBQCGAUGEWIDGET} ${LIBQGEOVIEW}
         )
 
-add_library(FairWindSdk ALIAS fairwindsdk )
+add_library(FairWindSdk ALIAS fairwindsdk)
 
 set(LIBFAIRWINDSDK ${EXTERNAL_INSTALL_LOCATION}/lib/libfairwindsdk.so)
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")

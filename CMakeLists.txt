@@ -47,7 +47,6 @@ add_executable(${PROJECT_NAME}
         ui/about/About.cpp ui/about/About.hpp
         ui/topbar/TopBar.cpp ui/topbar/TopBar.hpp
         ui/bottombar/BottomBar.cpp ui/bottombar/BottomBar.hpp
-        ui/apps/Apps.cpp ui/apps/Apps.hpp
         )
 
 add_dependencies(${PROJECT_NAME} FairWindSdk)
