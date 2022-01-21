@@ -1,5 +1,3 @@
-#! python
-
 import os
 import json
 import sys
@@ -18,6 +16,11 @@ def main(argv):
   # The path of the FairWind SDK directory
   fairwind_sdk_home = os.getenv('FAIRWINDSDK_HOME')
 
+  if fairwind_sdk_home is None or fairwind_sdk_home=="":
+    logging.error("FAIRWINDSDK_HOME not set.")
+    show_usage()
+    exit(2)
+
   # The application manifest file
   manifest_json_file = ""
 
@@ -27,7 +30,7 @@ def main(argv):
   # Try to get options and arguments
   try:
     # Get the options and the arguments
-    opts, args = getopt.getopt(argv,"hs:m:o:",["fairwindsdk-home=", "manifest=", "output-root="])
+    opts, args = getopt.getopt(argv,"h:m:o:",["manifest=", "output-root="])
 
   except getopt.GetoptError:
 
@@ -48,12 +51,6 @@ def main(argv):
       # Exit
       sys.exit()
 
-    # Check if the option is -s or --fairwindsdk-home
-    elif opt in ("-s", "--fairwindsdk-home"):
-
-      # Get the fairwind sdk directory from the argument
-      fairwind_sdk_home = arg
-
     # Check if the option is -m or --manifest
     elif opt in ("-m", "--manifest"):
 
@@ -67,10 +64,7 @@ def main(argv):
       output_root = arg
 
 
-  if fairwind_sdk_home is None or fairwind_sdk_home=="":
-    logging.error("FAIRWINDSDK_HOME not set or -s / --fairwindsdk-home parameters not in the command line.")
-    show_usage()
-    exit(2)
+
 
   if manifest_json_file is None or manifest_json_file=="":
     logging.error("Manifest file not set")
@@ -219,7 +213,7 @@ def fill_template(values, text):
 
 # Show an usage text
 def show_usage():
-  logging.error ('fairwindapp-create.py -t <templatepath> -m <manifestfile> -o <outputroot>')
+  logging.error ('fairwindapp-create -m <manifestfile> -o <outputroot>')
 
 
 # Check if a file is a text file

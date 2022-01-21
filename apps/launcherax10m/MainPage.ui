@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Apps</class>
- <widget class="QWidget" name="Apps">
-  <property name="geometry">
+    <author/>
+    <comment/>
+    <exportmacro/>
+    <class>fairwind::apps::launcherax10m::MainPage</class>
+    <widget class="QWidget" name="fairwind::apps::launcherax10m::MainPage">
+        <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
