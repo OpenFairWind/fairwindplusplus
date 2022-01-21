@@ -295,12 +295,12 @@ void fairwind::FairWind::loadApps() {
 void fairwind::FairWind::loadConfig() {
 
     // Get the actual configuration
-    QJsonObject config = getConfig();
+    QJsonObject configSettings = getConfig();
 
     // Check if the config object has a "SignalK" key
-    if (config.contains("SignalK") && config["SignalK"].isObject()) {
+    if (configSettings.contains("SignalK") && configSettings["SignalK"].isObject()) {
         // Get the "SignalK" json object
-        QJsonObject jsonSignalK = config["SignalK"].toObject();
+        QJsonObject jsonSignalK = configSettings["SignalK"].toObject();
 
         // Check if the "SignalK" json object has the "self" key
         if (jsonSignalK.contains("self") && jsonSignalK["self"].isString()) {
@@ -355,11 +355,10 @@ void fairwind::FairWind::loadConfig() {
         }
     }
 
-    // Check if the config file has the key "Extensions"
-    if (config.contains("Extensions") && config["Extensions"].isObject()) {
+    auto launcherFairWindApp = getAppByExtensionId(getLauncherFairWindAppId());
+    if (launcherFairWindApp) {
+        auto jsonExtensions = launcherFairWindApp->getConfig();
 
-        // Get the extensions json object
-        QJsonObject jsonExtensions = config["Extensions"].toObject();
 
         // Check if the extensions json object contains the key "Apps"
         if (jsonExtensions.contains("Apps") && jsonExtensions["Apps"].isArray()) {
