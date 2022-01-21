@@ -259,6 +259,21 @@ void fairwind::FairWind::loadApps() {
                         // Store the FairWind++ app pointer in the m_mapAppId2FairWindApp dictionary
                         m_mapAppId2FairWindApp[fairWindApp->getId()] = fairWindApp;
 
+                        if (metaData.contains("Category") && metaData["Category"].isString()) {
+                            QString category = metaData["Category"].toString();
+
+                            if (category != "Apps") {
+                                // Create a new app item
+                                auto appItem = new AppItem(fairWindApp);
+
+                                // Store the app pointer in a dictionary indexed with a hash
+                                m_mapHash2AppItem[appItem->getHash()] = appItem;
+
+                                // Store the app id -> hash
+                                m_mapAppId2Hash[appId] = appItem->getHash();
+                            }
+                        }
+
                         // Starts the app lifecycle
                         fairWindApp->onCreate();
                     }
@@ -377,7 +392,7 @@ void fairwind::FairWind::loadConfig() {
                     }
 
                     // Declare a pointer to an app and set it to the null pointer
-                    App *appItem = nullptr;
+                    AppItem *appItem = nullptr;
 
                     // Get the pointer to the app by the extension id
                     auto fairWindApp = getAppByExtensionId(appId);
@@ -438,8 +453,26 @@ void fairwind::FairWind::loadConfig() {
                         // Set the args
                         fairWindApp->setArgs(args);
 
+                        bool active = false;
+                        int order = 1;
+
+                        // Check if the json app object contains the key "Active"
+                        if (jsonAppObject.contains("Active") && jsonAppObject["Active"].isBool()) {
+
+                            // Get the app active attribute as a boolean
+                            active = jsonAppObject["Active"].toBool();
+                        }
+
+                        // Check if the json app object contains the key "Order"
+                        if (jsonAppObject.contains("Order") && jsonAppObject["Order"].isDouble()) {
+
+                            // Get the app active attribute as a boolean
+                            order = jsonAppObject["Order"].toInt();
+                        }
+
+
                         // Create a new app item
-                        appItem = new App(fairWindApp);
+                        appItem = new AppItem(fairWindApp, active, order);
                     }
 
                     // Check if the app has a valid pointer
@@ -461,7 +494,7 @@ void fairwind::FairWind::loadConfig() {
  * getApps
  * Returns a map containing the loaded apps
  */
-QMap<QString, fairwind::App *> fairwind::FairWind::getApps() {
+QMap<QString, fairwind::AppItem *> fairwind::FairWind::getApps() {
     return m_mapHash2AppItem;
 }
 
@@ -729,7 +762,7 @@ QString fairwind::FairWind::getLauncherFairWindAppId() {
     return mLauncherFairWindAppId;
 }
 
-fairwind::App *fairwind::FairWind::getAppItemByHash(QString hash) {
+fairwind::AppItem *fairwind::FairWind::getAppItemByHash(QString hash) {
     return m_mapHash2AppItem[hash];
 }
 

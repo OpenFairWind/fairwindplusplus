@@ -16,7 +16,7 @@
 #include "IFairWindApp.hpp"
 #include "ILayer.hpp"
 #include "SignalKDocument.hpp"
-#include "App.hpp"
+#include "AppItem.hpp"
 #include "IDisplay.hpp"
 #include "IConnection.hpp"
 #include "ILayout.hpp"
@@ -42,8 +42,8 @@ namespace fairwind {
 
         SignalKDocument *getSignalKDocument();
 
-        QMap<QString, fairwind::App *> getApps();
-        App *getAppItemByHash(QString hash);
+        QMap<QString, fairwind::AppItem *> getApps();
+        AppItem *getAppItemByHash(QString hash);
         QString getAppHashById(QString appId);
 
         bool registerLayer(fairwind::layers::ILayer *dummy);
@@ -89,7 +89,7 @@ namespace fairwind {
         SignalKDocument m_signalkDocument;
 
         QMap<QString, fairwind::apps::IFairWindApp *> m_mapAppId2FairWindApp;
-        QMap<QString, App *> m_mapHash2AppItem;
+        QMap<QString, AppItem *> m_mapHash2AppItem;
         QMap<QString, QString> m_mapAppId2Hash;
 
         QList<fairwind::connections::IConnection *> m_listConnections;
