@@ -13,8 +13,7 @@
 #include <ui/bottombar/BottomBar.hpp>
 #include <ui/about/About.hpp>
 
-#include "FairWindSdk/App.hpp"
-#include "ui/apps/Apps.hpp"
+#include "FairWindSdk/AppItem.hpp"
 
 
 class BottomBar;
@@ -57,14 +56,14 @@ namespace fairwind::ui {
         QMap<QString, QWidget *> m_mapHash2Widget;
 
         // QWidget containing the loaded apps
-        apps::Apps *m_apps = nullptr;
+        //apps::Apps *m_apps = nullptr;
 
         // QWidget containing useful infos
         topbar::TopBar *m_topBar = nullptr;
         // QWidget containing navigation buttons
         bottombar::BottomBar *m_bottonBar = nullptr;
 
-        // The pointer to the foregraund app
+        // The pointer to the foreground app
         fairwind::apps::IFairWindApp *m_fairWindApp = nullptr;
 
 

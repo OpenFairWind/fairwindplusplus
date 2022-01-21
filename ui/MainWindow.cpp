@@ -7,6 +7,7 @@
 
 #include <FairWindSdk/FairWind.hpp>
 #include <FairWindSdk/FairWindApp.hpp>
+#include <FairWindSdk/IFairWindLauncher.hpp>
 
 #include "MainWindow.hpp"
 #include "ui/topbar/TopBar.hpp"
@@ -23,20 +24,44 @@ fairwind::ui::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(
     // Setup the UI
     ui->setupUi(this);
 
-    // Instantiate a new Apps object which will contain the loaded apps
-    m_apps = new fairwind::ui::apps::Apps(ui->stackedWidget_Center);
-    ui->stackedWidget_Center->addWidget(m_apps);
-
     // Instantiate TopBar and BottomBar object
     m_topBar = new fairwind::ui::topbar::TopBar(ui->widget_Top);
     m_bottonBar = new fairwind::ui::bottombar::BottomBar(ui->widget_Bottom);
 
     // Place the Apps object at the center of the UI
     setCentralWidget(ui->centralwidget);
-    ui->stackedWidget_Center->setCurrentWidget(m_apps);
 
-    // Show a new foreground app when pressing on the Apps object
-    QObject::connect(m_apps, &apps::Apps::foregroundAppChanged, this, &MainWindow::setForegroundApp);
+
+    // Show the settings view
+    auto fairWind = FairWind::getInstance();
+
+    // Get the launcher app id
+    auto launcherFairWindAppId = fairWind->getLauncherFairWindAppId();
+
+    // Check if the app id is set
+    if (!launcherFairWindAppId.isEmpty()) {
+
+        qDebug() << "launcherFairWindAppId: " << launcherFairWindAppId;
+
+        auto launcherFairWindAppHash = fairWind->getAppHashById(launcherFairWindAppId);
+
+        qDebug() << "launcherFairWindAppHash: " << launcherFairWindAppHash;
+
+        if (!launcherFairWindAppHash.isEmpty()) {
+
+            // Set the app
+            setForegroundApp(launcherFairWindAppHash);
+
+            auto fairWindLaucher = (fairwind::apps::IFairWindLauncher *) (fairWind->getAppByExtensionId(
+                    launcherFairWindAppId));
+
+            if (fairWindLaucher) {
+
+                QObject::connect(fairWindLaucher, &fairwind::apps::IFairWindLauncher::foregroundAppChanged, this,
+                                 &MainWindow::setForegroundApp);
+            }
+        }
+    }
 
     // Show the apps view when the user clicks on the Apps button inside the BottomBar object
     QObject::connect(m_bottonBar, &bottombar::BottomBar::setApps, this, &MainWindow::onApps);
@@ -58,11 +83,6 @@ fairwind::ui::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(
  * MainWindow's destructor
  */
 fairwind::ui::MainWindow::~MainWindow() {
-
-    if (m_apps) {
-        delete m_apps;
-        m_apps = nullptr;
-    }
 
     if (m_bottonBar) {
         delete m_bottonBar;
@@ -167,21 +187,12 @@ void fairwind::ui::MainWindow::setForegroundApp(QString hash) {
  */
 void fairwind::ui::MainWindow::onApps() {
 
-    // Check if there is an app on foreground
-    if (m_fairWindApp) {
+    // Show the settings view
+    auto fairWind = FairWind::getInstance();
 
-        // Call the foreground app onPause method
-        m_fairWindApp->onPause();
-    }
+    // Show the launcher
+    setForegroundApp(fairWind->getAppHashById(fairWind->getLauncherFairWindAppId()));
 
-    // No current app
-    m_fairWindApp = nullptr;
-
-    // Show the apps view
-    ui->stackedWidget_Center->setCurrentWidget(m_apps);
-
-    // Set the current app in ui components
-    m_topBar->setFairWindApp(m_fairWindApp);
 }
 
 /*
