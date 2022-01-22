@@ -4,6 +4,7 @@
 
 // You may need to build the project (run Qt uic code generator) to get "ui_UIJsonObject.h" resolved
 
+#include <QDebug>
 #include <QLineEdit>
 #include <utility>
 #include <QJsonArray>
@@ -53,11 +54,11 @@ namespace fairwind::apps::settings::browser {
             connect(widget, &UIArray::changed, this, &UIObject::onArrayChanged);
             m_widget = widget;
         } else if (m_ref.isObject()) {
+            qDebug() << "UIObject::UIObject: " << m_key << " <::::";
             //auto *widget = new UIObject(nullptr, ref,key);
             //ui->verticalLayout_Value->addWidget(widget);
             //connect(widget, &UIArray::changed, this, &UIObject::onObjectChanged);
             //m_widget = widget;
-            //qDebug() << "UIObject::UIObject: " << m_key << " " << ref.type();
         }
 
     }
