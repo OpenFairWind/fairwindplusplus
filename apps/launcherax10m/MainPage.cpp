@@ -49,15 +49,15 @@ namespace fairwind::apps::launcherax10m {
         // Get the FairWind singleton
         auto fairWind = fairwind::FairWind::getInstance();
         // Get the available apps list from the FairWind singleton itself
-        auto apps = fairWind->getApps();
+        //auto apps = fairWind->getApps();
 
         int screenHeight = QGuiApplication::primaryScreen()->geometry().height();
         int size = (64 * screenHeight) / 480;
 
         // Iterate on the available apps' hash values
-        for (auto &hash: apps.keys()) {
+        for (auto &hash: fairWind->getExtensionsHashes()) {
             // Get the hash value
-            auto app = apps[hash];
+            auto app = fairWind->getAppItemByHash(hash);
             // Check if the app is active
             if (app->getActive()) {
                 // Create a new button
