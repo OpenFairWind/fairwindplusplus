@@ -17,7 +17,7 @@ namespace fairwind::apps::settings::browser {
         ui->setupUi(this);
 
 
-        qDebug() << "UIValue::UIValue: " << m_key;
+        //qDebug() << "UIValue::UIValue: " << m_key;
         if (m_ref.isString() || m_ref.isBool() || m_ref.isDouble()) {
             ui->labelKey->setText(m_key);
 
