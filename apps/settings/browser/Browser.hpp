@@ -7,6 +7,7 @@
 
 #include <QWidget>
 #include "UIObject.hpp"
+#include "UIValue.hpp"
 
 namespace fairwind::apps::settings::browser {
     QT_BEGIN_NAMESPACE
@@ -24,10 +25,17 @@ namespace fairwind::apps::settings::browser {
         void setJsonObjectRoot(QJsonObject jsonObjectRoot);
         QJsonObject getJsonObjectRoot();
 
+    signals:
+
+        void changed();
+
+    public slots:
+        void onChanged();
+
     private:
         Ui::Browser *ui;
 
-        QVector<UIObject *> m_items;
+        QVector<UIValue *> m_uiValues;
         QJsonObject m_jsonObjectRoot;
     };
 } // fairwind::apps::settings::browser

@@ -8,6 +8,7 @@
 
 #include <utility>
 #include "ui_Browser.h"
+#include "UIValue.hpp"
 
 namespace fairwind::apps::settings::browser {
     Browser::Browser(QWidget *parent) :
@@ -17,36 +18,49 @@ namespace fairwind::apps::settings::browser {
     }
 
     Browser::~Browser() {
-        for (const auto item:m_items) {
+        for (const auto item:m_uiValues) {
             delete item;
         }
 
-        m_items.clear();
+        m_uiValues.clear();
 
         delete ui;
     }
 
     void Browser::setJsonObjectRoot(QJsonObject jsonObjectRoot) {
 
-        for (const auto item:m_items) {
+        for (const auto item:m_uiValues) {
             delete item;
         }
 
-        m_items.clear();
+        m_uiValues.clear();
 
         m_jsonObjectRoot = std::move(jsonObjectRoot);
 
-        for (const auto& key:m_jsonObjectRoot.keys()) {
-            qDebug() << "key:" << key;
-            QJsonValueRef ref = m_jsonObjectRoot[key];
-            auto *uiJsonObject = new UIObject(nullptr, ref,key);
-            ui->verticalLayout->addWidget(uiJsonObject);
-            m_items.append(uiJsonObject);
+
+        int counter = 0;
+        for (QJsonValueRef item: m_jsonObjectRoot) {
+            QString key = m_jsonObjectRoot.keys()[counter];
+            qDebug() << "Browser::setJsonObjectRoot key:" << key;
+
+            auto *uiValue = new UIValue(nullptr, item,key);
+            ui->verticalLayout->addWidget(uiValue);
+            m_uiValues.append(uiValue);
+
+
+            connect(uiValue, &UIValue::changed, this, &Browser::onChanged);
+            counter++;
         }
+
+
     }
 
     QJsonObject Browser::getJsonObjectRoot() {
         return m_jsonObjectRoot;
+    }
+
+    void Browser::onChanged() {
+        emit changed();
     }
 
 
