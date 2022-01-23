@@ -38,7 +38,7 @@ namespace fairwind::apps::settings::browser {
         QJsonValueRef m_ref;
 
 
-        QVector<UIObject *> m_items;
+        QVector<UIValue *> m_uiValues;
         QJsonObject m_jsonObjectRoot;
     };
 }

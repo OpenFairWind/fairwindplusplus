@@ -19,7 +19,7 @@ namespace fairwind::apps::settings::browser {
     Q_OBJECT
 
     public:
-        explicit UIArray(QWidget *parent, QJsonValueRef mRef);
+        explicit UIArray(QWidget *parent, QJsonValueRef mRef, QString key);
 
         ~UIArray() override;
 
@@ -36,6 +36,7 @@ namespace fairwind::apps::settings::browser {
     private:
         Ui::UIArray *ui;
         QJsonValueRef m_ref;
+        QString m_key;
         QJsonArray m_jsonArray;
         QVector<UIItem *> m_uiItems;
     };

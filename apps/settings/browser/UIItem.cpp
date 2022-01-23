@@ -21,11 +21,11 @@ namespace fairwind::apps::settings::browser {
             ui->widget_Container->setVisible(false);
             for (const auto &key: m_jsonObjectRoot.keys()) {
                 QJsonValueRef ref = m_jsonObjectRoot[key];
-                auto *uiJsonObject = new UIObject(nullptr, ref, key);
-                ui->verticalLayout_Container->addWidget(uiJsonObject);
-                m_items.append(uiJsonObject);
+                auto *uiValue = new UIValue(nullptr, ref, key);
+                ui->verticalLayout_Container->addWidget(uiValue);
+                m_uiValues.append(uiValue);
 
-                connect(uiJsonObject, &UIObject::changed, this, &UIItem::onChanged);
+                connect(uiValue, &UIValue::changed, this, &UIItem::onChanged);
             }
 
 
@@ -34,7 +34,7 @@ namespace fairwind::apps::settings::browser {
     }
 
     UIItem::~UIItem() {
-        for (const auto item: m_items) {
+        for (const auto item: m_uiValues) {
             delete item;
         }
         delete ui;

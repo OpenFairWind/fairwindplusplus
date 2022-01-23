@@ -11,9 +11,11 @@
 #include "UIItem.hpp"
 
 namespace fairwind::apps::settings::browser {
-    UIArray::UIArray(QWidget *parent, QJsonValueRef mRef) :
-            QWidget(parent), ui(new Ui::UIArray), m_ref(mRef) {
+    UIArray::UIArray(QWidget *parent, QJsonValueRef mRef, QString key) :
+            QWidget(parent), ui(new Ui::UIArray), m_ref(mRef), m_key(std::move(key)) {
         ui->setupUi(this);
+
+        ui->groupBox->setTitle(m_key);
 
         m_jsonArray = m_ref.toArray();
         for (QJsonValueRef item: m_jsonArray) {
