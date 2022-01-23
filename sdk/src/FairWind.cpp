@@ -259,6 +259,8 @@ void fairwind::FairWind::loadApps() {
                         // Store the FairWind++ app pointer in the m_mapAppId2FairWindApp dictionary
                         m_mapAppId2FairWindApp[fairWindApp->getId()] = fairWindApp;
 
+                        qDebug() << "m_mapAppId2FairWindApp[" << fairWindApp->getId() << "]=" << fairWindApp->getName();
+
                         if (metaData.contains("Category") && metaData["Category"].isString()) {
                             QString category = metaData["Category"].toString();
 
@@ -487,14 +489,6 @@ void fairwind::FairWind::loadConfig() {
             }
         }
     }
-}
-
-/*
- * getApps
- * Returns a map containing the loaded apps
- */
-QMap<QString, fairwind::AppItem *> fairwind::FairWind::getApps() {
-    return m_mapHash2AppItem;
 }
 
 /*
@@ -768,3 +762,13 @@ fairwind::AppItem *fairwind::FairWind::getAppItemByHash(QString hash) {
 QString fairwind::FairWind::getAppHashById(QString appId) {
     return m_mapAppId2Hash[appId];
 }
+
+QList<QString> fairwind::FairWind::getExtensionsIds() {
+    return m_mapAppId2FairWindApp.keys();
+}
+
+QList<QString> fairwind::FairWind::getExtensionsHashes() {
+    return m_mapHash2AppItem.keys();
+}
+
+

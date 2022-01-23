@@ -35,14 +35,16 @@ namespace fairwind {
 
         void loadApps();
 
-        apps::IFairWindApp *getAppByExtensionId(const QString& id);
+
 
         void setApplicationDirPath(QString qString);
         void loadConfig();
 
         SignalKDocument *getSignalKDocument();
 
-        QMap<QString, fairwind::AppItem *> getApps();
+        apps::IFairWindApp *getAppByExtensionId(const QString& id);
+        QList<QString> getExtensionsIds();
+        QList<QString> getExtensionsHashes();
         AppItem *getAppItemByHash(QString hash);
         QString getAppHashById(QString appId);
 
