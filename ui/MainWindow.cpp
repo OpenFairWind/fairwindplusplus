@@ -119,10 +119,10 @@ void fairwind::ui::MainWindow::setForegroundApp(QString hash) {
     auto fairWind = fairwind::FairWind::getInstance();
 
     // Get the map containing all the loaded apps and pick the one that matches the provided hash
-    auto app = fairWind->getApps()[hash];
+    auto appItem = fairWind->getAppItemByHash(hash);
 
     // Get the fairwind app
-    fairwind::apps::IFairWindApp *fairWindApp = fairWind->getAppByExtensionId(app->getExtension());
+    fairwind::apps::IFairWindApp *fairWindApp = fairWind->getAppByExtensionId(appItem->getExtension());
 
     // The QT widget implementing the app
     QWidget *widgetApp = nullptr;
@@ -134,10 +134,10 @@ void fairwind::ui::MainWindow::setForegroundApp(QString hash) {
         widgetApp = m_mapHash2Widget[hash];
     } else {
         // Set the route
-        fairWindApp->setRoute(app->getRoute());
+        fairWindApp->setRoute(appItem->getRoute());
 
         // Set the args
-        fairWindApp->setArgs(app->getArgs());
+        fairWindApp->setArgs(appItem->getArgs());
 
         // invoke the app onStart method
         fairWindApp->onStart();
