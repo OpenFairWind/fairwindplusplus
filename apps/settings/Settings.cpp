@@ -10,8 +10,8 @@
 #include "Settings.hpp"
 #include "MainPage.hpp"
 #include "general/General.hpp"
-//#include "connections/Connections.hpp"
-//#include "applications/Applications.hpp"
+#include "extensions/Extensions.hpp"
+
 
 namespace fairwind::apps::settings {
     // Called when the app is loaded
@@ -26,7 +26,7 @@ namespace fairwind::apps::settings {
         // Register settings pages inside the FairWind singleton
         fairWind->registerSettingsTab(new general::General());
         //fairWind->registerSettingsTab(new Connections());
-        //fairWind->registerSettingsTab(new applications::Applications());
+        fairWind->registerSettingsTab(new extensions::Extensions());
 
 
     }
