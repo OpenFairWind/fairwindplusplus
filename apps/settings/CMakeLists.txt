@@ -6,14 +6,17 @@ add_library(Settings SHARED
         Settings.cpp
         Settings.hpp
         MainPage.cpp MainPage.hpp MainPage.ui
-        general/General.cpp general/General.hpp general/General.ui
+
+        browser/Browser.cpp browser/Browser.hpp browser/Browser.ui
         browser/Browser.cpp browser/Browser.hpp browser/Browser.ui
         browser/UIArray.cpp browser/UIArray.hpp browser/UIArray.ui
         browser/UIItem.cpp browser/UIItem.hpp browser/UIItem.ui
         browser/UIObject.cpp browser/UIObject.hpp browser/UIObject.ui
-        #applications/Applications.cpp applications/Applications.hpp applications/Applications.ui
+        browser/UIValue.cpp browser/UIValue.hpp browser/UIValue.ui
+        general/General.cpp general/General.hpp general/General.ui
+        extensions/Extensions.cpp extensions/Extensions.hpp extensions/Extensions.ui
         ${SETTINGS_RESOURCE_ADDED}
-        general/General.cpp general/General.hpp general/General.ui browser/Browser.cpp browser/Browser.hpp browser/Browser.ui browser/UIValue.cpp browser/UIValue.hpp browser/UIValue.ui)
+        extensions/ExtensionItem.cpp extensions/ExtensionItem.hpp extensions/ExtensionItem.ui)
 
 add_dependencies(Settings FairWindSdk)
 target_link_libraries(Settings PRIVATE Qt5::Widgets Qt5::Network  ${LIBFAIRWINDSDK})
