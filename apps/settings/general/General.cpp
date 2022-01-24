@@ -20,6 +20,8 @@ namespace fairwind::apps::settings::general {
 
         // Add the browser to the main layout
         ui->verticalLayout->addWidget(mBrowser);
+
+        connect(mBrowser, &browser::Browser::changed, this, &General::onChanged);
     }
 
     General::~General() {
@@ -33,10 +35,10 @@ namespace fairwind::apps::settings::general {
         FairWind *fairWind = FairWind::getInstance();
 
         // Get the config object
-        m_config = fairWind->getConfig();
+        auto config = fairWind->getConfig();
 
         // Set set the browser content
-        mBrowser->setJsonObjectRoot(m_config);
+        mBrowser->setJsonObjectRoot(config);
 
         // Continue with the regular showEvent
         QWidget::showEvent(event);
@@ -69,6 +71,19 @@ namespace fairwind::apps::settings::general {
             return mBrowser->getJsonObjectRoot();
         } else {
             return QJsonObject();
+        }
+    }
+
+    void General::onChanged() {
+        // Get the singleton instance of FairWind
+        FairWind *fairWind = FairWind::getInstance();
+        auto fairWindAppSettingsId = fairWind->getSettingsFairWindAppId();
+        if (!fairWindAppSettingsId.isEmpty()){
+            auto fairWindAppSettings = fairWind->getAppByExtensionId(fairWindAppSettingsId);
+            if (fairWindAppSettings){
+                auto config = mBrowser->getJsonObjectRoot();
+                fairWindAppSettings->setConfig(config);
+            }
         }
     }
 } // fairwind::apps::settings::general

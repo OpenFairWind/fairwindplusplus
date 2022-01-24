@@ -36,6 +36,9 @@ namespace fairwind::apps::settings::general {
         void setJsonObjectRoot(QJsonObject jsonObjectRoot);
         QJsonObject getJsonObjectRoot();
 
+    public slots:
+        void onChanged();
+
     protected :
         void showEvent(QShowEvent *event) override;
 
@@ -43,7 +46,6 @@ namespace fairwind::apps::settings::general {
         Ui::General *ui;
 
         browser::Browser *mBrowser;
-        QJsonObject m_config;
 
     };
 } // fairwind::apps::settings::general
