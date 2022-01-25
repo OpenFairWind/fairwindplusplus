@@ -7,6 +7,7 @@
 #include <QLineEdit>
 #include <QRegExpValidator>
 #include <QCheckBox>
+#include <utility>
 #include "UIValue.hpp"
 #include "ui_UIValue.h"
 #include "UIArray.hpp"
@@ -76,7 +77,7 @@ namespace fairwind::apps::settings::browser {
         QString text = widget->text();
         m_ref = text;
         qDebug() << "m_ref:" << m_ref;
-        emit changed();
+        emit changed(m_key, this);
 
     }
 
@@ -86,7 +87,7 @@ namespace fairwind::apps::settings::browser {
         double number = widget->text().toDouble();
         m_ref = number;
         qDebug() << "m_ref:" << m_ref;
-        emit changed();
+        emit changed(m_key, this);
 
     }
 
@@ -95,16 +96,23 @@ namespace fairwind::apps::settings::browser {
         auto *widget = (QCheckBox *) m_widget;
         m_ref = widget->isChecked();
         qDebug() << "m_ref:" << m_ref;
-        emit changed();
+        emit changed(m_key, this);
     }
 
     void UIValue::onArrayChanged() {
-        qDebug() << "UIObject::onArrayChanged()";
-        emit changed();
+        qDebug() << "UIValue::onArrayChanged()";
+        emit changed(m_key, this);
     }
 
-    void UIValue::onObjectChanged() {
-        qDebug() << "UIObject::onObjectChanged()";
-        emit changed();
+    void UIValue::onObjectChanged(QString key, UIObject *uiObject) {
+        qDebug() << "UIValue::onObjectChanged()";
+        m_ref = uiObject->getObject();
+        qDebug() << "UIValue::onObjectChanged()" << m_ref;
+        qDebug() << "UIValue::onObjectChanged()" << m_key;
+        emit changed(m_key, this);
+    }
+
+    QJsonValueRef UIValue::getValue() {
+        return m_ref;
     }
 } // fairwind::apps::settings::browser

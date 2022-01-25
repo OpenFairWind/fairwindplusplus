@@ -15,6 +15,7 @@ namespace fairwind::apps::settings::browser {
     namespace Ui { class UIObject; }
     QT_END_NAMESPACE
 
+    class UIValue;
     class UIObject : public QWidget {
     Q_OBJECT
 
@@ -23,12 +24,14 @@ namespace fairwind::apps::settings::browser {
 
         ~UIObject() override;
 
+        QJsonValueRef getObject();
+
     signals:
 
-        void changed();
+        void changed(QString key, UIObject *uiObject);
 
     public slots:
-        void onChanged();
+        void onChanged(QString key, UIValue *uiValue);
         void onAdd();
 
     private:
@@ -36,7 +39,7 @@ namespace fairwind::apps::settings::browser {
         QString m_key;
         QWidget *m_widget;
         QJsonObject m_jsonObject;
-        QVector<UIValue *> m_uiValues;
+        QMap<QString, UIValue *> m_mapUiValues;
         Ui::UIObject *ui;
     };
 

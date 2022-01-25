@@ -23,9 +23,11 @@ namespace fairwind::apps::settings::browser {
 
         ~UIArray() override;
 
+        QJsonValueRef getArray();
+
     signals:
 
-        void changed();
+        void changed(QString key, UIArray *uiArray);
 
     public slots:
 

@@ -31,7 +31,7 @@ namespace fairwind::apps::settings::browser {
             //qDebug() << "UIObject::UIObject key: " << key;
             auto *uiValue= new UIValue(nullptr, item,key);
             ui->verticalLayout_Container->addWidget(uiValue);
-            m_uiValues.append(uiValue);
+            m_mapUiValues[key] = uiValue;
 
             connect(uiValue, &UIValue::changed, this, &UIObject::onChanged);
             counter++;
@@ -41,7 +41,7 @@ namespace fairwind::apps::settings::browser {
     }
 
     UIObject::~UIObject() {
-        for (auto item: m_uiValues) {
+        for (auto item: m_mapUiValues) {
             delete item;
         }
         delete ui;
@@ -52,9 +52,14 @@ namespace fairwind::apps::settings::browser {
 
     }
 
-    void UIObject::onChanged() {
+    void UIObject::onChanged(QString key, UIValue *uiValue) {
         qDebug() << "UIObject::onChanged";
-        emit changed();
+        m_jsonObject[key] = uiValue->getValue();
+        emit changed(m_key, this);
+    }
+
+    QJsonValueRef UIObject::getObject() {
+        return m_ref;
     }
 
 

@@ -40,7 +40,7 @@ namespace fairwind::apps::settings::browser {
     void UIArray::onChanged() {
         qDebug() << "UIArray::onChanged()";
         m_ref = m_jsonArray;
-        emit changed();
+        emit changed(m_key, this);
     }
 
     void UIArray::onAdd() {
@@ -59,7 +59,11 @@ namespace fairwind::apps::settings::browser {
 
 
         m_ref = m_jsonArray;
-        emit changed();
+        emit changed(m_key, this);
+    }
+
+    QJsonValueRef UIArray::getArray() {
+        return m_ref;
     }
 }
 
