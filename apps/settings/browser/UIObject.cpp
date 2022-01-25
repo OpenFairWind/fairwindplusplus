@@ -55,6 +55,7 @@ namespace fairwind::apps::settings::browser {
     void UIObject::onChanged(QString key, UIValue *uiValue) {
         qDebug() << "UIObject::onChanged";
         m_jsonObject[key] = uiValue->getValue();
+        m_ref = m_jsonObject;
         emit changed(m_key, this);
     }
 

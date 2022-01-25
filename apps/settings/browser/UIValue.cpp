@@ -77,6 +77,7 @@ namespace fairwind::apps::settings::browser {
         QString text = widget->text();
         m_ref = text;
         qDebug() << "m_ref:" << m_ref;
+        qDebug() << "m_key:" << m_key;
         emit changed(m_key, this);
 
     }
@@ -107,8 +108,6 @@ namespace fairwind::apps::settings::browser {
     void UIValue::onObjectChanged(QString key, UIObject *uiObject) {
         qDebug() << "UIValue::onObjectChanged()";
         m_ref = uiObject->getObject();
-        qDebug() << "UIValue::onObjectChanged()" << m_ref;
-        qDebug() << "UIValue::onObjectChanged()" << m_key;
         emit changed(m_key, this);
     }
 
