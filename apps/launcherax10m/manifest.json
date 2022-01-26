@@ -13,7 +13,39 @@
       "Email": "fairwind@uniparthenope.it",
       "Id": "fairwind.apps.launcherax10m",
       "Icon": ":/resources/images/icons/launcherax10m.png",
-      "Settings": {},
+      "Settings": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {
+          "Apps": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "Id": {
+                    "type": "string"
+                  },
+                  "Active": {
+                    "type": "boolean"
+                  },
+                  "Order": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "Id",
+                  "Active",
+                  "Order"
+                ]
+              }
+            ]
+          }
+        },
+        "required": [
+          "Apps"
+        ]
+      },
       "Config": {
         "Apps":[
           {
