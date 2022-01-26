@@ -33,12 +33,16 @@ namespace fairwind::apps::settings::general {
 
         // Get the singleton instance of FairWind
         FairWind *fairWind = FairWind::getInstance();
+        auto settingsFairWindAppId = fairWind->getSettingsFairWindAppId();
+        auto settingsFairWingApp = fairWind->getAppByExtensionId(settingsFairWindAppId);
+        auto settings = settingsFairWingApp->getSettings();
 
         // Get the config object
         auto config = fairWind->getConfig();
 
         // Set set the browser content
         mBrowser->setJsonObjectRoot(config);
+        mBrowser->setSettings(settings);
 
         // Continue with the regular showEvent
         QWidget::showEvent(event);
