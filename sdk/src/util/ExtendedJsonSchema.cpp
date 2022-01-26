@@ -6,6 +6,9 @@
 
 #include "FairWindSdk/util/ExtendedJsonSchema.hpp"
 #include <utility>
+#include <QJsonDocument>
+#include <QFile>
+#include <QJsonArray>
 
 
 /*
@@ -252,5 +255,10 @@ QJsonDocument fairwind::ExtendedJsonSchema::getDefaultConfig() {
 
     // Return the json document
     return jsonDocument;
+}
+
+QJsonValue fairwind::ExtendedJsonSchema::getJsonValueByPath(QString path) {
+    qDebug() << "fairwind::ExtendedJsonSchema::getJsonValueByPath: " << path;
+    return QJsonValue();
 }
 

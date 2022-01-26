@@ -6,6 +6,7 @@
 #define FAIRWIND_APPS_SETTINGS_BROWSER_BROWSER_HPP
 
 #include <QWidget>
+#include <FairWindSdk/util/ExtendedJsonSchema.hpp>
 #include "UIObject.hpp"
 #include "UIValue.hpp"
 
@@ -25,6 +26,8 @@ namespace fairwind::apps::settings::browser {
         void setJsonObjectRoot(QJsonObject jsonObjectRoot);
         QJsonObject getJsonObjectRoot();
 
+        void setSettings(const QJsonObject& jsonObject);
+
     signals:
 
         void changed();
@@ -37,6 +40,7 @@ namespace fairwind::apps::settings::browser {
 
         QVector<UIValue *> m_uiValues;
         QJsonObject m_jsonObjectRoot;
+        ExtendedJsonSchema *m_settings;
     };
 } // fairwind::apps::settings::browser
 

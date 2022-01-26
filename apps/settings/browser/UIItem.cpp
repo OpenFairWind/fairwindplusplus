@@ -10,9 +10,11 @@
 #include "UIObject.hpp"
 
 namespace fairwind::apps::settings::browser {
-    UIItem::UIItem(QWidget *parent, QJsonValueRef mRef) :
+    UIItem::UIItem(QWidget *parent, ExtendedJsonSchema *settings, QJsonValueRef mRef, QString path) :
             QWidget(parent), ui(new Ui::UIItem), m_ref(mRef) {
         ui->setupUi(this);
+
+        qDebug() << "fairwind::apps::settings::browser::UIItem path: " << path;
 
         if (m_ref.isObject()) {
             m_jsonObjectRoot = m_ref.toObject();
@@ -21,7 +23,7 @@ namespace fairwind::apps::settings::browser {
             ui->widget_Container->setVisible(false);
             for (const auto &key: m_jsonObjectRoot.keys()) {
                 QJsonValueRef ref = m_jsonObjectRoot[key];
-                auto *uiValue = new UIValue(nullptr, ref, key);
+                auto *uiValue = new UIValue(nullptr, settings, ref, path + ":" + key);
                 ui->verticalLayout_Container->addWidget(uiValue);
                 m_uiValues.append(uiValue);
 

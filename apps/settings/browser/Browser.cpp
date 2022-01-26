@@ -7,6 +7,8 @@
 #include "Browser.hpp"
 
 #include <utility>
+#include <QJsonDocument>
+#include <QFile>
 #include "ui_Browser.h"
 #include "UIValue.hpp"
 
@@ -24,6 +26,10 @@ namespace fairwind::apps::settings::browser {
 
         m_uiValues.clear();
 
+        if (m_settings){
+            delete m_settings;
+        }
+
         delete ui;
     }
 
@@ -37,13 +43,12 @@ namespace fairwind::apps::settings::browser {
 
         m_jsonObjectRoot = std::move(jsonObjectRoot);
 
-
         int counter = 0;
         for (QJsonValueRef item: m_jsonObjectRoot) {
             QString key = m_jsonObjectRoot.keys()[counter];
             qDebug() << "Browser::setJsonObjectRoot key:" << key;
 
-            auto *uiValue = new UIValue(nullptr, item,key);
+            auto *uiValue = new UIValue(nullptr, m_settings, item,key);
             ui->verticalLayout->addWidget(uiValue);
             m_uiValues.append(uiValue);
 
@@ -61,6 +66,14 @@ namespace fairwind::apps::settings::browser {
 
     void Browser::onChanged() {
         emit changed();
+    }
+
+    void Browser::setSettings(const QJsonObject& jsonObject) {
+        //if (m_settings){
+        //    delete m_settings;
+        //}
+
+        m_settings = new ExtendedJsonSchema(jsonObject);
     }
 
 

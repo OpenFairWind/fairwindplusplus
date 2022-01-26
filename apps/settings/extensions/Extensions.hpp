@@ -7,6 +7,7 @@
 
 #include <QWidget>
 #include <FairWindSdk/ISettingsTab.hpp>
+#include <QListWidgetItem>
 #include "../browser/Browser.hpp"
 
 namespace fairwind::apps::settings::extensions {
@@ -42,6 +43,7 @@ namespace fairwind::apps::settings::extensions {
 
         browser::Browser *mBrowser;
         QString mExtensionId;
+        QMap<QListWidgetItem *, QString> mMapListWidgetItem2ExtensionId;
     };
 } // fairwind::apps::settings::extensions
 

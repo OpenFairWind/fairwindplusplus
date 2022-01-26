@@ -8,23 +8,27 @@
 #include <QWidget>
 #include <QJsonValueRef>
 #include <QJsonObject>
+#include "UIObject.hpp"
 
 namespace fairwind::apps::settings::browser {
     QT_BEGIN_NAMESPACE
     namespace Ui { class UIValue; }
     QT_END_NAMESPACE
 
+    class UIObject;
     class UIValue : public QWidget {
     Q_OBJECT
 
     public:
-        explicit UIValue(QWidget *parent, QJsonValueRef ref, QString key);
+        explicit UIValue(QWidget *parent, ExtendedJsonSchema *settings, QJsonValueRef ref, QString path);
 
         ~UIValue() override;
 
+        QJsonValueRef getValue();
+
     signals:
 
-        void changed();
+        void changed(QString key, UIValue *uiValue);
 
     public slots:
 
@@ -35,7 +39,7 @@ namespace fairwind::apps::settings::browser {
         void onBoolChanged(int state);
 
         void onArrayChanged();
-        void onObjectChanged();
+        void onObjectChanged(QString key, UIObject *uiObject);
 
     private:
         QJsonValueRef m_ref;

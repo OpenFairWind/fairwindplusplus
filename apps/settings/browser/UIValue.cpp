@@ -7,15 +7,22 @@
 #include <QLineEdit>
 #include <QRegExpValidator>
 #include <QCheckBox>
+#include <utility>
+#include <FairWindSdk/util/ExtendedJsonSchema.hpp>
 #include "UIValue.hpp"
 #include "ui_UIValue.h"
 #include "UIArray.hpp"
 
 namespace fairwind::apps::settings::browser {
-    UIValue::UIValue(QWidget *parent, QJsonValueRef ref, QString key) :
-        QWidget(parent), ui(new Ui::UIValue), m_ref(ref), m_key(std::move(key)) {
+    UIValue::UIValue(QWidget *parent, ExtendedJsonSchema *settings, QJsonValueRef ref, QString path) :
+        QWidget(parent), ui(new Ui::UIValue), m_ref(ref) {
         ui->setupUi(this);
 
+        auto parts = path.split(":");
+        m_key = parts[parts.length()-1];
+        auto setting = settings->getJsonValueByPath(path);
+        qDebug() << "fairwind::apps::settings::browser::UIValue m_key: " << m_key;
+        qDebug() << "fairwind::apps::settings::browser:UIValue path: " << path;
 
         //qDebug() << "UIValue::UIValue: " << m_key;
         if (m_ref.isString() || m_ref.isBool() || m_ref.isDouble()) {
@@ -52,13 +59,13 @@ namespace fairwind::apps::settings::browser {
         } else if (m_ref.isArray() || m_ref.isObject()) {
 
             if (m_ref.isArray()) {
-                auto *uiArray = new UIArray(nullptr, m_ref, m_key);
+                auto *uiArray = new UIArray(nullptr, settings, m_ref, path);
                 ui->verticalLayout_Value->addWidget(uiArray);
                 connect(uiArray, &UIArray::changed, this, &UIValue::onArrayChanged);
                 m_widget = uiArray;
 
             } else if (m_ref.isObject()) {
-                auto *uiObject = new UIObject(nullptr, m_ref, m_key);
+                auto *uiObject = new UIObject(nullptr, settings, m_ref, path);
                 ui->verticalLayout_Value->addWidget(uiObject);
                 connect(uiObject, &UIObject::changed, this, &UIValue::onObjectChanged);
                 m_widget = uiObject;
@@ -76,7 +83,8 @@ namespace fairwind::apps::settings::browser {
         QString text = widget->text();
         m_ref = text;
         qDebug() << "m_ref:" << m_ref;
-        emit changed();
+        qDebug() << "m_key:" << m_key;
+        emit changed(m_key, this);
 
     }
 
@@ -86,7 +94,7 @@ namespace fairwind::apps::settings::browser {
         double number = widget->text().toDouble();
         m_ref = number;
         qDebug() << "m_ref:" << m_ref;
-        emit changed();
+        emit changed(m_key, this);
 
     }
 
@@ -95,16 +103,21 @@ namespace fairwind::apps::settings::browser {
         auto *widget = (QCheckBox *) m_widget;
         m_ref = widget->isChecked();
         qDebug() << "m_ref:" << m_ref;
-        emit changed();
+        emit changed(m_key, this);
     }
 
     void UIValue::onArrayChanged() {
-        qDebug() << "UIObject::onArrayChanged()";
-        emit changed();
+        qDebug() << "UIValue::onArrayChanged()";
+        emit changed(m_key, this);
     }
 
-    void UIValue::onObjectChanged() {
-        qDebug() << "UIObject::onObjectChanged()";
-        emit changed();
+    void UIValue::onObjectChanged(QString key, UIObject *uiObject) {
+        qDebug() << "UIValue::onObjectChanged()";
+        m_ref = uiObject->getObject();
+        emit changed(m_key, this);
+    }
+
+    QJsonValueRef UIValue::getValue() {
+        return m_ref;
     }
 } // fairwind::apps::settings::browser

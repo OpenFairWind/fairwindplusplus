@@ -7,6 +7,7 @@
 
 #include <QWidget>
 #include <QJsonValueRef>
+#include <FairWindSdk/util/ExtendedJsonSchema.hpp>
 #include "UIObject.hpp"
 
 namespace fairwind::apps::settings::browser {
@@ -18,7 +19,7 @@ namespace fairwind::apps::settings::browser {
     Q_OBJECT
 
     public:
-        explicit UIItem(QWidget *parent, QJsonValueRef mRef);
+        explicit UIItem(QWidget *parent, ExtendedJsonSchema *settings, QJsonValueRef mRef, QString path);
 
         ~UIItem() override;
 

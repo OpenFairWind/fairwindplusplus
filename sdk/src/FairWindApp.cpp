@@ -105,7 +105,7 @@ QString fairwind::apps::FairWindApp::getName() const {
     // Check if the metadata contains the key FairWind
     if (name.isEmpty() && m_metaData.contains("FairWind") && m_metaData["FairWind"].isObject()) {
 
-        qDebug() << "m_metaData:" << m_metaData;
+        // qDebug() << "m_metaData:" << m_metaData;
 
         // Get the FairWind object
         QJsonObject objectFairWind = m_metaData["FairWind"].toObject();
