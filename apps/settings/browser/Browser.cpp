@@ -43,14 +43,6 @@ namespace fairwind::apps::settings::browser {
 
         m_jsonObjectRoot = std::move(jsonObjectRoot);
 
-        QFile file;
-        file.setFileName("/Users/ciro/CLionProjects/fairwindplusplus/pippo.json");
-        file.open(QIODevice::ReadOnly | QIODevice::Text);
-        QString data = file.readAll();
-        file.close();
-        QJsonDocument document = QJsonDocument::fromJson(data.toUtf8());
-        m_jsonObjectRoot = document.object();
-
         int counter = 0;
         for (QJsonValueRef item: m_jsonObjectRoot) {
             QString key = m_jsonObjectRoot.keys()[counter];
@@ -77,9 +69,9 @@ namespace fairwind::apps::settings::browser {
     }
 
     void Browser::setSettings(const QJsonObject& jsonObject) {
-        if (m_settings){
-            delete m_settings;
-        }
+        //if (m_settings){
+        //    delete m_settings;
+        //}
 
         m_settings = new ExtendedJsonSchema(jsonObject);
     }

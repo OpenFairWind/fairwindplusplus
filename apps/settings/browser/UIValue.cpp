@@ -18,7 +18,7 @@ namespace fairwind::apps::settings::browser {
         QWidget(parent), ui(new Ui::UIValue), m_ref(ref) {
         ui->setupUi(this);
 
-        auto parts = path.split(".");
+        auto parts = path.split(":");
         m_key = parts[parts.length()-1];
         auto setting = settings->getJsonValueByPath(path);
         qDebug() << "fairwind::apps::settings::browser::UIValue m_key: " << m_key;
@@ -59,13 +59,13 @@ namespace fairwind::apps::settings::browser {
         } else if (m_ref.isArray() || m_ref.isObject()) {
 
             if (m_ref.isArray()) {
-                auto *uiArray = new UIArray(nullptr, settings, m_ref, path + "." + m_key);
+                auto *uiArray = new UIArray(nullptr, settings, m_ref, path);
                 ui->verticalLayout_Value->addWidget(uiArray);
                 connect(uiArray, &UIArray::changed, this, &UIValue::onArrayChanged);
                 m_widget = uiArray;
 
             } else if (m_ref.isObject()) {
-                auto *uiObject = new UIObject(nullptr, settings, m_ref, path + "." + m_key);
+                auto *uiObject = new UIObject(nullptr, settings, m_ref, path);
                 ui->verticalLayout_Value->addWidget(uiObject);
                 connect(uiObject, &UIObject::changed, this, &UIValue::onObjectChanged);
                 m_widget = uiObject;

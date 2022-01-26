@@ -23,7 +23,7 @@ namespace fairwind::apps::settings::browser {
             ui->widget_Container->setVisible(false);
             for (const auto &key: m_jsonObjectRoot.keys()) {
                 QJsonValueRef ref = m_jsonObjectRoot[key];
-                auto *uiValue = new UIValue(nullptr, settings, ref, path + "." + key);
+                auto *uiValue = new UIValue(nullptr, settings, ref, path + ":" + key);
                 ui->verticalLayout_Container->addWidget(uiValue);
                 m_uiValues.append(uiValue);
 

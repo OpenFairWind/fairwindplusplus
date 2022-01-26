@@ -36,7 +36,7 @@ namespace fairwind::apps::settings::browser {
         for (QJsonValueRef item: m_jsonObject) {
             QString key = m_jsonObject.keys()[counter];
             //qDebug() << "UIObject::UIObject key: " << key;
-            auto *uiValue= new UIValue(nullptr, settings, item, path + "." + key);
+            auto *uiValue= new UIValue(nullptr, settings, item, path + ":" + key);
             ui->verticalLayout_Container->addWidget(uiValue);
             m_mapUiValues[key] = uiValue;
 

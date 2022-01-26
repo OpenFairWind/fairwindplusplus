@@ -29,7 +29,7 @@ namespace fairwind::apps::settings::browser {
         int idx=0;
         for (QJsonValueRef item: m_jsonArray) {
             if (item.isObject()) {
-                auto *uiItem = new UIItem(nullptr, settings, item, path + "." + QString(idx));
+                auto *uiItem = new UIItem(nullptr, settings, item, path + ":" + QString(idx));
                 ui->verticalLayout_Container->addWidget(uiItem);
                 m_uiItems.append(uiItem);
 
@@ -61,7 +61,7 @@ namespace fairwind::apps::settings::browser {
         m_jsonArray.append(jsonObject);
 
         QJsonValueRef ref = m_jsonArray[m_jsonArray.size() - 1];
-        auto *uiItem = new UIItem(nullptr, m_settings, ref, m_path + "." + QString(m_jsonArray.size() - 1));
+        auto *uiItem = new UIItem(nullptr, m_settings, ref, m_path + ":" + QString(m_jsonArray.size() - 1));
         ui->verticalLayout_Container->addWidget(uiItem);
         m_uiItems.append(uiItem);
 
