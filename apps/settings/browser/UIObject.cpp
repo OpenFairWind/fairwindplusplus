@@ -11,6 +11,7 @@
 #include <QCheckBox>
 #include <QRegExpValidator>
 #include <QGroupBox>
+#include <FairWindSdk/util/ExtendedJsonSchema.hpp>
 #include "UIObject.hpp"
 #include "UIArray.hpp"
 #include "ui_UIObject.h"
@@ -18,9 +19,15 @@
 
 
 namespace fairwind::apps::settings::browser {
-    UIObject::UIObject(QWidget *parent, QJsonValueRef ref, QString key) :
-            QWidget(parent), ui(new Ui::UIObject), m_ref(ref), m_key(std::move(key)) {
+    UIObject::UIObject(QWidget *parent, ExtendedJsonSchema *settings, QJsonValueRef ref, QString path) :
+            QWidget(parent), ui(new Ui::UIObject), m_ref(ref) {
         ui->setupUi(this);
+
+        auto parts = path.split(".");
+        m_key = parts[parts.length()-1];
+        auto setting = settings->getJsonValueByPath(path);
+        qDebug() << "fairwind::apps::settings::browser::UIObject m_key: " << m_key;
+        qDebug() << "fairwind::apps::settings::browser::UIObject path: " << path;
 
         ui->groupBox->setTitle(m_key);
 
@@ -29,7 +36,7 @@ namespace fairwind::apps::settings::browser {
         for (QJsonValueRef item: m_jsonObject) {
             QString key = m_jsonObject.keys()[counter];
             //qDebug() << "UIObject::UIObject key: " << key;
-            auto *uiValue= new UIValue(nullptr, item,key);
+            auto *uiValue= new UIValue(nullptr, settings, item, path + "." + key);
             ui->verticalLayout_Container->addWidget(uiValue);
             m_mapUiValues[key] = uiValue;
 

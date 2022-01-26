@@ -20,7 +20,7 @@ namespace fairwind::apps::settings::browser {
     Q_OBJECT
 
     public:
-        explicit UIObject(QWidget *parent, QJsonValueRef ref, QString key);
+        explicit UIObject(QWidget *parent, ExtendedJsonSchema *settings, QJsonValueRef ref, QString path);
 
         ~UIObject() override;
 

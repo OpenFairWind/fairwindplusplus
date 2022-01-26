@@ -13,7 +13,155 @@
       "Email": "fairwind@uniparthenope.it",
       "Id": "fairwind.apps.settings",
       "Icon": ":/resources/images/icons/settings_icon.png",
-      "Settings": {},
+      "Settings": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {
+          "Extensions": {
+            "type": "object",
+            "properties": {
+              "Anchor": {
+                "type": "string"
+              },
+              "Launcher": {
+                "type": "string"
+              },
+              "MOB": {
+                "type": "string"
+              },
+              "MyData": {
+                "type": "string"
+              },
+              "Settings": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "Anchor",
+              "Launcher",
+              "MOB",
+              "MyData",
+              "Settings"
+            ]
+          },
+          "Options": {
+            "type": "object",
+            "properties": {
+              "CenterMap": {
+                "type": "boolean"
+              },
+              "Heading": {
+                "type": "string"
+              },
+              "Orientation": {
+                "type": "string"
+              },
+              "Position": {
+                "type": "string"
+              },
+              "Speed": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "CenterMap",
+              "Heading",
+              "Orientation",
+              "Position",
+              "Speed"
+            ]
+          },
+          "SignalK": {
+            "type": "object",
+            "properties": {
+              "connections": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "active": {
+                        "type": "boolean"
+                      },
+                      "class": {
+                        "type": "string"
+                      },
+                      "restore": {
+                        "type": "boolean"
+                      },
+                      "url": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "active",
+                      "class",
+                      "restore",
+                      "url"
+                    ]
+                  }
+                ]
+              },
+              "keys": {
+                "type": "object",
+                "properties": {
+                  "electrical.batteries.1.current": {
+                    "type": "object",
+                    "properties": {
+                      "fieldWidth": {
+                        "type": "integer"
+                      },
+                      "format": {
+                        "type": "string"
+                      },
+                      "label": {
+                        "type": "string"
+                      },
+                      "precision": {
+                        "type": "integer"
+                      },
+                      "units": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "fieldWidth",
+                      "format",
+                      "label",
+                      "precision",
+                      "units"
+                    ]
+                  }
+                },
+                "required": [
+                  "electrical.batteries.1.current",
+                  "electrical.batteries.1.voltage",
+                  "environment.depth.belowTransducer",
+                  "environment.water.temperature",
+                  "environment.wind.angleApparent",
+                  "environment.wind.speedApparent",
+                  "navigation.courseOverGroundMagnetic",
+                  "navigation.courseOverGroundTrue",
+                  "navigation.headingMagnetic",
+                  "navigation.headingTrue",
+                  "navigation.magneticVarition",
+                  "navigation.speedOverGround",
+                  "navigation.speedThroughWater"
+                ]
+              }
+            },
+            "required": [
+              "connections",
+              "keys"
+            ]
+          }
+        },
+        "required": [
+          "Extensions",
+          "Options",
+          "SignalK"
+        ]
+      },
       "Config": {
         "Options": {
           "Position": "${self}.navigation.position",

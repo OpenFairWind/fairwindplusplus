@@ -6,26 +6,36 @@
 
 #include <QJsonArray>
 #include <QLabel>
+#include <FairWindSdk/util/ExtendedJsonSchema.hpp>
 #include "UIArray.hpp"
 #include "ui_UIArray.h"
 #include "UIItem.hpp"
 
 namespace fairwind::apps::settings::browser {
-    UIArray::UIArray(QWidget *parent, QJsonValueRef mRef, QString key) :
-            QWidget(parent), ui(new Ui::UIArray), m_ref(mRef), m_key(std::move(key)) {
+    UIArray::UIArray(QWidget *parent, ExtendedJsonSchema *settings, QJsonValueRef mRef, QString path) :
+            QWidget(parent), ui(new Ui::UIArray), m_ref(mRef) {
         ui->setupUi(this);
+
+        auto parts = path.split(".");
+        m_key = parts[parts.length()-1];
+        m_settings = settings;
+        auto setting = settings->getJsonValueByPath(path);
+        qDebug() << "fairwind::apps::settings::browser::UIArray m_key: " << m_key;
+        qDebug() << "fairwind::apps::settings::browser::UIArray path: " << path;
 
         ui->groupBox->setTitle(m_key);
 
         m_jsonArray = m_ref.toArray();
+        int idx=0;
         for (QJsonValueRef item: m_jsonArray) {
             if (item.isObject()) {
-                auto *uiItem = new UIItem(nullptr, item);
+                auto *uiItem = new UIItem(nullptr, settings, item, path + "." + QString(idx));
                 ui->verticalLayout_Container->addWidget(uiItem);
                 m_uiItems.append(uiItem);
 
                 connect(uiItem, &UIItem::changed, this, &UIArray::onChanged);
             }
+            idx++;
         }
         connect(ui->pushButton_Add, &QPushButton::clicked, this, &UIArray::onAdd);
     }
@@ -51,7 +61,7 @@ namespace fairwind::apps::settings::browser {
         m_jsonArray.append(jsonObject);
 
         QJsonValueRef ref = m_jsonArray[m_jsonArray.size() - 1];
-        auto *uiItem = new UIItem(nullptr, ref);
+        auto *uiItem = new UIItem(nullptr, m_settings, ref, m_path + "." + QString(m_jsonArray.size() - 1));
         ui->verticalLayout_Container->addWidget(uiItem);
         m_uiItems.append(uiItem);
 

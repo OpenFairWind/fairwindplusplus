@@ -9,6 +9,8 @@
 #include <QtJsonSchema/jsonschema.h>
 
 #include <FairWindSdk/FairWindSDK.hpp>
+#include <QJsonObject>
+
 namespace fairwind {
     /*
      * ExtendedJsonSchema
@@ -16,6 +18,7 @@ namespace fairwind {
      */
     class FAIRWINDSDK_LIB_DECL ExtendedJsonSchema : public QObject {
         Q_OBJECT
+
 
     public:
         ExtendedJsonSchema(QJsonObject schema, const QStringList& schemas);
@@ -32,6 +35,8 @@ namespace fairwind {
         JsonSchema toJsonSchema();
 
         QJsonDocument getDefaultConfig();
+
+        QJsonValue getJsonValueByPath(QString path);
 
     private:
         QJsonObject m_schema;
