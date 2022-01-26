@@ -53,9 +53,22 @@ namespace fairwind::apps::launcherax10m {
 
         int screenHeight = QGuiApplication::primaryScreen()->geometry().height();
         int size = (64 * screenHeight) / 480;
+        QMap<QString, AppItem *> hashes;
 
         // Iterate on the available apps' hash values
         for (auto &hash: fairWind->getExtensionsHashes()) {
+            // Get the hash value
+            auto app = fairWind->getAppItemByHash(hash);
+            // Check if the app is active
+            if (app->getActive()) {
+                hashes[hash] = app;
+            }
+        }
+
+        // Order by order value
+
+        // Iterate on the available apps' hash values
+        for (auto &hash: hashes.keys()) {
             // Get the hash value
             auto app = fairWind->getAppItemByHash(hash);
             // Check if the app is active
