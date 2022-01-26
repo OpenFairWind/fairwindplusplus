@@ -67,9 +67,9 @@ namespace fairwind::apps::settings::extensions {
                 auto listWidgetItem = new QListWidgetItem();
                 listWidgetItem->setSizeHint(widget->sizeHint());
 
-                listWidgetItem->setData( Qt::DisplayRole, extensionId);
-
                 if (mExtensionId == extensionId) {
+                    qDebug() << "Extensions::showEvent mExtensionId == extensionId " << extensionId;
+
                     listWidgetItem->setSelected(true);
                     QJsonObject config = fairWindApp->getConfig();
                     mBrowser->setJsonObjectRoot(config);
@@ -78,6 +78,7 @@ namespace fairwind::apps::settings::extensions {
                 ui->list_Extensions->addItem(listWidgetItem);
                 ui->list_Extensions->setItemWidget(listWidgetItem, widget);
 
+                mMapListWidgetItem2ExtensionId[listWidgetItem] = extensionId;
 
             }
         }
@@ -86,17 +87,35 @@ namespace fairwind::apps::settings::extensions {
 
     void Extensions::onCurrentRowChanged(int currentRow) {
 
+        qDebug() << "Extensions::onCurrentRowChanged " << currentRow;
+
         auto fairwind = FairWind::getInstance();
 
         if (!mExtensionId.isEmpty()) {
+            qDebug() << "Current mExtensionId:" << mExtensionId;
             auto fairWindApp = fairwind->getAppByExtensionId(mExtensionId);
-            QJsonObject config = mBrowser->getJsonObjectRoot();
-            fairWindApp->setConfig(config);
+            if (fairWindApp){
+                QJsonObject config = mBrowser->getJsonObjectRoot();
+                qDebug() << "Config: " << config;
+                // fairWindApp->setConfig(config);
+            }
         }
 
         auto selectedItem = ui->list_Extensions->currentItem();
-
-        mExtensionId = selectedItem->data( Qt::DisplayRole).toString();
+        if (selectedItem){
+            mExtensionId = mMapListWidgetItem2ExtensionId[selectedItem];
+            qDebug() << "Selected mExtensionId:" << mExtensionId;
+        }
+        else {
+            if (mExtensionId.isEmpty()){
+                mExtensionId = fairwind->getLauncherFairWindAppId();
+            }
+            selectedItem = mMapListWidgetItem2ExtensionId.key(mExtensionId);
+            if (selectedItem){
+                selectedItem->setSelected(true);
+            }
+        }
+        qDebug() << "Final mExtensionId:" << mExtensionId;
 
         auto fairWindApp = fairwind->getAppByExtensionId(mExtensionId);
         QJsonObject config = fairWindApp->getConfig();
