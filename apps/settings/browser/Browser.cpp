@@ -63,5 +63,9 @@ namespace fairwind::apps::settings::browser {
         emit changed();
     }
 
+    void Browser::setSettings(QJsonObject object) {
+
+    }
+
 
 } // fairwind::apps::settings::browser

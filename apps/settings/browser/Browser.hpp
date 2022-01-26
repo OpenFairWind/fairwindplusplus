@@ -25,6 +25,8 @@ namespace fairwind::apps::settings::browser {
         void setJsonObjectRoot(QJsonObject jsonObjectRoot);
         QJsonObject getJsonObjectRoot();
 
+        void setSettings(QJsonObject object);
+
     signals:
 
         void changed();
