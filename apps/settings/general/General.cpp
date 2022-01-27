@@ -41,8 +41,7 @@ namespace fairwind::apps::settings::general {
         auto config = fairWind->getConfig();
 
         // Set set the browser content
-        mBrowser->setJsonObjectRoot(config);
-        mBrowser->setSettings(settings);
+        mBrowser->setJsonObjectRoot(settings, config);
 
         // Continue with the regular showEvent
         QWidget::showEvent(event);
@@ -64,9 +63,9 @@ namespace fairwind::apps::settings::general {
         return static_cast<ISettingsTab *>(new General());
     }
 
-    void General::setJsonObjectRoot(QJsonObject jsonObjectRoot) {
+    void General::setJsonObjectRoot(ExtendedJsonSchema *settings, QJsonObject jsonObjectRoot) {
         if (mBrowser) {
-            mBrowser->setJsonObjectRoot(jsonObjectRoot);
+            mBrowser->setJsonObjectRoot(settings, jsonObjectRoot);
         }
     }
 

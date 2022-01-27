@@ -33,7 +33,7 @@ namespace fairwind::apps::settings::browser {
         delete ui;
     }
 
-    void Browser::setJsonObjectRoot(QJsonObject jsonObjectRoot) {
+    void Browser::setJsonObjectRoot(ExtendedJsonSchema *settings, QJsonObject jsonObjectRoot) {
 
         for (const auto item:m_uiValues) {
             delete item;
@@ -41,6 +41,7 @@ namespace fairwind::apps::settings::browser {
 
         m_uiValues.clear();
 
+        m_settings = settings;
         m_jsonObjectRoot = std::move(jsonObjectRoot);
 
         int counter = 0;
@@ -66,14 +67,6 @@ namespace fairwind::apps::settings::browser {
 
     void Browser::onChanged() {
         emit changed();
-    }
-
-    void Browser::setSettings(const QJsonObject& jsonObject) {
-        //if (m_settings){
-        //    delete m_settings;
-        //}
-
-        m_settings = new ExtendedJsonSchema(jsonObject);
     }
 
 

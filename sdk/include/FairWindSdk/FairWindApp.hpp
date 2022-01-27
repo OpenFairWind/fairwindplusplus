@@ -7,6 +7,7 @@
 
 #include <QJsonObject>
 #include <FairWindSdk/FairWindSDK.hpp>
+#include <FairWindSdk/util/ExtendedJsonSchema.hpp>
 
 
 namespace fairwind::apps {
@@ -66,7 +67,7 @@ namespace fairwind::apps {
         virtual void setConfig(QJsonObject config);
 
         // Get the settings extended json schema fromthe metadata
-        virtual QJsonObject getSettings();
+        virtual ExtendedJsonSchema *getSettings();
         // virtual void setSettings(QJsonObject config);
 
         // Get the whole metadata object
@@ -103,7 +104,7 @@ namespace fairwind::apps {
         QJsonObject m_metaData;
 
         // The extended json schema for the settings system
-        QJsonObject m_settings;
+        ExtendedJsonSchema *m_settings;
 
         // The route
         QString m_route;
