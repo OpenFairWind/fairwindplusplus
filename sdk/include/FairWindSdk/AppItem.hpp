@@ -36,6 +36,8 @@ namespace fairwind {
     QString getRoute();
     QMap<QString, QVariant> getArgs();
 
+    bool operator<(const AppItem& o) const;
+
     private:
     void generateHash();
 
