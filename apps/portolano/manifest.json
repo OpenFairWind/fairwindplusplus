@@ -13,7 +13,125 @@
       "Email": "fairwind@uniparthenope.it",
       "Id": "fairwind.apps.portolano",
       "Icon": ":/resources/images/icons/portolano_icon.png",
-      "Settings": {}
+      "Settings": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {
+          "A": {
+            "fairwind": {
+              "display": "Name",
+              "widget": "fairwind::ui::settings::Display"
+            },
+            "type": "string"
+          },
+          "B": {
+            "type": "integer"
+          },
+          "C": {
+            "type": "boolean"
+          },
+          "D": {
+            "type": "object",
+            "properties": {
+              "A1": {
+                "type": "string"
+              },
+              "B1": {
+                "type": "number"
+              },
+              "C1": {
+                "type": "boolean"
+              },
+              "X1": {
+                "type": "object",
+                "properties": {
+                  "X1A": {
+                    "type": "null"
+                  }
+                },
+                "required": [
+                  "X1A"
+                ]
+              }
+            },
+            "required": [
+              "A1",
+              "B1",
+              "C1",
+              "X1"
+            ]
+          },
+          "E": {
+            "type": "array",
+            "items": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "F": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "a": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "a"
+                ]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "b": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "b"
+                ]
+              }
+            ]
+          }
+        },
+        "required": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F"
+        ]
+      },
+      "Config": {
+        "A": "test",
+        "B": 1,
+        "C": true,
+        "D": {
+          "A1": "test1",
+          "B1": 1.1,
+          "C1": false,
+          "X1": {
+            "X1A": null
+          }
+        },
+        "E": [
+          "a", "b", "c"
+        ],
+        "F": [
+          {"a": "valore"},
+          {"b": "valore"}
+        ]
+      }
     }
   }
 }

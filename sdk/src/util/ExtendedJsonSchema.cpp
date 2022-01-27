@@ -259,6 +259,25 @@ QJsonDocument fairwind::ExtendedJsonSchema::getDefaultConfig() {
 
 QJsonValue fairwind::ExtendedJsonSchema::getJsonValueByPath(QString path) {
     qDebug() << "fairwind::ExtendedJsonSchema::getJsonValueByPath: " << path;
+
+    auto pathItems = path.split(":");
+    int idx = 0;
+    auto schema = m_schema;
+    while (idx < pathItems.size()){
+        if (schema.contains("properties") && schema["properties"].isObject()){
+            auto jsonObjectProperties = schema["properties"].toObject();
+            if (jsonObjectProperties.contains(pathItems[idx]) && jsonObjectProperties[pathItems[idx]].isObject()){
+                auto jsonObjectProperty = jsonObjectProperties[pathItems[idx]].toObject();
+                if (idx == pathItems.size() - 1){
+                    return jsonObjectProperty;
+                } else{
+                    schema = jsonObjectProperty;
+                }
+            }
+        }
+        idx++;
+    }
+
     return QJsonValue();
 }
 
