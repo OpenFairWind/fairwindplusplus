@@ -33,7 +33,7 @@ namespace fairwind::apps::settings::general {
 
         ISettingsTab *getNewInstance() override;
 
-        void setJsonObjectRoot(QJsonObject jsonObjectRoot);
+        void setJsonObjectRoot(ExtendedJsonSchema *settings, QJsonObject jsonObjectRoot);
         QJsonObject getJsonObjectRoot();
 
     public slots:

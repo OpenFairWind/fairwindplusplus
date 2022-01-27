@@ -23,10 +23,8 @@ namespace fairwind::apps::settings::browser {
 
         ~Browser() override;
 
-        void setJsonObjectRoot(QJsonObject jsonObjectRoot);
+        void setJsonObjectRoot(ExtendedJsonSchema *settings, QJsonObject jsonObjectRoot);
         QJsonObject getJsonObjectRoot();
-
-        void setSettings(const QJsonObject& jsonObject);
 
     signals:
 

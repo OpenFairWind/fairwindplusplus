@@ -71,7 +71,7 @@ namespace fairwind::apps::settings::extensions {
 
                     listWidgetItem->setSelected(true);
                     QJsonObject config = fairWindApp->getConfig();
-                    mBrowser->setJsonObjectRoot(config);
+                    mBrowser->setJsonObjectRoot(fairWindApp->getSettings(), config);
                 }
 
                 ui->list_Extensions->addItem(listWidgetItem);
@@ -114,16 +114,7 @@ namespace fairwind::apps::settings::extensions {
 
         auto fairWindApp = fairwind->getAppByExtensionId(mExtensionId);
         QJsonObject config = fairWindApp->getConfig();
-        mBrowser->setJsonObjectRoot(config);
-
-        /*
-        else {
-            if (mExtensionId.isEmpty()){
-                mExtensionId = fairwind->getLauncherFairWindAppId();
-            }
-        }
-        qDebug() << "Final mExtensionId:" << mExtensionId;
-         */
+        mBrowser->setJsonObjectRoot(fairWindApp->getSettings(), config);
 
     }
 

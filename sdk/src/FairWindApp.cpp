@@ -27,8 +27,8 @@ QString fairwind::apps::FairWindApp::getId() const {
  * getSettings
  * Returns the app's settings model
  */
-QJsonObject fairwind::apps::FairWindApp::getSettings() {
-    return m_settings["properties"].toObject();
+fairwind::ExtendedJsonSchema *fairwind::apps::FairWindApp::getSettings() {
+    return m_settings;
 }
 
 
@@ -230,7 +230,7 @@ void fairwind::apps::FairWindApp::init(QJsonObject *metaData) {
             // Check if the app object has the Settings key
             if (objectApp.contains("Settings") && objectApp["Settings"].isObject()) {
                 // Set the config object
-                m_settings = objectApp["Settings"].toObject();
+                m_settings = new ExtendedJsonSchema(objectApp["Settings"].toObject());
 
                 // Check if the app config file doesn't exist
                 if (!appConfigFile.exists()) {
@@ -256,11 +256,9 @@ void fairwind::apps::FairWindApp::init(QJsonObject *metaData) {
                         appConfigFile.close();
 
                     } else {
-                        // Create a config.json from Settings
-                        ExtendedJsonSchema jsonExtendedSchema(m_settings);
 
                         // Create a json document
-                        QJsonDocument jsonDocument = jsonExtendedSchema.getDefaultConfig();
+                        QJsonDocument jsonDocument = m_settings->getDefaultConfig();
 
                         // Open the config.json file in write mode
                         appConfigFile.open(QFile::WriteOnly);
@@ -282,16 +280,14 @@ void fairwind::apps::FairWindApp::init(QJsonObject *metaData) {
                     // Read the configuration file
                     auto configDoc = QJsonDocument::fromJson(appConfigFile.readAll());
 
-                    ExtendedJsonSchema jsonExtendedSchema(m_settings);
-
 
                     // Only for debug
                     QFile tmpFile(getId()+".schema.json");
                     tmpFile.open(QFile::WriteOnly);
-                    tmpFile.write(jsonExtendedSchema.toDocument().toJson());
+                    tmpFile.write(m_settings->toDocument().toJson());
 
 
-                    if (jsonExtendedSchema.validate(configDoc)) {
+                    if (m_settings->validate(configDoc)) {
                         QString name = getName();
                         qDebug() << name << ": config fits the schema!\n";
                     }

@@ -23,52 +23,61 @@ namespace fairwind::apps::settings::browser {
         auto setting = settings->getJsonValueByPath(path);
         qDebug() << "fairwind::apps::settings::browser::UIValue m_key: " << m_key;
         qDebug() << "fairwind::apps::settings::browser:UIValue path: " << path;
+        qDebug() << "fairwind::apps::settings::browser::UIValue setting: " << setting;
 
-        //qDebug() << "UIValue::UIValue: " << m_key;
-        if (m_ref.isString() || m_ref.isBool() || m_ref.isDouble()) {
-            ui->labelKey->setText(m_key);
-
-            if (m_ref.isString()) {
-                auto *widget = new QLineEdit();
-                widget->setText(m_ref.toString());
-                ui->verticalLayout_Value->addWidget(widget);
-
-                connect(widget, &QLineEdit::textChanged, this, &UIValue::onTextChanged);
-
-                m_widget = widget;
-            } else if (m_ref.isDouble()) {
-                auto *widget = new QLineEdit();
-                widget->setValidator(new QRegExpValidator(QRegExp("[0-9]*"), widget));
-                double value = m_ref.toDouble();
-                widget->setText(QString::number(value));
-                ui->verticalLayout_Value->addWidget(widget);
-
-                connect(widget, &QLineEdit::textChanged, this, &UIValue::onNumberChanged);
-
-                m_widget = widget;
-            } else if (m_ref.isBool()) {
-                auto *widget = new QCheckBox();
-                widget->setText("");
-                widget->setChecked(m_ref.toBool());
-                ui->verticalLayout_Value->addWidget(widget);
-
-                connect(widget, &QCheckBox::stateChanged, this, &UIValue::onBoolChanged);
-
-                m_widget = widget;
+        if (setting.isObject() && setting.toObject().contains("fairwind")){
+            auto jsonObjectFairwind = setting["fairwind"].toObject();
+            if (jsonObjectFairwind.contains("widget")){
+                // TODO
+                qDebug() << "fairwind::apps::settings::browser::UIValue::fairwind " << jsonObjectFairwind;
             }
-        } else if (m_ref.isArray() || m_ref.isObject()) {
+        }else{
+            //qDebug() << "UIValue::UIValue: " << m_key;
+            if (m_ref.isString() || m_ref.isBool() || m_ref.isDouble()) {
+                ui->labelKey->setText(m_key);
 
-            if (m_ref.isArray()) {
-                auto *uiArray = new UIArray(nullptr, settings, m_ref, path);
-                ui->verticalLayout_Value->addWidget(uiArray);
-                connect(uiArray, &UIArray::changed, this, &UIValue::onArrayChanged);
-                m_widget = uiArray;
+                if (m_ref.isString()) {
+                    auto *widget = new QLineEdit();
+                    widget->setText(m_ref.toString());
+                    ui->verticalLayout_Value->addWidget(widget);
 
-            } else if (m_ref.isObject()) {
-                auto *uiObject = new UIObject(nullptr, settings, m_ref, path);
-                ui->verticalLayout_Value->addWidget(uiObject);
-                connect(uiObject, &UIObject::changed, this, &UIValue::onObjectChanged);
-                m_widget = uiObject;
+                    connect(widget, &QLineEdit::textChanged, this, &UIValue::onTextChanged);
+
+                    m_widget = widget;
+                } else if (m_ref.isDouble()) {
+                    auto *widget = new QLineEdit();
+                    widget->setValidator(new QRegExpValidator(QRegExp("[0-9]*"), widget));
+                    double value = m_ref.toDouble();
+                    widget->setText(QString::number(value));
+                    ui->verticalLayout_Value->addWidget(widget);
+
+                    connect(widget, &QLineEdit::textChanged, this, &UIValue::onNumberChanged);
+
+                    m_widget = widget;
+                } else if (m_ref.isBool()) {
+                    auto *widget = new QCheckBox();
+                    widget->setText("");
+                    widget->setChecked(m_ref.toBool());
+                    ui->verticalLayout_Value->addWidget(widget);
+
+                    connect(widget, &QCheckBox::stateChanged, this, &UIValue::onBoolChanged);
+
+                    m_widget = widget;
+                }
+            } else if (m_ref.isArray() || m_ref.isObject()) {
+
+                if (m_ref.isArray()) {
+                    auto *uiArray = new UIArray(nullptr, settings, m_ref, path);
+                    ui->verticalLayout_Value->addWidget(uiArray);
+                    connect(uiArray, &UIArray::changed, this, &UIValue::onArrayChanged);
+                    m_widget = uiArray;
+
+                } else if (m_ref.isObject()) {
+                    auto *uiObject = new UIObject(nullptr, settings, m_ref, path);
+                    ui->verticalLayout_Value->addWidget(uiObject);
+                    connect(uiObject, &UIObject::changed, this, &UIValue::onObjectChanged);
+                    m_widget = uiObject;
+                }
             }
         }
     }
