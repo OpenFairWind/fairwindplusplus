@@ -41,8 +41,7 @@ In FairWInd++ can run and co-exist 3 types of Apps:
   The Char FairWind App uses diverse and different data sources organized as geographic
   information system (GIS) layers. The georeferenced data can be static or updated in
   realtime. At the current state of development the following layers are supported:
-  SignlK, Tiled Map Layer, Open Sea Map Layer. Here in the picture an experimental
-  Nevionics map layer NOT available as open source resource.
+  SignlK, Tiled Map Layer, Open Sea Map Layer. 
 
 
 - **Web Apps**
