@@ -12,7 +12,7 @@
     "App": {
       "Email": "fairwind@uniparthenope.it",
       "Id": "fairwind.apps.launcherax10m",
-      "Icon": ":/resources/images/icons/launcherax10m.png",
+      "Icon": ":/resources/images/icons/launcherax10m_icon.png",
       "Settings": {
         "$schema": "http://json-schema.org/draft-04/schema#",
         "type": "object",
