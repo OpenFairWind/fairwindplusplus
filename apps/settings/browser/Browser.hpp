@@ -31,7 +31,7 @@ namespace fairwind::apps::settings::browser {
         void changed();
 
     public slots:
-        void onChanged();
+        void onChanged(QString key, UIValue *uiValue);
 
     private:
         Ui::Browser *ui;
