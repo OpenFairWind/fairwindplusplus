@@ -42,14 +42,11 @@ namespace fairwind::displays {
         public slots:
         void update(const QJsonObject update) override;
         void slotOnClick(bool checked);
-        void onFinished(QNetworkReply *);
 
     private:
         Ui::DisplaySimpleSwitch *ui;
         SwitchButton *sbtn = nullptr;
         bool status;
-        QNetworkAccessManager* networkAccessManager= nullptr;
-        QNetworkReply *reply = nullptr;
 
     };
 }
