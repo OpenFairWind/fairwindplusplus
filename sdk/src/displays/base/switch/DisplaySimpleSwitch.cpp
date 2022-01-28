@@ -68,7 +68,7 @@ void fairwind::displays::DisplaySimpleSwitch::setUnits(QString units) {
 }
 void fairwind::displays::DisplaySimpleSwitch::setValue(QString value){
     qDebug()<<"DisplaySimpleSwitch::setValue "<<value;
-    sbtn->setStatus(value.contains("on") ? true : false);
+    sbtn->setStatus(value.contains(_on) ? true : false);
 }
 
 void fairwind::displays::DisplaySimpleSwitch::subscribe(QString fullPath) {
@@ -95,8 +95,8 @@ QString fairwind::displays::DisplaySimpleSwitch::getClassName() const {
 void fairwind::displays::DisplaySimpleSwitch::slotOnClick(bool status)
 {
     qDebug("DisplaySimpleSwitch::slotOnClick ");
-    QJsonValue valueToPut = !status ? "on" : "off";
-    qDebug() << "valueToPut " << valueToPut<<"status"<<status;
+    QJsonValue valueToPut = !status ? _on : _off;
+    qDebug() << "DisplaySimpleSwitch::::slotOnClick::valueToPut " << valueToPut<<"status"<<status;
 
     auto path = DisplayBase::getFullPath();
     auto fairWind = fairwind::FairWind::getInstance();

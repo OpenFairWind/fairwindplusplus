@@ -28,8 +28,9 @@ void fairwind::displays::DisplayToggleSwitch::onInit(QMap<QString, QVariant> par
     if (params.contains("label")) {
         setLabel(params["label"].toString());
     }
-    
+
     toggle = new ToggleButton(nullptr, ToggleButton::Style::EMPTY, false, Qt::darkRed);
+    connect(toggle, &ToggleButton::onClick, this, &DisplayToggleSwitch::slotOnClick);
 
     if (params.contains("value")) {
         setValue(params["value"].toString());
@@ -66,7 +67,7 @@ void fairwind::displays::DisplayToggleSwitch::setUnits(QString units) {
 }
 void fairwind::displays::DisplayToggleSwitch::setValue(QString value) {
     qDebug()<<"DisplayToggleSwitch::setValue "<<value;
-    toggle->setValue(value.contains("on") ? true : false);
+    toggle->setValue(value.contains(_on) ? true : false);
 }
 
 void fairwind::displays::DisplayToggleSwitch::subscribe(QString fullPath) {
@@ -92,8 +93,8 @@ QString fairwind::displays::DisplayToggleSwitch::getClassName() const {
 void fairwind::displays::DisplayToggleSwitch::slotOnClick(bool status)
 {
     qDebug("DisplayToggleSwitch::slotOnClick ");
-    QJsonValue valueToPut = !status ? "on" : "off";
-    qDebug() << "valueToPut " << valueToPut<<"status"<<status;
+    QJsonValue valueToPut = status ? _on : _off;
+    //qDebug() << "DisplayToggleSwitch::valueToPut " << valueToPut<<"status"<<status;
 
     auto path = DisplayBase::getFullPath();
     auto fairWind = fairwind::FairWind::getInstance();

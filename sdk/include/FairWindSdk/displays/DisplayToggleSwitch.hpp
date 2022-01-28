@@ -46,6 +46,8 @@ namespace fairwind::displays {
         Ui::DisplayToggleSwitch *ui;
         ToggleButton *toggle;
         bool status;
+        const QString _on= "on";
+        const QString _off= "off";
     };
 
 }

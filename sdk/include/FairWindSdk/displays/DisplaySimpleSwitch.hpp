@@ -47,6 +47,8 @@ namespace fairwind::displays {
         Ui::DisplaySimpleSwitch *ui;
         SwitchButton *sbtn = nullptr;
         bool status;
+        const QString _on= "on";
+        const QString _off= "off";
 
     };
 }
