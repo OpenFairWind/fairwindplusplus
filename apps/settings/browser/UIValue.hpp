@@ -34,12 +34,17 @@ namespace fairwind::apps::settings::browser {
 
         void onTextChanged();
 
-        void onNumberChanged();
+        void onNumberTextChanged(const QString &text);
+
+        void onNumberSelectChanged(double value);
 
         void onBoolChanged(int state);
 
         void onArrayChanged();
+
         void onObjectChanged(QString key, UIObject *uiObject);
+
+        void onComboBoxCurrentTextChanged(const QString &text);
 
     private:
         QJsonValueRef m_ref;
