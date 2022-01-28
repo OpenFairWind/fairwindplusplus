@@ -115,8 +115,10 @@ namespace fairwind::apps::settings::browser {
         emit changed(m_key, this);
     }
 
-    void UIValue::onArrayChanged() {
+    void UIValue::onArrayChanged(QString key, UIArray *uiArray) {
         qDebug() << "UIValue::onArrayChanged()";
+        m_ref = uiArray->getArray();
+        qDebug() << "UIValue::onArrayChanged() m_ref " << m_ref;
         emit changed(m_key, this);
     }
 

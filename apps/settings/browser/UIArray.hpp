@@ -35,6 +35,10 @@ namespace fairwind::apps::settings::browser {
 
         void onAdd();
 
+        void onRemove(UIItem *uiItem);
+
+        void onMove(UIItem *uiItem, int direction);
+
     private:
         Ui::UIArray *ui;
         QJsonValueRef m_ref;
