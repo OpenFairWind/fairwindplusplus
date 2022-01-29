@@ -19,7 +19,10 @@ namespace fairwind::apps::settings::browser {
         if (m_ref.isObject()) {
             m_jsonObjectRoot = m_ref.toObject();
 
-            ui->label_Class->setText(m_jsonObjectRoot["class"].toString());
+            if (m_jsonObjectRoot.contains("name") && m_jsonObjectRoot["name"].isString()) {
+                ui->label_Name->setText(m_jsonObjectRoot["name"].toString());
+            }
+
             ui->widget_Container->setVisible(false);
             for (const auto &key: m_jsonObjectRoot.keys()) {
                 QJsonValueRef ref = m_jsonObjectRoot[key];

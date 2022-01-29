@@ -74,7 +74,14 @@ namespace fairwind::apps::settings::browser {
                             if (jsonObjectItem.contains("key") && jsonObjectItem["key"].isString() &&
                                 jsonObjectItem.contains("value") && jsonObjectItem["value"].isString()) {
 
-                                widget->addItem(jsonObjectItem["key"].toString(), jsonObjectItem["value"].toString());
+                                if (jsonObjectItem.contains("icon") && jsonObjectItem["icon"].isString()) {
+                                    QIcon icon = QIcon(QPixmap::fromImage(QImage(jsonObjectItem["icon"].toString())));
+
+                                    widget->addItem(icon,jsonObjectItem["key"].toString(), jsonObjectItem["value"].toString());
+                                } else {
+                                    widget->addItem(jsonObjectItem["key"].toString(),
+                                                    jsonObjectItem["value"].toString());
+                                }
                                 if (text == jsonObjectItem["value"].toString()) {
                                     widget->setCurrentIndex(index);
                                 }
@@ -159,7 +166,14 @@ namespace fairwind::apps::settings::browser {
                             if (jsonObjectItem.contains("key") && jsonObjectItem["key"].isString() &&
                                 jsonObjectItem.contains("value") && jsonObjectItem["value"].isDouble()) {
 
-                                widget->addItem(jsonObjectItem["key"].toString(), jsonObjectItem["value"].toDouble());
+                                if (jsonObjectItem.contains("icon") && jsonObjectItem["icon"].isString()) {
+                                    QIcon icon = QIcon(QPixmap::fromImage(QImage(jsonObjectItem["icon"].toString())));
+
+                                    widget->addItem(icon,jsonObjectItem["key"].toString(), jsonObjectItem["value"].toDouble());
+                                } else {
+                                    widget->addItem(jsonObjectItem["key"].toString(),
+                                                    jsonObjectItem["value"].toDouble());
+                                }
                                 if (value == jsonObjectItem["value"].toDouble()) {
                                     widget->setCurrentIndex(index);
                                 }
@@ -206,7 +220,13 @@ namespace fairwind::apps::settings::browser {
                             if (jsonObjectItem.contains("key") && jsonObjectItem["key"].isString() &&
                                 jsonObjectItem.contains("value") && jsonObjectItem["value"].isBool()) {
 
-                                widget->addItem(jsonObjectItem["key"].toString(), jsonObjectItem["value"].toBool());
+                                if (jsonObjectItem.contains("icon") && jsonObjectItem["icon"].isString()) {
+                                    QIcon icon = QIcon(QPixmap::fromImage(QImage(jsonObjectItem["icon"].toString())));
+
+                                    widget->addItem(icon,jsonObjectItem["key"].toString(), jsonObjectItem["value"].toBool());
+                                } else {
+                                    widget->addItem(jsonObjectItem["key"].toString(), jsonObjectItem["value"].toBool());
+                                }
                                 if (m_ref.toBool() == jsonObjectItem["value"].toBool()) {
                                     widget->setCurrentIndex(index);
                                 }
