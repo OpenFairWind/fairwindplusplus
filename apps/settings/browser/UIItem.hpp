@@ -27,11 +27,21 @@ namespace fairwind::apps::settings::browser {
 
         void changed();
 
+        void removed(UIItem *uiItem);
+
+        void move(UIItem *uiItem, int direction);
+
     private slots:
 
         void onExpand();
 
+        void onRemove();
+
         void onChanged();
+
+        void onMoveUp();
+
+        void onMoveDown();
 
     private:
         Ui::UIItem *ui;
@@ -41,6 +51,9 @@ namespace fairwind::apps::settings::browser {
 
         QVector<UIValue *> m_uiValues;
         QJsonObject m_jsonObjectRoot;
+
+
+
     };
 }
 #endif //FAIRWIND_APPS_SETTINGS_BROWSER_UIITEM_HPP

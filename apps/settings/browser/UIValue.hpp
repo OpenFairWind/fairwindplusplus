@@ -16,6 +16,7 @@ namespace fairwind::apps::settings::browser {
     QT_END_NAMESPACE
 
     class UIObject;
+    class UIArray;
     class UIValue : public QWidget {
     Q_OBJECT
 
@@ -40,7 +41,7 @@ namespace fairwind::apps::settings::browser {
 
         void onBoolChanged(int state);
 
-        void onArrayChanged();
+        void onArrayChanged(QString key, UIArray *uiArray);
 
         void onObjectChanged(QString key, UIObject *uiObject);
 
@@ -50,7 +51,6 @@ namespace fairwind::apps::settings::browser {
         QJsonValueRef m_ref;
         QString m_key;
         QWidget *m_widget;
-
         Ui::UIValue *ui;
     };
 } // fairwind::apps::settings::browser

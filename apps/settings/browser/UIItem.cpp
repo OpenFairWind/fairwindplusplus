@@ -30,8 +30,17 @@ namespace fairwind::apps::settings::browser {
                 connect(uiValue, &UIValue::changed, this, &UIItem::onChanged);
             }
 
-
+            // If button Expand is pressed, call UIItem::onExpand()
             connect(ui->toolButton_Expand, &QToolButton::clicked, this, &UIItem::onExpand);
+
+            // If button Remove is pressed, call UIItem::onRemove()
+            connect(ui->toolButton_Remove, &QToolButton::clicked, this, &UIItem::onRemove);
+
+            // If button Up is pressed, call UIItem::onMoveUp()
+            connect(ui->toolButton_Up, &QToolButton::clicked, this, &UIItem::onMoveUp);
+
+            // If button Down is pressed, call UIItem::onMoveDown()
+            connect(ui->toolButton_Down, &QToolButton::clicked, this, &UIItem::onMoveDown);
         } else if (m_ref.isString() || m_ref.isDouble() || m_ref.isBool()) {
             auto *uiValue = new UIValue(nullptr, settings, m_ref, path);
             ui->verticalLayout_Container->addWidget(uiValue);
@@ -63,6 +72,26 @@ namespace fairwind::apps::settings::browser {
         qDebug() << "UIDisplay::onModified()";
         m_ref = m_jsonObjectRoot;
         emit changed();
+    }
+
+    void UIItem::onRemove(){
+        qDebug() << "UIItem::onRemove()";
+        // Emit a signal with a UIItem (chain of responsibility)
+        emit removed(this);
+    }
+
+    void UIItem::onMoveUp(){
+        qDebug() << "UIItem::onMoveUp() " << this;
+        m_ref = m_jsonObjectRoot;
+        // Emit a signal with a UIItem (chain of responsibility) and the direction
+        emit move(this, -1);
+    }
+
+    void UIItem::onMoveDown(){
+        qDebug() << "UIItem::onMoveDown()";
+
+        // Emit a signal with a UIItem (chain of responsibility) and the direction
+        emit move(this, 1);
     }
 
 }

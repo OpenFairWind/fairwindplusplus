@@ -33,6 +33,8 @@ namespace fairwind::apps::settings::browser {
             m_uiItems.append(uiItem);
 
             connect(uiItem, &UIItem::changed, this, &UIArray::onChanged);
+            connect(uiItem, &UIItem::removed, this, &UIArray::onRemove);
+            connect(uiItem, &UIItem::move, this, &UIArray::onMove);
             idx++;
         }
         connect(ui->pushButton_Add, &QPushButton::clicked, this, &UIArray::onAdd);
@@ -47,6 +49,45 @@ namespace fairwind::apps::settings::browser {
 
     void UIArray::onChanged() {
         qDebug() << "UIArray::onChanged()";
+        m_ref = m_jsonArray;
+        emit changed(m_key, this);
+    }
+
+    void UIArray::onRemove(UIItem *uiItem) {
+        qDebug() << "UIArray::onRemove()" << uiItem;
+
+        int uiItemIdx = m_uiItems.indexOf(uiItem);
+
+        ui->verticalLayout_Container->removeWidget(uiItem);
+        m_uiItems.remove(uiItemIdx);
+        m_jsonArray.removeAt(uiItemIdx);
+
+
+        connect(uiItem, &UIItem::changed, this, &UIArray::onChanged);
+        m_ref = m_jsonArray;
+        emit changed(m_key, this);
+    }
+
+    void UIArray::onMove(UIItem *uiItem, int direction) {
+        qDebug() << "UIArray::onMove() item: " << uiItem;
+        int uiItemIdx = m_uiItems.indexOf(uiItem);
+
+        qDebug() << "UIArray::onMove() index: " << uiItemIdx;
+        qDebug() << "UIArray::onMove() Array Length: " << m_uiItems.length();
+
+        // Top or bottom of the array
+        if ((direction == -1 && uiItemIdx == 0) || (direction == 1 && uiItemIdx == m_uiItems.length() - 1)){
+            return;
+        }
+
+        ui->verticalLayout_Container->removeWidget(uiItem);
+        ui->verticalLayout_Container->insertWidget(uiItemIdx + direction, uiItem);
+        m_uiItems.swapItemsAt(uiItemIdx,uiItemIdx + direction);
+        m_jsonArray.insert(uiItemIdx + direction,m_jsonArray.takeAt(uiItemIdx));
+
+        qDebug() << "UIArray::onMove() m_jsonArray: " << m_jsonArray;
+
+        connect(uiItem, &UIItem::changed, this, &UIArray::onChanged);
         m_ref = m_jsonArray;
         emit changed(m_key, this);
     }

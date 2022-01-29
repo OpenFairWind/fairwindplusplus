@@ -23,7 +23,7 @@ namespace fairwind::apps::settings::browser {
         auto parts = path.split(":");
         m_key = parts[parts.length()-1];
         auto setting = settings->getJsonValueByPath(path).toObject();
-        // qDebug() << "fairwind::apps::settings::browser::UIValue m_key: " << m_key;
+        qDebug() << "fairwind::apps::settings::browser::UIValue m_key: " << m_key;
         // qDebug() << "fairwind::apps::settings::browser:UIValue path: " << path;
         // qDebug() << "fairwind::apps::settings::browser::UIValue setting: " << setting;
 
@@ -162,8 +162,10 @@ namespace fairwind::apps::settings::browser {
         emit changed(m_key, this);
     }
 
-    void UIValue::onArrayChanged() {
+    void UIValue::onArrayChanged(QString key, UIArray *uiArray) {
         qDebug() << "UIValue::onArrayChanged()";
+        m_ref = uiArray->getArray();
+        qDebug() << "UIValue::onArrayChanged() m_ref " << m_ref;
         emit changed(m_key, this);
     }
 
