@@ -39,6 +39,9 @@ namespace fairwind {
         QJsonValue getJsonValueByPath(QString path);
 
     private:
+        void fillDefaultConfig(QJsonObject *jsonDefaultConfig, QJsonObject jsonObjectSchema );
+
+    private:
         QJsonObject m_schema;
         QString m_definitions="definitions";
         QStringList m_schemas = { ":/resources/schemas/display.json", ":/resources/schemas/layer.json"};
