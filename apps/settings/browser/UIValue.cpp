@@ -23,7 +23,7 @@ namespace fairwind::apps::settings::browser {
         auto parts = path.split(":");
         m_key = parts[parts.length()-1];
         auto setting = settings->getJsonValueByPath(path).toObject();
-        // qDebug() << "fairwind::apps::settings::browser::UIValue m_key: " << m_key;
+        qDebug() << "fairwind::apps::settings::browser::UIValue m_key: " << m_key;
         // qDebug() << "fairwind::apps::settings::browser:UIValue path: " << path;
         // qDebug() << "fairwind::apps::settings::browser::UIValue setting: " << setting;
 

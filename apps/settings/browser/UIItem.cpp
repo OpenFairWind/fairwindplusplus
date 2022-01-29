@@ -76,7 +76,6 @@ namespace fairwind::apps::settings::browser {
 
     void UIItem::onRemove(){
         qDebug() << "UIItem::onRemove()";
-
         // Emit a signal with a UIItem (chain of responsibility)
         emit removed(this);
     }

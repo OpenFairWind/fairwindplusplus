@@ -83,7 +83,6 @@ namespace fairwind::apps::settings::browser {
         ui->verticalLayout_Container->removeWidget(uiItem);
         ui->verticalLayout_Container->insertWidget(uiItemIdx + direction, uiItem);
         m_uiItems.swapItemsAt(uiItemIdx,uiItemIdx + direction);
-
         m_jsonArray.insert(uiItemIdx + direction,m_jsonArray.takeAt(uiItemIdx));
 
         qDebug() << "UIArray::onMove() m_jsonArray: " << m_jsonArray;

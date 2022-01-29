@@ -51,7 +51,6 @@ namespace fairwind::apps::settings::browser {
         QJsonValueRef m_ref;
         QString m_key;
         QWidget *m_widget;
-
         Ui::UIValue *ui;
     };
 } // fairwind::apps::settings::browser
