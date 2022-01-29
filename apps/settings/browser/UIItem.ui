@@ -14,14 +14,26 @@
    <string>UIItem</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item row="0" column="0">
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_Tools">
        <item>
-        <widget class="QLabel" name="label_Class">
+        <widget class="QLabel" name="label_Name">
          <property name="text">
-          <string>classname</string>
+          <string>...</string>
          </property>
         </widget>
        </item>
