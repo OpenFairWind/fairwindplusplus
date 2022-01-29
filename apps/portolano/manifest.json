@@ -30,7 +30,23 @@
             "minimum": 0,
             "maximum": 50,
             "title": "Length over all",
-            "description": "The over all vessel length"
+            "description": "The over all vessel length",
+            "fairwind": {
+              "postfix": "meters"
+            }
+          },
+          "vesselType": {
+            "type": "number",
+            "title": "Vessel type",
+            "description": "The vessel kind",
+            "fairwind": {
+              "domain": [
+                { "key": "unknown", "value": 0 },
+                { "key": "Sailing Boat", "value": 1 },
+                { "key": "Power Boat", "value": 2 },
+                { "key": "Spaceship", "value": 99 }
+              ]
+            }
           },
           "leisure": {
             "type": "boolean",
