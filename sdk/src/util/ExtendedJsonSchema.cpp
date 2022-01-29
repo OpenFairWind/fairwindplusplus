@@ -95,7 +95,7 @@ fairwind::ExtendedJsonSchema::ExtendedJsonSchema( QJsonObject schema): ExtendedJ
  */
 bool fairwind::ExtendedJsonSchema::validate(const QVariant &instance) {
     // Create a JsonSchema object
-    JsonSchema jsonSchema = JsonSchema::fromJson(m_schema);
+    auto jsonSchema = JsonSchema::fromJson(m_schema);
 
     // Validate the instace versus the json schema
     return jsonSchema.validate(instance);
@@ -107,7 +107,7 @@ bool fairwind::ExtendedJsonSchema::validate(const QVariant &instance) {
  */
 bool fairwind::ExtendedJsonSchema::validate(const QByteArray &instance) {
     // Create a JsonSchema object
-    JsonSchema jsonSchema = JsonSchema::fromJson(m_schema);
+    auto jsonSchema = JsonSchema::fromJson(m_schema);
 
     // Validate the instace versus the json schema
     return jsonSchema.validate(instance);
@@ -119,7 +119,7 @@ bool fairwind::ExtendedJsonSchema::validate(const QByteArray &instance) {
  */
 bool fairwind::ExtendedJsonSchema::validate(const QJsonValue &instance) {
     // Create a JsonSchema object
-    JsonSchema jsonSchema = JsonSchema::fromJson(m_schema);
+    auto jsonSchema = JsonSchema::fromJson(m_schema);
 
     // Validate the instace versus the json schema
     return jsonSchema.validate(instance);
@@ -131,7 +131,7 @@ bool fairwind::ExtendedJsonSchema::validate(const QJsonValue &instance) {
  */
 bool fairwind::ExtendedJsonSchema::validate(const QJsonDocument &instance) {
     // Create a JsonSchema object
-    JsonSchema jsonSchema = JsonSchema::fromJson(m_schema);
+    auto jsonSchema = JsonSchema::fromJson(m_schema);
 
     // Validate the instace versus the json schema
     return jsonSchema.validate(instance);
@@ -213,30 +213,30 @@ QJsonDocument fairwind::ExtendedJsonSchema::getDefaultConfig() {
                                 // Check if the type is a string
                                 if (type == "string") {
                                     // Check if the default value matches with the json schema type
-                                    if (objectProperty["defaultValue"].isString()) {
+                                    if (objectProperty["default"].isString()) {
                                         // Create the key in the root and assign the value
-                                        root[key] = objectProperty["defaultValue"].toString();
+                                        root[key] = objectProperty["default"].toString();
                                     }
                                     // Check if the type os a boolean
                                 } else if (type == "boolean") {
                                     // Check if the default value matches with the json schema type
-                                    if (objectProperty["defaultValue"].isBool()) {
+                                    if (objectProperty["default"].isBool()) {
                                         // Create the key in the root and assign the value
-                                        root[key] = objectProperty["defaultValue"].toBool();
+                                        root[key] = objectProperty["default"].toBool();
                                     }
                                     // Check if the type os a number
                                 } else if (type == "number") {
                                     // Check if the default value matches with the json schema type
-                                    if (objectProperty["defaultValue"].isDouble()) {
+                                    if (objectProperty["default"].isDouble()) {
                                         // Create the key in the root and assign the value
-                                        root[key] = objectProperty["defaultValue"].toDouble();
+                                        root[key] = objectProperty["default"].toDouble();
                                     }
                                     // Check if the type os a integer
                                 } else if (type == "integer") {
                                     // Check if the default value matches with the json schema type
-                                    if (objectProperty["defaultValue"].isDouble()) {
+                                    if (objectProperty["default"].isDouble()) {
                                         // Create the key in the root and assign the value
-                                        root[key] = (int) (objectProperty["defaultValue"].toDouble());
+                                        root[key] = (int) (objectProperty["default"].toDouble());
                                     }
                                 }
                             }
