@@ -9,6 +9,8 @@
 #include <QCheckBox>
 #include <utility>
 #include <FairWindSdk/util/ExtendedJsonSchema.hpp>
+#include <QComboBox>
+#include <QSpinBox>
 #include "UIValue.hpp"
 #include "ui_UIValue.h"
 #include "UIArray.hpp"
@@ -20,64 +22,107 @@ namespace fairwind::apps::settings::browser {
 
         auto parts = path.split(":");
         m_key = parts[parts.length()-1];
-        auto setting = settings->getJsonValueByPath(path);
-        qDebug() << "fairwind::apps::settings::browser::UIValue m_key: " << m_key;
-        qDebug() << "fairwind::apps::settings::browser:UIValue path: " << path;
-        qDebug() << "fairwind::apps::settings::browser::UIValue setting: " << setting;
+        auto setting = settings->getJsonValueByPath(path).toObject();
+        // qDebug() << "fairwind::apps::settings::browser::UIValue m_key: " << m_key;
+        // qDebug() << "fairwind::apps::settings::browser:UIValue path: " << path;
+        // qDebug() << "fairwind::apps::settings::browser::UIValue setting: " << setting;
 
-        if (setting.isObject() && setting.toObject().contains("fairwind")){
-            auto jsonObjectFairwind = setting["fairwind"].toObject();
-            if (jsonObjectFairwind.contains("widget")){
-                // TODO
-                qDebug() << "fairwind::apps::settings::browser::UIValue::fairwind " << jsonObjectFairwind;
-            }
-        }else{
-            //qDebug() << "UIValue::UIValue: " << m_key;
-            if (m_ref.isString() || m_ref.isBool() || m_ref.isDouble()) {
-                ui->labelKey->setText(m_key);
+        QString title;
+        if (setting.contains("title") && setting["title"].isString()){
+            title = setting["title"].toString();
 
-                if (m_ref.isString()) {
-                    auto *widget = new QLineEdit();
-                    widget->setText(m_ref.toString());
+        }
+        else {
+            title = m_key;
+        }
+
+        QString description = "";
+        if (setting.contains("description") && setting["description"].isString()){
+            description = setting["description"].toString();
+
+        }
+
+        if (m_ref.isString() || m_ref.isBool() || m_ref.isDouble()) {
+            ui->labelKey->setText(title);
+
+            if (m_ref.isString()) {
+                QString text = m_ref.toString();
+                if (text.isEmpty() && setting.contains("default") && setting["default"].isString()){
+                    text = setting["default"].toString();
+                }
+
+                if (setting.contains("enum") && setting["enum"].isArray()){
+                    auto jsonItems = setting["enum"].toArray();
+                    auto *widget = new QComboBox();
+                    widget->setEditable(false);
+                    for (auto item: jsonItems){
+                        widget->addItem(item.toString());
+                    }
                     ui->verticalLayout_Value->addWidget(widget);
+                    widget->setCurrentText(text);
+                    widget->setToolTip(description);
+
+                    connect(widget, &QComboBox::currentTextChanged, this, &UIValue::onComboBoxCurrentTextChanged);
+
+                    m_widget = widget;
+                }
+                else {
+                    auto *widget = new QLineEdit();
+                    if (setting.contains("pattern") && setting["pattern"].isString()){
+                        widget->setValidator(new QRegExpValidator(QRegExp(setting["pattern"].toString()), widget));
+                    }
+                    widget->setText(text);
+                    ui->verticalLayout_Value->addWidget(widget);
+                    widget->setToolTip(description);
 
                     connect(widget, &QLineEdit::textChanged, this, &UIValue::onTextChanged);
 
                     m_widget = widget;
-                } else if (m_ref.isDouble()) {
-                    auto *widget = new QLineEdit();
-                    widget->setValidator(new QRegExpValidator(QRegExp("[0-9]*"), widget));
-                    double value = m_ref.toDouble();
-                    widget->setText(QString::number(value));
-                    ui->verticalLayout_Value->addWidget(widget);
-
-                    connect(widget, &QLineEdit::textChanged, this, &UIValue::onNumberChanged);
-
-                    m_widget = widget;
-                } else if (m_ref.isBool()) {
-                    auto *widget = new QCheckBox();
-                    widget->setText("");
-                    widget->setChecked(m_ref.toBool());
-                    ui->verticalLayout_Value->addWidget(widget);
-
-                    connect(widget, &QCheckBox::stateChanged, this, &UIValue::onBoolChanged);
-
-                    m_widget = widget;
                 }
-            } else if (m_ref.isArray() || m_ref.isObject()) {
-
-                if (m_ref.isArray()) {
-                    auto *uiArray = new UIArray(nullptr, settings, m_ref, path);
-                    ui->verticalLayout_Value->addWidget(uiArray);
-                    connect(uiArray, &UIArray::changed, this, &UIValue::onArrayChanged);
-                    m_widget = uiArray;
-
-                } else if (m_ref.isObject()) {
-                    auto *uiObject = new UIObject(nullptr, settings, m_ref, path);
-                    ui->verticalLayout_Value->addWidget(uiObject);
-                    connect(uiObject, &UIObject::changed, this, &UIValue::onObjectChanged);
-                    m_widget = uiObject;
+            } else if (m_ref.isDouble()) {
+                double value = m_ref.toDouble();
+                if (isnan(value) && setting.contains("default") && setting["default"].isDouble()){
+                    value = setting["default"].toDouble();
                 }
+
+                auto *widget = new QDoubleSpinBox();
+
+                if ((setting.contains("minimum") && setting["minimum"].isDouble()) && (setting.contains("maximum") && setting["maximum"].isDouble())){
+                    widget->setMinimum(setting["minimum"].toDouble());
+                    widget->setMaximum(setting["maximum"].toDouble());
+                }
+
+                widget->setValue(value);
+                ui->verticalLayout_Value->addWidget(widget);
+                widget->setToolTip(description);
+                connect(widget, &QDoubleSpinBox::textChanged, this, &UIValue::onNumberTextChanged);
+                connect(widget, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, &UIValue::onNumberSelectChanged);
+
+                m_widget = widget;
+            } else if (m_ref.isBool()) {
+                auto *widget = new QCheckBox();
+                widget->setText("");
+                widget->setChecked(m_ref.toBool());
+                ui->verticalLayout_Value->addWidget(widget);
+                widget->setToolTip(description);
+
+                connect(widget, &QCheckBox::stateChanged, this, &UIValue::onBoolChanged);
+
+                m_widget = widget;
+            }
+        } else if (m_ref.isArray() || m_ref.isObject()) {
+
+            if (m_ref.isArray()) {
+                auto *uiArray = new UIArray(nullptr, settings, m_ref, path);
+                ui->verticalLayout_Value->addWidget(uiArray);
+                connect(uiArray, &UIArray::changed, this, &UIValue::onArrayChanged);
+                m_widget = uiArray;
+
+            } else if (m_ref.isObject()) {
+                auto *uiObject = new UIObject(nullptr, settings, m_ref, path);
+                ui->verticalLayout_Value->addWidget(uiObject);
+                connect(uiObject, &UIObject::changed, this, &UIValue::onObjectChanged);
+                m_widget = uiObject;
             }
         }
     }
@@ -91,20 +136,22 @@ namespace fairwind::apps::settings::browser {
         auto *widget = (QLineEdit *) m_widget;
         QString text = widget->text();
         m_ref = text;
-        qDebug() << "m_ref:" << m_ref;
-        qDebug() << "m_key:" << m_key;
         emit changed(m_key, this);
 
     }
 
-    void UIValue::onNumberChanged() {
-        qDebug() << "UIValue::onNumberChanged()";
-        auto *widget = (QLineEdit *) m_widget;
-        double number = widget->text().toDouble();
-        m_ref = number;
+    void UIValue::onNumberTextChanged(const QString &text) {
+        qDebug() << "UIValue::onNumberTextChanged()";
+        m_ref = text.toDouble();
         qDebug() << "m_ref:" << m_ref;
         emit changed(m_key, this);
+    }
 
+    void UIValue::onNumberSelectChanged(double value) {
+        qDebug() << "UIValue::onNumberSelectChanged()";
+        m_ref = value;
+        qDebug() << "m_ref:" << m_ref;
+        emit changed(m_key, this);
     }
 
     void UIValue::onBoolChanged(int state) {
@@ -130,5 +177,11 @@ namespace fairwind::apps::settings::browser {
 
     QJsonValueRef UIValue::getValue() {
         return m_ref;
+    }
+
+    void UIValue::onComboBoxCurrentTextChanged(const QString &text){
+        qDebug() << "UIValue::onComboBoxCurrentTextChanged()";
+        m_ref = text;
+        emit changed(m_key, this);
     }
 } // fairwind::apps::settings::browser

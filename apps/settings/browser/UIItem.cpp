@@ -14,7 +14,7 @@ namespace fairwind::apps::settings::browser {
             QWidget(parent), ui(new Ui::UIItem), m_ref(mRef) {
         ui->setupUi(this);
 
-        qDebug() << "fairwind::apps::settings::browser::UIItem path: " << path;
+        // qDebug() << "fairwind::apps::settings::browser::UIItem path: " << path;
 
         if (m_ref.isObject()) {
             m_jsonObjectRoot = m_ref.toObject();
@@ -41,6 +41,12 @@ namespace fairwind::apps::settings::browser {
 
             // If button Down is pressed, call UIItem::onMoveDown()
             connect(ui->toolButton_Down, &QToolButton::clicked, this, &UIItem::onMoveDown);
+        } else if (m_ref.isString() || m_ref.isDouble() || m_ref.isBool()) {
+            auto *uiValue = new UIValue(nullptr, settings, m_ref, path);
+            ui->verticalLayout_Container->addWidget(uiValue);
+            m_uiValues.append(uiValue);
+
+            connect(uiValue, &UIValue::changed, this, &UIItem::onChanged);
         }
     }
 

@@ -25,11 +25,27 @@ namespace fairwind::apps::settings::browser {
 
         auto parts = path.split(".");
         m_key = parts[parts.length()-1];
-        auto setting = settings->getJsonValueByPath(path);
-        qDebug() << "fairwind::apps::settings::browser::UIObject m_key: " << m_key;
-        qDebug() << "fairwind::apps::settings::browser::UIObject path: " << path;
+        auto setting = settings->getJsonValueByPath(path).toObject();
+        // qDebug() << "fairwind::apps::settings::browser::UIObject m_key: " << m_key;
+        // qDebug() << "fairwind::apps::settings::browser::UIObject path: " << path;
 
-        ui->groupBox->setTitle(m_key);
+        QString title;
+        if (setting.contains("title") && setting["title"].isString()){
+            title = setting["title"].toString();
+
+        }
+        else {
+            title = m_key;
+        }
+
+        QString description = "";
+        if (setting.contains("description") && setting["description"].isString()){
+            description = setting["description"].toString();
+
+        }
+
+        ui->groupBox->setTitle(title);
+        ui->groupBox->setToolTip(description);
 
         m_jsonObject = m_ref.toObject();
         int counter = 0;

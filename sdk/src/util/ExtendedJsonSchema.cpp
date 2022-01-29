@@ -201,8 +201,8 @@ QJsonDocument fairwind::ExtendedJsonSchema::getDefaultConfig() {
                         // Get the property object
                         QJsonObject objectProperty = objectProperties[key].toObject();
 
-                        // Check if the property contains the "defaultValue" key
-                        if (objectProperty.contains("defaultValue")) {
+                        // Check if the property contains the "default" key
+                        if (objectProperty.contains("default")) {
 
                             // Check if the property contains the "type" key
                             if (objectProperty.contains("type") && objectProperty["type"].isString()) {
@@ -258,7 +258,7 @@ QJsonDocument fairwind::ExtendedJsonSchema::getDefaultConfig() {
 }
 
 QJsonValue fairwind::ExtendedJsonSchema::getJsonValueByPath(QString path) {
-    qDebug() << "fairwind::ExtendedJsonSchema::getJsonValueByPath: " << path;
+    // qDebug() << "fairwind::ExtendedJsonSchema::getJsonValueByPath: " << path;
 
     auto pathItems = path.split(":");
     int idx = 0;
@@ -266,13 +266,22 @@ QJsonValue fairwind::ExtendedJsonSchema::getJsonValueByPath(QString path) {
     while (idx < pathItems.size()){
         if (schema.contains("properties") && schema["properties"].isObject()){
             auto jsonObjectProperties = schema["properties"].toObject();
+
             if (jsonObjectProperties.contains(pathItems[idx]) && jsonObjectProperties[pathItems[idx]].isObject()){
                 auto jsonObjectProperty = jsonObjectProperties[pathItems[idx]].toObject();
-                if (idx == pathItems.size() - 1){
+                if (idx == pathItems.size() - 1) {
                     return jsonObjectProperty;
-                } else{
+                } else {
                     schema = jsonObjectProperty;
                 }
+            }
+        } else if (schema.contains("items") && schema["items"].isArray() && QRegExp("[0-9]*").exactMatch(pathItems[idx])){
+            auto jsonObjectItem = schema["items"].toArray()[0];
+
+            if (idx == pathItems.size() - 1) {
+                return jsonObjectItem;
+            } else {
+                schema = jsonObjectItem.toObject();
             }
         }
         idx++;
