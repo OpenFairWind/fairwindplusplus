@@ -42,8 +42,8 @@
             "fairwind": {
               "domain": [
                 { "key": "unknown", "value": 0 },
-                { "key": "Sailing Boat", "value": 1 },
-                { "key": "Power Boat", "value": 2 },
+                { "key": "Sailing Boat", "value": 1, "icon": ":/resources/images/icons/sailingboat_icon.png" },
+                { "key": "Power Boat", "value": 2},
                 { "key": "Spaceship", "value": 99 }
               ]
             }

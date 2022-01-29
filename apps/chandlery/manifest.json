@@ -58,11 +58,13 @@
               "domain": [
                 {
                   "key": "No",
-                  "value": false
+                  "value": false,
+                  "icon": ":/resources/images/icons/no_icon.png"
                 },
                 {
                   "key": "Yes",
-                  "value": true
+                  "value": true,
+                  "icon": ":/resources/images/icons/yes_icon.png"
                 }
                 ]
             }
