@@ -22,6 +22,9 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+   </property>
    <property name="text">
     <string>...</string>
    </property>
@@ -34,6 +37,9 @@
      <width>141</width>
      <height>21</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
    </property>
    <property name="text">
     <string>Name</string>
@@ -58,6 +64,9 @@
      <height>16</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+   </property>
    <property name="text">
     <string>Full path</string>
    </property>
@@ -80,6 +89,9 @@
      <width>60</width>
      <height>16</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
    </property>
    <property name="text">
     <string>Display</string>

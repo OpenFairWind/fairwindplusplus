@@ -27,7 +27,12 @@
     <number>0</number>
    </property>
    <item row="0" column="0">
-    <widget class="QListWidget" name="list_Extensions"/>
+    <widget class="QListWidget" name="list_Extensions">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgba(26, 26, 26, 191);
+color: rgb(250, 255, 255);</string>
+     </property>
+    </widget>
    </item>
    <item row="0" column="1">
     <widget class="QScrollArea" name="scrollArea_Extension">
