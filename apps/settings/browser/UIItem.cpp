@@ -64,11 +64,11 @@ namespace fairwind::apps::settings::browser {
         qDebug() << "UIItem::onExpand()";
         if (ui->widget_Container->isVisible()) {
             ui->widget_Container->setVisible(false);
-            ui->toolButton_Expand->setText(">");
+            //ui->toolButton_Expand->setText(">");
             ui->toolButton_Expand->setIcon(QIcon(":/resources/images/icons/angle-square-right.png"));
         } else {
             ui->widget_Container->setVisible(true);
-            ui->toolButton_Expand->setText("<");
+            //ui->toolButton_Expand->setText("<");
             ui->toolButton_Expand->setIcon(QIcon(":/resources/images/icons/angle-square-left.png"));
 
         }
