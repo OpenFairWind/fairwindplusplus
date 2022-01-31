@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
-    <author/>
-    <comment/>
-    <exportmacro/>
-    <class>fairwind::apps::launcherax10m::MainPage</class>
-    <widget class="QWidget" name="fairwind::apps::launcherax10m::MainPage">
-        <property name="geometry">
+ <class>fairwind::apps::launcherax10m::MainPage</class>
+ <widget class="QWidget" name="fairwind::apps::launcherax10m::MainPage">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -43,7 +40,7 @@
        <property name="iconSize">
         <size>
          <width>32</width>
-         <height>32</height>
+         <height>256</height>
         </size>
        </property>
       </widget>
@@ -89,7 +86,7 @@
        <property name="iconSize">
         <size>
          <width>32</width>
-         <height>32</height>
+         <height>256</height>
         </size>
        </property>
       </widget>

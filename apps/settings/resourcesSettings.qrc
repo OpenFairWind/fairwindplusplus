@@ -3,5 +3,13 @@
         <file>resources/images/icons/settings_icon.png</file>
         <file>resources/images/icons/yes_icon.png</file>
         <file>resources/images/icons/no_icon.png</file>
+
+        <file>resources/images/icons/angle-square-right.png</file>
+        <file>resources/images/icons/angle-square-left.png</file>
+        <file>resources/images/icons/arrow-small-down.png</file>
+        <file>resources/images/icons/arrow-small-up.png</file>
+        <file>resources/images/icons/cross-small.png</file>
+        <file>resources/images/icons/apps-add.png</file>
+
     </qresource>
 </RCC>
