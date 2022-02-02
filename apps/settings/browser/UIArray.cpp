@@ -72,20 +72,16 @@ namespace fairwind::apps::settings::browser {
         qDebug() << "UIArray::onMove() item: " << uiItem;
         int uiItemIdx = m_uiItems.indexOf(uiItem);
 
-        qDebug() << "UIArray::onMove() index: " << uiItemIdx;
-        qDebug() << "UIArray::onMove() Array Length: " << m_uiItems.length();
-
         // Top or bottom of the array
-        if ((direction == -1 && uiItemIdx == 0) || (direction == 1 && uiItemIdx == m_uiItems.length() - 1)){
+        if ((direction == -1 && uiItemIdx <= 0) || (direction == 1 && uiItemIdx >= m_uiItems.length() - 1)){
             return;
+        } else{
+            ui->verticalLayout_Container->removeWidget(uiItem);
+            ui->verticalLayout_Container->insertWidget(uiItemIdx + direction, uiItem);
+
+            m_uiItems.swapItemsAt(uiItemIdx,uiItemIdx + direction);
+            m_jsonArray.insert(uiItemIdx + direction,m_jsonArray.takeAt(uiItemIdx));
         }
-
-        ui->verticalLayout_Container->removeWidget(uiItem);
-        ui->verticalLayout_Container->insertWidget(uiItemIdx + direction, uiItem);
-        m_uiItems.swapItemsAt(uiItemIdx,uiItemIdx + direction);
-        m_jsonArray.insert(uiItemIdx + direction,m_jsonArray.takeAt(uiItemIdx));
-
-        qDebug() << "UIArray::onMove() m_jsonArray: " << m_jsonArray;
 
         connect(uiItem, &UIItem::changed, this, &UIArray::onChanged);
         m_ref = m_jsonArray;
@@ -94,10 +90,36 @@ namespace fairwind::apps::settings::browser {
 
     void UIArray::onAdd() {
         qDebug() << "UIArray::onAdd()";
-        QJsonObject jsonObject;
-        jsonObject["class"] = "it::uniparthenope::fairwind::MyClass";
-        jsonObject["active"] = false;
-        m_jsonArray.append(jsonObject);
+
+        // Load settings object
+        auto setting = m_settings->toObject();
+
+        // Check if settings contains properties
+        if(setting.contains("properties") && setting["properties"].isObject()){
+            auto properties = setting["properties"].toObject();
+
+            // Read KEY object
+            auto objectProperties = properties[m_key].toObject();
+
+            if (objectProperties.contains("required")){
+
+            }
+
+
+
+/*
+            qDebug() << "UIArray::onAdd() properties" << objectProperties;
+
+            if(objectProperties.contains("default") && objectProperties["default"].isObject()){
+                m_jsonArray.append(objectProperties["default"]);
+                qDebug() << "UIArray::onAdd() UP m_jsonArray: " << m_jsonArray;
+            }
+            else{
+                qDebug() << "UIArray::onAdd() No Default Property";
+            }
+            */
+        }
+
 
         QJsonValueRef ref = m_jsonArray[m_jsonArray.size() - 1];
         auto *uiItem = new UIItem(nullptr, m_settings, ref, m_path + ":" + QString::number(m_jsonArray.size() - 1));
@@ -105,9 +127,11 @@ namespace fairwind::apps::settings::browser {
         m_uiItems.append(uiItem);
 
         connect(uiItem, &UIItem::changed, this, &UIArray::onChanged);
-
+        connect(uiItem, &UIItem::removed, this, &UIArray::onRemove);
+        connect(uiItem, &UIItem::move, this, &UIArray::onMove);
 
         m_ref = m_jsonArray;
+        qDebug() << "UIArray::onAdd() m_ref: " << m_ref;
         emit changed(m_key, this);
     }
 

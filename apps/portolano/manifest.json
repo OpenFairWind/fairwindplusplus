@@ -108,11 +108,6 @@
           },
           "F": {
             "type": "array",
-            "default": {
-              "icon": "resources/images/icon/pluto.png",
-              "name": "Pluto",
-              "a": "K1"
-            },
             "items": [
               {
                 "type": "object",
@@ -124,7 +119,8 @@
                     "type": "string"
                   },
                   "a": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "Pippo"
                   }
                 },
                 "required": [

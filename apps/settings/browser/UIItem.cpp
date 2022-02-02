@@ -50,6 +50,15 @@ namespace fairwind::apps::settings::browser {
             m_uiValues.append(uiValue);
 
             connect(uiValue, &UIValue::changed, this, &UIItem::onChanged);
+
+            // If button Remove is pressed, call UIItem::onRemove()
+            connect(ui->toolButton_Remove, &QToolButton::clicked, this, &UIItem::onRemove);
+
+            // If button Up is pressed, call UIItem::onMoveUp()
+            connect(ui->toolButton_Up, &QToolButton::clicked, this, &UIItem::onMoveUp);
+
+            // If button Down is pressed, call UIItem::onMoveDown()
+            connect(ui->toolButton_Down, &QToolButton::clicked, this, &UIItem::onMoveDown);
         }
     }
 
@@ -95,7 +104,7 @@ namespace fairwind::apps::settings::browser {
 
     void UIItem::onMoveDown(){
         qDebug() << "UIItem::onMoveDown()";
-
+        m_ref = m_jsonObjectRoot;
         // Emit a signal with a UIItem (chain of responsibility) and the direction
         emit move(this, 1);
     }
