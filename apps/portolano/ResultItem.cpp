@@ -21,7 +21,7 @@ namespace fairwind::apps::portolano {
                 auto mapId = jsonObjectProperties["mapId"].toString();
                 QStringList list = mapId.split("_");
                 QString iconPath = ":/resources/images/ports/"+list[0]+QDir::separator()+mapId+".jpg";
-                qDebug() << "iconPath: " << iconPath;
+                // qDebug() << "iconPath: " << iconPath;
                 ui->label_Icon->setPixmap(QPixmap::fromImage(QImage(iconPath)));
             }
 
