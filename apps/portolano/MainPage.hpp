@@ -25,6 +25,9 @@ namespace fairwind::apps::portolano {
 
         ~MainPage() ;
 
+    public slots:
+        void onEditTextChanged(const QString &text);
+
     private:
         Ui::MainPage *ui;
     };
