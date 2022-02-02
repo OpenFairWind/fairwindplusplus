@@ -102,7 +102,7 @@ namespace fairwind::apps::settings::browser {
             auto objectProperties = properties[m_key].toObject();
 
             if (objectProperties.contains("required")){
-
+                // Loop on required items and copy their Type and Default
             }
 
 
