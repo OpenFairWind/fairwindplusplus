@@ -73,6 +73,10 @@ namespace fairwind::apps {
         // Get the whole metadata object
         virtual QJsonObject getMetaData();
 
+        virtual QString getDataPath();
+
+        virtual QString getCategory();
+
         QWidget *getWidget();
         void add(QWidget *page, const QString& route = "/");
         void show(const QString& route = "/");
