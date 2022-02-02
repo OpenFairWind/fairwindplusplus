@@ -247,11 +247,12 @@ void fairwind::FairWind::loadApps() {
 
                     // Check if the id is not empty and not already present
                     if (!appId.isEmpty() && !m_mapAppId2FairWindApp.contains(appId)) {
+
                         // Set the apps root in the metadata object
                         metaData["appsRoot"] = m_appsRoot.absolutePath();
 
                         // Set the data root in the metadata object
-                        metaData["dataRoot"] = m_dataRoot.absolutePath();
+                        metaData["dataRoot"] = m_dataRoot.absolutePath() + QDir::separator() + appId;
 
                         // Initialize the app with the plugin metadata
                         fairWindApp->init(&metaData);
