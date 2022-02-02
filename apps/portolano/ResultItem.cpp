@@ -20,10 +20,9 @@ namespace fairwind::apps::portolano {
             if (jsonObjectProperties.contains("mapId") && jsonObjectProperties["mapId"].isString()) {
                 auto mapId = jsonObjectProperties["mapId"].toString();
                 QStringList list = mapId.split("_");
-                ui->toolButton_Map->setText("");
                 QString iconPath = ":/resources/images/ports/"+list[0]+QDir::separator()+mapId+".jpg";
                 qDebug() << "iconPath: " << iconPath;
-                ui->toolButton_Map->setIcon(QIcon(QPixmap::fromImage(QImage(iconPath))));
+                ui->label_Icon->setPixmap(QPixmap::fromImage(QImage(iconPath)));
             }
 
             if (jsonObjectProperties.contains("name") && jsonObjectProperties["name"].isString()) {
