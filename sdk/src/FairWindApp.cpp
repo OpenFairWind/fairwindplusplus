@@ -39,7 +39,7 @@ fairwind::ExtendedJsonSchema *fairwind::apps::FairWindApp::getSettings() {
 QJsonObject fairwind::apps::FairWindApp::getConfig() {
 
     // Get the application data path
-    QDir appDataPath = QDir(m_metaData["dataRoot"].toString() + QDir::separator() + getId());
+    QDir appDataPath = QDir(m_metaData["dataRoot"].toString());
 
     // Create the path if needed
     appDataPath.mkpath(appDataPath.absolutePath());
@@ -60,7 +60,7 @@ QJsonObject fairwind::apps::FairWindApp::getConfig() {
 
 void fairwind::apps::FairWindApp::setConfig(QJsonObject config) {
     // Get the application data path
-    QDir appDataPath = QDir(m_metaData["dataRoot"].toString() + QDir::separator() + getId());
+    QDir appDataPath = QDir(m_metaData["dataRoot"].toString());
 
     // Create the path if needed
     appDataPath.mkpath(appDataPath.absolutePath());
@@ -209,7 +209,7 @@ void fairwind::apps::FairWindApp::init(QJsonObject *metaData) {
     m_metaData = QJsonObject(*metaData);
 
     // Get the application data path
-    QDir appDataPath = QDir(m_metaData["dataRoot"].toString() + QDir::separator() + getId());
+    QDir appDataPath = QDir(m_metaData["dataRoot"].toString());
 
     // Create the path if needed
     appDataPath.mkpath(appDataPath.absolutePath());
@@ -461,6 +461,14 @@ QString fairwind::apps::FairWindApp::getRoute() {
 
 void fairwind::apps::FairWindApp::setRoute(QString route) {
     m_route = route;
+}
+
+QString fairwind::apps::FairWindApp::getDataPath() {
+    return m_metaData["dataRoot"].toString()+QDir::separator()+"data";
+}
+
+QString fairwind::apps::FairWindApp::getCategory() {
+    return m_metaData["Category"].toString();
 }
 
 

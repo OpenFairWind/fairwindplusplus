@@ -16,7 +16,7 @@ namespace fairwind::apps::settings::extensions {
 
             ui->label_Name->setText(mFairWindApp->getName());
             ui->label_Version->setText(mFairWindApp->getVersion());
-            ui->label_Category->setText(mFairWindApp->getMetaData()["Category"].toString());
+            ui->label_Category->setText(mFairWindApp->getCategory());
             ui->toolButton_Icon->setIcon(QPixmap::fromImage(mFairWindApp->getIcon()));
         }
     }

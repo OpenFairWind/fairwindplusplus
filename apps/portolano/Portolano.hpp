@@ -29,8 +29,11 @@ namespace fairwind::apps::portolano {
         void onStop() override;
         void onDestroy() override;
 
+        QSqlDatabase *getDb();
+
     private:
-        bool enableSpatialite(QSqlDatabase db);
+
+        QSqlDatabase mDb;
     };
 }
 

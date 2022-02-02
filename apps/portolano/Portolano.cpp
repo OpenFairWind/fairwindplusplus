@@ -8,6 +8,7 @@
 #include <QSqlQuery>
 #include <QSqlDriver>
 #include <QSqlError>
+#include <QJsonArray>
 
 #include "Portolano.hpp"
 #include "MainPage.hpp"
@@ -16,47 +17,107 @@ namespace fairwind::apps::portolano {
     void Portolano::onCreate() {
         FairWindApp::onCreate();
 
-        QSqlDatabase db =  QSqlDatabase::addDatabase("QSQLITE");
-
-        db.setDatabaseName("memory.db");
-        if (db.open()) {
-            /*
-            if (enableSpatialite(db)) {
-
-                QSqlQuery query;
-
-                qDebug() << query.exec(
-                        "CREATE TABLE test_geom (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, measured_value DOUBLE NOT NULL);");
-                qDebug() << query.exec("SELECT AddGeometryColumn('test_geom', 'the_geom', 4326, 'POINT', 'XY');");
+        mDb =  QSqlDatabase::addDatabase("QSQLITE");
 
 
-                for (int i = 0; i < 10; i++) {
-                    QString q = QString(
-                            "INSERT INTO test_geom(id, name, measured_value, the_geom) VALUES (%1,'point %2', %3, GeomFromText('POINT(1.01 2.02)', 4326))")
-                            .arg("NULL").arg(i).arg(i);
-                    query.prepare(q);
-                    qDebug() << i << query.exec();
-                }
 
-                qDebug() << query.exec(
-                        "SELECT id, name, measured_value,  AsText(the_geom), ST_GeometryType(the_geom), ST_Srid(the_geom) FROM test_geom");
+        auto geoJsonFileName = getDataPath()+QDir::separator()+"ports.json";
+        auto databaseFileName =  getDataPath()+QDir::separator()+"ports.sqlite";
+
+        mDb.setDatabaseName(databaseFileName);
+        if (mDb.open()) {
+
+            QSqlQuery query(mDb);
+            query.exec("PRAGMA case_sensitive_like = true;");
+
+            auto filePorts = QFile(geoJsonFileName);
+            if (!filePorts.exists()) {
+                auto filePortsFromResources = QFile(":/resources/data/ports.json");
+                filePortsFromResources.open(QFile::ReadOnly);
+                filePorts.open(QFile::WriteOnly);
+                filePorts.write(filePortsFromResources.readAll());
+                filePorts.flush();
+                filePorts.close();
+                filePortsFromResources.close();
+
+                query.exec("DROP TABLE IF EXISTS ports;");
+                query.exec(
+                        "CREATE TABLE ports (id INTEGER NOT NULL PRIMARY KEY, name TEXT NOT NULL, lon DOUBLE NOT NULL, lat DOUBLE NOT NULL,feature TEXT NOT NULL);");
 
 
-                while (query.next()) {
-                    QString str;
-                    for (int i = 0; i < query.record().count(); i++)
-                        str += query.value(i).toString() + " ";
-                    qDebug() << str;
+                auto filePortsFromData = QFile(geoJsonFileName);
+                filePortsFromData.open(QFile::ReadOnly);
+
+                auto jsonDocument = QJsonDocument::fromJson(filePortsFromData.readAll());
+                QJsonObject jsonObjectPorts = jsonDocument.object();
+                if (jsonObjectPorts.contains("features") && jsonObjectPorts["features"].isArray()) {
+                    auto jsonArrayFeatures = jsonObjectPorts["features"].toArray();
+                    for (auto jsonFeature: jsonArrayFeatures) {
+                        if (jsonFeature.isObject()) {
+                            auto jsonObjectFeature = jsonFeature.toObject();
+
+                            if (jsonObjectFeature.contains("type") && jsonObjectFeature["type"].isString() &&
+                                jsonObjectFeature["type"].toString() == "Feature") {
+                                if (jsonObjectFeature.contains("properties") &&
+                                    jsonObjectFeature["properties"].isObject()) {
+                                    auto jsonObjectProperties = jsonObjectFeature["properties"].toObject();
+
+                                    if (jsonObjectFeature.contains("geometry") &&
+                                        jsonObjectFeature["geometry"].isObject()) {
+                                        auto jsonObjectGeometry = jsonObjectFeature["geometry"].toObject();
+
+                                        if (jsonObjectGeometry.contains("type") &&
+                                            jsonObjectGeometry["type"].isString()) {
+                                            auto type = jsonObjectGeometry["type"].toString();
+
+                                            if (type == "Point") {
+
+                                                if (jsonObjectGeometry.contains("coordinates") &&
+                                                    jsonObjectGeometry["coordinates"].isArray()) {
+                                                    auto jsonArrayCoordinates = jsonObjectGeometry["coordinates"].toArray();
+
+
+                                                    double lon = jsonArrayCoordinates[0].toDouble();
+                                                    double lat = jsonArrayCoordinates[1].toDouble();
+
+                                                    if (jsonObjectProperties.contains("id") &&
+                                                        jsonObjectProperties["id"].isDouble()) {
+
+                                                        int id = jsonObjectProperties["id"].toInt();
+
+                                                        if (jsonObjectProperties.contains("name") &&
+                                                            jsonObjectProperties["name"].isString()) {
+                                                            auto name = jsonObjectProperties["name"].toString();
+
+                                                            QJsonDocument doc(jsonObjectFeature);
+                                                            QString strJsonFeature(doc.toJson(QJsonDocument::Compact));
+
+                                                            QString q = QString(
+                                                                    "INSERT INTO ports(id, name, lon, lat, feature) VALUES (%1, '%2', %3, %4, '%5');")
+                                                                    .arg(id)
+                                                                    .arg(name)
+                                                                    .arg(lon)
+                                                                    .arg(lat)
+                                                                    .arg(strJsonFeature);
+                                                            qDebug() << "q:" << q;
+                                                            query.prepare(q);
+                                                            if (!query.exec()) {
+                                                                qDebug() << "Query failed: " << query.lastError();
+                                                                qDebug() << "            : " << query.lastQuery();
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
-             */
-        } else {
-            qDebug()<<"not open";
         }
-
-
-
-
     }
     /*
      * Called by the FairWind framework when the app is invoked for the first time
@@ -82,38 +143,13 @@ namespace fairwind::apps::portolano {
     }
 
     void Portolano::onDestroy() {
+
+        mDb.close();
         FairWindApp::onDestroy();
     }
 
-    bool Portolano::enableSpatialite(QSqlDatabase db){
-        QVariant v = db.driver()->handle();
-        if (v.isValid() && qstrcmp(v.typeName(), "sqlite3*")==0)
-        {
-            sqlite3_initialize();
-            sqlite3 *db_handle = *static_cast<sqlite3 **>(v.data());
-
-            if (db_handle != 0) {
-
-                sqlite3_enable_load_extension(db_handle, 1);
-
-                QSqlQuery query;
-
-                query.exec("SELECT load_extension('mod_spatialite')");
-                if (!query.lastError().isValid()) {
-                    qDebug()<<"**** SpatiaLite loaded as an extension ***";
-
-                    query.exec("select InitSpatialMetadata(1);");
-                    if (!query.lastError() .isValid()) {
-                        qDebug()<<"**** InitSpatialMetadata successful ***";
-                        return true;
-                    } else {
-                        qDebug() << "Error: cannot load the Spatialite extension (" << query.lastError().text()<<")";
-                    }
-                } else {
-                    qDebug() << "Error: cannot load the Spatialite extension (" << query.lastError().text()<<")";
-                }
-            }
-        }
-        return false;
+    QSqlDatabase *Portolano::getDb() {
+        return &mDb;
     }
+
 }

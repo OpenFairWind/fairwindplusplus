@@ -1,6 +1,28 @@
 <!DOCTYPE RCC><RCC version="1.0">
     <qresource>
+        <file>resources/data/ports.json</file>
+
+        <file>resources/images/ports/CA/CA_010.jpg</file>
+        <file>resources/images/ports/CA/CA_011.jpg</file>
+        <file>resources/images/ports/CA/CA_012.jpg</file>
+        <file>resources/images/ports/CA/CA_013.jpg</file>
+        <file>resources/images/ports/CA/CA_014.jpg</file>
+        <file>resources/images/ports/CA/CA_015.jpg</file>
+        <file>resources/images/ports/CA/CA_016.jpg</file>
+        <file>resources/images/ports/CA/CA_017.jpg</file>
+        <file>resources/images/ports/CA/CA_018.jpg</file>
+        <file>resources/images/ports/CA/CA_019.jpg</file>
+        <file>resources/images/ports/CA/CA_020.jpg</file>
+        <file>resources/images/ports/CA/CA_101.jpg</file>
+        <file>resources/images/ports/CA/CA_102.jpg</file>
+        <file>resources/images/ports/CA/CA_103.jpg</file>
+        <file>resources/images/ports/CA/CA_104.jpg</file>
+        <file>resources/images/ports/CA/CA_105.jpg</file>
+        <file>resources/images/ports/CA/CA_106.jpg</file>
+        <file>resources/images/ports/CA/CA_107.jpg</file>
+        <file>resources/images/ports/CA/CA_108.jpg</file>
+        <file>resources/images/ports/CA/CA_109.jpg</file>
+        <file>resources/images/ports/CA/CA_110.jpg</file>
         <file>resources/images/icons/portolano_icon.png</file>
-        <file>resources/images/icons/sailingboat_icon.png</file>
     </qresource>
 </RCC>

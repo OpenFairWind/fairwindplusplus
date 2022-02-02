@@ -16,7 +16,7 @@ def main(argv):
   # The path of the FairWind SDK directory
   fairwind_sdk_home = os.getenv('FAIRWINDSDK_HOME')
 
-  if fairwind_sdk_home is None or fairwind_sdk_home=="":
+  if fairwind_sdk_home is None or fairwind_sdk_home is "":
     logging.error("FAIRWINDSDK_HOME not set.")
     show_usage()
     exit(2)
