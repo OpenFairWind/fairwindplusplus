@@ -13,7 +13,156 @@
       "Email": "fairwind@uniparthenope.it",
       "Id": "fairwind.apps.radar",
       "Icon": ":/resources/images/icons/radar_icon.png",
-      "Settings": {}
+      "Settings": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {
+          "name": {
+            "fairwind": {
+              "widget": "fairwind::ui::settings::Display"
+            },
+            "type": "string",
+            "title": "Name",
+            "description": "The boat name"
+          },
+          "loa": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 50,
+            "title": "Length over all",
+            "description": "The over all vessel length",
+            "fairwind": {
+              "postfix": "meters"
+            }
+          },
+          "vesselType": {
+            "type": "number",
+            "title": "Vessel type",
+            "description": "The vessel kind",
+            "fairwind": {
+              "domain": [
+                { "key": "unknown", "value": 0 },
+                { "key": "Sailing Boat", "value": 1, "icon": ":/resources/images/icons/sailingboat_icon.png" },
+                { "key": "Power Boat", "value": 2},
+                { "key": "Spaceship", "value": 99 }
+              ]
+            }
+          },
+          "leisure": {
+            "type": "boolean",
+            "title": "Leisure boat",
+            "description": "Is the vessel a leisure boat?"
+          },
+          "flagData": {
+            "title": "Vessel flag data",
+            "description": "Data about vessel registration",
+            "type": "object",
+            "properties": {
+              "nationality": {
+                "type": "string",
+                "title": "Nationality",
+                "description": "Country of registration",
+                "enum": ["it", "us", "fr"]
+              },
+              "registryNumber": {
+                "type": "string",
+                "title": "Registry",
+                "description": "The national registration number"
+              },
+              "sailNumber": {
+                "type": "string",
+                "title": "Sail Number",
+                "description": "The sail number"
+              },
+              "homeHarbour": {
+                "type": "object",
+                "title": "Home Harbour",
+                "description": "Data where the vessel is docked",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "title": "Name",
+                    "description": "The name of home harbour"
+                  }
+                },
+                "required": [
+                  "homeHarbour"
+                ]
+              }
+            },
+            "required": [
+              "nationality",
+              "registryNumber",
+              "sailNumber",
+              "homeHarbour"
+            ]
+          },
+          "E": {
+            "type": "array",
+            "default": "pippo",
+            "items": [
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "F": {
+            "type": "array",
+            "default": {
+              "icon": "resources/images/icon/pluto.png",
+              "name": "Pluto",
+              "a": "K1"
+            },
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "icon": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "a": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "a"
+                ]
+              }
+            ]
+          }
+        },
+        "required": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F"
+        ]
+      },
+      "Config": {
+        "name": "Sarima V",
+        "loa": 10.72,
+        "leisure": true,
+        "flagData": {
+          "nationality": "it",
+          "registryNumber": "SP3237D",
+          "sailNumber": "ITA-13387",
+          "homeHarbour": {
+            "name": "Castellammare di Stabia"
+          }
+        },
+        "E": [
+          "a", "b", "c"
+        ],
+        "F": [
+          {"a": "valore1", "name": "mymame1", "icon": ":resource/icon/pippo.png"},
+          {"a": "valore2", "name": "mymame2", "icon": "resources/images/icon/pluto.png"}
+        ]
+      }
     }
   }
 }
