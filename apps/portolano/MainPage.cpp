@@ -136,8 +136,8 @@ namespace fairwind::apps::portolano {
             mPosition.setLatitude(update["updates"][0]["values"][0]["value"].toObject()["latitude"].toDouble());
             mPosition.setLongitude(update["updates"][0]["values"][0]["value"].toObject()["longitude"].toDouble());
 
-            if (getDistanceBetweenTwoPoints(oldPosition, mPosition) >= (ui->doubleSpinBox_Range->value()) * 1000 /2){
-                radius = ui->doubleSpinBox_Range->value() * 1000; // m
+            if (getDistanceBetweenTwoPoints(oldPosition, mPosition) >= (ui->doubleSpinBox_Range->value()) * mile /2){
+                radius = ui->doubleSpinBox_Range->value() * mile; // m
                 double mult = 1.1;
                 auto p1 = calculateDerivedPosition(mPosition, mult * radius, 0);
                 auto p2 = calculateDerivedPosition(mPosition, mult *radius, 90);
