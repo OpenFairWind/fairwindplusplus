@@ -195,6 +195,7 @@ void fairwind::ExtendedJsonSchema::fillDefaultConfig(QJsonObject *jsonObjectRoot
 
                         // Get the key string
                         QString key = item.toString();
+                        qDebug() << "KEY: "<< key;
 
                         // Check if the properties object contains the key
                         if (objectProperties.contains(key) && objectProperties[key].isObject()) {
@@ -210,44 +211,74 @@ void fairwind::ExtendedJsonSchema::fillDefaultConfig(QJsonObject *jsonObjectRoot
                                 QString type = objectProperty["type"].toString();
 
                                 // Check if the property contains the "default" key
-                                if (objectProperty.contains("default") &&
-                                    (type == "string" || type == "boolean" || type == "number" || type == "integer")) {
-                                    // Check if the type is a string
-                                    if (type == "string") {
-                                        // Check if the default value matches with the json schema type
-                                        if (objectProperty["default"].isString()) {
-                                            // Create the key in the root and assign the value
-                                            jsonObjectRoot->operator[](key) = objectProperty["default"].toString();
-                                        }
-                                        // Check if the type os a boolean
-                                    } else if (type == "boolean") {
-                                        // Check if the default value matches with the json schema type
-                                        if (objectProperty["default"].isBool()) {
-                                            // Create the key in the root and assign the value
-                                            jsonObjectRoot->operator[](key) = objectProperty["default"].toBool();
-                                        }
-                                        // Check if the type os a number
-                                    } else if (type == "number") {
-                                        // Check if the default value matches with the json schema type
-                                        if (objectProperty["default"].isDouble()) {
-                                            // Create the key in the root and assign the value
-                                            jsonObjectRoot->operator[](key) = objectProperty["default"].toDouble();
-                                        }
-                                        // Check if the type os a integer
-                                    } else if (type == "integer") {
-                                        // Check if the default value matches with the json schema type
-                                        if (objectProperty["default"].isDouble()) {
-                                            // Create the key in the root and assign the value
-                                            jsonObjectRoot->operator[](
-                                                    key) = (int) (objectProperty["default"].toDouble());
+                                if (objectProperty.contains("default")){
+                                    if (type == "string" || type == "boolean" || type == "number" || type == "integer") {
+                                        // Check if the type is a string
+                                        if (type == "string") {
+                                            // Check if the default value matches with the json schema type
+                                            if (objectProperty["default"].isString()) {
+                                                // Create the key in the root and assign the value
+                                                jsonObjectRoot->operator[](key) = objectProperty["default"].toString();
+                                            }
+                                            // Check if the type os a boolean
+                                        } else if (type == "boolean") {
+                                            // Check if the default value matches with the json schema type
+                                            if (objectProperty["default"].isBool()) {
+                                                // Create the key in the root and assign the value
+                                                jsonObjectRoot->operator[](key) = objectProperty["default"].toBool();
+                                            }
+                                            // Check if the type os a number
+                                        } else if (type == "number") {
+                                            // Check if the default value matches with the json schema type
+                                            if (objectProperty["default"].isDouble()) {
+                                                // Create the key in the root and assign the value
+                                                jsonObjectRoot->operator[](key) = objectProperty["default"].toDouble();
+                                            }
+                                            // Check if the type os a integer
+                                        } else if (type == "integer") {
+                                            // Check if the default value matches with the json schema type
+                                            if (objectProperty["default"].isDouble()) {
+                                                // Create the key in the root and assign the value
+                                                jsonObjectRoot->operator[](
+                                                        key) = (int) (objectProperty["default"].toDouble());
+                                            }
                                         }
                                     }
+                                    else if (type == "object") {
+                                        QJsonObject jsonObject;
+                                        fillDefaultConfig(&jsonObject, objectProperty);
+                                        jsonObjectRoot->operator[](key) = jsonObject;
+                                    }
+                                } else{
+                                    if (type == "string" || type == "boolean" || type == "number" || type == "integer") {
+                                        // Check if the type is a string
+                                        if (type == "string") {
+                                            // Create the key in the root and assign the value
+                                            jsonObjectRoot->operator[](key) = "";
+
+                                            // Check if the type os a boolean
+                                        } else if (type == "boolean") {
+                                            // Create the key in the root and assign the value
+                                            jsonObjectRoot->operator[](key) = false;
+
+                                            // Check if the type os a number
+                                        } else if (type == "number") {
+                                            // Create the key in the root and assign the value
+                                            jsonObjectRoot->operator[](key) = 0.0;
+                                            // Check if the type os a integer
+                                        } else if (type == "integer") {
+                                            // Create the key in the root and assign the value
+                                            jsonObjectRoot->operator[](key) = (int) 0;
+                                        }
+                                    }
+                                    else if (type == "object") {
+                                        // TODO Check this
+                                        QJsonObject jsonObject;
+                                        fillDefaultConfig(&jsonObject, objectProperty);
+                                        jsonObjectRoot->operator[](key) = jsonObject;
+                                    }
                                 }
-                                else if (type == "object") {
-                                    QJsonObject jsonObject;
-                                    fillDefaultConfig(&jsonObject, objectProperty);
-                                    jsonObjectRoot->operator[](key) = jsonObject;
-                                }
+
                             }
                         }
                     }
@@ -273,6 +304,8 @@ QJsonDocument fairwind::ExtendedJsonSchema::getDefaultConfig() {
 
     // Set the root
     jsonDocument.setObject(root);
+
+    qDebug() << "fairwind::ExtendedJsonSchema::getDefaultConfig jsonDocument " << jsonDocument.object();
 
     // Return the json document
     return jsonDocument;
