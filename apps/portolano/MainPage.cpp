@@ -16,7 +16,6 @@
 #include "ResultItem.hpp"
 #include "Portolano.hpp"
 
-// TODO: query only if is moving
 
 namespace fairwind::apps::portolano {
     MainPage::MainPage(QWidget *parent, FairWindApp *fairWindApp) :
@@ -36,6 +35,9 @@ namespace fairwind::apps::portolano {
         // Set values from config
         ui->checkBox_Range->setChecked(config["userRange"].toBool());
         ui->doubleSpinBox_Range->setValue(config["range"].toDouble());
+
+        oldPosition.setLatitude(0.0);
+        oldPosition.setLongitude(0.0);
 
         // Get the signalk document's string
         QString self = signalKDocument->getSelf();
@@ -59,6 +61,9 @@ namespace fairwind::apps::portolano {
         auto config = getFairWindApp()->getConfig();
         config["range"] = text.toDouble();
         getFairWindApp()->setConfig(config);
+
+        oldPosition.setLatitude(0.0);
+        oldPosition.setLongitude(0.0);
     }
 
     void MainPage::onNumberSelectChanged(double value) {
@@ -67,6 +72,9 @@ namespace fairwind::apps::portolano {
         auto config = getFairWindApp()->getConfig();
         config["range"] = value;
         getFairWindApp()->setConfig(config);
+
+        oldPosition.setLatitude(0.0);
+        oldPosition.setLongitude(0.0);
     }
 
     void MainPage::onBoolChanged(int state) {
@@ -125,28 +133,31 @@ namespace fairwind::apps::portolano {
 
     void MainPage::updateNavigationPosition(const QJsonObject update) {
         if (ui->checkBox_Range->isChecked()){
-
             mPosition.setLatitude(update["updates"][0]["values"][0]["value"].toObject()["latitude"].toDouble());
             mPosition.setLongitude(update["updates"][0]["values"][0]["value"].toObject()["longitude"].toDouble());
 
-            radius = ui->doubleSpinBox_Range->value() * 1000; // m
-            double mult = 1.1;
-            auto p1 = calculateDerivedPosition(mPosition, mult * radius, 0);
-            auto p2 = calculateDerivedPosition(mPosition, mult *radius, 90);
-            auto p3 = calculateDerivedPosition(mPosition, mult *radius, 180);
-            auto p4 = calculateDerivedPosition(mPosition, mult *radius, 270);
+            if (getDistanceBetweenTwoPoints(oldPosition, mPosition) >= (ui->doubleSpinBox_Range->value()) * 1000 /2){
+                radius = ui->doubleSpinBox_Range->value() * 1000; // m
+                double mult = 1.1;
+                auto p1 = calculateDerivedPosition(mPosition, mult * radius, 0);
+                auto p2 = calculateDerivedPosition(mPosition, mult *radius, 90);
+                auto p3 = calculateDerivedPosition(mPosition, mult *radius, 180);
+                auto p4 = calculateDerivedPosition(mPosition, mult *radius, 270);
 
-            auto *fairWindApp = (Portolano *)getFairWindApp();
-            auto db = fairWindApp->getDb();
-            if (db->open()) {
-                QSqlQuery query(*db);
-                QString q = QString("SELECT * FROM ports WHERE lat > %1 AND lat < %2 AND lon < %3 AND lon > %4;")
-                        .arg(p3.latitude()).arg(p1.latitude())
-                        .arg(p2.longitude()).arg(p4.longitude());
-                query.prepare(q);
-                query.exec();
+                auto *fairWindApp = (Portolano *)getFairWindApp();
+                auto db = fairWindApp->getDb();
+                if (db->open()) {
+                    QSqlQuery query(*db);
+                    QString q = QString("SELECT * FROM ports WHERE lat > %1 AND lat < %2 AND lon < %3 AND lon > %4;")
+                            .arg(p3.latitude()).arg(p1.latitude())
+                            .arg(p2.longitude()).arg(p4.longitude());
+                    query.prepare(q);
+                    query.exec();
 
-                insertIntoList(query);
+                    insertIntoList(query);
+                }
+
+                oldPosition = mPosition;
             }
         }
     }

@@ -45,6 +45,8 @@ namespace fairwind::apps::portolano {
 
         QGeoCoordinate mPosition;
 
+        QGeoCoordinate oldPosition;
+
         double radius;
 
         QGeoCoordinate calculateDerivedPosition(QGeoCoordinate point, double range, double bearing);
