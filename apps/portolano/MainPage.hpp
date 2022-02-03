@@ -9,6 +9,7 @@
 #include <FairWindSdk/PageBase.hpp>
 #include <FairWindSdk/FairWindApp.hpp>
 #include <QSqlQuery>
+#include <QGeoCoordinate>
 
 #include "MainPage.hpp"
 #include "ui_MainPage.h"
@@ -24,7 +25,9 @@ namespace fairwind::apps::portolano {
     public:
         explicit MainPage(QWidget *parent = nullptr, FairWindApp *fairWindApp = nullptr);
 
-        ~MainPage() ;
+        ~MainPage();
+
+        void onResume();
 
     public slots:
         void onEditTextChanged(const QString &text);
@@ -40,13 +43,11 @@ namespace fairwind::apps::portolano {
     private:
         Ui::MainPage *ui;
 
-        QJsonObject mConfig;
-
-        QJsonObject mPosition;
+        QGeoCoordinate mPosition;
 
         double radius;
 
-        QJsonObject calculateDerivedPosition(QJsonObject point, double range, double bearing);
+        QGeoCoordinate calculateDerivedPosition(QGeoCoordinate point, double range, double bearing);
 
         double degreeToRadians(double degree);
 
@@ -54,9 +55,9 @@ namespace fairwind::apps::portolano {
 
         void insertIntoList(QSqlQuery query);
 
-        bool pointIsInCircle(QJsonObject p1, QJsonObject p2);
+        bool pointIsInCircle(QGeoCoordinate p1, QGeoCoordinate p2);
 
-        double getDistanceBetweenTwoPoints(QJsonObject p1, QJsonObject p2);
+        double getDistanceBetweenTwoPoints(QGeoCoordinate p1, QGeoCoordinate p2);
     };
 } // fairwind::appls::portolano
 

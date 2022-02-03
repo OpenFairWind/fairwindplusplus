@@ -16,6 +16,8 @@
 #include "ResultItem.hpp"
 #include "Portolano.hpp"
 
+// TODO: query only if is moving
+
 namespace fairwind::apps::portolano {
     MainPage::MainPage(QWidget *parent, FairWindApp *fairWindApp) :
             PageBase(parent, fairWindApp), ui(new Ui::MainPage) {
@@ -28,13 +30,12 @@ namespace fairwind::apps::portolano {
 
         // Get app config
         auto config = fairWindApp->getConfig();
-        mConfig = config;
 
         ui->setupUi((QWidget *)this);
 
         // Set values from config
-        ui->checkBox_Range->setChecked(config.value("userRange").toBool());
-        ui->doubleSpinBox_Range->setValue(config.value("range").toDouble());
+        ui->checkBox_Range->setChecked(config["userRange"].toBool());
+        ui->doubleSpinBox_Range->setValue(config["range"].toDouble());
 
         // Get the signalk document's string
         QString self = signalKDocument->getSelf();
@@ -54,20 +55,26 @@ namespace fairwind::apps::portolano {
 
     void MainPage::onNumberTextChanged(const QString &text) {
         qDebug() << "MainPage::onNumberTextChanged()";
-        mConfig["range"] = text.toDouble();
-        getFairWindApp()->setConfig(mConfig);
+        // Get app config
+        auto config = getFairWindApp()->getConfig();
+        config["range"] = text.toDouble();
+        getFairWindApp()->setConfig(config);
     }
 
     void MainPage::onNumberSelectChanged(double value) {
         qDebug() << "MainPage::onNumberSelectChanged()";
-        mConfig["range"] = value;
-        getFairWindApp()->setConfig(mConfig);
+        // Get app config
+        auto config = getFairWindApp()->getConfig();
+        config["range"] = value;
+        getFairWindApp()->setConfig(config);
     }
 
     void MainPage::onBoolChanged(int state) {
         qDebug() << "MainPage::onBoolChanged: state: " << state;
-        mConfig["userRange"] = static_cast<bool>(state);
-        getFairWindApp()->setConfig(mConfig);
+        // Get app config
+        auto config = getFairWindApp()->getConfig();
+        config["userRange"] = static_cast<bool>(state);
+        getFairWindApp()->setConfig(config);
     }
 
     void MainPage::insertIntoList(QSqlQuery query){
@@ -76,15 +83,12 @@ namespace fairwind::apps::portolano {
             double lat = query.value(3).toDouble();
             double lon = query.value(2).toDouble();
 
-            QJsonObject currentPoint{
-                    {"lat", lat},
-                    {"lon", lon}
-            };
+            QGeoCoordinate currentPoint(lat, lon);
 
             QString strJsonFeature = query.value(4).toString();
             QJsonDocument doc = QJsonDocument::fromJson(strJsonFeature.toLatin1());
 
-            if (!mConfig.value("userRange").toBool() || (mConfig.value("userRange").toBool() && pointIsInCircle(currentPoint, mPosition))){
+            if (!ui->checkBox_Range->isChecked() || (ui->checkBox_Range->isChecked() && pointIsInCircle(currentPoint, mPosition))){
                 auto widget = new ResultItem(ui->listWidget_Results, doc.object());
                 widget->setMinimumWidth(150);
 
@@ -98,9 +102,13 @@ namespace fairwind::apps::portolano {
     }
 
     void MainPage::onEditTextChanged(const QString &text) {
-        mConfig["userRange"] = false;
-        ui->checkBox_Range->setChecked(mConfig.value("userRange").toBool());
-        getFairWindApp()->setConfig(mConfig);
+        if (ui->checkBox_Range->isChecked()){
+            // Get app config
+            auto config = getFairWindApp()->getConfig();
+            config["userRange"] = false;
+            ui->checkBox_Range->setChecked(false);
+            getFairWindApp()->setConfig(config);
+        }
 
         auto *fairWindApp = (Portolano *)getFairWindApp();
         auto db = fairWindApp->getDb();
@@ -116,12 +124,12 @@ namespace fairwind::apps::portolano {
     }
 
     void MainPage::updateNavigationPosition(const QJsonObject update) {
-        if (mConfig.value("userRange").toBool()){
-            qDebug() << "MainPage::updateNavigationPosition";
+        if (ui->checkBox_Range->isChecked()){
 
-            mPosition = update["updates"][0]["values"][0]["value"].toObject();
+            mPosition.setLatitude(update["updates"][0]["values"][0]["value"].toObject()["latitude"].toDouble());
+            mPosition.setLongitude(update["updates"][0]["values"][0]["value"].toObject()["longitude"].toDouble());
 
-            radius = mConfig.value("range").toDouble() * 1000; // m
+            radius = ui->doubleSpinBox_Range->value() * 1000; // m
             double mult = 1.1;
             auto p1 = calculateDerivedPosition(mPosition, mult * radius, 0);
             auto p2 = calculateDerivedPosition(mPosition, mult *radius, 90);
@@ -132,9 +140,9 @@ namespace fairwind::apps::portolano {
             auto db = fairWindApp->getDb();
             if (db->open()) {
                 QSqlQuery query(*db);
-                QString q = QString("SELECT * FROM ports WHERE lat > %1 AND lat < %2 AND lon < %3 AND lon < %4;")
-                        .arg(p3.value("lat").toDouble()).arg(p1.value("lat").toDouble())
-                        .arg(p2.value("lon").toDouble()).arg(p4.value("lon").toDouble());
+                QString q = QString("SELECT * FROM ports WHERE lat > %1 AND lat < %2 AND lon < %3 AND lon > %4;")
+                        .arg(p3.latitude()).arg(p1.latitude())
+                        .arg(p2.longitude()).arg(p4.longitude());
                 query.prepare(q);
                 query.exec();
 
@@ -145,12 +153,12 @@ namespace fairwind::apps::portolano {
 
     // Private functions
 
-    double MainPage::getDistanceBetweenTwoPoints(QJsonObject p1, QJsonObject p2){
+    double MainPage::getDistanceBetweenTwoPoints(QGeoCoordinate p1, QGeoCoordinate p2){
         double R = 6378137; //m
-        double dLat = degreeToRadians(p2.value("lat").toDouble() - p1.value("lat").toDouble());
-        double dLon = degreeToRadians(p2.value("lon").toDouble() - p1.value("lon").toDouble());
-        double lat1 = degreeToRadians(p1.value("lat").toDouble());
-        double lat2 = degreeToRadians(p2.value("lat").toDouble());
+        double dLat = degreeToRadians(p2.latitude() - p1.latitude());
+        double dLon = degreeToRadians(p2.longitude() - p1.longitude());
+        double lat1 = degreeToRadians(p1.latitude());
+        double lat2 = degreeToRadians(p2.latitude());
 
         double a = sin(dLat / 2) * sin(dLat / 2) + sin(dLon / 2) * sin(dLon / 2) * cos(lat1) * cos(lat2);
         double c = 2 * atan2(sqrt(a), sqrt(1 - a));
@@ -159,7 +167,7 @@ namespace fairwind::apps::portolano {
         return d;
     }
 
-    bool MainPage::pointIsInCircle(QJsonObject p1, QJsonObject p2) {
+    bool MainPage::pointIsInCircle(QGeoCoordinate p1, QGeoCoordinate p2) {
         if (getDistanceBetweenTwoPoints(p1, p2) <= radius)
             return true;
         else
@@ -174,11 +182,11 @@ namespace fairwind::apps::portolano {
         return (radians * (180 / M_PI));
     }
 
-    QJsonObject MainPage::calculateDerivedPosition(QJsonObject point, double radius, double bearing) {
+    QGeoCoordinate MainPage::calculateDerivedPosition(QGeoCoordinate point, double radius, double bearing) {
         double EarthRadius = 6378137; // m
 
-        double latA = degreeToRadians(point["latitude"].toDouble());
-        double lonA = degreeToRadians(point["longitude"].toDouble());
+        double latA = degreeToRadians(point.latitude());
+        double lonA = degreeToRadians(point.longitude());
         double trueCourse = degreeToRadians(bearing);
 
         double angularDistance = radius / EarthRadius;
@@ -192,11 +200,16 @@ namespace fairwind::apps::portolano {
         lat = radiansToDegree(lat);
         lon = radiansToDegree(lon);
 
-        QJsonObject new_point{
-            {"lat", lat},
-            {"lon", lon}
-        };
+        QGeoCoordinate new_point(lat, lon);
 
         return new_point;
+    }
+
+    void MainPage::onResume() {
+        // Get app config
+        auto config = getFairWindApp()->getConfig();
+
+        ui->checkBox_Range->setChecked(config["userRange"].toBool());
+        ui->doubleSpinBox_Range->setValue(config["range"].toDouble());
     }
 } // fairwind::appls::portolano
