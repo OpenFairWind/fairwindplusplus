@@ -29,44 +29,30 @@ namespace fairwind::apps::launcherax10m {
         auto buttonLeft = ui->toolButton_Left;
         auto buttonRight = ui->toolButton_Right;
 
+        int minSize = 64;
+        int screenHeight = QGuiApplication::primaryScreen()->geometry().height();
+        int iconSize =  ((minSize * screenHeight) / 480) * screenHeight / 480;
+
         // Set the grid layout to have 4 columns and two rows
         int cols = 4, rows = 2;
 
         // Iterate on the columns
         for (int col = 0; col < cols; col++) {
             // Set the column width for each column
-            layout->setColumnMinimumWidth(col, 64);
+            layout->setColumnMinimumWidth(col, minSize);
         }
 
         // Iterate on the rows
         for (int row = 0; row < rows; row++) {
             // Set the row height for each row
-            layout->setRowMinimumHeight(row, 64);
+            layout->setRowMinimumHeight(row, minSize);
         }
 
         int row = 0, col = 0, page = 0;
 
         // Get the FairWind singleton
         auto fairWind = fairwind::FairWind::getInstance();
-        // Get the available apps list from the FairWind singleton itself
-        //auto apps = fairWind->getApps();
 
-        int screenHeight = QGuiApplication::primaryScreen()->geometry().height();
-        int size = (64 * screenHeight) / 480;
-
-        /*
-        QMap<QString, AppItem *> hashes;
-
-        // Iterate on the available apps' hash values
-        for (auto &hash: fairWind->getExtensionsHashes()) {
-            // Get the hash value
-            auto app = fairWind->getAppItemByHash(hash);
-            // Check if the app is active
-            if (app->getActive()) {
-                hashes[hash] = app;
-            }
-        }
-        */
         // Order by order value
         QList<QPair<AppItem *, QString>> hashPairs;
 
@@ -91,18 +77,25 @@ namespace fairwind::apps::launcherax10m {
 
             // Create a new button
             auto *button = new QToolButton();
+
             // Set the app's hash value as the button's object name
             button->setObjectName("toolbutton_" + hash);
+
             // Set the app's name as the button's text
             button->setText(app->getName());
+
             // Get the app's icon
             QImage icon = app->getIcon();
+
             // Set the app's icon as the button's icon
             button->setIcon(QPixmap::fromImage(icon));
-            // Give the button's icon a fixed square size of 256x256
-            button->setIconSize(QSize(size * screenHeight / 480, size * screenHeight / 480));
+
+            // Give the button's icon a fixed square
+            button->setIconSize(QSize(iconSize, iconSize));
+
             // Set the button's style to have an icon and some text beneath it
             button->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
             // Launch the app when the button is clicked
             connect(button, &QToolButton::released, this, &MainPage::toolButton_App_released);
 
@@ -117,12 +110,16 @@ namespace fairwind::apps::launcherax10m {
             }
         }
 
-        connect(buttonLeft, static_cast<void (QToolButton::*)(bool state)>(&QToolButton::clicked), this, [scrollArea, size, screenHeight]() {
-            scrollArea->horizontalScrollBar()->setValue(scrollArea->horizontalScrollBar()->value() - (size * screenHeight / 480) * 2);
+        // Right scroll
+        connect(buttonLeft, static_cast<void (QToolButton::*)(bool state)>(&QToolButton::clicked), this, [scrollArea, iconSize]() {
+            scrollArea->horizontalScrollBar()->setValue(scrollArea->horizontalScrollBar()->value() - iconSize * 2);
         });
-        connect(buttonRight, static_cast<void (QToolButton::*)(bool state)>(&QToolButton::clicked), this, [scrollArea, size, screenHeight]() {
-            scrollArea->horizontalScrollBar()->setValue(scrollArea->horizontalScrollBar()->value() + (size * screenHeight / 480) * 2);
+
+        // Left scroll
+        connect(buttonRight, static_cast<void (QToolButton::*)(bool state)>(&QToolButton::clicked), this, [scrollArea, iconSize]() {
+            scrollArea->horizontalScrollBar()->setValue(scrollArea->horizontalScrollBar()->value() + iconSize * 2);
         });
+
     }
 
     MainPage::~MainPage() {
