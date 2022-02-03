@@ -83,6 +83,7 @@ namespace fairwind::apps {
         void show(QWidget *page);
         void remove(const QString& route);
         void remove(QWidget *page);
+        QWidget *get(const QString& route = "/");
 
         QString getRoute();
         QMap<QString, QVariant> getArgs();

@@ -362,6 +362,13 @@ void fairwind::apps::FairWindApp::show(const QString& route) {
     }
 }
 
+QWidget * fairwind::apps::FairWindApp::get(const QString &route) {
+    if (m_mapWidget.contains(route)) {
+        return m_mapWidget[route];
+    }
+    return nullptr;
+}
+
 fairwind::apps::FairWindApp::~FairWindApp() {
     //delete m_widget;
 }
