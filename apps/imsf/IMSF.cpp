@@ -21,13 +21,15 @@ void fairwind::apps::imsf::IMSF::onStart() {
 }
 
 
-void fairwind::apps::imsf::IMSF::onCreate() {}
+void fairwind::apps::imsf::IMSF::onCreate() { FairWindApp::onCreate(); }
 
-void fairwind::apps::imsf::IMSF::onResume() {}
+void fairwind::apps::imsf::IMSF::onResume() { FairWindApp::onResume(); }
 
-void fairwind::apps::imsf::IMSF::onPause() {}
+void fairwind::apps::imsf::IMSF::onPause() { FairWindApp::onPause(); }
 
-void fairwind::apps::imsf::IMSF::onStop() {}
+void fairwind::apps::imsf::IMSF::onStop() { FairWindApp::onStop(); }
 
-void fairwind::apps::imsf::IMSF::onDestroy() {}
+void fairwind::apps::imsf::IMSF::onDestroy() { FairWindApp::onDestroy();}
+
+void fairwind::apps::imsf::IMSF::onConfigChanged() {FairWindApp::onConfigChanged();}
 
