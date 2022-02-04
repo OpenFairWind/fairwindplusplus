@@ -14,6 +14,8 @@ namespace fairwind::apps::portolano {
             QWidget(parent), ui(new Ui::ResultItem), mFeature(feature) {
         ui->setupUi(this);
 
+        // qDebug() << "fairwind::apps::portolano: " << feature;
+
         if (mFeature.contains("properties") && mFeature["properties"].isObject()) {
             auto jsonObjectProperties = mFeature["properties"].toObject();
 
@@ -48,6 +50,11 @@ namespace fairwind::apps::portolano {
                         }
                     }
                 }
+            }
+
+            if (jsonObjectProperties.contains("dist") && jsonObjectProperties["dist"].isDouble()){
+                auto dist = jsonObjectProperties["dist"].toDouble();
+                ui->label_Dist->setText(QString::number(dist/1852));
             }
         }
     }

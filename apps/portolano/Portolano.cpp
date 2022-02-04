@@ -132,9 +132,6 @@ namespace fairwind::apps::portolano {
 
     void Portolano::onResume() {
         FairWindApp::onResume();
-
-        MainPage *mainPage = dynamic_cast<MainPage *>(get());
-        mainPage->onResume();
     }
 
     void Portolano::onPause() {

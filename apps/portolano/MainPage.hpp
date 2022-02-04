@@ -49,7 +49,7 @@ namespace fairwind::apps::portolano {
 
         double radius;
 
-        const double mile = 1852;
+        const double mNm2m = 1852;
 
         QGeoCoordinate calculateDerivedPosition(QGeoCoordinate point, double range, double bearing);
 

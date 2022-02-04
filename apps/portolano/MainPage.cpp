@@ -87,6 +87,9 @@ namespace fairwind::apps::portolano {
 
     void MainPage::insertIntoList(QSqlQuery query){
         ui->listWidget_Results->clear();
+
+        QMap<double, QJsonObject> map;
+
         while (query.next()) {
             double lat = query.value(3).toDouble();
             double lon = query.value(2).toDouble();
@@ -96,16 +99,29 @@ namespace fairwind::apps::portolano {
             QString strJsonFeature = query.value(4).toString();
             QJsonDocument doc = QJsonDocument::fromJson(strJsonFeature.toLatin1());
 
-            if (!ui->checkBox_Range->isChecked() || (ui->checkBox_Range->isChecked() && pointIsInCircle(currentPoint, mPosition))){
-                auto widget = new ResultItem(ui->listWidget_Results, doc.object());
-                widget->setMinimumWidth(150);
+            double dist = getDistanceBetweenTwoPoints(currentPoint, mPosition);
 
-                auto listWidgetItem = new QListWidgetItem();
-                listWidgetItem->setSizeHint(widget->sizeHint());
-
-                ui->listWidget_Results->addItem(listWidgetItem);
-                ui->listWidget_Results->setItemWidget(listWidgetItem, widget);
+            if (!ui->checkBox_Range->isChecked() || (ui->checkBox_Range->isChecked() && dist <= radius)){
+                auto item = doc.object();
+                if (item.contains("properties") && item["properties"].isObject()){
+                    auto tmp = item["properties"].toObject();
+                    tmp["dist"] = dist;
+                    item["properties"] = tmp;
+                }
+                map[dist] = item;
             }
+        }
+
+        for (auto item: map) {
+            // qDebug() << "MainPage::insertIntoList: item: " << item;
+            auto widget = new ResultItem(ui->listWidget_Results, item);
+            widget->setMinimumWidth(150);
+
+            auto listWidgetItem = new QListWidgetItem();
+            listWidgetItem->setSizeHint(widget->sizeHint());
+
+            ui->listWidget_Results->addItem(listWidgetItem);
+            ui->listWidget_Results->setItemWidget(listWidgetItem, widget);
         }
     }
 
@@ -136,8 +152,8 @@ namespace fairwind::apps::portolano {
             mPosition.setLatitude(update["updates"][0]["values"][0]["value"].toObject()["latitude"].toDouble());
             mPosition.setLongitude(update["updates"][0]["values"][0]["value"].toObject()["longitude"].toDouble());
 
-            if (getDistanceBetweenTwoPoints(oldPosition, mPosition) >= (ui->doubleSpinBox_Range->value()) * mile /2){
-                radius = ui->doubleSpinBox_Range->value() * mile; // m
+            if (getDistanceBetweenTwoPoints(oldPosition, mPosition) >= (ui->doubleSpinBox_Range->value()) * mNm2m /2){
+                radius = ui->doubleSpinBox_Range->value() * mNm2m; // m
                 double mult = 1.1;
                 auto p1 = calculateDerivedPosition(mPosition, mult * radius, 0);
                 auto p2 = calculateDerivedPosition(mPosition, mult *radius, 90);
