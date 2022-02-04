@@ -5,13 +5,11 @@
 // You may need to build the project (run Qt uic code generator) to get "ui_Warning.h" resolved
 
 #include <IFairWindApp.hpp>
-#include <ui/Warning.hpp>
-
-#include "FairWindSdk/ui/Warning.hpp"
+#include <FairWindSdk/ui/Warning.hpp>
 #include "ui_Warning.h"
 
 namespace fairwind::ui {
-    Warning::Warning(QWidget *parent, fairwind::apps::FairWindApp *appBase, QString message, QString details) :
+    Warning::Warning(PageBase *parent, fairwind::apps::FairWindApp *appBase, QString message, QString details) :
             PageBase(parent, appBase), ui(new Ui::Warning) {
         ui->setupUi(this);
 
@@ -26,7 +24,7 @@ namespace fairwind::ui {
     }
 
     void Warning::onAccepted() {
-        getFairWindApp()->remove(this);
+        getFairWindApp()->remove((PageBase *)this);
     }
 
 

@@ -6,18 +6,18 @@
 #define FAIRWIND_WARNING_HPP
 
 #include <QWidget>
-#include <PageBase.hpp>
+#include <FairWindSdk/PageBase.hpp>
 
 namespace fairwind::ui {
     QT_BEGIN_NAMESPACE
     namespace Ui { class Warning; }
     QT_END_NAMESPACE
 
-    class Warning : public PageBase {
+    class Warning : public apps::PageBase {
     Q_OBJECT
 
     public:
-        explicit Warning(QWidget *parent = nullptr, apps::FairWindApp *appBase = nullptr, QString message = "Warning", QString details = "");
+        explicit Warning(PageBase *parent = nullptr, apps::FairWindApp *appBase = nullptr, QString message = "Warning", QString details = "");
 
         ~Warning() override;
 
