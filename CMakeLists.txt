@@ -32,8 +32,8 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 set(QT_VERSION 5)
-set(REQUIRED_LIBS Core Gui Widgets Network WebSockets Xml)
-set(REQUIRED_LIBS_QUALIFIED Qt${QT_VERSION}::Core Qt${QT_VERSION}::Gui Qt${QT_VERSION}::Widgets Qt${QT_VERSION}::Network Qt${QT_VERSION}::WebSockets Qt${QT_VERSION}::Xml)
+set(REQUIRED_LIBS Core Gui Widgets Network WebSockets Xml Positioning)
+set(REQUIRED_LIBS_QUALIFIED Qt${QT_VERSION}::Core Qt${QT_VERSION}::Gui Qt${QT_VERSION}::Widgets Qt${QT_VERSION}::Network Qt${QT_VERSION}::WebSockets Qt${QT_VERSION}::Xml Qt${QT_VERSION}::Positioning)
 
 find_package(Qt${QT_VERSION} COMPONENTS ${REQUIRED_LIBS} REQUIRED)
 

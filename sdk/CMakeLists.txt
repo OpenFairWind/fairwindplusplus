@@ -6,6 +6,7 @@ find_package(Qt${QT_VERSION} REQUIRED COMPONENTS
         Network
         Widgets
         WebSockets
+        Positioning
         )
 
 
