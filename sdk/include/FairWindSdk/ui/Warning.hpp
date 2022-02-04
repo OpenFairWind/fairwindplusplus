@@ -2,8 +2,8 @@
 // Created by Raffaele Montella on 13/01/22.
 //
 
-#ifndef FAIRWIND_WARNING_HPP
-#define FAIRWIND_WARNING_HPP
+#ifndef FAIRWIND_UI_WARNING_HPP
+#define FAIRWIND_UI_WARNING_HPP
 
 #include <QWidget>
 #include <FairWindSdk/PageBase.hpp>
@@ -29,4 +29,4 @@ namespace fairwind::ui {
     };
 } // fairwind::ui
 
-#endif //FAIRWIND_WARNING_HPP
+#endif //FAIRWIND_UI_WARNING_HPP

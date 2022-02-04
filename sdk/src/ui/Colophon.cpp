@@ -4,11 +4,14 @@
 
 // You may need to build the project (run Qt uic code generator) to get "ui_ColophonPage.h" resolved
 
+#include <IFairWindApp.hpp>
 #include <FairWindSdk/ui/Colophon.hpp>
 #include "ui_Colophon.h"
 
+
 namespace fairwind::ui {
-    Colophon::Colophon(QWidget *parent, fairwind::apps::FairWindApp *appBase) :
+
+    Colophon::Colophon(PageBase *parent, fairwind::apps::FairWindApp *appBase) :
             PageBase(parent, appBase), ui(new Ui::Colophon) {
         ui->setupUi(this);
 
@@ -30,4 +33,6 @@ namespace fairwind::ui {
     void Colophon::onAccepted() {
         getFairWindApp()->remove(this);
     }
+
+
 } // fairwind::apps::imsf
