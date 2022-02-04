@@ -29,6 +29,8 @@ namespace fairwind::apps::portolano {
         void onStop() override;
         void onDestroy() override;
 
+        void onConfigChanged() override;
+
         QSqlDatabase *getDb();
 
     private:

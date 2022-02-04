@@ -28,6 +28,7 @@ namespace fairwind::apps::radar {
         void onStop() override;
         void onDestroy() override;
 
+        void onConfigChanged() override;
     private:
 
     };

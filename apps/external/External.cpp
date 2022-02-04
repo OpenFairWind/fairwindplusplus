@@ -23,8 +23,9 @@ void fairwind::apps::external::External::onStart() {
     }
 }
 
-void fairwind::apps::external::External::onCreate() {}
-void fairwind::apps::external::External::onResume() {}
-void fairwind::apps::external::External::onPause() {}
-void fairwind::apps::external::External::onStop() {}
-void fairwind::apps::external::External::onDestroy() {}
+void fairwind::apps::external::External::onCreate() { FairWindApp::onCreate();}
+void fairwind::apps::external::External::onResume() { FairWindApp::onResume();}
+void fairwind::apps::external::External::onPause() { FairWindApp::onPause();}
+void fairwind::apps::external::External::onStop() { FairWindApp::onStop();}
+void fairwind::apps::external::External::onDestroy() { FairWindApp::onDestroy();}
+void fairwind::apps::external::External::onConfigChanged() { FairWindApp::onConfigChanged();}

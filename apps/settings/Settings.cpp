@@ -75,4 +75,10 @@ namespace fairwind::apps::settings {
         FairWindApp::onDestroy();
     }
 
+    // Called when the app is going to be unloaded once and forever
+    void Settings::onConfigChanged() {
+
+        // Call the framework onDestroy()
+        FairWindApp::onConfigChanged();
+    }
 } // fairwind::apps::settings

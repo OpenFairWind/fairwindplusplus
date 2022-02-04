@@ -28,6 +28,8 @@ namespace fairwind::apps::video {
         void onStop() override;
         void onDestroy() override;
 
+        void onConfigChanged() override;
+
     private:
     };
 }

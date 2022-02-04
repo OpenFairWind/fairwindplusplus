@@ -28,6 +28,8 @@ namespace fairwind::apps::weather {
         void onStop() override;
         void onDestroy() override;
 
+        void onConfigChanged() override;
+
     private:
 
     };

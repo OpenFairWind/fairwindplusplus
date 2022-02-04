@@ -29,6 +29,8 @@ namespace it::gov::guardiacostiera::gc1530 {
         void onStop() override;
         void onDestroy() override;
 
+        void onConfigChanged() override;
+
         QString getHomeUrl();
 
     private:

@@ -30,6 +30,7 @@ namespace fairwind::apps::entertainment {
         void onStop() override;
         void onDestroy() override;
 
+        void onConfigChanged() override;
     };
 }
 

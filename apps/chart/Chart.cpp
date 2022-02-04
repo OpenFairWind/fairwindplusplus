@@ -28,15 +28,21 @@ void fairwind::apps::chart::Chart::onCreate() {
 }
 
 void fairwind::apps::chart::Chart::onResume() {
+    FairWindApp::onResume();
 }
 
 void fairwind::apps::chart::Chart::onPause() {
+    FairWindApp::onPause();
 }
 
 void fairwind::apps::chart::Chart::onStop() {
+    FairWindApp::onStop();
 }
 
 void fairwind::apps::chart::Chart::onDestroy() {
+    FairWindApp::onDestroy();
 }
 
-
+void fairwind::apps::chart::Chart::onConfigChanged() {
+    FairWindApp::onConfigChanged();
+}

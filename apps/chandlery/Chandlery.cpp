@@ -22,17 +22,26 @@ void fairwind::apps::chandlery::Chandlery::onStart() {
 }
 
 void fairwind::apps::chandlery::Chandlery::onCreate() {
+    FairWindApp::onCreate();
 }
 
 void fairwind::apps::chandlery::Chandlery::onResume()  {
+    FairWindApp::onResume();
 }
 
 void fairwind::apps::chandlery::Chandlery::onPause()  {
+    FairWindApp::onPause();
 }
 
 void fairwind::apps::chandlery::Chandlery::onStop()  {
+    FairWindApp::onStop();
 }
 
 void fairwind::apps::chandlery::Chandlery::onDestroy()  {
+    FairWindApp::onDestroy();
+}
+
+void fairwind::apps::chandlery::Chandlery::onConfigChanged()  {
+    FairWindApp::onConfigChanged();
 }
 

@@ -27,6 +27,8 @@ namespace fairwind::apps::settings {
         void onStop() override;
         void onDestroy() override;
 
+        void onConfigChanged() override;
+
     private:
 
     };

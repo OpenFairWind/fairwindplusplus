@@ -151,6 +151,10 @@ namespace fairwind::apps::portolano {
         FairWindApp::onDestroy();
     }
 
+    void Portolano::onConfigChanged() {
+        FairWindApp::onConfigChanged();
+    }
+
     QSqlDatabase *Portolano::getDb() {
         return &mDb;
     }

@@ -28,6 +28,7 @@ namespace fairwind::apps::launcherax10m {
         void onStop() override;
         void onDestroy() override;
 
+        void onConfigChanged() override;
     public
         slots:
         void setForegroundApp(QString hash);

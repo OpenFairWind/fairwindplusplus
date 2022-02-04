@@ -37,3 +37,7 @@ void fairwind::apps::video::Video::onStop() {
 void fairwind::apps::video::Video::onDestroy() {
     FairWindApp::onDestroy();
 }
+
+void fairwind::apps::video::Video::onConfigChanged() {
+    FairWindApp::onConfigChanged();
+}
