@@ -9,7 +9,7 @@
 #include <QString>
 #include <QImage>
 #include <QMainWindow>
-#include "FairWindApp.hpp"
+#include <FairWindSdk/FairWindApp.hpp>
 
 #define IID_FAIRWIND_APPS "it.uniparthenope.fairwind.apps"
 
@@ -40,6 +40,9 @@ namespace fairwind::apps {
 
         // Finalization method
         virtual void onDestroy() = 0;
+
+        // Called when settings are set
+        virtual void onConfigChanged() = 0;
     };
 }
 
