@@ -79,6 +79,9 @@ void fairwind::apps::FairWindApp::setConfig(QJsonObject config) {
 
     // Write the config file
     appConfigFile.write(jsonDocument.toJson());
+
+    // Notify the application the config changed
+    onConfigChanged();
 }
 
 /*
@@ -326,19 +329,41 @@ void fairwind::apps::FairWindApp::onStart() {
 
 }
 
-void fairwind::apps::FairWindApp::onResume()  {}
+void fairwind::apps::FairWindApp::onResume()  {
+    for(auto item:m_mapWidget) {
+        item->onResume();
+    }
+}
 
-void fairwind::apps::FairWindApp::onPause()  {}
+void fairwind::apps::FairWindApp::onPause()  {
+    for(auto item:m_mapWidget) {
+        item->onPause();
+    }
+}
 
-void fairwind::apps::FairWindApp::onStop()  {}
+void fairwind::apps::FairWindApp::onStop()  {
+    for(auto item:m_mapWidget) {
+        item->onStop();
+    }
+}
 
-void fairwind::apps::FairWindApp::onDestroy()  {}
+void fairwind::apps::FairWindApp::onDestroy()  {
+    for(auto item:m_mapWidget) {
+        item->onDestroy();
+    }
+}
+
+void fairwind::apps::FairWindApp::onConfigChanged() {
+    for(auto item:m_mapWidget) {
+        item->onConfigChanged();
+    }
+}
 
 QWidget *fairwind::apps::FairWindApp::getWidget() {
     return m_widget;
 }
 
-void fairwind::apps::FairWindApp::add(QWidget *page, const QString& route) {
+void fairwind::apps::FairWindApp::add(PageBase *page, const QString& route) {
     if (page) {
         auto stackedWidget = m_widget->findChild<QStackedWidget *>("container");
 
@@ -349,7 +374,7 @@ void fairwind::apps::FairWindApp::add(QWidget *page, const QString& route) {
     }
 }
 
-void fairwind::apps::FairWindApp::show(QWidget *page) {
+void fairwind::apps::FairWindApp::show(PageBase *page) {
     auto stackedWidget = m_widget->findChild<QStackedWidget *>("container");
     if (stackedWidget) {
         stackedWidget->setCurrentWidget(page);
@@ -362,7 +387,7 @@ void fairwind::apps::FairWindApp::show(const QString& route) {
     }
 }
 
-QWidget * fairwind::apps::FairWindApp::get(const QString &route) {
+fairwind::apps::PageBase *fairwind::apps::FairWindApp::get(const QString &route) {
     if (m_mapWidget.contains(route)) {
         return m_mapWidget[route];
     }
@@ -439,7 +464,7 @@ void fairwind::apps::FairWindApp::remove(const QString& route) {
     }
 }
 
-void fairwind::apps::FairWindApp::remove(QWidget *page) {
+void fairwind::apps::FairWindApp::remove(PageBase *page) {
     auto stackedWidget = m_widget->findChild<QStackedWidget *>("container");
     if (stackedWidget) {
         QString route = "";

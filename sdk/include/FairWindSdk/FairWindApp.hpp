@@ -10,7 +10,10 @@
 #include <FairWindSdk/util/ExtendedJsonSchema.hpp>
 
 
+
 namespace fairwind::apps {
+
+    class PageBase;
 
     class FAIRWINDSDK_LIB_DECL FairWindApp: public QObject{
     Q_OBJECT
@@ -60,6 +63,9 @@ namespace fairwind::apps {
         // Called when the app is going to be unloaded by the system
         virtual void onDestroy();
 
+        // Called when config is set
+        virtual void onConfigChanged();
+
         // Get the config.json content
         virtual QJsonObject getConfig();
 
@@ -78,12 +84,12 @@ namespace fairwind::apps {
         virtual QString getCategory();
 
         QWidget *getWidget();
-        void add(QWidget *page, const QString& route = "/");
+        void add(PageBase *page, const QString& route = "/");
         void show(const QString& route = "/");
-        void show(QWidget *page);
+        void show(PageBase *page);
         void remove(const QString& route);
-        void remove(QWidget *page);
-        QWidget *get(const QString& route = "/");
+        void remove(PageBase *page);
+        PageBase *get(const QString& route = "/");
 
         QString getRoute();
         QMap<QString, QVariant> getArgs();
@@ -103,7 +109,7 @@ namespace fairwind::apps {
 
     private:
         QWidget *m_widget;
-        QMap<QString,QWidget *> m_mapWidget;
+        QMap<QString,PageBase *> m_mapWidget;
 
         // The metadata embedded with the app
         QJsonObject m_metaData;
