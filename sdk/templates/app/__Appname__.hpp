@@ -11,7 +11,7 @@
 
 
 namespace __namespace__ {
-    class __Appname__ : public IFairWindApp {
+    class __Appname__ : public fairwind::apps::IFairWindApp {
     Q_OBJECT
         Q_PLUGIN_METADATA(IID IID_FAIRWIND_APPS FILE "manifest.json")
         Q_INTERFACES(fairwind::apps::IFairWindApp)
@@ -27,6 +27,7 @@ namespace __namespace__ {
         void onStop() override;
         void onDestroy() override;
 
+        void onConfigChanged() override;
     private:
 
     };
