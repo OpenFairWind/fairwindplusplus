@@ -17,7 +17,7 @@ namespace fairwind::apps::web {
     namespace Ui { class MainPage; }
     QT_END_NAMESPACE
 
-    class MainPage : public fairwind::PageBase {
+    class MainPage : public fairwind::apps::PageBase {
     Q_OBJECT
 
     public:

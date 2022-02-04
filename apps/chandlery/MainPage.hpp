@@ -13,7 +13,7 @@ namespace fairwind::apps::chandlery {
     namespace Ui { class MainPage; }
     QT_END_NAMESPACE
 
-    class MainPage : public PageBase {
+    class MainPage : public fairwind::apps::PageBase {
     Q_OBJECT
 
     public:
