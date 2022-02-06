@@ -19,36 +19,20 @@ namespace fairwind::apps::launcherax10m {
 
         ui->setupUi((QWidget *)this);
 
+        mCols = 4;
+        mRows = 2;
+
         // Create a new grid layout
         auto *layout = new QGridLayout(ui->scrollAreaWidgetContents);
-        auto scrollArea = ui->scrollArea;
+        layout->setContentsMargins(0,0,0,0);
+
+
         // Set the UI scroll area with the newly created layout
         ui->scrollAreaWidgetContents->setLayout(layout);
-        scrollArea->horizontalScrollBar()->setVisible(false);
+        ui->scrollArea->horizontalScrollBar()->setVisible(false);
 
-        auto buttonLeft = ui->toolButton_Left;
-        auto buttonRight = ui->toolButton_Right;
 
-        int minSize = 64;
-        int screenHeight = QGuiApplication::primaryScreen()->geometry().height();
-        int iconSize =  ((minSize * screenHeight) / 480) * screenHeight / 480;
-
-        // Set the grid layout to have 4 columns and two rows
-        int cols = 4, rows = 2;
-
-        // Iterate on the columns
-        for (int col = 0; col < cols; col++) {
-            // Set the column width for each column
-            layout->setColumnMinimumWidth(col, minSize);
-        }
-
-        // Iterate on the rows
-        for (int row = 0; row < rows; row++) {
-            // Set the row height for each row
-            layout->setRowMinimumHeight(row, minSize);
-        }
-
-        int row = 0, col = 0, page = 0;
+        int row = 0, col = 0;
 
         // Get the FairWind singleton
         auto fairWind = fairwind::FairWind::getInstance();
@@ -91,7 +75,7 @@ namespace fairwind::apps::launcherax10m {
             button->setIcon(QPixmap::fromImage(icon));
 
             // Give the button's icon a fixed square
-            button->setIconSize(QSize(iconSize, iconSize));
+            //button->setIconSize(QSize(iconSize, iconSize));
 
             // Set the button's style to have an icon and some text beneath it
             button->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
@@ -102,24 +86,24 @@ namespace fairwind::apps::launcherax10m {
             // Add the newly created button to the grid layout as a widget
             layout->addWidget(button, row, col);
 
+            // Store in buttons in a map
+            mButtons[hash] = button;
 
             row++;
-            if (row == rows) {
+            if (row == mRows) {
                 row = 0;
                 col++;
             }
         }
 
         // Right scroll
-        connect(buttonLeft, static_cast<void (QToolButton::*)(bool state)>(&QToolButton::clicked), this, [scrollArea, iconSize]() {
-            scrollArea->horizontalScrollBar()->setValue(scrollArea->horizontalScrollBar()->value() - iconSize * 2);
-        });
+        connect(ui->toolButton_Right, &QToolButton::clicked, this, &MainPage::onScrollRight);
 
         // Left scroll
-        connect(buttonRight, static_cast<void (QToolButton::*)(bool state)>(&QToolButton::clicked), this, [scrollArea, iconSize]() {
-            scrollArea->horizontalScrollBar()->setValue(scrollArea->horizontalScrollBar()->value() + iconSize * 2);
-        });
+        connect(ui->toolButton_Left, &QToolButton::clicked, this, &MainPage::onScrollLeft);
 
+        // Resize the icons
+        resize();
     }
 
     MainPage::~MainPage() {
@@ -143,6 +127,54 @@ namespace fairwind::apps::launcherax10m {
         qDebug() << "Apps - hash:" << hash;
         // Emit the signal to tell the MainWindow to update the UI and show the app with that particular hash value
         emit foregroundAppChanged(hash);
+    }
+
+    void MainPage::resizeEvent(QResizeEvent *event) {
+        QWidget::resizeEvent(event);
+
+        resize();
+    }
+
+    void MainPage::resize() {
+
+        int iconSize;
+        iconSize = height() / mRows;
+        iconSize = iconSize - 48*mRows;
+
+        auto *layout = (QGridLayout *)ui->scrollAreaWidgetContents->layout();
+
+        // Iterate on the columns
+        for (int col = 0; col < mCols; col++) {
+            // Set the column width for each column
+            layout->setColumnMinimumWidth(col, iconSize);
+        }
+
+        // Iterate on the rows
+        for (int row = 0; row < mRows; row++) {
+            // Set the row height for each row
+            layout->setRowMinimumHeight(row, iconSize);
+        }
+
+        for(auto button:mButtons) {
+            // Give the button's icon a fixed square
+            button->setIconSize(QSize(iconSize, iconSize));
+        }
+    }
+
+    void MainPage::onScrollLeft() {
+        if (mButtons.size()>0) {
+            ui->scrollArea->horizontalScrollBar()->setValue(
+                    ui->scrollArea->horizontalScrollBar()->value() - mButtons.first()->iconSize().width() * 2
+            );
+        }
+    }
+
+    void MainPage::onScrollRight() {
+        if (mButtons.size()>0) {
+            ui->scrollArea->horizontalScrollBar()->setValue(
+                    ui->scrollArea->horizontalScrollBar()->value() + mButtons.first()->iconSize().width() * 2
+            );
+        }
     }
 
 } // fairwind::apps::launcherax10m

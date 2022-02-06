@@ -25,14 +25,25 @@ namespace fairwind::apps::launcherax10m {
 
         ~MainPage() ;
 
+        void resizeEvent(QResizeEvent *event) override;
         void toolButton_App_released();
+
+    public slots:
+        void onScrollLeft();
+        void onScrollRight();
 
     signals:
 
         void foregroundAppChanged(const QString hash);
 
     private:
+        void resize();
+
+    private:
         Ui::MainPage *ui;
+        int mCols;
+        int mRows;
+        QMap<QString, QToolButton *> mButtons;
     };
 } // fairwind::apps::launcherax10m
 
