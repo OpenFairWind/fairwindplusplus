@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>979</width>
-    <height>337</height>
+    <height>163</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,11 +15,9 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
-    <layout class="QVBoxLayout" name="verticalLayout_0">
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_1">
+      <layout class="QHBoxLayout" name="horizontalLayout_Container">
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_1">
+        <layout class="QVBoxLayout" name="verticalLayout_Map">
          <item>
           <widget class="QLabel" name="label_Icon">
            <property name="sizePolicy">
@@ -36,57 +34,330 @@
         </layout>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
+        <layout class="QVBoxLayout" name="verticalLayout_Info">
          <item>
-          <widget class="QLabel" name="label_Name">
-           <property name="text">
-            <string/>
-           </property>
-           <property name="textFormat">
-            <enum>Qt::RichText</enum>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" name="horizontalLayout_Description_Contacts">
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_Description">
+             <item>
+              <widget class="QLabel" name="label_Name">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="textFormat">
+                <enum>Qt::RichText</enum>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QTextEdit" name="textEdit_Description">
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_Contacts">
+             <item>
+              <widget class="QLabel" name="label_Contacts">
+               <property name="text">
+                <string>Contacts</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QListWidget" name="listWidget_Contacts">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
          </item>
          <item>
-          <widget class="QTextEdit" name="textEdit_Description">
-           <property name="readOnly">
-            <bool>true</bool>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" name="horizontalLayout_Info">
+           <item>
+            <widget class="QGroupBox" name="groupBox_Vessel">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="title">
+              <string>Vessel (max, m)</string>
+             </property>
+             <widget class="QWidget" name="horizontalLayoutWidget_3">
+              <property name="geometry">
+               <rect>
+                <x>10</x>
+                <y>10</y>
+                <width>216</width>
+                <height>80</height>
+               </rect>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_Vessel">
+               <item>
+                <widget class="QLabel" name="label_Loa_value">
+                 <property name="text">
+                  <string>0</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_Bmax_value">
+                 <property name="text">
+                  <string>0</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_Maxh_value">
+                 <property name="text">
+                  <string>0</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_Maxh">
+                 <property name="text">
+                  <string>maxh:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_Bmax">
+                 <property name="text">
+                  <string>bmax:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_Loa">
+                 <property name="text">
+                  <string>loa:</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_Seafloor">
+             <property name="title">
+              <string>Seafloor (m)</string>
+             </property>
+             <widget class="QWidget" name="horizontalLayoutWidget">
+              <property name="geometry">
+               <rect>
+                <x>30</x>
+                <y>20</y>
+                <width>213</width>
+                <height>80</height>
+               </rect>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_Seafloor">
+               <item>
+                <widget class="QLabel" name="label_Max_value">
+                 <property name="text">
+                  <string>TextLabel</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QToolButton" name="toolButton_Seafloor_Type">
+                 <property name="text">
+                  <string>...</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QToolButton" name="toolButton_Seafloor_Kind">
+                 <property name="text">
+                  <string>...</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_Max">
+                 <property name="text">
+                  <string>max</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_Min">
+                 <property name="text">
+                  <string>min</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_Min_value">
+                 <property name="text">
+                  <string>0</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_Services">
+             <property name="title">
+              <string>Services</string>
+             </property>
+             <widget class="QWidget" name="horizontalLayoutWidget_2">
+              <property name="geometry">
+               <rect>
+                <x>10</x>
+                <y>10</y>
+                <width>160</width>
+                <height>80</height>
+               </rect>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_Services"/>
+             </widget>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_3">
+        <layout class="QVBoxLayout" name="verticalLayout_Data_Tools">
          <item>
-          <widget class="QLabel" name="label_Contacts">
-           <property name="text">
-            <string>Contacts</string>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" name="horizontalLayout_DTG">
+           <item>
+            <widget class="QLabel" name="label_DTG">
+             <property name="text">
+              <string>DTG:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_DTG_value">
+             <property name="text">
+              <string>0</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_DTG_unit">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>nm</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
          <item>
-          <widget class="QListWidget" name="listWidget_Contacts"/>
+          <layout class="QHBoxLayout" name="horizontalLayout_BTG">
+           <item>
+            <widget class="QLabel" name="label_BTG">
+             <property name="text">
+              <string>BTG:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_BTG_value">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_BTG_unit">
+             <property name="text">
+              <string>°</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout_4">
          <item>
-          <widget class="QLabel" name="label_Dist">
-           <property name="text">
-            <string>0</string>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" name="horizontalLayout_TTG">
+           <item>
+            <widget class="QLabel" name="label_TTG">
+             <property name="text">
+              <string>TTG:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_TTG_value">
+             <property name="text">
+              <string>00:00:00</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_ETA">
+           <item>
+            <widget class="QLabel" name="label_ETA">
+             <property name="text">
+              <string>ETA:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_ETA_value">
+             <property name="text">
+              <string>12:00:00</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_Tool">
+           <item>
+            <widget class="QToolButton" name="toolButton_Info">
+             <property name="text">
+              <string>Info</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="toolButton_Find">
+             <property name="text">
+              <string>Find</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="toolButton_Goto">
+             <property name="text">
+              <string>Goto</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
        </item>
       </layout>
-     </item>
-    </layout>
    </item>
   </layout>
  </widget>
