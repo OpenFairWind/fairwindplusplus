@@ -54,7 +54,7 @@ namespace fairwind::apps::portolano {
 
             if (jsonObjectProperties.contains("dist") && jsonObjectProperties["dist"].isDouble()){
                 auto dist = jsonObjectProperties["dist"].toDouble();
-                ui->label_Dist->setText(QString::number(dist/1852));
+                ui->label_TTG_value->setText(QString::number(dist/1852));
             }
         }
     }
