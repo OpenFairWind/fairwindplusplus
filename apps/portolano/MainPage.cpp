@@ -41,6 +41,7 @@ namespace fairwind::apps::portolano {
 
         // Get the signalk document's string
         QString self = signalKDocument->getSelf();
+
         // Subscribe to signalk and make sure that navigation infos are updated accordingly
         signalKDocument->subscribe(self + ".navigation.position.value", this, SLOT(fairwind::apps::portolano::updateNavigationPosition));
 
