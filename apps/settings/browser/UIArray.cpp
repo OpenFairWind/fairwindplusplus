@@ -37,7 +37,7 @@ namespace fairwind::apps::settings::browser {
             connect(uiItem, &UIItem::move, this, &UIArray::onMove);
             idx++;
         }
-        connect(ui->pushButton_Add, &QPushButton::clicked, this, &UIArray::onAdd);
+        connect(ui->pushButton_Add_Item, &QPushButton::clicked, this, &UIArray::onAdd);
     }
 
     UIArray::~UIArray() {

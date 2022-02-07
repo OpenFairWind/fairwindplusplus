@@ -48,7 +48,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_Add">
+         <widget class="QPushButton" name="pushButton_Add_Property">
           <property name="styleSheet">
            <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
           </property>
