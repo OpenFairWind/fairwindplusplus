@@ -38,26 +38,26 @@ namespace fairwind::apps::launcherax10m {
         auto fairWind = fairwind::FairWind::getInstance();
 
         // Order by order value
-        QList<QPair<AppItem *, QString>> hashPairs;
+        QMap<double, QPair<AppItem *, QString>> map;
 
         // Populate the inverted list
         for (auto &hash : fairWind->getExtensionsHashes()) {
             // Get the hash value
             auto app = fairWind->getAppItemByHash(hash);
+            auto position = app->getOrder();
+
             // Check if the app is active
             if (app->getActive()) {
-                hashPairs.append(QPair<AppItem *, QString>(app, hash));
+                map[position] = QPair<AppItem *, QString>(app, hash);
             }
 
         }
 
-        std::sort(std::begin(hashPairs), std::end(hashPairs));
-
         // Iterate on the available apps' hash values
-        for (auto &hashPair: hashPairs) {
+        for (auto item: map) {
             // Get the hash value
-            auto app = hashPair.first;
-            auto hash = hashPair.second;
+            auto app = item.first;
+            auto hash = item.second;
 
             // Create a new button
             auto *button = new QToolButton();
