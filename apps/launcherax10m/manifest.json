@@ -120,22 +120,22 @@
           },
           {
             "Id":"it.uniparthenope.fairwind.apps.external/opencpn",
-            "Active":true,
+            "Active":false,
             "Order":15
           },
           {
             "Id":"it.uniparthenope.fairwind.apps.web/netflix",
-            "Active":true,
+            "Active":false,
             "Order":16
           },
           {
             "Id":"it.uniparthenope.fairwind.apps.web/youtube",
-            "Active":true,
+            "Active":false,
             "Order":17
           },
           {
             "Id": "it.uniparthenope.fairwind.apps.web/spotify",
-            "Active": true,
+            "Active": false,
             "Order": 18
           }
         ]
