@@ -22,10 +22,14 @@ namespace fairwind::apps::portolano {
         ~ResultItem() override;
 
 
+    public slots:
+
+        void updateNavigationPosition(const QJsonObject update);
+        void updateNavigationSpeedOverGround(const QJsonObject update);
 
     private:
         Ui::ResultItem *ui;
-
+        QGeoCoordinate mPosition;
         QJsonObject mFeature;
     };
 } // fairwind::apps::portolano
