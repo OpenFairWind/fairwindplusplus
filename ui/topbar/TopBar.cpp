@@ -7,6 +7,8 @@
 #include <FairWindSdk/FairWind.hpp>
 #include <QAbstractButton>
 #include <FairWindSdk/FairWindApp.hpp>
+#include <QGeoLocation>
+#include <QGeoCoordinate>
 
 #include "TopBar.hpp"
 #include "ui_TopBar.h"
@@ -120,25 +122,23 @@ void fairwind::ui::topbar::TopBar::updateNavigationPosition(const QJsonObject up
     auto fairWind = fairwind::FairWind::getInstance();
     // Get the signalk document from the FairWind singleton itself
     auto signalKDocument = fairWind->getSignalKDocument();
+
     // Set the search path
     QString path = signalKDocument->getSelf() + ".navigation.position.value";
 
     // Get the postion value from the signalk document
     QJsonValue positionValue = signalKDocument->subtree(path);
+
     // Check if the value is valid
     if (positionValue.isObject()) {
         // Get latitude
         double latitude = positionValue.toObject()["latitude"].toDouble();
         // Get longitude
         double longitude = positionValue.toObject()["longitude"].toDouble();
-        // Build formatted coordinates
-        QString sLatitude, sLongitude;
-        sLatitude = QString{"%1"}.arg(latitude, 6, 'f', 4, '0');
-        sLongitude = QString{"%1"}.arg(longitude, 7, 'f', 4, '0');
-        // Set the latitude label from the UI to the formatted latitude
-        ui->label_Lat->setText(sLatitude);
-        // Set the longitude label from the UI to the formatted longitude
-        ui->label_Lon->setText(sLongitude);
+
+        QGeoCoordinate pos(latitude,longitude);
+        ui->label_Position_value->setText(pos.toString(QGeoCoordinate::DegreesMinutesSecondsWithHemisphere));
+
     }
 }
 
