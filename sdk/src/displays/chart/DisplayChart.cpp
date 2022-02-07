@@ -13,6 +13,7 @@
 #include <QGeoView/QGVWidgetCompass.h>
 #include <QGeoView/QGVWidgetScale.h>
 #include <QGeoView/QGVWidgetZoom.h>
+#include <QGeoView/QGVWidgetMeasure.h>
 #include <QGeoView/QGVDrawItem.h>
 
 #include <QJsonArray>
@@ -24,7 +25,9 @@
 #include <FairWindSdk/SignalKDocument.hpp>
 #include <FairWind.hpp>
 #include <FairWindSdk/layers/SignalKLayer.hpp>
-#include <FairWindSdk/displays//DisplayChart.hpp>
+
+#include "displays/DisplayChart.hpp"
+// #include <FairWindSdk/displays//DisplayChart.hpp>
 
 #include "ui_DisplayChart.h"
 #include "FairWindSdk/layers/ItemVessel.hpp"
@@ -42,6 +45,7 @@ fairwind::displays::DisplayChart::DisplayChart(QWidget *parent) :
     m_widgetMap = new QGVMap();
     ui->gridLayout->addWidget(m_widgetMap, 0, 0);
 
+    initializeWidgetMeasure();
     //QMetaObject::invokeMethod(this, "mapSetup", Qt::QueuedConnection);
 }
 
@@ -95,6 +99,7 @@ void fairwind::displays::DisplayChart::onInit(QMap <QString, QVariant> params) {
     m_widgetMap->addWidget(new QGVWidgetZoom());
     m_widgetMap->addWidget(new QGVWidgetScale(Qt::Horizontal));
     m_widgetMap->addWidget(new QGVWidgetScale(Qt::Vertical));
+    m_widgetMap->addWidget(mWidgetMeasuring);
 
     //auto target = m_widgetMap->getProjection()->boundaryGeoRect();
     //m_widgetMapApp->cameraTo(QGVCameraActions(m_widgetMapApp).scaleTo(target));
@@ -165,3 +170,59 @@ QString fairwind::displays::DisplayChart::getClassName() const {
 bool fairwind::displays::DisplayChart::smaller() { return isVisible(); }
 bool fairwind::displays::DisplayChart::bigger() { return isVisible(); }
 */
+
+void fairwind::displays::DisplayChart::initializeWidgetMeasure()
+{
+    mWidgetMeasuring = new QGVWidgetMeasure();
+
+    // Widget configuration
+    const auto distanceUnit = DistanceUnits::NauticalMiles;
+    const auto distanceLabelPrefix = QString("");
+    const auto bearingLabelPrefix = QString("Rotta:");
+    const auto ballonValueSeparator = QString("-");
+    const auto ballonBackground = QColor::fromRgb(0, 62, 126);
+    const auto ballonText = Qt::white;
+    const auto ballonTextPadding = 7;
+    const auto lineColor = Qt::red;
+    const auto lineWidth = 2;
+    const auto iconPin = QString(":/resources/images/map-pin.png");
+    const auto iconPinMovement = QString(":/resources/images/map-pin-active.png");
+    const qreal pinMetersOffset{200}; // 200mt
+    const qreal leftPinAzimuth{270}; // 270°
+    const qreal rightPinAzimuth{90}; // 90°
+
+    const auto widgetBtnSize = QSize(45, 45);
+
+    const auto widgetBtnActiveColor = QColor::fromRgb(154, 211, 254);
+
+    // How to change widget position on screen
+    /* mWidgetMeasure->setAnchor(QPoint(30, 30), mWidgetMeasure->getWidgetAnchorEdges());
+    mWidgetMeasure->setWidgetAnchorEdges({Qt::TopEdge, Qt::LeftEdge}); */
+
+    mWidgetMeasuring->setPinStartingPointMetersOffset(pinMetersOffset);
+    mWidgetMeasuring->setLeftPinAzimuthOffset(leftPinAzimuth);
+    mWidgetMeasuring->setRightPinAzimuthOffset(rightPinAzimuth);
+
+    // How to change unit for measuring distances
+    mWidgetMeasuring->setUnit(distanceUnit);
+
+    // How to change widget btn icon/size
+    // mWidgetMeasure->setWidgetBtnIcon(widgetBtnIcon);
+    mWidgetMeasuring->setWidgetBtnSize(widgetBtnSize);
+
+    mWidgetMeasuring->setBtnExternalBorderColor(Qt::white);
+    mWidgetMeasuring->setBtnExternalRectColor(ballonBackground);
+    mWidgetMeasuring->setBtnInternalRectColor(Qt::white);
+    mWidgetMeasuring->setBtnActiveInternalRectColor(widgetBtnActiveColor);
+
+    mWidgetMeasuring->setDistanceLabelPrefix(distanceLabelPrefix);
+    mWidgetMeasuring->setBearingLabelPrefix(bearingLabelPrefix);
+    mWidgetMeasuring->setBallonValueSeparator(ballonValueSeparator);
+    mWidgetMeasuring->setBallonBackgroundColor(ballonBackground);
+    mWidgetMeasuring->setBallonTextColor(ballonText);
+    mWidgetMeasuring->setBallonTextPadding(ballonTextPadding);
+    mWidgetMeasuring->setLineColor(lineColor);
+    mWidgetMeasuring->setLineWidth(lineWidth);
+    mWidgetMeasuring->setIconPin(iconPin);
+    mWidgetMeasuring->setIconPinMovement(iconPinMovement);
+}

@@ -1,5 +1,5 @@
-<!DOCTYPE RCC><RCC version="1.0">
-    <qresource>
+<RCC>
+    <qresource prefix="/">
         <file>resources/images/ais_active.png</file>
         <file>resources/images/ais_buddy.png</file>
         <file>resources/images/ais_inactive.png</file>
@@ -8,9 +8,7 @@
         <file>resources/images/ais_virtual.png</file>
         <file>resources/images/ais_shore.png</file>
         <file>resources/images/ship_red.png</file>
-
         <file>resources/images/icons/warning_icon_256x256.png</file>
-
         <file>resources/images/icons/signalk_icon.png</file>
         <file>resources/images/icons/display_icon.png</file>
         <file>resources/images/icons/display_doubletext_icon.png</file>
@@ -24,5 +22,7 @@
         <file>resources/images/icons/layer_tiled_icon.png</file>
         <file>resources/schemas/display.json</file>
         <file>resources/schemas/layer.json</file>
+        <file>resources/images/map-pin.png</file>
+        <file>resources/images/map-pin-active.png</file>
     </qresource>
 </RCC>

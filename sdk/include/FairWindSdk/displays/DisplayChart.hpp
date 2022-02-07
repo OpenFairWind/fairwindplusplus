@@ -17,6 +17,8 @@ namespace Ui {
     class DisplayChart;
 }
 
+class QGVWidgetMeasure;
+
 namespace fairwind::displays {
     /*
      * DisplayChart
@@ -42,6 +44,9 @@ namespace fairwind::displays {
     public slots:
         void updateNavigationPosition(const QJsonObject update);
 
+    protected:
+        void initializeWidgetMeasure();
+
     private:
         Ui::DisplayChart *ui;
 
@@ -49,6 +54,8 @@ namespace fairwind::displays {
 
         QNetworkAccessManager *mManager;
         QNetworkDiskCache *mCache;
+
+        QGVWidgetMeasure *mWidgetMeasuring;
 
         QJsonObject mConfig;
     };

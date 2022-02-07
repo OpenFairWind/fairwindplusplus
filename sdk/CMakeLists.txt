@@ -64,7 +64,7 @@ endif()
 set(LIBQCGAUGEWIDGET ${LIBQCGAUGEWIDGET} PARENT_SCOPE)
 
 ExternalProject_Add(QGeoView
-        GIT_REPOSITORY https://github.com/OpenFairWind/QGeoView.git
+        GIT_REPOSITORY https://github.com/zSelimReborn/QGeoView
         CMAKE_ARGS -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH} -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
         TIMEOUT 360
         )
