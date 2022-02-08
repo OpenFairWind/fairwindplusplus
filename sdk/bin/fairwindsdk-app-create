@@ -5,4 +5,4 @@ if [[ -z "${FAIRWINDSDK_HOME}" ]]; then
   exit
 fi
 
-python $FAIRWINDSDK_HOME/scripts/fairwindsdk-app-create.py $@
+python3 $FAIRWINDSDK_HOME/scripts/fairwindsdk-app-create.py $@

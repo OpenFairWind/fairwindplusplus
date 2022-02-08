@@ -511,13 +511,13 @@
             {
               "class":"fairwind::connections::SignalKAPIClient",
               "active":true,
-              "url":"http://demo.signalk.org/signalk/v1/api",
+              "url":"http://localhost:3000/signalk/v1/api",
               "restore":true
             },
             {
               "class":"fairwind::connections::SignalKWSClient",
               "active":true,
-              "url":"ws://demo.signalk.org/signalk/v1/stream"
+              "url":"ws://localhost:3000/signalk/v1/stream"
             }
           ],
           "keys":{
