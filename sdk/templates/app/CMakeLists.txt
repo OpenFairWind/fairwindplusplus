@@ -11,9 +11,7 @@ add_library(__Appname__ SHARED
         __Appname__.cpp
         __Appname__.hpp
         ${PORTOLANO_RESOURCE_ADDED}
-        MainPage.cpp MainPage.hpp MainPage.ui
-        ResultItem.cpp ResultItem.hpp ResultItem.ui
-        )
+        MainPage.cpp MainPage.hpp MainPage.ui ResultItem.cpp ResultItem.hpp ResultItem.ui)
 
 add_dependencies(__Appname__ FairWindSdk)
 target_link_libraries(__Appname__ PRIVATE Qt5::Widgets Qt5::Network Qt5::Sql Qt5::Positioning ${LIBFAIRWINDSDK} ${SQLite3_LIBRARIES})

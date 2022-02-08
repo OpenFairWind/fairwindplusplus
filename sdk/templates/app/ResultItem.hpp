@@ -7,6 +7,7 @@
 
 #include <QWidget>
 #include <QJsonObject>
+#include <QGeoCoordinate>
 
 namespace __namespace__ {
     QT_BEGIN_NAMESPACE
@@ -23,6 +24,7 @@ namespace __namespace__ {
 
     private:
         Ui::ResultItem *ui;
+        QJsonObject mFeature;
     };
 } // __namespace__
 
