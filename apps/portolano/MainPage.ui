@@ -61,7 +61,12 @@
       </layout>
      </item>
      <item>
-      <widget class="QListWidget" name="listWidget_Results"/>
+      <widget class="QListWidget" name="listWidget_Results">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgba(14, 18, 60, 128);
+color: rgb(250, 255, 255);</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

@@ -55,8 +55,14 @@ namespace fairwind::apps::portolano {
                 auto mapId = jsonObjectProperties["mapId"].toString();
                 QStringList list = mapId.split("_");
                 QString iconPath = ":/resources/images/ports/"+list[0]+QDir::separator()+mapId+".jpg";
-                // qDebug() << "iconPath: " << iconPath;
-                ui->label_Icon->setPixmap(QPixmap::fromImage(QImage(iconPath)));
+                QFile iconFile(iconPath);
+                if(!iconFile.exists()){
+                    ui->label_Icon->setPixmap(QPixmap::fromImage(QImage(":/resources/images/ports/no_icon.png")));
+                }else{
+                    // qDebug() << "iconPath: " << iconPath;
+                    ui->label_Icon->setPixmap(QPixmap::fromImage(QImage(iconPath)));
+                }
+                iconFile.close();
             }
 
             if (jsonObjectProperties.contains("name") && jsonObjectProperties["name"].isString()) {

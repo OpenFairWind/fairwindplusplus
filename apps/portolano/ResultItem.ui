@@ -7,11 +7,17 @@
     <x>0</x>
     <y>0</y>
     <width>979</width>
-    <height>334</height>
+    <height>365</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>ResultItem</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
@@ -20,6 +26,15 @@
       <layout class="QVBoxLayout" name="verticalLayout_Map">
        <item>
         <widget class="QLabel" name="label_Position">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -36,6 +51,15 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="minimumSize">
+          <size>
+           <width>300</width>
+           <height>300</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -51,6 +75,15 @@
           <layout class="QVBoxLayout" name="verticalLayout_Description">
            <item>
             <widget class="QLabel" name="label_Name">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+             </property>
              <property name="text">
               <string/>
              </property>
@@ -70,6 +103,9 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+             </property>
              <property name="readOnly">
               <bool>true</bool>
              </property>
@@ -81,6 +117,15 @@
           <layout class="QVBoxLayout" name="verticalLayout_Contacts">
            <item>
             <widget class="QLabel" name="label_Contacts">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+             </property>
              <property name="text">
               <string>Contacts</string>
              </property>
@@ -93,6 +138,9 @@
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
              </property>
             </widget>
            </item>
@@ -110,6 +158,15 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+           </property>
            <property name="title">
             <string>Vessel (max, m)</string>
            </property>
@@ -122,48 +179,95 @@
               <height>80</height>
              </rect>
             </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_Vessel">
-            <item>
-              <widget class="QLabel" name="label_Vessel_Loa">
-               <property name="text">
-                <string>loa:</string>
+            <layout class="QVBoxLayout" name="verticalLayout_Vessel">
+             <property name="leftMargin">
+              <number>5</number>
+             </property>
+             <property name="rightMargin">
+              <number>5</number>
+             </property>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_Vessel_1">
+               <property name="topMargin">
+                <number>5</number>
                </property>
-              </widget>
+               <item>
+                <widget class="QLabel" name="label_Vessel_Loa">
+                 <property name="font">
+                  <font>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+                 </property>
+                 <property name="text">
+                  <string>Loa:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_Vessel_Loa_value">
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+                 </property>
+                 <property name="text">
+                  <string>0</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_Vessel_Bmax">
+                 <property name="font">
+                  <font>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+                 </property>
+                 <property name="text">
+                  <string>Bmax:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_Vessel_Bmax_value">
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+                 </property>
+                 <property name="text">
+                  <string>0</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </item>
              <item>
-              <widget class="QLabel" name="label_Vessel_Loa_value">
-               <property name="text">
-                <string>0</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_Vessel_Bmax">
-               <property name="text">
-                <string>bmax:</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_Vessel_Bmax_value">
-               <property name="text">
-                <string>0</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_Vessel_Maxh">
-               <property name="text">
-                <string>maxh:</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_Vessel_Maxh_value">
-               <property name="text">
-                <string>0</string>
-               </property>
-              </widget>
+              <layout class="QHBoxLayout" name="horizontalLayout_Vessel_2">
+               <item>
+                <widget class="QLabel" name="label_Vessel_Maxh">
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+                 </property>
+                 <property name="text">
+                  <string>Max H:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_Vessel_Maxh_value">
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+                 </property>
+                 <property name="text">
+                  <string>0</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </item>
             </layout>
            </widget>
@@ -176,6 +280,18 @@
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
+           </property>
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="layoutDirection">
+            <enum>Qt::LeftToRight</enum>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
            </property>
            <property name="title">
             <string>Slips</string>
@@ -190,8 +306,17 @@
              </rect>
             </property>
             <layout class="QHBoxLayout" name="horizontalLayout_Slips">
+             <property name="leftMargin">
+              <number>5</number>
+             </property>
+             <property name="rightMargin">
+              <number>5</number>
+             </property>
              <item>
               <widget class="QLabel" name="label_Slips_Slips_value">
+               <property name="styleSheet">
+                <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+               </property>
                <property name="text">
                 <string/>
                </property>
@@ -202,6 +327,9 @@
                <property name="text">
                 <string/>
                </property>
+               <property name="wordWrap">
+                <bool>false</bool>
+               </property>
               </widget>
              </item>
             </layout>
@@ -210,8 +338,26 @@
          </item>
          <item>
           <widget class="QGroupBox" name="groupBox_Seafloor">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+           </property>
            <property name="title">
             <string>Seafloor (m)</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
            <widget class="QWidget" name="horizontalLayoutWidget">
             <property name="geometry">
@@ -222,40 +368,65 @@
               <height>80</height>
              </rect>
             </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_Seafloor">
+            <layout class="QVBoxLayout" name="verticalLayout_Seafloor">
              <item>
-              <widget class="QLabel" name="label_Seafloor_Max">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>max</string>
-               </property>
-              </widget>
+              <layout class="QHBoxLayout" name="horizontalLayout_Seafloor_Top">
+               <item>
+                <widget class="QLabel" name="label_Seafloor_Max">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+                 </property>
+                 <property name="text">
+                  <string>Max</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_Seafloor_Max_value">
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_Seafloor_Min">
+                 <property name="font">
+                  <font>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Min</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_Seafloor_Min_value">
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </item>
              <item>
-              <widget class="QLabel" name="label_Seafloor_Max_value">
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_Seafloor_Min">
-               <property name="text">
-                <string>min</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_Seafloor_Min_value">
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
+              <layout class="QHBoxLayout" name="horizontalLayout_Seafloor"/>
              </item>
             </layout>
            </widget>
@@ -268,6 +439,15 @@
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
+           </property>
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
            </property>
            <property name="title">
             <string>Services</string>
@@ -295,6 +475,15 @@
         <layout class="QHBoxLayout" name="horizontalLayout_DTG">
          <item>
           <widget class="QLabel" name="label_DTG">
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+           </property>
            <property name="text">
             <string>DTG:</string>
            </property>
@@ -302,6 +491,9 @@
          </item>
          <item>
           <widget class="QLabel" name="label_DTG_value">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+           </property>
            <property name="text">
             <string>0</string>
            </property>
@@ -315,6 +507,9 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+           </property>
            <property name="text">
             <string>nm</string>
            </property>
@@ -326,6 +521,15 @@
         <layout class="QHBoxLayout" name="horizontalLayout_BTG">
          <item>
           <widget class="QLabel" name="label_BTG">
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+           </property>
            <property name="text">
             <string>BTG:</string>
            </property>
@@ -333,6 +537,9 @@
          </item>
          <item>
           <widget class="QLabel" name="label_BTG_value">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+           </property>
            <property name="text">
             <string/>
            </property>
@@ -340,6 +547,9 @@
          </item>
          <item>
           <widget class="QLabel" name="label_BTG_unit">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+           </property>
            <property name="text">
             <string>°</string>
            </property>
@@ -351,6 +561,15 @@
         <layout class="QHBoxLayout" name="horizontalLayout_TTG">
          <item>
           <widget class="QLabel" name="label_TTG">
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+           </property>
            <property name="text">
             <string>TTG:</string>
            </property>
@@ -358,6 +577,9 @@
          </item>
          <item>
           <widget class="QLabel" name="label_TTG_value">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+           </property>
            <property name="text">
             <string>00:00:00</string>
            </property>
@@ -369,6 +591,15 @@
         <layout class="QHBoxLayout" name="horizontalLayout_ETA">
          <item>
           <widget class="QLabel" name="label_ETA">
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+           </property>
            <property name="text">
             <string>ETA:</string>
            </property>
@@ -376,6 +607,9 @@
          </item>
          <item>
           <widget class="QLabel" name="label_ETA_value">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+           </property>
            <property name="text">
             <string>12:00:00</string>
            </property>
@@ -400,6 +634,12 @@
         <layout class="QHBoxLayout" name="horizontalLayout_Tool">
          <item>
           <widget class="QToolButton" name="toolButton_Info">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgba(255, 255, 255, 0);
+border-color: rgb(98, 98, 98);
+border-width : 3px;
+border-style:inset;</string>
+           </property>
            <property name="text">
             <string>Info</string>
            </property>
@@ -407,6 +647,12 @@
          </item>
          <item>
           <widget class="QToolButton" name="toolButton_Find">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgba(255, 255, 255, 0);
+border-color: rgb(98, 98, 98);
+border-width : 3px;
+border-style:inset;</string>
+           </property>
            <property name="text">
             <string>Find</string>
            </property>
@@ -414,6 +660,12 @@
          </item>
          <item>
           <widget class="QToolButton" name="toolButton_Goto">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgba(255, 255, 255, 0);
+border-color: rgb(98, 98, 98);
+border-width : 3px;
+border-style:inset;</string>
+           </property>
            <property name="text">
             <string>Goto</string>
            </property>
@@ -424,6 +676,22 @@
       </layout>
      </item>
     </layout>
+   </item>
+   <item row="1" column="0">
+    <widget class="Line" name="line">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgba(255, 255, 255, 128);</string>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Sunken</enum>
+     </property>
+     <property name="lineWidth">
+      <number>1</number>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

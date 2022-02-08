@@ -2,6 +2,8 @@
     <qresource>
         <file>resources/data/ports.json</file>
 
+        <file>resources/images/ports/no_icon.png</file>
+
         <file>resources/images/ports/CA/CA_002.jpg</file>
         <file>resources/images/ports/CA/CA_003.jpg</file>
 
