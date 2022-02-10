@@ -116,6 +116,7 @@ add_library(fairwindsdk SHARED
         include/FairWindSdk/layers/OSMLayer.hpp
         include/FairWindSdk/layers/TiledLayer.hpp
         include/FairWindSdk/layers/GeoJsonLayer.hpp
+        include/FairWindSdk/layers/ESRILayer.hpp
         include/FairWindSdk/layouts/LayoutBase.hpp
         include/FairWindSdk/layouts/VHGLayout.hpp
         include/FairWindSdk/layouts/GridLayout.hpp
@@ -155,6 +156,7 @@ add_library(fairwindsdk SHARED
         src/layers/OSMLayer.cpp
         src/layers/TiledLayer.cpp
         src/layers/GeoJsonLayer.cpp
+        src/layers/ESRILayer.cpp
         src/layouts/LayoutBase.cpp
         src/layouts/VHGLayout.cpp
         src/layouts/GridLayout.cpp

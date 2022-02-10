@@ -12,6 +12,8 @@
 #include <FairWindSdk/layers/SignalKLayer.hpp>
 #include <FairWindSdk/layers/OSMLayer.hpp>
 #include <FairWindSdk/layers/TiledLayer.hpp>
+#include <FairWindSdk/layers/GeoJsonLayer.hpp>
+#include <FairWindSdk/layers/ESRILayer.hpp>
 #include <FairWindSdk/displays/DisplaySingleText.hpp>
 #include <FairWindSdk/displays/DisplayDoubleText.hpp>
 #include <FairWindSdk/displays/DisplayGauge.hpp>
@@ -40,6 +42,8 @@ fairwind::FairWind::FairWind() {
     registerLayer(new layers::OSMLayer());
     registerLayer(new layers::TiledLayer());
     registerLayer(new layers::SignalKLayer());
+    registerLayer(new layers::GeoJsonLayer());
+    registerLayer(new layers::ESRILayer());
 
     // Register built-in displays
     registerDisplay(new displays::DisplaySingleText());

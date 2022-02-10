@@ -24,5 +24,7 @@
         <file>resources/schemas/layer.json</file>
         <file>resources/images/map-pin.png</file>
         <file>resources/images/map-pin-active.png</file>
+        <file>resources/images/icons/layer-esri-icon.png</file>
+        <file>resources/images/icons/layer-geojson-icon.png</file>
     </qresource>
 </RCC>

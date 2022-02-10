@@ -1,8 +1,7 @@
 #include "layers/GeoJsonLayer.hpp"
 
 fairwind::layers::GeoJsonLayer::GeoJsonLayer() :
-    // Dopo il pull il getParent() può essere eliminato
-    QGVLayerGeoJson(getParent(), "")
+    QGVLayerGeoJson(nullptr, "")
 {
     setName("Geo Json Layer");
     setDescription("Integrates a geojson layer on the map.");
@@ -12,8 +11,7 @@ fairwind::layers::GeoJsonLayer::~GeoJsonLayer() {}
 
 QImage fairwind::layers::GeoJsonLayer::getIcon() const
 {
-    // Da modificare
-    return QImage(":resources/images/icons/layer_osm_icon.png");;
+    return QImage(":/resources/images/icons/layer-geojson-icon.png");;
 }
 
 void fairwind::layers::GeoJsonLayer::onInit(QMap<QString, QVariant> params)
@@ -34,7 +32,6 @@ void fairwind::layers::GeoJsonLayer::onInit(QMap<QString, QVariant> params)
 
     const auto sourcePath = params.value("sourcepath").toString();
     setSourceFileName(sourcePath);
-    qDebug() << "GeoJsonLayer onInit(): " << getSourceFileName();
     activate();
 }
 

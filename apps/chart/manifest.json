@@ -212,7 +212,31 @@
             "class": "fairwind::layers::GeoJsonLayer",
             "description": "Generic json layer.",
             "name": "Points, Polyline and Polygons in JSON",
-            "sourcepath": ":/resources/map.geojson"
+            "sourcepath": ":/resources/layers/italy.geojson"
+          },
+          {
+            "active": true,
+            "class": "fairwind::layers::ESRILayer",
+            "description": "Generic ESRI layer with points.",
+            "name": "Points ESRI Shapefile",
+            "shapefile": ":/resources/POINT.shp",
+            "shxfile": ":/resources/POINT.shx"
+          },
+          {
+            "active": true,
+            "class": "fairwind::layers::ESRILayer",
+            "description": "Generic ESRI layer with polylines.",
+            "name": "Polylines ESRI Shapefile",
+            "shapefile": ":/resources/POLYLINE.shp",
+            "shxfile": ":/resources/POLYLINE.shx"
+          },
+          {
+            "active": true,
+            "class": "fairwind::layers::ESRILayer",
+            "description": "Generic ESRI layer with polygons.",
+            "name": "Polygons ESRI Shapefile",
+            "shapefile": ":/resources/POLYGON.shp",
+            "shxfile": ":/resources/POLYGON.shx"
           }
         ],
         "center_map": "Yes",
