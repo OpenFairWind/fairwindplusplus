@@ -130,11 +130,11 @@ void fairwind::displays::DisplayChart::onInit(QMap <QString, QVariant> params) {
                                 for (const auto &key: layerSettingObject.keys()) {
                                     params[key] = layerSettingObject[key].toVariant();
                                 }
-                                fairWindLayer->onInit(params);
 
                                 auto *qgvLayer = dynamic_cast<QGVLayer *>(fairWindLayer);
                                 if (qgvLayer) {
                                     m_widgetMap->addItem(qgvLayer);
+                                    fairWindLayer->onInit(params);
                                 }
                             }
                         }

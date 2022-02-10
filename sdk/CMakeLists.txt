@@ -65,7 +65,7 @@ set(LIBQCGAUGEWIDGET ${LIBQCGAUGEWIDGET} PARENT_SCOPE)
 
 ExternalProject_Add(QGeoView
         GIT_REPOSITORY https://github.com/zSelimReborn/QGeoView
-        CMAKE_ARGS -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH} -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
+        CMAKE_ARGS -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH} -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION} -DEXTERNAL_INSTALL_LOCATION=${EXTERNAL_INSTALL_LOCATION}
         TIMEOUT 360
         )
 set(LIBQGEOVIEW ${EXTERNAL_INSTALL_LOCATION}/lib/libqgeoview.so)
@@ -115,6 +115,7 @@ add_library(fairwindsdk SHARED
         include/FairWindSdk/layers/SignalKLayer.hpp
         include/FairWindSdk/layers/OSMLayer.hpp
         include/FairWindSdk/layers/TiledLayer.hpp
+        include/FairWindSdk/layers/GeoJsonLayer.hpp
         include/FairWindSdk/layouts/LayoutBase.hpp
         include/FairWindSdk/layouts/VHGLayout.hpp
         include/FairWindSdk/layouts/GridLayout.hpp
@@ -153,6 +154,7 @@ add_library(fairwindsdk SHARED
         src/layers/SignalKLayer.cpp
         src/layers/OSMLayer.cpp
         src/layers/TiledLayer.cpp
+        src/layers/GeoJsonLayer.cpp
         src/layouts/LayoutBase.cpp
         src/layouts/VHGLayout.cpp
         src/layouts/GridLayout.cpp

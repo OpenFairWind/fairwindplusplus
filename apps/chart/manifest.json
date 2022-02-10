@@ -206,6 +206,13 @@
             "class": "fairwind::layers::SignalKLayer",
             "description": "The Vessel.",
             "name": "Self"
+          },
+          {
+            "active": true,
+            "class": "fairwind::layers::GeoJsonLayer",
+            "description": "Generic json layer.",
+            "name": "Points, Polyline and Polygons in JSON",
+            "sourcepath": ":/resources/map.geojson"
           }
         ],
         "center_map": "Yes",
