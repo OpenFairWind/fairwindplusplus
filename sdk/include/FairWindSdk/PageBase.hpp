@@ -14,11 +14,17 @@ namespace fairwind::apps {
     class FAIRWINDSDK_LIB_DECL PageBase: public QWidget {
     Q_OBJECT
 
+
+
+
     public:
-            PageBase(QWidget *parent = nullptr, FairWindApp *fairWindApp = nullptr);
+            PageBase(QWidget *parent = nullptr);
             ~PageBase() = default;
 
+
             FairWindApp *getFairWindApp();
+
+        void setFairWindApp(FairWindApp *pApp);
 
         // Called by the app loader when the app is loaded
         virtual void onCreate();
@@ -40,6 +46,26 @@ namespace fairwind::apps {
 
         // Called when the config changed
         virtual void onConfigChanged();
+
+        // Called when a page is going to be shown using the FairWindApp::show(...) method
+        virtual void onShowing();
+
+        // Called when a page is shown using the FairWindApp::show(...) method
+        virtual void onShown();
+
+        // Called when a page is going to be added using the FairWindApp::add(...) method
+        virtual void onAdding();
+
+        // Called when a page is added using the FairWindApp::add(...) method
+        virtual void onAdded();
+
+        // Called when a page is going to be removed using the FairWindApp::remove(...) method
+        virtual void onRemoving();
+
+        // Called when a page is removed using the FairWindApp::remove(...) method
+        virtual void onRemoved();
+
+
 
     private:
             apps::FairWindApp *m_fairWindApp;
