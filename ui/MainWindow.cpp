@@ -177,7 +177,7 @@ void fairwind::ui::MainWindow::setForegroundApp(QString hash) {
         m_fairWindApp->onResume();
 
         // Set the current app in ui components
-        m_topBar->setFairWindApp(m_fairWindApp);
+        m_topBar->setFairWindApp(appItem);
     }
 }
 
