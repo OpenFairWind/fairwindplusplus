@@ -38,7 +38,7 @@ void fairwind::apps::web::Web::onStart() {
         route = "__home__";
     }
 
-    auto mainPage = new MainPage(nullptr, this);
+    auto mainPage = new MainPage();
 
     add(mainPage,route);
 

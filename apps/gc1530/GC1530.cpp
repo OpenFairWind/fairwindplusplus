@@ -20,7 +20,7 @@ void it::gov::guardiacostiera::gc1530::GC1530::onStart() {
     // Set the home URL
     m_homeUrl="https://www.guardiacostiera.gov.it";
 
-    auto mainPage = new MainPage(nullptr, this);
+    auto mainPage = new MainPage();
     FairWindApp::add(mainPage);
 
     FairWindApp::show();

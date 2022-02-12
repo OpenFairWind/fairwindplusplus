@@ -11,38 +11,42 @@
 #include "Chart.hpp"
 #include "MainPage.hpp"
 
-// Called by the FairWind framework when the app is invoked for the first time
-void fairwind::apps::chart::Chart::onStart() {
+namespace fairwind::apps::chart {
 
-    FairWindApp::onStart();
 
-    auto mainPage = new MainPage(nullptr, this);
-    add(mainPage);
+    // Called by the FairWind framework when the app is invoked for the first time
+    void Chart::onStart() {
 
-    show();
-}
+        FairWindApp::onStart();
 
-void fairwind::apps::chart::Chart::onCreate() {
-    FairWindApp::onCreate();
+        auto mainPage = new MainPage();
+        add(mainPage);
 
-}
+        show();
+    }
 
-void fairwind::apps::chart::Chart::onResume() {
-    FairWindApp::onResume();
-}
+    void Chart::onCreate() {
+        FairWindApp::onCreate();
 
-void fairwind::apps::chart::Chart::onPause() {
-    FairWindApp::onPause();
-}
+    }
 
-void fairwind::apps::chart::Chart::onStop() {
-    FairWindApp::onStop();
-}
+    void Chart::onResume() {
+        FairWindApp::onResume();
+    }
 
-void fairwind::apps::chart::Chart::onDestroy() {
-    FairWindApp::onDestroy();
-}
+    void Chart::onPause() {
+        FairWindApp::onPause();
+    }
 
-void fairwind::apps::chart::Chart::onConfigChanged() {
-    FairWindApp::onConfigChanged();
+    void Chart::onStop() {
+        FairWindApp::onStop();
+    }
+
+    void Chart::onDestroy() {
+        FairWindApp::onDestroy();
+    }
+
+    void Chart::onConfigChanged() {
+        FairWindApp::onConfigChanged();
+    }
 }

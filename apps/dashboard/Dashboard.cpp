@@ -30,7 +30,7 @@ void fairwind::apps::dashboard::Dashboard::onStart() {
         route = "__home__";
     }
 
-    auto mainPage = new MainPage(nullptr, this);
+    auto mainPage = new MainPage();
 
     add(mainPage,route);
 
