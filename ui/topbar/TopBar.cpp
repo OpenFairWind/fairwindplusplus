@@ -47,19 +47,16 @@ fairwind::ui::topbar::TopBar::TopBar(QWidget *parent) :
     // Get the signalk document from the FairWind singleton itslef
     auto signalKDocument = fairWind->getSignalKDocument();
 
-    /*
-    connect(signalKDocument,&SignalKDocument::updated,this, &TopBar::onUpdate);
-    connect(signalKDocument,&SignalKDocument::updatedNavigationPosition,this, &TopBar::updateNavigationPosition);
-    connect(signalKDocument,&SignalKDocument::updatedNavigationCourseOverGroundTrue,this, &TopBar::updateNavigationCourseOverGroundTrue);
-    connect(signalKDocument,&SignalKDocument::updatedNavigationSpeedOverGround,this, &TopBar::updateNavigationSpeedOverGround);
-     */
-
     // Get the signalk document's string
     QString self = signalKDocument->getSelf();
+
     // Subscribe to signalk and make sure that navigation infos are updated accordingly
-    signalKDocument->subscribe(self + ".navigation.position.value", this, SLOT(TopBar::updateNavigationPosition));
+    signalKDocument->subscribe(self + ".navigation.position.value", this,
+                               SLOT(TopBar::updateNavigationPosition));
+
     signalKDocument->subscribe(self + ".navigation.courseOverGroundTrue.value", this,
                                SLOT(TopBar::updateNavigationCourseOverGroundTrue));
+
     signalKDocument->subscribe(self + ".navigation.speedOverGround.value", this,
                                SLOT(TopBar::updateNavigationSpeedOverGround));
 }
@@ -194,13 +191,17 @@ void fairwind::ui::topbar::TopBar::updateNavigationSpeedOverGround(const QJsonOb
     }
 }
 
-void fairwind::ui::topbar::TopBar::setFairWindApp(fairwind::apps::IFairWindApp *fairWindApp) {
-    m_fairWindApp = fairWindApp;
-    if (m_fairWindApp) {
-        ui->toolButton_UR->setIcon(QPixmap::fromImage(((fairwind::apps::FairWindApp *)fairWindApp)->getIcon()));
+void fairwind::ui::topbar::TopBar::setFairWindApp(AppItem *appItem) {
+    mAppItem = appItem;
+    if (mAppItem) {
+        ui->toolButton_UR->setIcon(QPixmap::fromImage(mAppItem->getIcon()));
         ui->toolButton_UR->setIconSize(QSize(32, 32));
+        ui->label_ApplicationName->setText(mAppItem->getName());
+        ui->label_ApplicationName->setToolTip(mAppItem->getDesc());
     } else {
         ui->toolButton_UR->setIcon(QPixmap::fromImage(QImage(":resources/images/icons/apps_icon.png")));
         ui->toolButton_UR->setIconSize(QSize(32, 32));
+        ui->label_ApplicationName->setText("");
+        ui->label_ApplicationName->setToolTip("");
     }
 }

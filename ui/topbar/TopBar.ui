@@ -152,12 +152,12 @@ color: rgb(250, 255, 255);</string>
       </spacer>
      </item>
      <item>
-      <widget class="QLabel" name="label_Role">
+      <widget class="QLabel" name="label_ApplicationName">
        <property name="styleSheet">
         <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
        </property>
        <property name="text">
-        <string>Captain</string>
+        <string>...</string>
        </property>
       </widget>
      </item>
