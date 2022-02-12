@@ -86,6 +86,7 @@ add_library(fairwindsdk SHARED
         include/FairWindSdk/ISettingsTab.hpp
         include/FairWindSdk/FairWindApp.hpp
         include/FairWindSdk/PageBase.hpp
+        include/FairWindSdk/PanelBase.hpp
         include/FairWindSdk/SignalKDocument.hpp
         include/FairWindSdk/FairWind.hpp
         include/FairWindSdk/AppItem.hpp
@@ -155,8 +156,10 @@ add_library(fairwindsdk SHARED
         src/settings/FairCheckBox.cpp
         src/settings/DisplaysBrowser.cpp
         src/settings/LayersBrowser.cpp
+        src/PanelBase.cpp
 
-        ${FAIRWINDSDK_RESOURCE_ADDED}  )
+        ${FAIRWINDSDK_RESOURCE_ADDED}
+        )
 
 target_include_directories(fairwindsdk
         PUBLIC
