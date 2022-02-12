@@ -20,7 +20,7 @@ namespace fairwind::apps::settings {
     Q_OBJECT
 
     public:
-        explicit MainPage(QWidget *parent = nullptr, FairWindApp *fairWindApp = nullptr);
+        explicit MainPage(PageBase *parent = nullptr);
 
         ~MainPage() ;
 

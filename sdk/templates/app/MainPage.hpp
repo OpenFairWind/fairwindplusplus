@@ -21,9 +21,11 @@ namespace __namespace__ {
     Q_OBJECT
 
     public:
-        explicit MainPage(QWidget *parent = nullptr, FairWindApp *fairWindApp = nullptr);
+        explicit MainPage(PageBase *parent = nullptr);
 
         ~MainPage() ;
+
+        void onAdded() override;
 
     private:
         Ui::MainPage *ui;

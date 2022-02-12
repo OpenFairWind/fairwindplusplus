@@ -21,7 +21,9 @@ namespace fairwind::apps::web {
     Q_OBJECT
 
     public:
-        explicit MainPage(QWidget *parent = nullptr, fairwind::apps::FairWindApp *fairWindApp = nullptr);
+        explicit MainPage(PageBase *parent = nullptr);
+
+        void onAdded() override;
 
         ~MainPage();
 

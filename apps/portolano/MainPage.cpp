@@ -18,8 +18,10 @@
 
 
 namespace fairwind::apps::portolano {
-    MainPage::MainPage(QWidget *parent, FairWindApp *fairWindApp) :
-            PageBase(parent, fairWindApp), ui(new Ui::MainPage) {
+    MainPage::MainPage(PageBase *parent) :
+            PageBase(parent), ui(new Ui::MainPage) {
+
+        ui->setupUi((QWidget *)this);
 
         // Get the FairWind singleton
         auto fairWind = fairwind::FairWind::getInstance();
@@ -27,14 +29,7 @@ namespace fairwind::apps::portolano {
         // Get the signalk document from the FairWind singleton itself
         auto signalKDocument = fairWind->getSignalKDocument();
 
-        // Get app config
-        auto config = fairWindApp->getConfig();
 
-        ui->setupUi((QWidget *)this);
-
-        // Set values from config
-        ui->checkBox_Range->setChecked(config["userRange"].toBool());
-        ui->doubleSpinBox_Range->setValue(config["range"].toDouble());
 
         oldPosition.setLatitude(0.0);
         oldPosition.setLongitude(0.0);
@@ -50,6 +45,18 @@ namespace fairwind::apps::portolano {
         connect(ui->doubleSpinBox_Range, &QDoubleSpinBox::textChanged, this, &MainPage::onNumberTextChanged);
         connect(ui->doubleSpinBox_Range, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this,
                 &MainPage::onNumberSelectChanged);
+    }
+
+    void MainPage::onAdded() {
+
+
+
+        // Get app config
+        auto config = getFairWindApp()->getConfig();
+
+        // Set values from config
+        ui->checkBox_Range->setChecked(config["userRange"].toBool());
+        ui->doubleSpinBox_Range->setValue(config["range"].toDouble());
     }
 
     MainPage::~MainPage() {

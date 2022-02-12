@@ -23,11 +23,12 @@ namespace fairwind::apps::portolano {
     Q_OBJECT
 
     public:
-        explicit MainPage(QWidget *parent = nullptr, FairWindApp *fairWindApp = nullptr);
+        explicit MainPage(PageBase *parent = nullptr);
 
         ~MainPage();
 
-        void onResume();
+        void onAdded() override;
+        void onResume() override;
 
     public slots:
         void onEditTextChanged(const QString &text);

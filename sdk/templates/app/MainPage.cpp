@@ -10,10 +10,14 @@
 #include "ui_MainPage.h"
 
 namespace __namespace__ {
-    MainPage::MainPage(QWidget *parent, FairWindApp *fairWindApp) :
-            PageBase(parent, fairWindApp), ui(new Ui::MainPage) {
+    MainPage::MainPage(PageBase *parent) :
+            PageBase(parent), ui(new Ui::MainPage) {
 
         ui->setupUi((QWidget *)this);
+    }
+
+    MainPage::onAdded() {
+
     }
 
     MainPage::~MainPage() {

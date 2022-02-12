@@ -18,9 +18,11 @@ namespace fairwind::apps::dashboard {
     Q_OBJECT
 
     public:
-        explicit MainPage(QWidget *parent, FairWindApp *fairWindApp);
+        explicit MainPage(PageBase *parent = nullptr);
 
         ~MainPage() ;
+
+        void onAdded() override;
 
     private:
         Ui::MainPage *ui;

@@ -10,21 +10,26 @@
 #include "ui_MainPage.h"
 
 namespace fairwind::apps::web {
-    MainPage::MainPage(QWidget *parent, fairwind::apps::FairWindApp *fairWindApp) :
-            PageBase(parent, fairWindApp), ui(new Ui::MainPage) {
+    MainPage::MainPage(PageBase *parent) :
+            PageBase(parent), ui(new Ui::MainPage) {
 
         ui->setupUi((QWidget *)this);
 
 
-        auto args = getFairWindApp()->getArgs();
-        if (args.contains("Url")) {
-            m_url = args["Url"].toString();
-        }
+
         m_webView = new WebView((QWidget *)this);
         m_webView->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
         ui->verticalLayout_WebView->addWidget(m_webView);
         connect(ui->pushButton_Home, &QPushButton::clicked, this, &MainPage::toolButton_home_clicked);
 
+
+    }
+
+    void MainPage::onAdded() {
+        auto args = getFairWindApp()->getArgs();
+        if (args.contains("Url")) {
+            m_url = args["Url"].toString();
+        }
         m_webView->load(QUrl(m_url));
     }
 

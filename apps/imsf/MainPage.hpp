@@ -18,7 +18,7 @@ namespace fairwind::apps::imsf {
     Q_OBJECT
 
     public:
-        explicit MainPage(QWidget *parent = nullptr, fairwind::apps::IFairWindApp *fairWindApp = nullptr);
+        explicit MainPage(PageBase *parent = nullptr);
 
         ~MainPage();
 

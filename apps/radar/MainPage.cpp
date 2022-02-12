@@ -10,8 +10,8 @@
 #include "ui_MainPage.h"
 
 namespace fairwind::apps::radar {
-    MainPage::MainPage(QWidget *parent, FairWindApp *fairWindApp) :
-            PageBase(parent, fairWindApp), ui(new Ui::MainPage) {
+    MainPage::MainPage(PageBase *parent) :
+            PageBase(parent), ui(new Ui::MainPage) {
 
         ui->setupUi((QWidget *)this);
     }
