@@ -7,41 +7,42 @@
 #include "MainPage.hpp"
 
 
+namespace fairwind::apps::chandlery {
+    
+    // Called by the FairWind framework when the app is invoked for the first time
+    void Chandlery::onStart() {
+        // Invoke the AppBase implementation
 
-// Called by the FairWind framework when the app is invoked for the first time
-void fairwind::apps::chandlery::Chandlery::onStart() {
-    // Invoke the AppBase implementation
+        FairWindApp::onStart();
 
-    FairWindApp::onStart();
+        auto mainPage = new MainPage();
+        add(mainPage);
 
-    MainPage *mainPage = new MainPage(nullptr, this);
-    FairWindApp::add(mainPage);
-    auto fairwind=::fairwind::FairWind::getInstance();
-    auto config = FairWindApp::getConfig();
-    FairWindApp::show();
+        show();
+    }
+
+    void Chandlery::onCreate() {
+        FairWindApp::onCreate();
+    }
+
+    void Chandlery::onResume() {
+        FairWindApp::onResume();
+    }
+
+    void Chandlery::onPause() {
+        FairWindApp::onPause();
+    }
+
+    void Chandlery::onStop() {
+        FairWindApp::onStop();
+    }
+
+    void Chandlery::onDestroy() {
+        FairWindApp::onDestroy();
+    }
+
+    void Chandlery::onConfigChanged() {
+        FairWindApp::onConfigChanged();
+    }
+
 }
-
-void fairwind::apps::chandlery::Chandlery::onCreate() {
-    FairWindApp::onCreate();
-}
-
-void fairwind::apps::chandlery::Chandlery::onResume()  {
-    FairWindApp::onResume();
-}
-
-void fairwind::apps::chandlery::Chandlery::onPause()  {
-    FairWindApp::onPause();
-}
-
-void fairwind::apps::chandlery::Chandlery::onStop()  {
-    FairWindApp::onStop();
-}
-
-void fairwind::apps::chandlery::Chandlery::onDestroy()  {
-    FairWindApp::onDestroy();
-}
-
-void fairwind::apps::chandlery::Chandlery::onConfigChanged()  {
-    FairWindApp::onConfigChanged();
-}
-

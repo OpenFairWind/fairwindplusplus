@@ -38,7 +38,7 @@ namespace fairwind::apps::settings {
         FairWindApp::onStart();
 
         // Create the main page
-        auto mainPage = new MainPage(nullptr, this);
+        auto mainPage = new MainPage();
 
         // Add the main page to the app pages as root page
         add(mainPage);

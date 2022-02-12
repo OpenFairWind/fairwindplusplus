@@ -20,7 +20,7 @@ namespace fairwind::apps::launcherax10m {
         FairWindApp::onStart();
 
         // Create the main page
-        auto mainPage = new MainPage(nullptr, this);
+        auto mainPage = new MainPage();
 
         connect(mainPage,&MainPage::foregroundAppChanged,this,&LauncherAx10m::setForegroundApp);
 

@@ -125,7 +125,7 @@ namespace fairwind::apps::portolano {
     void Portolano::onStart() {
         FairWindApp::onStart();
 
-        auto mainPage = new MainPage(nullptr, this);
+        auto mainPage = new MainPage();
         add(mainPage);
         show();
     }
