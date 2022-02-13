@@ -3,97 +3,33 @@
 //
 
 #include <FairWindSdk/FairWind.hpp>
+#include <FairWindSdk/FairWindApp.hpp>
 #include "IMSF.hpp"
+#include "MainPage.hpp"
 
-/*
- * Returns the application icon
- */
-QImage fairwind::apps::imsf::IMSF::getIcon() const {
-    return QImage(":/resources/images/icons/imsf_icon.png");
-}
+
 
 /*
  * Called by the FairWind framework when the app is invoked for the first time
  */
-QWidget *fairwind::apps::imsf::IMSF::onStart(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
+void fairwind::apps::imsf::IMSF::onStart() {
+    FairWindApp::onStart();
 
-    m_widget=new QWidget();
-    ui=new Ui::IMSF();
-    ui->setupUi(m_widget);
-
-    auto fairwind=::fairwind::FairWind::getInstance();
-    auto config = getConfig();
-
-    return m_widget;
+    auto mainPage = new MainPage();
+    add(mainPage);
+    show();
 }
 
 
+void fairwind::apps::imsf::IMSF::onCreate() { FairWindApp::onCreate(); }
 
-QString fairwind::apps::imsf::IMSF::getId() const {
-    return AppBase::getId();
-}
+void fairwind::apps::imsf::IMSF::onResume() { FairWindApp::onResume(); }
 
-QString fairwind::apps::imsf::IMSF::getName() const {
-    return AppBase::getName();
-}
+void fairwind::apps::imsf::IMSF::onPause() { FairWindApp::onPause(); }
 
-QString fairwind::apps::imsf::IMSF::getDesc() const {
-    return AppBase::getDesc();
-}
+void fairwind::apps::imsf::IMSF::onStop() { FairWindApp::onStop(); }
 
-QString fairwind::apps::imsf::IMSF::getVersion() const {
-    return fairwind::AppBase::getVersion();
-}
+void fairwind::apps::imsf::IMSF::onDestroy() { FairWindApp::onDestroy();}
 
-QString fairwind::apps::imsf::IMSF::getVendor() const {
-    return fairwind::AppBase::getVendor();
-}
+void fairwind::apps::imsf::IMSF::onConfigChanged() {FairWindApp::onConfigChanged();}
 
-QString fairwind::apps::imsf::IMSF::getCopyright() const {
-    return fairwind::AppBase::getCopyright();
-}
-
-QString fairwind::apps::imsf::IMSF::getLicense() const {
-    return fairwind::AppBase::getLicense();
-}
-
-
-void fairwind::apps::imsf::IMSF::onCreate(QJsonObject *metaData) {
-    AppBase::onCreate(metaData);
-}
-
-void fairwind::apps::imsf::IMSF::onResume() {
-    AppBase::onResume();
-}
-
-void fairwind::apps::imsf::IMSF::onPause() {
-    AppBase::onPause();
-}
-
-void fairwind::apps::imsf::IMSF::onStop() {
-    AppBase::onStop();
-}
-
-void fairwind::apps::imsf::IMSF::onDestroy() {
-    AppBase::onDestroy();
-}
-
-QJsonObject fairwind::apps::imsf::IMSF::getConfig() {
-    return AppBase::getConfig();
-}
-
-QJsonObject fairwind::apps::imsf::IMSF::getMetaData() {
-    return AppBase::getMetaData();
-}
-
-void fairwind::apps::imsf::IMSF::updateSettings(QString settingsID, QString newValue) {
-    AppBase::updateSettings(settingsID, newValue);
-}
-
-void fairwind::apps::imsf::IMSF::setConfig(QJsonObject config) {
-    AppBase::setConfig(config);
-}
-
-QJsonObject fairwind::apps::imsf::IMSF::getSettings() {
-    return AppBase::getSettings();
-}

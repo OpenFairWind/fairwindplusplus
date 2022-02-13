@@ -2,6 +2,9 @@
 Integrated multifunctional navigation system based on open technologies.
 
 ![The FairWind++ launcher.](figures/launcher01.jpeg)
+Trademarks are ownered by the related companies with no partner relationship with the FairWind Team,
+the Department of Science and Technologies, and the University of Naples "Parthenope".
+
 
 FairWind++ is a novel execution environment for marine electronics, automotive, and home automation.
 It serves as a graphical user interface in the DYNAMO ecosystem.
@@ -35,6 +38,11 @@ In FairWInd++ can run and co-exist 3 types of Apps:
   An example of FairWind App the Chart application. 
 
   ![The Chart App.](figures/chart01.jpeg)
+  The Char FairWind App uses diverse and different data sources organized as geographic
+  information system (GIS) layers. The georeferenced data can be static or updated in
+  realtime. At the current state of development the following layers are supported:
+  SignlK, Tiled Map Layer, Open Sea Map Layer. 
+
 
 - **Web Apps**
 
@@ -44,12 +52,12 @@ In FairWInd++ can run and co-exist 3 types of Apps:
 
   The FairWind app shows the web apps on the launcher as regular applications.
 
-  An example of web application are the
-  [Navionics Web App](https://webapp.navionics.com) and the [Signal K](http://signalk.org) Apps.
-
   ![The Navionics Web App (hosted on the Internet).](figures/webapp01.jpeg)
+  The [Navionics Web App](https://webapp.navionics.com) is freely available on-line for route planning.
+  Here it is shown an example of a FairWind Web App based on the embedded Chromium browser.
 
   ![A Signalk K App (hosted on board).](figures/webapp02.jpeg)
+  The [Signal K](http://signalk.org) Apps.
 
 - **External Apps**
 
@@ -66,7 +74,7 @@ FairWind++ is developed in C++ 17 and QT5.12.2.
 The following list is an incomplete set of tested working conditions:
 
 - MacOs, Intel
-- MacOs, Apple Silicon (the web applications are not working)
+- MacOs, Apple Silicon
 - Ubuntu Linux, ARM64
 - Ubuntu Linux, X86_64
 - Raspberry Pi OS, ARM32
@@ -194,9 +202,50 @@ make
 ./FairWind
 ```
 
-### Building on MacOS
+## Building on MacOS
+### Apple Silicon
+***ATTENTION: Qt5 is not yet fully compatible with Apple Silicon SoCs. You can instal qt@5 package but it won't include the qtwebengine widgets, which are necessary to build some FairWind's applications. 
+For this reason Rosetta will emulate x86_64 version of Qt@5***
 
-***ATTENTION: Qt5 is not yet fully compatible with Apple Silicon SoCs. You can instal qt@5 package but it won't include the qtwebengine widgets, which are necessary to build some FairWind's applications.***
+Make sure Rosetta is installed
+```console
+softwareupdate --install-rosetta
+```
+
+Then install Homebrew (explained here https://github.com/Homebrew/brew/issues/9173)
+```console
+arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+```
+- Install Qt5 from homebrew:
+```console
+arch -x86_64 /usr/local/Homebrew/bin/brew install cmake qt@5
+```
+
+- Clone FairWind's repository:
+```console
+brew install git
+git clone https://github.com/OpenFairWind/fairwindplusplus.git
+```
+
+- Prepare build environment:
+```console
+cd fairwindplusplus
+mkdir build
+cd build
+```
+
+- Build:
+```console
+arch -x86_64 /usr/local/Cellar/cmake/3.22.1/bin/cmake -DCMAKE_PREFIX_PATH="/usr/local/opt/qt5/" ..
+make
+```
+
+- Launch FairWind++:
+```console
+./FairWind
+```
+
+### Intel
 
 - Install Qt5 from homebrew:
 ```console

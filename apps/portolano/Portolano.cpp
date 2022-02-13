@@ -2,98 +2,158 @@
 // Created by __author__ on 16/07/2021.
 //
 
-#include <FairWindSdk/FairWind.hpp>
+#include <sqlite3.h>
+
+#include <QSqlRecord>
+#include <QSqlQuery>
+#include <QSqlDriver>
+#include <QSqlError>
+#include <QJsonArray>
+
 #include "Portolano.hpp"
+#include "MainPage.hpp"
 
-/*
- * Returns the application icon
- */
-QImage fairwind::apps::portolano::Portolano::getIcon() const {
-    return QImage(":/resources/images/icons/portolano_icon.png");
-}
+namespace fairwind::apps::portolano {
+    void Portolano::onCreate() {
+        FairWindApp::onCreate();
 
-/*
- * Called by the FairWind framework when the app is invoked for the first time
- */
-QWidget *fairwind::apps::portolano::Portolano::onStart(QMainWindow *mainWindow, QMap<QString, QVariant> args) {
-
-    m_widget=new QWidget();
-    ui=new Ui::Portolano();
-    ui->setupUi(m_widget);
-
-    auto fairwind=::fairwind::FairWind::getInstance();
-    auto config = getConfig();
-
-    return m_widget;
-}
+        mDb =  QSqlDatabase::addDatabase("QSQLITE");
 
 
 
-QString fairwind::apps::portolano::Portolano::getId() const {
-    return AppBase::getId();
-}
+        auto geoJsonFileName = getDataPath()+QDir::separator()+"ports.json";
+        auto databaseFileName =  getDataPath()+QDir::separator()+"ports.sqlite";
 
-QString fairwind::apps::portolano::Portolano::getName() const {
-    return AppBase::getName();
-}
+        mDb.setDatabaseName(databaseFileName);
+        if (mDb.open()) {
 
-QString fairwind::apps::portolano::Portolano::getDesc() const {
-    return AppBase::getDesc();
-}
+            QSqlQuery query(mDb);
+            query.exec("PRAGMA case_sensitive_like = true;");
 
-QString fairwind::apps::portolano::Portolano::getVersion() const {
-    return fairwind::AppBase::getVersion();
-}
+            auto filePorts = QFile(geoJsonFileName);
+            if (!filePorts.exists()) {
+                auto filePortsFromResources = QFile(":/resources/data/ports.json");
+                filePortsFromResources.open(QFile::ReadOnly);
+                filePorts.open(QFile::WriteOnly);
+                filePorts.write(filePortsFromResources.readAll());
+                filePorts.flush();
+                filePorts.close();
+                filePortsFromResources.close();
 
-QString fairwind::apps::portolano::Portolano::getVendor() const {
-    return fairwind::AppBase::getVendor();
-}
-
-QString fairwind::apps::portolano::Portolano::getCopyright() const {
-    return fairwind::AppBase::getCopyright();
-}
-
-QString fairwind::apps::portolano::Portolano::getLicense() const {
-    return fairwind::AppBase::getLicense();
-}
+                query.exec("DROP TABLE IF EXISTS ports;");
+                query.exec(
+                        "CREATE TABLE ports (id INTEGER NOT NULL PRIMARY KEY, name TEXT NOT NULL, lon DOUBLE NOT NULL, lat DOUBLE NOT NULL,feature TEXT NOT NULL);");
 
 
-void fairwind::apps::portolano::Portolano::onCreate(QJsonObject *metaData) {
-    AppBase::onCreate(metaData);
-}
+                auto filePortsFromData = QFile(geoJsonFileName);
+                filePortsFromData.open(QFile::ReadOnly);
 
-void fairwind::apps::portolano::Portolano::onResume() {
-    AppBase::onResume();
-}
+                auto jsonDocument = QJsonDocument::fromJson(filePortsFromData.readAll());
+                QJsonObject jsonObjectPorts = jsonDocument.object();
+                if (jsonObjectPorts.contains("features") && jsonObjectPorts["features"].isArray()) {
+                    auto jsonArrayFeatures = jsonObjectPorts["features"].toArray();
+                    for (auto jsonFeature: jsonArrayFeatures) {
+                        if (jsonFeature.isObject()) {
+                            auto jsonObjectFeature = jsonFeature.toObject();
 
-void fairwind::apps::portolano::Portolano::onPause() {
-    AppBase::onPause();
-}
+                            if (jsonObjectFeature.contains("type") && jsonObjectFeature["type"].isString() &&
+                                jsonObjectFeature["type"].toString() == "Feature") {
+                                if (jsonObjectFeature.contains("properties") &&
+                                    jsonObjectFeature["properties"].isObject()) {
+                                    auto jsonObjectProperties = jsonObjectFeature["properties"].toObject();
 
-void fairwind::apps::portolano::Portolano::onStop() {
-    AppBase::onStop();
-}
+                                    if (jsonObjectFeature.contains("geometry") &&
+                                        jsonObjectFeature["geometry"].isObject()) {
+                                        auto jsonObjectGeometry = jsonObjectFeature["geometry"].toObject();
 
-void fairwind::apps::portolano::Portolano::onDestroy() {
-    AppBase::onDestroy();
-}
+                                        if (jsonObjectGeometry.contains("type") &&
+                                            jsonObjectGeometry["type"].isString()) {
+                                            auto type = jsonObjectGeometry["type"].toString();
 
-QJsonObject fairwind::apps::portolano::Portolano::getConfig() {
-    return AppBase::getConfig();
-}
+                                            if (type == "Point") {
 
-QJsonObject fairwind::apps::portolano::Portolano::getMetaData() {
-    return AppBase::getMetaData();
-}
+                                                if (jsonObjectGeometry.contains("coordinates") &&
+                                                    jsonObjectGeometry["coordinates"].isArray()) {
+                                                    auto jsonArrayCoordinates = jsonObjectGeometry["coordinates"].toArray();
 
-void fairwind::apps::portolano::Portolano::updateSettings(QString settingsID, QString newValue) {
-    AppBase::updateSettings(settingsID, newValue);
-}
 
-void fairwind::apps::portolano::Portolano::setConfig(QJsonObject config) {
-    AppBase::setConfig(config);
-}
+                                                    double lon = jsonArrayCoordinates[0].toDouble();
+                                                    double lat = jsonArrayCoordinates[1].toDouble();
 
-QJsonObject fairwind::apps::portolano::Portolano::getSettings() {
-    return AppBase::getSettings();
+                                                    if (jsonObjectProperties.contains("id") &&
+                                                        jsonObjectProperties["id"].isDouble()) {
+
+                                                        int id = jsonObjectProperties["id"].toInt();
+
+                                                        if (jsonObjectProperties.contains("name") &&
+                                                            jsonObjectProperties["name"].isString()) {
+                                                            auto name = jsonObjectProperties["name"].toString();
+
+                                                            QJsonDocument doc(jsonObjectFeature);
+                                                            QString strJsonFeature(doc.toJson(QJsonDocument::Compact));
+
+                                                            QString q = QString(
+                                                                    "INSERT INTO ports(id, name, lon, lat, feature) VALUES (%1, '%2', %3, %4, '%5');")
+                                                                    .arg(id)
+                                                                    .arg(name)
+                                                                    .arg(lon)
+                                                                    .arg(lat)
+                                                                    .arg(strJsonFeature);
+                                                            qDebug() << "q:" << q;
+                                                            query.prepare(q);
+                                                            if (!query.exec()) {
+                                                                qDebug() << "Query failed: " << query.lastError();
+                                                                qDebug() << "            : " << query.lastQuery();
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    /*
+     * Called by the FairWind framework when the app is invoked for the first time
+     */
+    void Portolano::onStart() {
+        FairWindApp::onStart();
+
+        auto mainPage = new MainPage();
+        add(mainPage);
+        show();
+    }
+
+    void Portolano::onResume() {
+        FairWindApp::onResume();
+    }
+
+    void Portolano::onPause() {
+        FairWindApp::onPause();
+    }
+
+    void Portolano::onStop() {
+        FairWindApp::onStop();
+    }
+
+    void Portolano::onDestroy() {
+
+        mDb.close();
+        FairWindApp::onDestroy();
+    }
+
+    void Portolano::onConfigChanged() {
+        FairWindApp::onConfigChanged();
+    }
+
+    QSqlDatabase *Portolano::getDb() {
+        return &mDb;
+    }
+
 }

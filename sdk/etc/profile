@@ -1,0 +1,9 @@
+#! /bin/bash
+
+if [[ -z "${FAIRWINDSDK_HOME}" ]]; then
+  echo "FAIRWINDSDK_HOME environment variable not set."
+  exit
+else
+
+export PATH=$FAIRWINDSDK_HOME/bin:$PATH
+fi

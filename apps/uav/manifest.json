@@ -12,9 +12,8 @@
     "App": {
       "Email": "fairwind@uniparthenope.it",
       "Id": "fairwind.apps.uav",
-      "Config": {
-
-      }
+      "Icon": ":/resources/images/icons/uav_icon.png",
+      "Settings": {}
     }
   }
 }

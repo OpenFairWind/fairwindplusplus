@@ -6,6 +6,9 @@
 
 #include <FairWindSdk/FairWind.hpp>
 #include <QAbstractButton>
+#include <FairWindSdk/FairWindApp.hpp>
+#include <QGeoLocation>
+#include <QGeoCoordinate>
 
 #include "TopBar.hpp"
 #include "ui_TopBar.h"
@@ -44,19 +47,16 @@ fairwind::ui::topbar::TopBar::TopBar(QWidget *parent) :
     // Get the signalk document from the FairWind singleton itslef
     auto signalKDocument = fairWind->getSignalKDocument();
 
-    /*
-    connect(signalKDocument,&SignalKDocument::updated,this, &TopBar::onUpdate);
-    connect(signalKDocument,&SignalKDocument::updatedNavigationPosition,this, &TopBar::updateNavigationPosition);
-    connect(signalKDocument,&SignalKDocument::updatedNavigationCourseOverGroundTrue,this, &TopBar::updateNavigationCourseOverGroundTrue);
-    connect(signalKDocument,&SignalKDocument::updatedNavigationSpeedOverGround,this, &TopBar::updateNavigationSpeedOverGround);
-     */
-
     // Get the signalk document's string
     QString self = signalKDocument->getSelf();
+
     // Subscribe to signalk and make sure that navigation infos are updated accordingly
-    signalKDocument->subscribe(self + ".navigation.position.value", this, SLOT(TopBar::updateNavigationPosition));
+    signalKDocument->subscribe(self + ".navigation.position.value", this,
+                               SLOT(TopBar::updateNavigationPosition));
+
     signalKDocument->subscribe(self + ".navigation.courseOverGroundTrue.value", this,
                                SLOT(TopBar::updateNavigationCourseOverGroundTrue));
+
     signalKDocument->subscribe(self + ".navigation.speedOverGround.value", this,
                                SLOT(TopBar::updateNavigationSpeedOverGround));
 }
@@ -119,25 +119,23 @@ void fairwind::ui::topbar::TopBar::updateNavigationPosition(const QJsonObject up
     auto fairWind = fairwind::FairWind::getInstance();
     // Get the signalk document from the FairWind singleton itself
     auto signalKDocument = fairWind->getSignalKDocument();
+
     // Set the search path
     QString path = signalKDocument->getSelf() + ".navigation.position.value";
 
     // Get the postion value from the signalk document
     QJsonValue positionValue = signalKDocument->subtree(path);
+
     // Check if the value is valid
     if (positionValue.isObject()) {
         // Get latitude
         double latitude = positionValue.toObject()["latitude"].toDouble();
         // Get longitude
         double longitude = positionValue.toObject()["longitude"].toDouble();
-        // Build formatted coordinates
-        QString sLatitude, sLongitude;
-        sLatitude = QString{"%1"}.arg(latitude, 6, 'f', 4, '0');
-        sLongitude = QString{"%1"}.arg(longitude, 7, 'f', 4, '0');
-        // Set the latitude label from the UI to the formatted latitude
-        ui->label_Lat->setText(sLatitude);
-        // Set the longitude label from the UI to the formatted longitude
-        ui->label_Lon->setText(sLongitude);
+
+        QGeoCoordinate pos(latitude,longitude);
+        ui->label_Position_value->setText(pos.toString(QGeoCoordinate::DegreesMinutesSecondsWithHemisphere));
+
     }
 }
 
@@ -193,13 +191,17 @@ void fairwind::ui::topbar::TopBar::updateNavigationSpeedOverGround(const QJsonOb
     }
 }
 
-void fairwind::ui::topbar::TopBar::setFairWindApp(fairwind::apps::IApp *fairWindApp) {
-    m_fairWindApp = fairWindApp;
-    if (m_fairWindApp) {
-        ui->toolButton_UR->setIcon(QPixmap::fromImage(fairWindApp->getIcon()));
+void fairwind::ui::topbar::TopBar::setFairWindApp(AppItem *appItem) {
+    mAppItem = appItem;
+    if (mAppItem) {
+        ui->toolButton_UR->setIcon(QPixmap::fromImage(mAppItem->getIcon()));
         ui->toolButton_UR->setIconSize(QSize(32, 32));
+        ui->label_ApplicationName->setText(mAppItem->getName());
+        ui->label_ApplicationName->setToolTip(mAppItem->getDesc());
     } else {
         ui->toolButton_UR->setIcon(QPixmap::fromImage(QImage(":resources/images/icons/apps_icon.png")));
         ui->toolButton_UR->setIconSize(QSize(32, 32));
+        ui->label_ApplicationName->setText("");
+        ui->label_ApplicationName->setToolTip("");
     }
 }

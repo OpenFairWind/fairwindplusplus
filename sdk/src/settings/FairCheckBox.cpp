@@ -5,24 +5,20 @@
 #include <QJsonArray>
 
 #include <FairWindSdk/FairWind.hpp>
-#include <FairWindSdk/IApp.hpp>
+#include <FairWindSdk/IFairWindApp.hpp>
 #include <FairWindSdk/settings/FairCheckBox.hpp>
+#include <FairWindApp.hpp>
 
-void fairwind::ui::settings::FairCheckBox::setDetails(QString settingsID, QJsonObject settings, fairwind::apps::IApp* extension) {
-    auto config = extension->getConfig();
-
-    // Get the settings current value
-    QString checkState = config[settingsID].toString();
-
+void fairwind::ui::settings::FairCheckBox::setDetails(std::function<void(QVariant newValue)> slot, QJsonObject details, QJsonValue currentValue) {
     // Set the checkbox's state according to the current value
-    if (checkState.toInt() == 0)
+    if (currentValue.toInt() == 0)
         this->setCheckState(Qt::CheckState::Unchecked);
     else
         this->setCheckState(Qt::CheckState::Checked);
 
     // When the current value changes, call the updateSettings method to save the changes
-    connect(this,static_cast<void (QCheckBox::*)(int state)>(&QCheckBox::stateChanged), this, [settingsID, extension, checkState]() {
-        extension->updateSettings(settingsID, checkState == "0" ? "2" : "0");
+    connect(this,static_cast<void (QCheckBox::*)(int state)>(&QCheckBox::stateChanged), this, [this, slot]() {
+        slot(this->checkState());
     });
 }
 

@@ -6,7 +6,7 @@
 #define FAIRWIND_FAIRCHECKBOX_HPP
 
 #include <FairWindSdk/ISettings.hpp>
-#include <FairWindSdk/IApp.hpp>
+#include <FairWindSdk/IFairWindApp.hpp>
 #include <QCheckBox>
 
 namespace fairwind::ui::settings {
@@ -18,7 +18,7 @@ namespace fairwind::ui::settings {
     Q_OBJECT
 
     public:
-        void setDetails(QString settingsID, QJsonObject settings, fairwind::apps::IApp* extension) override;
+        void setDetails(std::function<void(QVariant newValue)> slot, QJsonObject details, QJsonValue currentValue) override;
         ISettings* getNewInstance() override;
         QString getClassName() override;
     };

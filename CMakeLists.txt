@@ -32,8 +32,8 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 set(QT_VERSION 5)
-set(REQUIRED_LIBS Core Gui Widgets Network WebSockets Xml)
-set(REQUIRED_LIBS_QUALIFIED Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Network Qt5::WebSockets Qt5::Xml)
+set(REQUIRED_LIBS Core Gui Widgets Network WebSockets Xml Positioning)
+set(REQUIRED_LIBS_QUALIFIED Qt${QT_VERSION}::Core Qt${QT_VERSION}::Gui Qt${QT_VERSION}::Widgets Qt${QT_VERSION}::Network Qt${QT_VERSION}::WebSockets Qt${QT_VERSION}::Xml Qt${QT_VERSION}::Positioning)
 
 find_package(Qt${QT_VERSION} COMPONENTS ${REQUIRED_LIBS} REQUIRED)
 
@@ -44,43 +44,13 @@ add_subdirectory(apps)
 add_executable(${PROJECT_NAME}
         main.cpp resources.qrc
         ui/MainWindow.ui ui/MainWindow.cpp ui/MainWindow.hpp
+        ui/about/About.cpp ui/about/About.hpp
         ui/topbar/TopBar.cpp ui/topbar/TopBar.hpp
         ui/bottombar/BottomBar.cpp ui/bottombar/BottomBar.hpp
-        ui/apps/Apps.cpp ui/apps/Apps.hpp
-        ui/settings/Settings.cpp ui/settings/Settings.hpp
-        ui/settings/generic/Generic.cpp ui/settings/generic/Generic.hpp
-        ui/settings/connections/Connections.cpp ui/settings/connections/Connections.hpp
-        ui/settings/applications/Applications.cpp ui/settings/applications/Applications.hpp
         )
 
 add_dependencies(${PROJECT_NAME} FairWindSdk)
 target_link_libraries(${PROJECT_NAME} PRIVATE ${REQUIRED_LIBS_QUALIFIED} ${LIBFAIRWINDSDK})
-
-
-
-
-if( EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/fairwind.json")
-else()
-    message("Creating default configuration file: ${CMAKE_CURRENT_SOURCE_DIR}/fairwind.json")
-
-    add_custom_command(
-            TARGET ${PROJECT_NAME}
-            POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy
-            ${CMAKE_CURRENT_SOURCE_DIR}/fairwind.json.sample
-            ${CMAKE_CURRENT_SOURCE_DIR}/fairwind.json
-    )
-endif()
-
-
-
-add_custom_command(
-        TARGET ${PROJECT_NAME}
-        POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy
-        ${CMAKE_CURRENT_SOURCE_DIR}/fairwind.json
-        $<TARGET_FILE_DIR:${PROJECT_NAME}>/fairwind.json
-)
 
 
 

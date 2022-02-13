@@ -13,10 +13,10 @@
 #include <QGeoView/QGVLayer.h>
 
 #include "FairWindSDK.hpp"
-#include "IApp.hpp"
+#include "IFairWindApp.hpp"
 #include "ILayer.hpp"
 #include "SignalKDocument.hpp"
-#include "App.hpp"
+#include "AppItem.hpp"
 #include "IDisplay.hpp"
 #include "IConnection.hpp"
 #include "ILayout.hpp"
@@ -34,14 +34,20 @@ namespace fairwind {
         static FairWind *getInstance();
 
         void loadApps();
-        apps::IApp *getAppByExtensionId(const QString& id);
+
+
 
         void setApplicationDirPath(QString qString);
         void loadConfig();
 
         SignalKDocument *getSignalKDocument();
 
-        QMap<QString, App *> getApps();
+        apps::IFairWindApp *getAppByExtensionId(const QString& id);
+        QList<QString> getExtensionsIds();
+        QList<QString> getExtensionsHashes();
+        AppItem *getAppItemByHash(QString hash);
+        QString getAppHashById(QString appId);
+
         bool registerLayer(fairwind::layers::ILayer *dummy);
         layers::ILayer *instanceLayer(const QString& className);
 
@@ -68,16 +74,25 @@ namespace fairwind {
         QList<fairwind::connections::IConnection *> *getConnectionsList();
         QList<ui::settings::ISettingsTab *> *getSettingsList();
 
-        QJsonObject &getConfig();
+        QJsonObject getConfig();
+
+        QString getSettingsFairWindAppId();
+        QString getLauncherFairWindAppId();
+
+        void setMainWindow(QMainWindow *mainWindow);
+        QMainWindow *getMainWindow();
 
     private:
-        QJsonObject m_config;
+        QMainWindow *m_mainWindow;
+
+        QString mSettingsFairWindAppId;
+        QString mLauncherFairWindAppId;
 
         SignalKDocument m_signalkDocument;
 
-        QMap<QString, fairwind::apps::IApp *> m_mapFairWindApps;
-
-        QMap<QString, App *> m_mapApps;
+        QMap<QString, fairwind::apps::IFairWindApp *> m_mapAppId2FairWindApp;
+        QMap<QString, AppItem *> m_mapHash2AppItem;
+        QMap<QString, QString> m_mapAppId2Hash;
 
         QList<fairwind::connections::IConnection *> m_listConnections;
 
@@ -95,6 +110,8 @@ namespace fairwind {
 
         QDir m_appsRoot;
         QDir m_dataRoot;
+
+
     };
 }
 

@@ -1,0 +1,8 @@
+#! /bin/bash
+
+if [[ -z "${FAIRWINDSDK_HOME}" ]]; then
+  echo "FAIRWINDSDK_HOME environment variable not set."
+  exit
+fi
+
+python $FAIRWINDSDK_HOME/scripts/fairwindsdk-app-create.py $@

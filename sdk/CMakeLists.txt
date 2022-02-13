@@ -1,24 +1,13 @@
-find_package(Qt5 REQUIRED COMPONENTS
+set(QT_VERSION 5)
+
+find_package(Qt${QT_VERSION} REQUIRED COMPONENTS
         Core
         Gui
         Network
         Widgets
         WebSockets
+        Positioning
         )
-
-#ExternalProject_Add(marnav
-#        GIT_REPOSITORY https://github.com/mariokonrad/marnav.git
-#        CMAKE_ARGS -DENABLE_STATIC=OFF -DENABLE_EXAMPLES=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
-#        TIMEOUT 360
-#        )
-#set(LIBMARNAV ${EXTERNAL_INSTALL_LOCATION}/lib/libmarnav.so)
-#if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
-#    set(LIBMARNAV ${EXTERNAL_INSTALL_LOCATION}/lib/libmarnav.dll)
-#elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
-#    set(LIBMARNAV ${EXTERNAL_INSTALL_LOCATION}/lib/libmarnav.dylib)
-#endif()
-#set(LIBMARNAV ${LIBMARNAV} PARENT_SCOPE)
-
 
 
 ExternalProject_Add(QtJsonSchema
@@ -131,16 +120,19 @@ qt5_add_resources(FAIRWINDSDK_RESOURCE_ADDED ${FAIRWINDSDK_RESOURCE})
 add_library(fairwindsdk SHARED
         ${FAIRWINDSDK_RESOURCE_ADDED}
         include/FairWindSdk/FairWindSDK.hpp
-        include/FairWindSdk/IApp.hpp
+        include/FairWindSdk/IFairWindApp.hpp
+        include/FairWindSdk/IFairWindLauncher.hpp
         include/FairWindSdk/ILayer.hpp
         include/FairWindSdk/IDisplay.hpp
         include/FairWindSdk/IConnection.hpp
         include/FairWindSdk/ILayout.hpp
         include/FairWindSdk/ISettingsTab.hpp
-        include/FairWindSdk/AppBase.hpp
+        include/FairWindSdk/FairWindApp.hpp
+        include/FairWindSdk/PageBase.hpp
+        include/FairWindSdk/PanelBase.hpp
         include/FairWindSdk/SignalKDocument.hpp
         include/FairWindSdk/FairWind.hpp
-        include/FairWindSdk/App.hpp
+        include/FairWindSdk/AppItem.hpp
         include/FairWindSdk/displays/DisplayBase.hpp
         include/FairWindSdk/displays/DisplaySingleText.hpp
         include/FairWindSdk/displays/DisplayDoubleText.hpp
@@ -172,9 +164,13 @@ add_library(fairwindsdk SHARED
         include/FairWindSdk/settings/DisplaysBrowser.hpp
         include/FairWindSdk/settings/LayersBrowser.hpp
 
+        src/ui/Warning.cpp include/FairWindSdk/ui/Warning.hpp src/ui/Warning.ui
+        src/ui/Colophon.cpp include/FairWindSdk/ui/Colophon.hpp src/ui/Colophon.ui
+
         src/FairWind.cpp
-        src/App.cpp
-        src/AppBase.cpp
+        src/AppItem.cpp
+        src/FairWindApp.cpp
+        src/PageBase.cpp
         src/SignalKDocument.cpp
         src/displays/base/DisplayBase.cpp
         src/displays/base/singletext/DisplaySingleText.cpp
@@ -205,6 +201,9 @@ add_library(fairwindsdk SHARED
         src/settings/FairCheckBox.cpp
         src/settings/DisplaysBrowser.cpp
         src/settings/LayersBrowser.cpp
+        src/PanelBase.cpp
+
+        ${FAIRWINDSDK_RESOURCE_ADDED}
         )
 
 target_include_directories(fairwindsdk
@@ -219,8 +218,6 @@ target_compile_definitions(fairwindsdk
         FAIRWINDSDK_EXPORT
         )
 
-#add_dependencies(fairwindsdk variant)
-#add_dependencies(fairwindsdk marnav)
 add_dependencies(fairwindsdk QtJsonSchema)
 add_dependencies(fairwindsdk QcGaugeWidget)
 add_dependencies(fairwindsdk QcSwitchWidget)
@@ -228,27 +225,15 @@ add_dependencies(fairwindsdk QGeoView)
 
 target_link_libraries(fairwindsdk
         PRIVATE
-        Qt5::Core
-        Qt5::Network
-        Qt5::Gui
-        Qt5::Widgets
-        Qt5::WebSockets
-        #${LIBMARNAV}
-        ${LIBQTJSONSCHEMA} ${LIBQCGAUGEWIDGET} ${LIBQCSWITCHWIDGET} ${LIBQGEOVIEW}
+        Qt${QT_VERSION}::Core
+        Qt${QT_VERSION}::Network
+        Qt${QT_VERSION}::Gui
+        Qt${QT_VERSION}::Widgets
+        Qt${QT_VERSION}::WebSockets
+        ${LIBQTJSONSCHEMA} ${LIBQCGAUGEWIDGET} ${LIBQGEOVIEW}
         )
 
 add_library(FairWindSdk ALIAS fairwindsdk)
-
-#install(TARGETS fairwindsdk LIBRARY
-#        RUNTIME DESTINATION bin
-#        LIBRARY DESTINATION lib
-#        ARCHIVE DESTINATION lib/static
-#        )
-#
-#install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/
-#        DESTINATION include
-#        FILES_MATCHING PATTERN "*.h*"
-#        )
 
 set(LIBFAIRWINDSDK ${EXTERNAL_INSTALL_LOCATION}/lib/libfairwindsdk.so)
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")

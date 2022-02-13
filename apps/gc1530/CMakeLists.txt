@@ -7,9 +7,10 @@ if (Qt5WebEngineWidgets_FOUND)
 	add_library(GC1530 SHARED
         	GC1530.cpp
         	GC1530.hpp
+			MainPage.cpp MainPage.hpp MainPage.ui
         	WebView.cpp WebView.hpp
         	${GC1530_RESOURCE_ADDED}
-        )
+            )
 
 	add_dependencies(GC1530 FairWindSdk)
 	add_dependencies(GC1530 QGeoView)

@@ -6,7 +6,7 @@ add_library(Chandlery SHARED
         Chandlery.cpp
         Chandlery.hpp
         ${CHANDLERY_RESOURCE_ADDED}
-        )
+        MainPage.cpp MainPage.hpp MainPage.ui)
 
 add_dependencies(Chandlery FairWindSdk)
 target_link_libraries(Chandlery PRIVATE Qt5::Widgets Qt5::Network  ${LIBFAIRWINDSDK})

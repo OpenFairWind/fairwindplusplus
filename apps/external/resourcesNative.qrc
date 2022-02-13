@@ -1,6 +1,0 @@
-<!DOCTYPE RCC><RCC version="1.0">
-    <qresource>
-        <file>resources/images/icons/native_icon.png</file>
-        <file>resources/images/icons/opencpn_icon.png</file>
-    </qresource>
-</RCC>

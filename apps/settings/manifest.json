@@ -1,0 +1,630 @@
+{
+  "Name" : "Settings",
+  "Version" : "0.0.1",
+  "CompatVersion" : "0.0.1",
+  "Vendor" : "University of Naples Parthenope",
+  "Copyright" : "(C) 2021 The FairWind Team",
+  "License" : "Apache 2.0",
+  "Category" : "SystemApps",
+  "Description" : "An app for settings",
+  "Url" : "http://fairwind.uniparthenope.it/",
+  "FairWind": {
+    "App": {
+      "Email": "fairwind@uniparthenope.it",
+      "Id": "fairwind.apps.settings",
+      "Icon": ":/resources/images/icons/settings_icon.png",
+      "Settings": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {
+          "Extensions": {
+            "type": "object",
+            "properties": {
+              "Anchor": {
+                "type": "string"
+              },
+              "Launcher": {
+                "type": "string"
+              },
+              "MOB": {
+                "type": "string"
+              },
+              "MyData": {
+                "type": "string"
+              },
+              "Settings": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "Anchor",
+              "Launcher",
+              "MOB",
+              "MyData",
+              "Settings"
+            ]
+          },
+          "Options": {
+            "type": "object",
+            "properties": {
+              "CenterMap": {
+                "type": "boolean"
+              },
+              "Heading": {
+                "type": "string"
+              },
+              "Orientation": {
+                "type": "string"
+              },
+              "Position": {
+                "type": "string"
+              },
+              "Speed": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "CenterMap",
+              "Heading",
+              "Orientation",
+              "Position",
+              "Speed"
+            ]
+          },
+          "SignalK": {
+            "type": "object",
+            "properties": {
+              "connections": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "active": {
+                        "type": "boolean"
+                      },
+                      "class": {
+                        "type": "string"
+                      },
+                      "restore": {
+                        "type": "boolean"
+                      },
+                      "url": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "active",
+                      "class",
+                      "restore",
+                      "url"
+                    ]
+                  }
+                ]
+              },
+              "keys": {
+                "type": "object",
+                "properties": {
+                  "electrical.batteries.1.current": {
+                    "type": "object",
+                    "properties": {
+                      "fieldWidth": {
+                        "type": "integer"
+                      },
+                      "format": {
+                        "type": "string"
+                      },
+                      "label": {
+                        "type": "string"
+                      },
+                      "precision": {
+                        "type": "integer"
+                      },
+                      "units": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "fieldWidth",
+                      "format",
+                      "label",
+                      "precision",
+                      "units"
+                    ]
+                  },
+                  "electrical.batteries.1.voltage": {
+                    "type": "object",
+                    "properties": {
+                      "fieldWidth": {
+                        "type": "integer"
+                      },
+                      "format": {
+                        "type": "string"
+                      },
+                      "label": {
+                        "type": "string"
+                      },
+                      "precision": {
+                        "type": "integer"
+                      },
+                      "units": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "fieldWidth",
+                      "format",
+                      "label",
+                      "precision",
+                      "units"
+                    ]
+                  },
+                  "environment.depth.belowTransducer": {
+                    "type": "object",
+                    "properties": {
+                      "fieldWidth": {
+                        "type": "integer"
+                      },
+                      "format": {
+                        "type": "string"
+                      },
+                      "label": {
+                        "type": "string"
+                      },
+                      "precision": {
+                        "type": "integer"
+                      },
+                      "units": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "fieldWidth",
+                      "format",
+                      "label",
+                      "precision",
+                      "units"
+                    ]
+                  },
+                  "environment.water.temperature": {
+                    "type": "object",
+                    "properties": {
+                      "fieldWidth": {
+                        "type": "integer"
+                      },
+                      "format": {
+                        "type": "string"
+                      },
+                      "label": {
+                        "type": "string"
+                      },
+                      "precision": {
+                        "type": "integer"
+                      },
+                      "units": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "fieldWidth",
+                      "format",
+                      "label",
+                      "precision",
+                      "units"
+                    ]
+                  },
+                  "environment.wind.angleApparent": {
+                    "type": "object",
+                    "properties": {
+                      "fieldWidth": {
+                        "type": "integer"
+                      },
+                      "format": {
+                        "type": "string"
+                      },
+                      "label": {
+                        "type": "string"
+                      },
+                      "precision": {
+                        "type": "integer"
+                      },
+                      "units": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "fieldWidth",
+                      "format",
+                      "label",
+                      "precision",
+                      "units"
+                    ]
+                  },
+                  "environment.wind.speedApparent": {
+                    "type": "object",
+                    "properties": {
+                      "fieldWidth": {
+                        "type": "integer"
+                      },
+                      "fillChar": {
+                        "type": "string"
+                      },
+                      "format": {
+                        "type": "string"
+                      },
+                      "label": {
+                        "type": "string"
+                      },
+                      "precision": {
+                        "type": "integer"
+                      },
+                      "units": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "fieldWidth",
+                      "fillChar",
+                      "format",
+                      "label",
+                      "precision",
+                      "units"
+                    ]
+                  },
+                  "navigation.courseOverGroundMagnetic": {
+                    "type": "object",
+                    "properties": {
+                      "fieldWidth": {
+                        "type": "integer"
+                      },
+                      "format": {
+                        "type": "string"
+                      },
+                      "label": {
+                        "type": "string"
+                      },
+                      "precision": {
+                        "type": "integer"
+                      },
+                      "units": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "fieldWidth",
+                      "format",
+                      "label",
+                      "precision",
+                      "units"
+                    ]
+                  },
+                  "navigation.courseOverGroundTrue": {
+                    "type": "object",
+                    "properties": {
+                      "fieldWidth": {
+                        "type": "integer"
+                      },
+                      "format": {
+                        "type": "string"
+                      },
+                      "label": {
+                        "type": "string"
+                      },
+                      "precision": {
+                        "type": "integer"
+                      },
+                      "units": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "fieldWidth",
+                      "format",
+                      "label",
+                      "precision",
+                      "units"
+                    ]
+                  },
+                  "navigation.headingMagnetic": {
+                    "type": "object",
+                    "properties": {
+                      "fieldWidth": {
+                        "type": "integer"
+                      },
+                      "format": {
+                        "type": "string"
+                      },
+                      "label": {
+                        "type": "string"
+                      },
+                      "precision": {
+                        "type": "integer"
+                      },
+                      "units": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "fieldWidth",
+                      "format",
+                      "label",
+                      "precision",
+                      "units"
+                    ]
+                  },
+                  "navigation.headingTrue": {
+                    "type": "object",
+                    "properties": {
+                      "fieldWidth": {
+                        "type": "integer"
+                      },
+                      "format": {
+                        "type": "string"
+                      },
+                      "label": {
+                        "type": "string"
+                      },
+                      "precision": {
+                        "type": "integer"
+                      },
+                      "units": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "fieldWidth",
+                      "format",
+                      "label",
+                      "precision",
+                      "units"
+                    ]
+                  },
+                  "navigation.magneticVarition": {
+                    "type": "object",
+                    "properties": {
+                      "fieldWidth": {
+                        "type": "integer"
+                      },
+                      "format": {
+                        "type": "string"
+                      },
+                      "label": {
+                        "type": "string"
+                      },
+                      "precision": {
+                        "type": "integer"
+                      },
+                      "units": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "fieldWidth",
+                      "format",
+                      "label",
+                      "precision",
+                      "units"
+                    ]
+                  },
+                  "navigation.speedOverGround": {
+                    "type": "object",
+                    "properties": {
+                      "fieldWidth": {
+                        "type": "integer"
+                      },
+                      "fillChar": {
+                        "type": "string"
+                      },
+                      "format": {
+                        "type": "string"
+                      },
+                      "label": {
+                        "type": "string"
+                      },
+                      "precision": {
+                        "type": "integer"
+                      },
+                      "units": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "fieldWidth",
+                      "fillChar",
+                      "format",
+                      "label",
+                      "precision",
+                      "units"
+                    ]
+                  },
+                  "navigation.speedThroughWater": {
+                    "type": "object",
+                    "properties": {
+                      "fieldWidth": {
+                        "type": "integer"
+                      },
+                      "fillChar": {
+                        "type": "string"
+                      },
+                      "format": {
+                        "type": "string"
+                      },
+                      "label": {
+                        "type": "string"
+                      },
+                      "precision": {
+                        "type": "integer"
+                      },
+                      "units": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "fieldWidth",
+                      "fillChar",
+                      "format",
+                      "label",
+                      "precision",
+                      "units"
+                    ]
+                  }
+                },
+                "required": [
+                  "electrical.batteries.1.current",
+                  "electrical.batteries.1.voltage",
+                  "environment.depth.belowTransducer",
+                  "environment.water.temperature",
+                  "environment.wind.angleApparent",
+                  "environment.wind.speedApparent",
+                  "navigation.courseOverGroundMagnetic",
+                  "navigation.courseOverGroundTrue",
+                  "navigation.headingMagnetic",
+                  "navigation.headingTrue",
+                  "navigation.magneticVarition",
+                  "navigation.speedOverGround",
+                  "navigation.speedThroughWater"
+                ]
+              }
+            },
+            "required": [
+              "connections",
+              "keys"
+            ]
+          }
+        },
+        "required": [
+          "Extensions",
+          "Options",
+          "SignalK"
+        ]
+      },
+      "Config": {
+        "Options": {
+          "Position": "${self}.navigation.position",
+          "Heading": "${self}.navigation.courseOverGroundMagnetic",
+          "Speed": "${self}.navigation.speedOverGround",
+          "Orientation":"north_up",
+          "CenterMap":false
+        },
+        "SignalK":{
+          "connections":[
+            {
+              "class":"fairwind::connections::SignalKAPIClient",
+              "active":true,
+              "url":"http://demo.signalk.org/signalk/v1/api",
+              "restore":true
+            },
+            {
+              "class":"fairwind::connections::SignalKWSClient",
+              "active":true,
+              "url":"ws://demo.signalk.org/signalk/v1/stream"
+            }
+          ],
+          "keys":{
+            "navigation.speedOverGround":{
+              "label":"SOG",
+              "units":"kn",
+              "format":"f",
+              "fieldWidth":4,
+              "precision":1,
+              "fillChar":"0"
+            },
+            "navigation.courseOverGroundTrue":{
+              "label":"COG (T)",
+              "units":"deg",
+              "format":"f",
+              "fieldWidth":3,
+              "precision":0
+            },
+            "navigation.courseOverGroundMagnetic":{
+              "label":"COG (M)",
+              "units":"deg",
+              "format":"f",
+              "fieldWidth":3,
+              "precision":0
+            },
+            "navigation.speedThroughWater":{
+              "label":"Boat Speed",
+              "units":"kn",
+              "format":"f",
+              "fieldWidth":4,
+              "precision":1,
+              "fillChar":"0"
+            },
+            "navigation.headingTrue":{
+              "label":"Heading (T)",
+              "units":"deg",
+              "format":"f",
+              "fieldWidth":3,
+              "precision":0
+            },
+            "navigation.headingMagnetic":{
+              "label":"Heading (M)",
+              "units":"deg",
+              "format":"f",
+              "fieldWidth":3,
+              "precision":0
+            },
+            "navigation.magneticVarition":{
+              "label":"Mag (°)",
+              "units":"deg",
+              "format":"f",
+              "fieldWidth":1,
+              "precision":0
+            },
+            "environment.wind.speedApparent":{
+              "label":"AWS",
+              "units":"kn",
+              "format":"f",
+              "fieldWidth":3,
+              "precision":1,
+              "fillChar":"0"
+            },
+            "environment.wind.angleApparent":{
+              "label":"AWA",
+              "units":"deg",
+              "format":"f",
+              "fieldWidth":3,
+              "precision":0
+            },
+            "environment.water.temperature":{
+              "label":"Water Temp",
+              "units":"C",
+              "format":"f",
+              "fieldWidth":3,
+              "precision":0
+            },
+            "environment.depth.belowTransducer":{
+              "label":"Depth",
+              "units":"m",
+              "format":"f",
+              "fieldWidth":4,
+              "precision":1
+            },
+            "electrical.batteries.1.voltage": {
+              "label":"Voltage",
+              "units":"v",
+              "format":"f",
+              "fieldWidth":3,
+              "precision":1
+            },
+            "electrical.batteries.1.current": {
+              "label":"Current",
+              "units":"A",
+              "format":"f",
+              "fieldWidth":3,
+              "precision":1
+            }
+          }
+        },
+        "Extensions":{
+          "MyData": "fairwind.apps.mydata",
+          "MOB": "fairwind.apps.mob",
+          "Launcher": "fairwind.apps.launcher",
+          "Anchor": "fairwind.apps.anchor",
+          "Settings": "fairwind.apps.settings"
+        }
+      }
+    }
+  }
+}

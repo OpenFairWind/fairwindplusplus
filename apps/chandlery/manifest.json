@@ -12,57 +12,91 @@
     "App": {
       "Email": "fairwind@uniparthenope.it",
       "Id": "fairwind.apps.chandlery",
+      "Icon": ":/resources/images/icons/chandlery_icon.png",
       "Settings": {
         "$schema": "http://json-schema.org/draft-07/schema#",
         "type": "object",
         "properties": {
-          "Url": {
-            "type": "string",
-            "defaultValue": "https://fairwind.uniparthenope.it/chanderly/store",
-            "displayName": "Url",
-            "widgetClassName": "fairwind::ui::settings::FairLineEdit",
-            "widgetClassAttributes": ["readonly"]
-          },
-          "PubKey": {
-            "type": "string",
-            "defaultValue": "-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC3dcCohSEhvZg7kK3b1W4XnDfZ\n6MNM6yJ6FEDt6hcEs7OLUsDhckaW3F4/QWMq2cUmaNkA3Wzbzx7ZsEBNqdVyaluS\nM1Y9Kc5/yBkXc5V++0r1MQBL3RbMaolSyghCtsnpor934FKySfcd8vSZLUIfnZsL\n0DkQl6KmRycq1YKR9QIDAQAB\n-----END PUBLIC KEY-----",
-            "displayName": "Store Public Key",
-            "widgetClassName": "fairwind::ui::settings::FairTextEdit",
-            "widgetClassAttributes": ["readonly"]
-          },
-          "User": {
-            "type": "string",
-            "defaultValue": "",
-            "displayName": "User name",
-            "widgetClassName": "fairwind::ui::settings::FairLineEdit"
-          },
-          "Password": {
-            "type": "string",
-            "defaultValue": "",
-            "displayName": "User name",
-            "widgetClassName": "fairwind::ui::settings::FairLineEdit",
-            "widgetClassAttributes": ["password"]
-          },
-          "Signed": {
-            "type": "boolean",
-            "defaultValue": true,
-            "displayName": "Stay signed",
-            "domain": [
-              {
-                "key": "No",
-                "value": false
+          "store": {
+            "title": "FairWind App Store @ Uniparthenope",
+            "description": "The default FairWind App store",
+            "type": "object",
+            "properties": {
+              "url": {
+                "title": "URL",
+                "description": "The FairWind App Store URL address.",
+                "default": "https://fairwind.uniparthenope.it/chanderly/store",
+                "type": "string",
+                "readOnly": true
               },
-              {
-                "key": "Yes",
-                "value": true
+              "pubkey": {
+                "title": "Public Key",
+                "description": "The FairWind App Store public key.",
+                "type": "string",
+                "default": "-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC3dcCohSEhvZg7kK3b1W4XnDfZ\n6MNM6yJ6FEDt6hcEs7OLUsDhckaW3F4/QWMq2cUmaNkA3Wzbzx7ZsEBNqdVyaluS\nM1Y9Kc5/yBkXc5V++0r1MQBL3RbMaolSyghCtsnpor934FKySfcd8vSZLUIfnZsL\n0DkQl6KmRycq1YKR9QIDAQAB\n-----END PUBLIC KEY-----",
+                "fairwind": {
+                  "multiline": true
+                },
+                "readOnly": true
               }
-            ],
-            "widgetClassName": "fairwind::ui::settings::FairComboBox"
+            },
+            "required": [
+              "url",
+              "pubkey"
+            ]
+          },
+          "user": {
+            "title": "User",
+            "description": "User data",
+            "type": "object",
+            "properties": {
+              "name": {
+                "title": "User Name",
+                "default": "",
+                "description": "A valid and unique email address.",
+                "type": "string",
+                "pattern": "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])"
+              },
+              "password": {
+                "title": "Password",
+                "description": "The user password",
+                "type": "string",
+                "default": "",
+                "fairwind": {
+                  "password": true
+                }
+              },
+              "staySigned": {
+                "title": "Stay Signed",
+                "description": "The user password",
+                "type": "boolean",
+                "default": true,
+                "fairwind": {
+                  "domain": [
+                    {
+                      "key": "No",
+                      "value": false,
+                      "icon": ":/resources/images/icons/no_icon.png"
+                    },
+                    {
+                      "key": "Yes",
+                      "value": true,
+                      "icon": ":/resources/images/icons/yes_icon.png"
+                    }
+                  ]
+                }
+              }
+            },
+            "required": [
+              "name",
+              "password",
+              "staySigned"
+            ]
           }
         },
         "required": [
-          "Url",
-          "PubKey"
+          "store",
+          "user"
         ]
       }
     }
