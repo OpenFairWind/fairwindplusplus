@@ -31,45 +31,24 @@ endif()
 set(LIBQTJSONSCHEMA ${LIBQTJSONSCHEMA} PARENT_SCOPE)
 
 
-#ExternalProject_Add(QcGaugeWidget
-#        GIT_REPOSITORY https://github.com/OpenFairWind/Qt-custom-gauge-widget.git
-#        CMAKE_ARGS -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH} -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
-#        TIMEOUT 360
-#        )
-
-#set(LIBQCGAUGEWIDGET ${EXTERNAL_INSTALL_LOCATION}/lib/libqcgaugewidget.so)
-#if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
-#    set(LIBQCGAUGEWIDGET ${EXTERNAL_INSTALL_LOCATION}/lib/static/qcgaugewidget.lib)
-#    add_custom_command(
-#            TARGET QcGaugeWidget
-#            POST_BUILD
-#            COMMAND ${CMAKE_COMMAND} -E copy
-#            ${EXTERNAL_INSTALL_LOCATION}/bin/qcgaugewidget.dll
-#            ${CMAKE_BINARY_DIR}
-#    )
-#elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
-#    set(LIBQCGAUGEWIDGET ${EXTERNAL_INSTALL_LOCATION}/lib/libqcgaugewidget.dylib)
-#endif()
-#set(LIBQCGAUGEWIDGET ${LIBQCGAUGEWIDGET} PARENT_SCOPE)
-
 ExternalProject_Add(QcGaugeWidget
-                GIT_REPOSITORY https://github.com/Fpepe943/Qt-custom-gauge-widget.git
-                CMAKE_ARGS -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH} -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
-                TIMEOUT 360
-                )
-
-        set(LIBQCGAUGEWIDGET ${EXTERNAL_INSTALL_LOCATION}/lib/libqcgaugewidget.so)
-        if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
-        set(LIBQCGAUGEWIDGET ${EXTERNAL_INSTALL_LOCATION}/lib/static/qcgaugewidget.lib)
-        add_custom_command(
-        TARGET QcGaugeWidget
-        POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy
-        ${EXTERNAL_INSTALL_LOCATION}/bin/qcgaugewidget.dll
-        ${CMAKE_BINARY_DIR}
+        GIT_REPOSITORY https://github.com/OpenFairWind/Qt-custom-gauge-widget.git
+        CMAKE_ARGS -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH} -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
+        TIMEOUT 360
         )
+
+set(LIBQCGAUGEWIDGET ${EXTERNAL_INSTALL_LOCATION}/lib/libqcgaugewidget.so)
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    set(LIBQCGAUGEWIDGET ${EXTERNAL_INSTALL_LOCATION}/lib/static/qcgaugewidget.lib)
+    add_custom_command(
+            TARGET QcGaugeWidget
+            POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy
+            ${EXTERNAL_INSTALL_LOCATION}/bin/qcgaugewidget.dll
+            ${CMAKE_BINARY_DIR}
+    )
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
-set(LIBQCGAUGEWIDGET ${EXTERNAL_INSTALL_LOCATION}/lib/libqcgaugewidget.dylib)
+    set(LIBQCGAUGEWIDGET ${EXTERNAL_INSTALL_LOCATION}/lib/libqcgaugewidget.dylib)
 endif()
 set(LIBQCGAUGEWIDGET ${LIBQCGAUGEWIDGET} PARENT_SCOPE)
 
