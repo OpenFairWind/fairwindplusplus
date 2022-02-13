@@ -1,9 +1,9 @@
 //
-// Created by Raffaele Montella on 15/09/21.
+// Created by filippo on 09/01/22.
 //
 
-#ifndef FAIRWIND_DISPLAYSIMPLESWITCH_HPP
-#define FAIRWIND_DISPLAYSIMPLESWITCH_HPP
+#ifndef FAIRWIND_DISPLAYTOGGLESWITCH_HPP
+#define FAIRWIND_DISPLAYTOGGLESWITCH_HPP
 
 #include <QWidget>
 #include <FairWindSdk/FairWindSDK.hpp>
@@ -16,15 +16,16 @@
 
 
 namespace Ui {
-    class DisplaySimpleSwitch;
+    class DisplayToggleSwitch;
 }
 
 namespace fairwind::displays {
-    class FAIRWINDSDK_LIB_DECL DisplaySimpleSwitch: public QWidget, public fairwind::displays::DisplayBase, public fairwind::displays::IDisplay {
-        Q_OBJECT
+    class FAIRWINDSDK_LIB_DECL DisplayToggleSwitch : public QWidget, public fairwind::displays::DisplayBase, public fairwind::displays::IDisplay {
+    Q_OBJECT
+
     public:
-        explicit DisplaySimpleSwitch(QWidget *parent = nullptr);
-        ~DisplaySimpleSwitch();
+        explicit DisplayToggleSwitch(QWidget *parent = nullptr);
+        ~DisplayToggleSwitch() override;
 
         QString getClassName() const override;
         QImage getIcon() const override;
@@ -32,26 +33,22 @@ namespace fairwind::displays {
         IDisplay *getNewInstance() override;
         QWidget *onSettings() override;
 
-
         void setLabel(QString label) override;
         void setUnits(QString units) override;
         void setValue(QString value) override;
         void subscribe(QString fullPath) override;
 
-
-        public slots:
+    public slots:
         void update(const QJsonObject update) override;
         void slotOnClick(bool checked);
 
     private:
-        Ui::DisplaySimpleSwitch *ui;
-        SwitchButton *sbtn = nullptr;
+        Ui::DisplayToggleSwitch *ui;
+        ToggleButton *toggle;
         bool status;
         const QString _on= "on";
         const QString _off= "off";
-
     };
+
 }
-
-
-#endif //FAIRWIND_DISPLAYSIMPLESWITCH_HPP
+#endif //FAIRWIND_DISPLAYTOGGLESWITCH_HPP

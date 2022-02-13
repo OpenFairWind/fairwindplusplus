@@ -169,34 +169,37 @@
                     "class":"fairwind::layouts::GridLayout",
                     "displays":[
                       {
-                        "class":"fairwind::displays::DisplaySingleText",
+                        "class":"fairwind::displays::DisplayGauge",
                         "active":true,
                         "layout":"0,0",
                         "fullPath":"${self}.navigation.speedOverGround"
                       },
                       {
-                        "class":"fairwind::displays::DisplaySingleText",
+                        "class":"fairwind::displays::DisplayGauge",
                         "active":true,
                         "layout":"0,1",
+                        "minValue": 0,
+                        "maxValue": 360,
+                        "step": 30,
                         "fullPath":"${self}.navigation.courseOverGroundTrue"
                       },
                       {
-                        "class":"fairwind::displays::DisplaySingleText",
+                        "class":"fairwind::displays::DisplayGauge",
                         "active":true,
                         "layout":"0,2",
                         "fullPath":"${self}.navigation.speedThroughWater"
                       },
                       {
-                        "class":"fairwind::displays::DisplaySingleText",
+                        "class":"fairwind::displays::DisplayGauge",
                         "active":true,
                         "layout":"0,3",
-                        "fullPath":"${self}.navigation.headingTrue"
+                        "fullPath":"${self}.environment.wind.speedApparent"
                       },
                       {
                         "class":"fairwind::displays::DisplaySingleText",
                         "active":true,
                         "layout":"1,0",
-                        "fullPath":"${self}.environment.wind.speedApparent"
+                        "fullPath":"${self}.navigation.gnss.type"
                       },
                       {
                         "class":"fairwind::displays::DisplaySingleText",
@@ -206,9 +209,9 @@
                       },
                       {
                         "class":"fairwind::displays::DisplaySingleText",
-                        "active":false,
+                        "active":true,
                         "layout":"1,2",
-                        "fullPath":"${self}.environment.water.temperature"
+                        "fullPath":"${self}.environment.depth.belowKeel"
                       },
                       {
                         "class":"fairwind::displays::DisplaySingleText",
@@ -235,116 +238,196 @@
                     "class":"fairwind::layouts::GridLayout",
                     "displays":[
                       {
-                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "class":"fairwind::displays::DisplayToggleSwitch",
                         "active":true,
                         "layout":"0,0",
+                        "value": "on",
                         "label": "Cabin Lights 1",
                         "fullPath":"${self}.electrical.switches.cabinLights1"
                       },
                       {
-                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "class":"fairwind::displays::DisplayToggleSwitch",
                         "active":true,
+                        "value": "on",
                         "layout":"1,0",
                         "label": "Cabin Lights 2",
                         "fullPath":"${self}.electrical.switches.cabinLights2"
                       },
                       {
-                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "class":"fairwind::displays::DisplayToggleSwitch",
                         "active":true,
+                        "value": "on",
                         "layout":"2,0",
                         "label": "Cabin Lights 3",
                         "fullPath":"${self}.electrical.switches.cabinLights3"
                       },
                       {
-                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "class":"fairwind::displays::DisplayToggleSwitch",
                         "active":true,
+                        "value": "on",
                         "layout":"3,0",
                         "label": "Top Light",
                         "fullPath":"${self}.electrical.switches.topLight"
                       },
                       {
-                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "class":"fairwind::displays::DisplayToggleSwitch",
                         "active":true,
+                        "value": "on",
                         "layout":"4,0",
                         "label": "Steaming Light",
                         "fullPath":"${self}.electrical.switches.steamingLight"
                       },
                       {
-                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "class":"fairwind::displays::DisplayToggleSwitch",
                         "active":true,
+                        "value": "on",
                         "layout":"5,0",
                         "label": "Navigation Light",
                         "fullPath":"${self}.electrical.switches.navigationLight"
                       },
                       {
+                       "class":"fairwind::displays::DisplayToggleSwitch",
+                       "active":true,
+                        "value": "on",
+                       "layout":"6,0",
+                       "label": "Keel Bilge Pump",
+                       "fullPath":"${self}.electrical.switches.keelBilgePump"
+                       },
+                      {
+                        "class":"fairwind::displays::DisplayToggleSwitch",
+                        "active":false,
+                        "layout":"0,1"
+                      },
+                      {
+                        "class":"fairwind::displays::DisplayToggleSwitch",
+                        "active":false,
+                        "value": "on",
+                        "layout":"1,1"
+                      },
+                      {
+                        "class":"fairwind::displays::DisplayToggleSwitch",
+                        "active":false,
+                        "value": "on",
+                        "layout":"2,1"
+                      },
+                      {
                         "class":"fairwind::displays::DisplaySimpleSwitch",
-                        "active":true,
-                        "layout":"6,0",
-                        "label": "Keel Bilge Pump",
-                        "fullPath":"${self}.electrical.switches.keelBilgePump"
+                        "active":false,
+                        "value": "on",
+                        "layout":"3,1"
+                      },
+                      {
+                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "active":false,
+                        "value": "on",
+                        "layout":"4,1"
+                      },
+                      {
+                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "active":false,
+                        "value": "on",
+                        "layout":"5,1"
+                      },
+                      {
+                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "active":false,
+                        "value": "on",
+                        "layout":"6,1"
+                      },
+                      {
+                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "active":false,
+                        "value": "on",
+                        "layout":"0,4"
+                      },
+                      {
+                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "active":false,
+                        "value": "on",
+                        "layout":"1,4"
+                      },
+                      {
+                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "active":false,
+                        "value": "on",
+                        "layout":"2,4"
+                      },
+                      {
+                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "active":false,
+                        "layout":"3,4",
+                        "value": "off"
+                      },
+                      {
+                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "active":false,
+                        "layout":"4,4"
+                      },
+                      {
+                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "active":false,
+                        "layout":"5,4"
+                      },
+                      {
+                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "active":false,
+                        "layout":"6,4"
                       },
                       {
                         "class":"fairwind::displays::DisplaySimpleSwitch",
                         "active":true,
-                        "layout":"7,0",
-                        "label": "Anchor Windlass",
-                        "fullPath":"${self}.electrical.switches.anchorWindlass"
-                      },
-                      {
-                        "class":"fairwind::displays::DisplaySimpleSwitch",
-                        "active":true,
-                        "layout":"0,1",
+                        "value": "on",
+                        "layout":"0,5",
                         "label": "Sailing Instruments",
                         "fullPath":"${self}.electrical.switches.sailingInstruments"
                       },
                       {
                         "class":"fairwind::displays::DisplaySimpleSwitch",
                         "active":true,
-                        "layout":"1,1",
+                        "value": "on",
+                        "layout":"1,5",
                         "label": "Navigation Instruments",
                         "fullPath":"${self}.electrical.switches.navigationInstruments"
                       },
                       {
                         "class":"fairwind::displays::DisplaySimpleSwitch",
                         "active":true,
-                        "layout":"2,1",
+                        "value": "on",
+                        "layout":"2,5",
                         "label": "VHF",
                         "fullPath":"${self}.electrical.switches.vhf"
                       },
                       {
                         "class":"fairwind::displays::DisplaySimpleSwitch",
                         "active":true,
-                        "layout":"3,1",
+                        "layout":"3,5",
+                        "value": "off",
                         "label": "Radio Recorder",
                         "fullPath":"${self}.electrical.switches.radioRecorder"
                       },
                       {
                         "class":"fairwind::displays::DisplaySimpleSwitch",
                         "active":true,
-                        "layout":"4,1",
+                        "layout":"4,5",
+                        "value": "off",
                         "label": "Refrigerator",
                         "fullPath":"${self}.electrical.switches.refrigerator"
                       },
                       {
                         "class":"fairwind::displays::DisplaySimpleSwitch",
                         "active":true,
-                        "layout":"5,1",
+                        "layout":"5,5",
+                        "value": "off",
                         "label": "Water Pump",
                         "fullPath":"${self}.electrical.switches.waterPump"
                       },
                       {
-                        "class":"fairwind::displays::DisplaySimpleSwitch",
-                        "active":true,
-                        "layout":"6,1",
-                        "label": "Shower Pump",
-                        "fullPath":"${self}.electrical.switches.showerPump"
-                      },
-                      {
-                        "class":"fairwind::displays::DisplaySimpleSwitch",
-                        "active":true,
-                        "layout":"7,1",
-                        "label": "FairWind++",
-                        "fullPath":"${self}.electrical.switches.fairWindPlusPlus"
+                      "class":"fairwind::displays::DisplaySimpleSwitch",
+                      "active":true,
+                      "layout":"6,5",
+                        "value": "on",
+                      "label": "Shower Pump",
+                      "fullPath":"${self}.electrical.switches.showerPump"
                       },
                       {
                         "class":"fairwind::displays::DisplayGauge",
@@ -359,28 +442,31 @@
                         "class":"fairwind::displays::DisplayGauge",
                         "active":true,
                         "layout":"0,3,4,1",
-                        "maxValue": 60,
+                        "maxValue": 460,
                         "minValue": 0,
-                        "step": 10,
+                        "step": 40,
+                        "label": "Batteries Temp",
+                        "units": "K",
+                        "fullPath":"${self}.electrical.batteries.1.temperature"
+                      },
+                      {
+                        "class":"fairwind::displays::DisplayBarGauge",
+                        "active":true,
+                        "layout":"4,2,4,1",
+                        "maxValue": 300,
+                        "minValue": 0,
                         "fullPath":"${self}.electrical.batteries.1.current"
                       },
                       {
-                        "class":"fairwind::displays::DisplayVerticalBarGauge",
-                        "active":true,
-                        "layout":"4,2,4,1",
-                        "maxValue": 0,
-                        "minValue": 100,
-                        "step": 10,
-                        "fullPath":"${self}.tanks.fuel.1.currentLevel"
-                      },
-                      {
-                        "class":"fairwind::displays::DisplayVerticalBarGauge",
+                        "class":"fairwind::displays::DisplayBarGauge",
                         "active":true,
                         "layout":"4,3,4,1",
-                        "maxValue": 100,
+                        "label": "Fuel",
+                        "units": "%",
+                        "value": 72,
+                        "maxValue": 200,
                         "minValue": 0,
-                        "step": 10,
-                        "fullPath":"${self}.tanks.freshWater.1.currentLevel"
+                        "fullPath":"${self}.tanks.fuel.1.capacity"
                       }
                     ]
                   }

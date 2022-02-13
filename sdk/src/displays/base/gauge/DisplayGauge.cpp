@@ -2,7 +2,6 @@
 // Created by Raffaele Montella on 31/05/21.
 //
 
-
 #include "ui_DisplayGauge.h"
 
 #include <FairWindSdk/FairWind.hpp>
@@ -44,10 +43,6 @@ void fairwind::displays::DisplayGauge::onInit(QMap<QString, QVariant> params) {
 
     if (params.contains("maxValue")) {
         mMaxValue = (float)params["maxValue"].toDouble();
-    }
-
-    if (params.contains("step")) {
-        mStep = (float)params["step"].toDouble();
     }
 
     if (params.contains("step")) {

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DisplaySimpleSwitch</class>
- <widget class="QWidget" name="DisplaySimpleSwitch">
+ <class>DisplayToggleSwitch</class>
+ <widget class="QWidget" name="DisplayToggleSwitch">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>440</width>
-    <height>241</height>
+    <width>400</width>
+    <height>300</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>SwicthWidget</string>
+   <string>DisplayToggleSwitch</string>
   </property>
-  <layout class="QVBoxLayout" name="layoutDisplayS">
+  <layout class="QVBoxLayout" name="layoutDisplayTS">
    <property name="spacing">
     <number>1</number>
    </property>
@@ -30,11 +30,11 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="QGroupBox" name="groupBoxSimpleSwitch">
+    <widget class="QGroupBox" name="groupBoxToggleSwitch">
      <property name="title">
       <string/>
      </property>
-     <layout class="QHBoxLayout" name="layoutGroupBoxS">
+     <layout class="QHBoxLayout" name="layoutGroupBoxTS">
       <property name="spacing">
        <number>1</number>
       </property>
@@ -51,23 +51,23 @@
        <number>0</number>
       </property>
       <item>
-       <widget class="QLabel" name="labelSimpleSwitch">
+       <widget class="QLabel" name="labelToggleSwitch">
         <property name="text">
          <string>TextLabel</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QFrame" name="frameSimpleSwitch">
+       <widget class="QFrame" name="frameToggleSwitch">
         <property name="frameShape">
          <enum>QFrame::NoFrame</enum>
         </property>
         <property name="frameShadow">
          <enum>QFrame::Raised</enum>
         </property>
-        <layout class="QVBoxLayout" name="layoutFrameS">
+        <layout class="QVBoxLayout" name="layoutFrameTS">
          <property name="spacing">
-          <number>1</number>
+          <number>0</number>
          </property>
          <property name="leftMargin">
           <number>0</number>

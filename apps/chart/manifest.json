@@ -170,7 +170,7 @@
             "layout": "right"
           },
           {
-            "active": false,
+            "active": true,
             "class": "fairwind::displays::DisplaySingleText",
             "fullPath": "${self}.environment.water.temperature",
             "layout": "right"

@@ -4,11 +4,9 @@
 
 
 #include "ui_DisplaySimpleSwitch.h"
+#include "FairWind.hpp"
 
 #include <QJsonArray>
-#include <FairWindSdk/FairWind.hpp>
-#include <FairWindSdk/displays/DisplayBase.hpp>
-#include <FairWindSdk/displays/DisplaySimpleSwitch.hpp>
 #include <displays/DisplaySimpleSwitch.hpp>
 
 
@@ -24,79 +22,54 @@ ui(new Ui::DisplaySimpleSwitch) {
 
     // Initialize the user interface
     ui->setupUi(this);
-    connect(ui->switchButton, &QPushButton::released, this, &DisplaySimpleSwitch::onRelease);
+    setMaximumWidth(500);
+    ui->labelSimpleSwitch->setFixedWidth(200);
 }
-
-/**
- * DisplaySingleText destructor
- */
 fairwind::displays::DisplaySimpleSwitch::~DisplaySimpleSwitch() {
     delete ui;
 }
-
 QImage fairwind::displays::DisplaySimpleSwitch::getIcon() const {
     return QImage(":resources/images/icons/display_icon.png");
 }
-
 QWidget *fairwind::displays::DisplaySimpleSwitch::onSettings() {
     return nullptr;
 }
 
 void fairwind::displays::DisplaySimpleSwitch::onInit(QMap<QString, QVariant> params) {
     qDebug() << "DisplaySingleText::onInit(" << params << ")";
+    sbtn = new SwitchButton();
+    sbtn->setFixedWidth(200);
+    connect(sbtn, &SwitchButton::onClick, this, &DisplaySimpleSwitch::slotOnClick);
+    sbtn->setIcons(":resources/images/switches/simple_switch_on.png",":resources/images/switches/simple_switch_off.png");
 
-    if (params.contains("fullPath")) {
-        subscribe(params["fullPath"].toString());
-    }
     if (params.contains("label")) {
         setLabel(params["label"].toString());
     }
-
+    if (params.contains("value")) {
+        setValue(params["value"].toString());
+    }
+    if (params.contains("fullPath")) {
+        subscribe(params["fullPath"].toString());
+    }
     if (params.contains("description")) {
         setToolTip(params["description"].toString());
     }
 
-    if (params.contains("value")) {
-        setValue(params["value"].toString());
-    }
+    ui->layoutFrameS->addWidget(sbtn);
 }
-
 fairwind::displays::IDisplay *fairwind::displays::DisplaySimpleSwitch::getNewInstance() {
     return static_cast<IDisplay *>(new fairwind::displays::DisplaySimpleSwitch());
 }
-
 void fairwind::displays::DisplaySimpleSwitch::setLabel(QString label) {
-    ui->labelGroupBox->setTitle(label);
+    ui->labelSimpleSwitch->setText(label);
 }
-
 void fairwind::displays::DisplaySimpleSwitch::setUnits(QString units) {
-    //ui->label_Units->setText(units);
+
 }
-
-void fairwind::displays::DisplaySimpleSwitch::setValue(QString value) {
-    //ui->label_Value1->setText(value);
-    if (value.contains("on")) {
-        status=true;
-    } else {
-        status=false;
-    }
-
-    updateStatus();
+void fairwind::displays::DisplaySimpleSwitch::setValue(QString value){
+    qDebug()<<"DisplaySimpleSwitch::setValue "<<value;
+    sbtn->setStatus(value.contains(_on) ? true : false);
 }
-
-
-void fairwind::displays::DisplaySimpleSwitch::updateStatus() {
-    if (status) {
-        ui->switchButton->setText("simpleswitch_on");
-    } else {
-        ui->switchButton->setText("simpleswitch_off");
-    }
-}
-
-
-
-
-
 
 void fairwind::displays::DisplaySimpleSwitch::subscribe(QString fullPath) {
     auto fairWind = fairwind::FairWind::getInstance();
@@ -106,11 +79,11 @@ void fairwind::displays::DisplaySimpleSwitch::subscribe(QString fullPath) {
 
     setToolTip(getDescription());
     signalKDocument->subscribe( getFullPath(),
-                                this,SLOT(DisplaySingleText::update));
+                                this,SLOT(DisplaySimpleSwitch::update));
 }
 
 void fairwind::displays::DisplaySimpleSwitch::update(const QJsonObject update) {
-    //qDebug() << "DisplaySimpleSwitch::update:" << update;
+    qDebug() << "DisplaySimpleSwitch::update:" << update.value("value");
 
     DisplayBase::update(update);
 }
@@ -119,9 +92,15 @@ QString fairwind::displays::DisplaySimpleSwitch::getClassName() const {
     return this->metaObject()->className();
 }
 
-void fairwind::displays::DisplaySimpleSwitch::onRelease() {
-    status=!status;
-    updateStatus();
+void fairwind::displays::DisplaySimpleSwitch::slotOnClick(bool status)
+{
+    qDebug("DisplaySimpleSwitch::slotOnClick ");
+    QJsonValue valueToPut = !status ? _on : _off;
+    qDebug() << "DisplaySimpleSwitch::::slotOnClick::valueToPut " << valueToPut<<"status"<<status;
+
+    auto path = DisplayBase::getFullPath();
+    auto fairWind = fairwind::FairWind::getInstance();
+    auto signalKDocument = fairWind->getSignalKDocument();
+
+    signalKDocument->insert(path,valueToPut);
 }
-
-
