@@ -213,7 +213,7 @@ target_link_libraries(fairwindsdk
         Qt${QT_VERSION}::Gui
         Qt${QT_VERSION}::Widgets
         Qt${QT_VERSION}::WebSockets
-        ${LIBQTJSONSCHEMA} ${LIBQCGAUGEWIDGET} ${LIBQGEOVIEW}
+        ${LIBQTJSONSCHEMA} ${LIBQCGAUGEWIDGET} ${LIBQCSWITCHWIDGET} ${LIBQGEOVIEW}
         )
 
 add_library(FairWindSdk ALIAS fairwindsdk)
