@@ -2,31 +2,34 @@
 // Created by Raffaele Montella on 10/01/22.
 //
 
-#ifndef FAIRWIND_COLOPHONPAGE_HPP
-#define FAIRWIND_COLOPHONPAGE_HPP
+#ifndef FAIRWIND_UI_COLOPHONPAGE_HPP
+#define FAIRWIND_UI_COLOPHONPAGE_HPP
 
 #include <QWidget>
-#include <PageBase.hpp>
+#include <FairWindSdk/PanelBase.hpp>
 
 namespace fairwind::ui {
     QT_BEGIN_NAMESPACE
     namespace Ui { class Colophon; }
     QT_END_NAMESPACE
 
-    class Colophon : public PageBase {
+    class Colophon : public apps::PanelBase {
     Q_OBJECT
 
     public:
-        explicit Colophon(QWidget *parent = nullptr, apps::FairWindApp *appBase = nullptr);
+        explicit Colophon(PageBase *parent = nullptr);
 
         ~Colophon() override;
 
-    public slots:
-        void onAccepted();
+        void onAdded() override;
+
+
 
     private:
         Ui::Colophon *ui;
-    };
-} // fairwind::apps::imsf
 
-#endif //FAIRWIND_COLOPHONPAGE_HPP
+
+    };
+} // fairwind::ui
+
+#endif //FAIRWIND_UI_COLOPHONPAGE_HPP

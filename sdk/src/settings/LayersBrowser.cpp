@@ -1,5 +1,4 @@
 #include <QVBoxLayout>
-#include <QHBoxLayout>
 #include <QJsonObject>
 #include <QCheckBox>
 #include <QLineEdit>
@@ -10,9 +9,8 @@
 #include <QDebug>
 
 #include <FairWindSdk/FairWind.hpp>
-#include <FairWindSdk/IFairWindApp.hpp>
 #include <FairWindSdk/settings/LayersBrowser.hpp>
-#include <FairWindApp.hpp>
+
 
 void fairwind::ui::settings::LayersBrowser::setDetails(std::function<void(QVariant newValue)> slot, QJsonObject details, QJsonValue currentValue) {
     auto fairWind = fairwind::FairWind::getInstance();

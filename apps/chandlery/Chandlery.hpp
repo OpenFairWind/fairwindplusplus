@@ -29,6 +29,7 @@ namespace fairwind::apps::chandlery {
         void onStop() override;
         void onDestroy() override;
 
+        void onConfigChanged() override;
     private:
 
 

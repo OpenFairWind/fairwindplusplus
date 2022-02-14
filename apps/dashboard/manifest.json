@@ -19,83 +19,109 @@
         "properties": {
           "Routes": {
             "type": "array",
-            "displayName": "Routes",
-            "widgetClassName": "fairwind::ui::settings::FairListView",
-            "widgetClassAttributes": ["add", "remove", "edit"],
+            "title": "Routes",
+            "description": "The list of the application routes.",
+            "fairwind": {
+              "widget": "fairwind::ui::settings::AppsRoutesList",
+              "canAdd": true,
+              "canRemove": true,
+              "canEdit": true
+            },
             "items": [
               {
                 "type": "object",
                 "properties": {
                   "Id": {
                     "type": "string",
-                    "defaultValue": "mydata",
-                    "displayName": "Route",
-                    "widgetClassName": "fairwind::ui::settings::FairLineEdit"
+                    "default": "mydata",
+                    "title": "Route Id",
+                    "description": "An unique identifier for the route",
+                    "pattern": "/^(?:[a-z](?:[-a-z0-9\\+\\.])*:(?:\\/\\/(?:(?:%[0-9a-f][0-9a-f]|[-a-z0-9\\._~\\x{A0}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFEF}\\x{10000}-\\x{1FFFD}\\x{20000}-\\x{2FFFD}\\x{30000}-\\x{3FFFD}\\x{40000}-\\x{4FFFD}\\x{50000}-\\x{5FFFD}\\x{60000}-\\x{6FFFD}\\x{70000}-\\x{7FFFD}\\x{80000}-\\x{8FFFD}\\x{90000}-\\x{9FFFD}\\x{A0000}-\\x{AFFFD}\\x{B0000}-\\x{BFFFD}\\x{C0000}-\\x{CFFFD}\\x{D0000}-\\x{DFFFD}\\x{E1000}-\\x{EFFFD}!\\$&'\\(\\)\\*\\+,;=:])*@)?(?:\\[(?:(?:(?:[0-9a-f]{1,4}:){6}(?:[0-9a-f]{1,4}:[0-9a-f]{1,4}|(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(?:\\.(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3})|::(?:[0-9a-f]{1,4}:){5}(?:[0-9a-f]{1,4}:[0-9a-f]{1,4}|(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(?:\\.(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3})|(?:[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){4}(?:[0-9a-f]{1,4}:[0-9a-f]{1,4}|(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(?:\\.(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3})|(?:(?:[0-9a-f]{1,4}:){0,1}[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){3}(?:[0-9a-f]{1,4}:[0-9a-f]{1,4}|(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(?:\\.(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3})|(?:(?:[0-9a-f]{1,4}:){0,2}[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){2}(?:[0-9a-f]{1,4}:[0-9a-f]{1,4}|(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(?:\\.(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3})|(?:(?:[0-9a-f]{1,4}:){0,3}[0-9a-f]{1,4})?::[0-9a-f]{1,4}:(?:[0-9a-f]{1,4}:[0-9a-f]{1,4}|(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(?:\\.(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3})|(?:(?:[0-9a-f]{1,4}:){0,4}[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:[0-9a-f]{1,4}|(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(?:\\.(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3})|(?:(?:[0-9a-f]{1,4}:){0,5}[0-9a-f]{1,4})?::[0-9a-f]{1,4}|(?:(?:[0-9a-f]{1,4}:){0,6}[0-9a-f]{1,4})?::)|v[0-9a-f]+\\.[-a-z0-9\\._~!\\$&'\\(\\)\\*\\+,;=:]+)\\]|(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(?:\\.(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3}|(?:%[0-9a-f][0-9a-f]|[-a-z0-9\\._~\\x{A0}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFEF}\\x{10000}-\\x{1FFFD}\\x{20000}-\\x{2FFFD}\\x{30000}-\\x{3FFFD}\\x{40000}-\\x{4FFFD}\\x{50000}-\\x{5FFFD}\\x{60000}-\\x{6FFFD}\\x{70000}-\\x{7FFFD}\\x{80000}-\\x{8FFFD}\\x{90000}-\\x{9FFFD}\\x{A0000}-\\x{AFFFD}\\x{B0000}-\\x{BFFFD}\\x{C0000}-\\x{CFFFD}\\x{D0000}-\\x{DFFFD}\\x{E1000}-\\x{EFFFD}!\\$&'\\(\\)\\*\\+,;=])*)(?::[0-9]*)?(?:\\/(?:(?:%[0-9a-f][0-9a-f]|[-a-z0-9\\._~\\x{A0}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFEF}\\x{10000}-\\x{1FFFD}\\x{20000}-\\x{2FFFD}\\x{30000}-\\x{3FFFD}\\x{40000}-\\x{4FFFD}\\x{50000}-\\x{5FFFD}\\x{60000}-\\x{6FFFD}\\x{70000}-\\x{7FFFD}\\x{80000}-\\x{8FFFD}\\x{90000}-\\x{9FFFD}\\x{A0000}-\\x{AFFFD}\\x{B0000}-\\x{BFFFD}\\x{C0000}-\\x{CFFFD}\\x{D0000}-\\x{DFFFD}\\x{E1000}-\\x{EFFFD}!\\$&'\\(\\)\\*\\+,;=:@]))*)*|\\/(?:(?:(?:(?:%[0-9a-f][0-9a-f]|[-a-z0-9\\._~\\x{A0}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFEF}\\x{10000}-\\x{1FFFD}\\x{20000}-\\x{2FFFD}\\x{30000}-\\x{3FFFD}\\x{40000}-\\x{4FFFD}\\x{50000}-\\x{5FFFD}\\x{60000}-\\x{6FFFD}\\x{70000}-\\x{7FFFD}\\x{80000}-\\x{8FFFD}\\x{90000}-\\x{9FFFD}\\x{A0000}-\\x{AFFFD}\\x{B0000}-\\x{BFFFD}\\x{C0000}-\\x{CFFFD}\\x{D0000}-\\x{DFFFD}\\x{E1000}-\\x{EFFFD}!\\$&'\\(\\)\\*\\+,;=:@]))+)(?:\\/(?:(?:%[0-9a-f][0-9a-f]|[-a-z0-9\\._~\\x{A0}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFEF}\\x{10000}-\\x{1FFFD}\\x{20000}-\\x{2FFFD}\\x{30000}-\\x{3FFFD}\\x{40000}-\\x{4FFFD}\\x{50000}-\\x{5FFFD}\\x{60000}-\\x{6FFFD}\\x{70000}-\\x{7FFFD}\\x{80000}-\\x{8FFFD}\\x{90000}-\\x{9FFFD}\\x{A0000}-\\x{AFFFD}\\x{B0000}-\\x{BFFFD}\\x{C0000}-\\x{CFFFD}\\x{D0000}-\\x{DFFFD}\\x{E1000}-\\x{EFFFD}!\\$&'\\(\\)\\*\\+,;=:@]))*)*)?|(?:(?:(?:%[0-9a-f][0-9a-f]|[-a-z0-9\\._~\\x{A0}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFEF}\\x{10000}-\\x{1FFFD}\\x{20000}-\\x{2FFFD}\\x{30000}-\\x{3FFFD}\\x{40000}-\\x{4FFFD}\\x{50000}-\\x{5FFFD}\\x{60000}-\\x{6FFFD}\\x{70000}-\\x{7FFFD}\\x{80000}-\\x{8FFFD}\\x{90000}-\\x{9FFFD}\\x{A0000}-\\x{AFFFD}\\x{B0000}-\\x{BFFFD}\\x{C0000}-\\x{CFFFD}\\x{D0000}-\\x{DFFFD}\\x{E1000}-\\x{EFFFD}!\\$&'\\(\\)\\*\\+,;=:@]))+)(?:\\/(?:(?:%[0-9a-f][0-9a-f]|[-a-z0-9\\._~\\x{A0}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFEF}\\x{10000}-\\x{1FFFD}\\x{20000}-\\x{2FFFD}\\x{30000}-\\x{3FFFD}\\x{40000}-\\x{4FFFD}\\x{50000}-\\x{5FFFD}\\x{60000}-\\x{6FFFD}\\x{70000}-\\x{7FFFD}\\x{80000}-\\x{8FFFD}\\x{90000}-\\x{9FFFD}\\x{A0000}-\\x{AFFFD}\\x{B0000}-\\x{BFFFD}\\x{C0000}-\\x{CFFFD}\\x{D0000}-\\x{DFFFD}\\x{E1000}-\\x{EFFFD}!\\$&'\\(\\)\\*\\+,;=:@]))*)*|(?!(?:%[0-9a-f][0-9a-f]|[-a-z0-9\\._~\\x{A0}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFEF}\\x{10000}-\\x{1FFFD}\\x{20000}-\\x{2FFFD}\\x{30000}-\\x{3FFFD}\\x{40000}-\\x{4FFFD}\\x{50000}-\\x{5FFFD}\\x{60000}-\\x{6FFFD}\\x{70000}-\\x{7FFFD}\\x{80000}-\\x{8FFFD}\\x{90000}-\\x{9FFFD}\\x{A0000}-\\x{AFFFD}\\x{B0000}-\\x{BFFFD}\\x{C0000}-\\x{CFFFD}\\x{D0000}-\\x{DFFFD}\\x{E1000}-\\x{EFFFD}!\\$&'\\(\\)\\*\\+,;=:@])))(?:\\?(?:(?:%[0-9a-f][0-9a-f]|[-a-z0-9\\._~\\x{A0}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFEF}\\x{10000}-\\x{1FFFD}\\x{20000}-\\x{2FFFD}\\x{30000}-\\x{3FFFD}\\x{40000}-\\x{4FFFD}\\x{50000}-\\x{5FFFD}\\x{60000}-\\x{6FFFD}\\x{70000}-\\x{7FFFD}\\x{80000}-\\x{8FFFD}\\x{90000}-\\x{9FFFD}\\x{A0000}-\\x{AFFFD}\\x{B0000}-\\x{BFFFD}\\x{C0000}-\\x{CFFFD}\\x{D0000}-\\x{DFFFD}\\x{E1000}-\\x{EFFFD}!\\$&'\\(\\)\\*\\+,;=:@])|[\\x{E000}-\\x{F8FF}\\x{F0000}-\\x{FFFFD}\\x{100000}-\\x{10FFFD}\\/\\?])*)?(?:\\#(?:(?:%[0-9a-f][0-9a-f]|[-a-z0-9\\._~\\x{A0}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFEF}\\x{10000}-\\x{1FFFD}\\x{20000}-\\x{2FFFD}\\x{30000}-\\x{3FFFD}\\x{40000}-\\x{4FFFD}\\x{50000}-\\x{5FFFD}\\x{60000}-\\x{6FFFD}\\x{70000}-\\x{7FFFD}\\x{80000}-\\x{8FFFD}\\x{90000}-\\x{9FFFD}\\x{A0000}-\\x{AFFFD}\\x{B0000}-\\x{BFFFD}\\x{C0000}-\\x{CFFFD}\\x{D0000}-\\x{DFFFD}\\x{E1000}-\\x{EFFFD}!\\$&'\\(\\)\\*\\+,;=:@])|[\\/\\?])*)?|(?:\\/\\/(?:(?:%[0-9a-f][0-9a-f]|[-a-z0-9\\._~\\x{A0}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFEF}\\x{10000}-\\x{1FFFD}\\x{20000}-\\x{2FFFD}\\x{30000}-\\x{3FFFD}\\x{40000}-\\x{4FFFD}\\x{50000}-\\x{5FFFD}\\x{60000}-\\x{6FFFD}\\x{70000}-\\x{7FFFD}\\x{80000}-\\x{8FFFD}\\x{90000}-\\x{9FFFD}\\x{A0000}-\\x{AFFFD}\\x{B0000}-\\x{BFFFD}\\x{C0000}-\\x{CFFFD}\\x{D0000}-\\x{DFFFD}\\x{E1000}-\\x{EFFFD}!\\$&'\\(\\)\\*\\+,;=:])*@)?(?:\\[(?:(?:(?:[0-9a-f]{1,4}:){6}(?:[0-9a-f]{1,4}:[0-9a-f]{1,4}|(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(?:\\.(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3})|::(?:[0-9a-f]{1,4}:){5}(?:[0-9a-f]{1,4}:[0-9a-f]{1,4}|(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(?:\\.(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3})|(?:[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){4}(?:[0-9a-f]{1,4}:[0-9a-f]{1,4}|(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(?:\\.(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3})|(?:(?:[0-9a-f]{1,4}:){0,1}[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){3}(?:[0-9a-f]{1,4}:[0-9a-f]{1,4}|(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(?:\\.(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3})|(?:(?:[0-9a-f]{1,4}:){0,2}[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){2}(?:[0-9a-f]{1,4}:[0-9a-f]{1,4}|(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(?:\\.(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3})|(?:(?:[0-9a-f]{1,4}:){0,3}[0-9a-f]{1,4})?::[0-9a-f]{1,4}:(?:[0-9a-f]{1,4}:[0-9a-f]{1,4}|(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(?:\\.(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3})|(?:(?:[0-9a-f]{1,4}:){0,4}[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:[0-9a-f]{1,4}|(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(?:\\.(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3})|(?:(?:[0-9a-f]{1,4}:){0,5}[0-9a-f]{1,4})?::[0-9a-f]{1,4}|(?:(?:[0-9a-f]{1,4}:){0,6}[0-9a-f]{1,4})?::)|v[0-9a-f]+\\.[-a-z0-9\\._~!\\$&'\\(\\)\\*\\+,;=:]+)\\]|(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(?:\\.(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3}|(?:%[0-9a-f][0-9a-f]|[-a-z0-9\\._~\\x{A0}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFEF}\\x{10000}-\\x{1FFFD}\\x{20000}-\\x{2FFFD}\\x{30000}-\\x{3FFFD}\\x{40000}-\\x{4FFFD}\\x{50000}-\\x{5FFFD}\\x{60000}-\\x{6FFFD}\\x{70000}-\\x{7FFFD}\\x{80000}-\\x{8FFFD}\\x{90000}-\\x{9FFFD}\\x{A0000}-\\x{AFFFD}\\x{B0000}-\\x{BFFFD}\\x{C0000}-\\x{CFFFD}\\x{D0000}-\\x{DFFFD}\\x{E1000}-\\x{EFFFD}!\\$&'\\(\\)\\*\\+,;=])*)(?::[0-9]*)?(?:\\/(?:(?:%[0-9a-f][0-9a-f]|[-a-z0-9\\._~\\x{A0}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFEF}\\x{10000}-\\x{1FFFD}\\x{20000}-\\x{2FFFD}\\x{30000}-\\x{3FFFD}\\x{40000}-\\x{4FFFD}\\x{50000}-\\x{5FFFD}\\x{60000}-\\x{6FFFD}\\x{70000}-\\x{7FFFD}\\x{80000}-\\x{8FFFD}\\x{90000}-\\x{9FFFD}\\x{A0000}-\\x{AFFFD}\\x{B0000}-\\x{BFFFD}\\x{C0000}-\\x{CFFFD}\\x{D0000}-\\x{DFFFD}\\x{E1000}-\\x{EFFFD}!\\$&'\\(\\)\\*\\+,;=:@]))*)*|\\/(?:(?:(?:(?:%[0-9a-f][0-9a-f]|[-a-z0-9\\._~\\x{A0}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFEF}\\x{10000}-\\x{1FFFD}\\x{20000}-\\x{2FFFD}\\x{30000}-\\x{3FFFD}\\x{40000}-\\x{4FFFD}\\x{50000}-\\x{5FFFD}\\x{60000}-\\x{6FFFD}\\x{70000}-\\x{7FFFD}\\x{80000}-\\x{8FFFD}\\x{90000}-\\x{9FFFD}\\x{A0000}-\\x{AFFFD}\\x{B0000}-\\x{BFFFD}\\x{C0000}-\\x{CFFFD}\\x{D0000}-\\x{DFFFD}\\x{E1000}-\\x{EFFFD}!\\$&'\\(\\)\\*\\+,;=:@]))+)(?:\\/(?:(?:%[0-9a-f][0-9a-f]|[-a-z0-9\\._~\\x{A0}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFEF}\\x{10000}-\\x{1FFFD}\\x{20000}-\\x{2FFFD}\\x{30000}-\\x{3FFFD}\\x{40000}-\\x{4FFFD}\\x{50000}-\\x{5FFFD}\\x{60000}-\\x{6FFFD}\\x{70000}-\\x{7FFFD}\\x{80000}-\\x{8FFFD}\\x{90000}-\\x{9FFFD}\\x{A0000}-\\x{AFFFD}\\x{B0000}-\\x{BFFFD}\\x{C0000}-\\x{CFFFD}\\x{D0000}-\\x{DFFFD}\\x{E1000}-\\x{EFFFD}!\\$&'\\(\\)\\*\\+,;=:@]))*)*)?|(?:(?:%[0-9a-f][0-9a-f]|[-a-z0-9\\._~\\x{A0}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFEF}\\x{10000}-\\x{1FFFD}\\x{20000}-\\x{2FFFD}\\x{30000}-\\x{3FFFD}\\x{40000}-\\x{4FFFD}\\x{50000}-\\x{5FFFD}\\x{60000}-\\x{6FFFD}\\x{70000}-\\x{7FFFD}\\x{80000}-\\x{8FFFD}\\x{90000}-\\x{9FFFD}\\x{A0000}-\\x{AFFFD}\\x{B0000}-\\x{BFFFD}\\x{C0000}-\\x{CFFFD}\\x{D0000}-\\x{DFFFD}\\x{E1000}-\\x{EFFFD}!\\$&'\\(\\)\\*\\+,;=@])+)(?:\\/(?:(?:%[0-9a-f][0-9a-f]|[-a-z0-9\\._~\\x{A0}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFEF}\\x{10000}-\\x{1FFFD}\\x{20000}-\\x{2FFFD}\\x{30000}-\\x{3FFFD}\\x{40000}-\\x{4FFFD}\\x{50000}-\\x{5FFFD}\\x{60000}-\\x{6FFFD}\\x{70000}-\\x{7FFFD}\\x{80000}-\\x{8FFFD}\\x{90000}-\\x{9FFFD}\\x{A0000}-\\x{AFFFD}\\x{B0000}-\\x{BFFFD}\\x{C0000}-\\x{CFFFD}\\x{D0000}-\\x{DFFFD}\\x{E1000}-\\x{EFFFD}!\\$&'\\(\\)\\*\\+,;=:@]))*)*|(?!(?:%[0-9a-f][0-9a-f]|[-a-z0-9\\._~\\x{A0}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFEF}\\x{10000}-\\x{1FFFD}\\x{20000}-\\x{2FFFD}\\x{30000}-\\x{3FFFD}\\x{40000}-\\x{4FFFD}\\x{50000}-\\x{5FFFD}\\x{60000}-\\x{6FFFD}\\x{70000}-\\x{7FFFD}\\x{80000}-\\x{8FFFD}\\x{90000}-\\x{9FFFD}\\x{A0000}-\\x{AFFFD}\\x{B0000}-\\x{BFFFD}\\x{C0000}-\\x{CFFFD}\\x{D0000}-\\x{DFFFD}\\x{E1000}-\\x{EFFFD}!\\$&'\\(\\)\\*\\+,;=:@])))(?:\\?(?:(?:%[0-9a-f][0-9a-f]|[-a-z0-9\\._~\\x{A0}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFEF}\\x{10000}-\\x{1FFFD}\\x{20000}-\\x{2FFFD}\\x{30000}-\\x{3FFFD}\\x{40000}-\\x{4FFFD}\\x{50000}-\\x{5FFFD}\\x{60000}-\\x{6FFFD}\\x{70000}-\\x{7FFFD}\\x{80000}-\\x{8FFFD}\\x{90000}-\\x{9FFFD}\\x{A0000}-\\x{AFFFD}\\x{B0000}-\\x{BFFFD}\\x{C0000}-\\x{CFFFD}\\x{D0000}-\\x{DFFFD}\\x{E1000}-\\x{EFFFD}!\\$&'\\(\\)\\*\\+,;=:@])|[\\x{E000}-\\x{F8FF}\\x{F0000}-\\x{FFFFD}\\x{100000}-\\x{10FFFD}\\/\\?])*)?(?:\\#(?:(?:%[0-9a-f][0-9a-f]|[-a-z0-9\\._~\\x{A0}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFEF}\\x{10000}-\\x{1FFFD}\\x{20000}-\\x{2FFFD}\\x{30000}-\\x{3FFFD}\\x{40000}-\\x{4FFFD}\\x{50000}-\\x{5FFFD}\\x{60000}-\\x{6FFFD}\\x{70000}-\\x{7FFFD}\\x{80000}-\\x{8FFFD}\\x{90000}-\\x{9FFFD}\\x{A0000}-\\x{AFFFD}\\x{B0000}-\\x{BFFFD}\\x{C0000}-\\x{CFFFD}\\x{D0000}-\\x{DFFFD}\\x{E1000}-\\x{EFFFD}!\\$&'\\(\\)\\*\\+,;=:@])|[\\/\\?])*)?)$/i"
                   },
                   "Args": {
                     "type": "object",
                     "properties": {
                       "Name": {
+                        "title": "Name",
+                        "description": "The name of the user customization",
                         "type": "string",
-                        "defaultValue": "myData",
-                        "displayName": "Name",
-                        "widgetClassName": "fairwind::ui::settings::FairLineEdit"
+                        "default": "myData"
                       },
                       "Desc": {
                         "type": "string",
-                        "defaultValue": "My data dashboard",
-                        "displayName": "Description",
-                        "widgetClassName": "fairwind::ui::settings::FairLineEdit"
+                        "default": "My data dashboard",
+                        "title": "Description",
+                        "fairwind": {
+                          "multiline": true
+                        }
                       },
                       "Icon": {
                         "type": "string",
-                        "defaultValue": "resources/images/default_icon.png",
-                        "displayName": "Icon",
-                        "widgetClassName": "fairwind::ui::settings::FairImageBrowser"
+                        "default": "resources/images/default_icon.png",
+                        "title": "Icon",
+                        "fairwind": {
+                          "widget": "fairwind::ui::settings::FileBrowser",
+                          "filter": [ "*.png", "*.jpg", "*.jpeg"]
+                        }
                       },
                       "Config": {
+                        "title": "Configuration",
+                        "description": "The application route configuration",
                         "type": "object",
                         "properties": {
                           "pages": {
+                            "title": "Pages",
+                            "description": "The page configuration",
                             "type": "array",
-                            "widgetClassName": "fairwind::apps::dashboard::ui::settings::Pages",
+                            "fairwind": { "widthet":"fairwind::apps::dashboard::ui::settings::Pages"},
                             "items": [
                               {
                                 "type": "object",
                                 "properties": {
                                   "name": {
                                     "type": "string",
-                                    "displayName": "Page name",
-                                    "widgetClassName": "fairwind::ui::settings::FairLineEdit"
+                                    "title": "Page name",
+                                    "description": "The page name",
+                                    "default": "Page"
                                   },
                                   "class": {
                                     "type": "string",
                                     "defaultValue": "fairwind::layouts::GridLayout::GridLayout",
-                                    "displayName": "Layout",
-                                    "widgetClassName": "fairwind::ui::settings::LayoutsBrowser"
+                                    "title": "Layout",
+                                    "description": "The layout used for this page",
+                                    "fairwind": {
+                                      "widget": "fairwind::ui::settings::LayoutsBrowser"
+                                    }
                                   },
                                   "default": {
                                     "type": "boolean",
-                                    "defaultValue": false,
-                                    "displayName": "Default Page",
-                                    "domain": [
-                                      {
-                                        "key": "No",
-                                        "value": false
-                                      },
-                                      {
-                                        "key": "Yes",
-                                        "value": true
-                                      }
-                                    ],
-                                    "widgetClassName": "fairwind::ui::settings::FairComboBox"
+                                    "default": false,
+                                    "title": "Default Page",
+                                    "description": "Is this the default page?",
+                                    "fairwind": {
+                                      "domain": [
+                                        {
+                                          "key": "No",
+                                          "value": false
+                                        },
+                                        {
+                                          "key": "Yes",
+                                          "value": true
+                                        }
+                                      ]
+                                    }
                                   },
                                   "displays": {
+                                    "title": "Displays",
+                                    "description": "The used displays",
                                     "type": "array",
-                                    "widgetClassName": "fairwind::ui::settings::DisplaysBrowser",
-                                    "widgetClassAttributes": ["add", "remove", "edit", "sort"],
-                                    "items": {
-                                      "$ref": "#/definitions/display"
+                                    "items": { "$ref": "#/definitions/display"},
+                                    "fairwind": {
+                                      "widget": "it.uniparthenope.fairwind.apps.chart::DisplaysSelector",
+                                      "canAdd": true,
+                                      "canRemove": true,
+                                      "canEdit": true,
+                                      "canSort": true
                                     }
                                   }
                                 },
@@ -143,34 +169,37 @@
                     "class":"fairwind::layouts::GridLayout",
                     "displays":[
                       {
-                        "class":"fairwind::displays::DisplaySingleText",
+                        "class":"fairwind::displays::DisplayGauge",
                         "active":true,
                         "layout":"0,0",
                         "fullPath":"${self}.navigation.speedOverGround"
                       },
                       {
-                        "class":"fairwind::displays::DisplaySingleText",
+                        "class":"fairwind::displays::DisplayGauge",
                         "active":true,
                         "layout":"0,1",
+                        "minValue": 0,
+                        "maxValue": 360,
+                        "step": 30,
                         "fullPath":"${self}.navigation.courseOverGroundTrue"
                       },
                       {
-                        "class":"fairwind::displays::DisplaySingleText",
+                        "class":"fairwind::displays::DisplayGauge",
                         "active":true,
                         "layout":"0,2",
                         "fullPath":"${self}.navigation.speedThroughWater"
                       },
                       {
-                        "class":"fairwind::displays::DisplaySingleText",
+                        "class":"fairwind::displays::DisplayGauge",
                         "active":true,
                         "layout":"0,3",
-                        "fullPath":"${self}.navigation.headingTrue"
+                        "fullPath":"${self}.environment.wind.speedApparent"
                       },
                       {
                         "class":"fairwind::displays::DisplaySingleText",
                         "active":true,
                         "layout":"1,0",
-                        "fullPath":"${self}.environment.wind.speedApparent"
+                        "fullPath":"${self}.navigation.gnss.type"
                       },
                       {
                         "class":"fairwind::displays::DisplaySingleText",
@@ -180,9 +209,9 @@
                       },
                       {
                         "class":"fairwind::displays::DisplaySingleText",
-                        "active":false,
+                        "active":true,
                         "layout":"1,2",
-                        "fullPath":"${self}.environment.water.temperature"
+                        "fullPath":"${self}.environment.depth.belowKeel"
                       },
                       {
                         "class":"fairwind::displays::DisplaySingleText",
@@ -209,116 +238,196 @@
                     "class":"fairwind::layouts::GridLayout",
                     "displays":[
                       {
-                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "class":"fairwind::displays::DisplayToggleSwitch",
                         "active":true,
                         "layout":"0,0",
+                        "value": "on",
                         "label": "Cabin Lights 1",
                         "fullPath":"${self}.electrical.switches.cabinLights1"
                       },
                       {
-                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "class":"fairwind::displays::DisplayToggleSwitch",
                         "active":true,
+                        "value": "on",
                         "layout":"1,0",
                         "label": "Cabin Lights 2",
                         "fullPath":"${self}.electrical.switches.cabinLights2"
                       },
                       {
-                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "class":"fairwind::displays::DisplayToggleSwitch",
                         "active":true,
+                        "value": "on",
                         "layout":"2,0",
                         "label": "Cabin Lights 3",
                         "fullPath":"${self}.electrical.switches.cabinLights3"
                       },
                       {
-                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "class":"fairwind::displays::DisplayToggleSwitch",
                         "active":true,
+                        "value": "on",
                         "layout":"3,0",
                         "label": "Top Light",
                         "fullPath":"${self}.electrical.switches.topLight"
                       },
                       {
-                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "class":"fairwind::displays::DisplayToggleSwitch",
                         "active":true,
+                        "value": "on",
                         "layout":"4,0",
                         "label": "Steaming Light",
                         "fullPath":"${self}.electrical.switches.steamingLight"
                       },
                       {
-                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "class":"fairwind::displays::DisplayToggleSwitch",
                         "active":true,
+                        "value": "on",
                         "layout":"5,0",
                         "label": "Navigation Light",
                         "fullPath":"${self}.electrical.switches.navigationLight"
                       },
                       {
+                       "class":"fairwind::displays::DisplayToggleSwitch",
+                       "active":true,
+                        "value": "on",
+                       "layout":"6,0",
+                       "label": "Keel Bilge Pump",
+                       "fullPath":"${self}.electrical.switches.keelBilgePump"
+                       },
+                      {
+                        "class":"fairwind::displays::DisplayToggleSwitch",
+                        "active":false,
+                        "layout":"0,1"
+                      },
+                      {
+                        "class":"fairwind::displays::DisplayToggleSwitch",
+                        "active":false,
+                        "value": "on",
+                        "layout":"1,1"
+                      },
+                      {
+                        "class":"fairwind::displays::DisplayToggleSwitch",
+                        "active":false,
+                        "value": "on",
+                        "layout":"2,1"
+                      },
+                      {
                         "class":"fairwind::displays::DisplaySimpleSwitch",
-                        "active":true,
-                        "layout":"6,0",
-                        "label": "Keel Bilge Pump",
-                        "fullPath":"${self}.electrical.switches.keelBilgePump"
+                        "active":false,
+                        "value": "on",
+                        "layout":"3,1"
+                      },
+                      {
+                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "active":false,
+                        "value": "on",
+                        "layout":"4,1"
+                      },
+                      {
+                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "active":false,
+                        "value": "on",
+                        "layout":"5,1"
+                      },
+                      {
+                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "active":false,
+                        "value": "on",
+                        "layout":"6,1"
+                      },
+                      {
+                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "active":false,
+                        "value": "on",
+                        "layout":"0,4"
+                      },
+                      {
+                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "active":false,
+                        "value": "on",
+                        "layout":"1,4"
+                      },
+                      {
+                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "active":false,
+                        "value": "on",
+                        "layout":"2,4"
+                      },
+                      {
+                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "active":false,
+                        "layout":"3,4",
+                        "value": "off"
+                      },
+                      {
+                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "active":false,
+                        "layout":"4,4"
+                      },
+                      {
+                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "active":false,
+                        "layout":"5,4"
+                      },
+                      {
+                        "class":"fairwind::displays::DisplaySimpleSwitch",
+                        "active":false,
+                        "layout":"6,4"
                       },
                       {
                         "class":"fairwind::displays::DisplaySimpleSwitch",
                         "active":true,
-                        "layout":"7,0",
-                        "label": "Anchor Windlass",
-                        "fullPath":"${self}.electrical.switches.anchorWindlass"
-                      },
-                      {
-                        "class":"fairwind::displays::DisplaySimpleSwitch",
-                        "active":true,
-                        "layout":"0,1",
+                        "value": "on",
+                        "layout":"0,5",
                         "label": "Sailing Instruments",
                         "fullPath":"${self}.electrical.switches.sailingInstruments"
                       },
                       {
                         "class":"fairwind::displays::DisplaySimpleSwitch",
                         "active":true,
-                        "layout":"1,1",
+                        "value": "on",
+                        "layout":"1,5",
                         "label": "Navigation Instruments",
                         "fullPath":"${self}.electrical.switches.navigationInstruments"
                       },
                       {
                         "class":"fairwind::displays::DisplaySimpleSwitch",
                         "active":true,
-                        "layout":"2,1",
+                        "value": "on",
+                        "layout":"2,5",
                         "label": "VHF",
                         "fullPath":"${self}.electrical.switches.vhf"
                       },
                       {
                         "class":"fairwind::displays::DisplaySimpleSwitch",
                         "active":true,
-                        "layout":"3,1",
+                        "layout":"3,5",
+                        "value": "off",
                         "label": "Radio Recorder",
                         "fullPath":"${self}.electrical.switches.radioRecorder"
                       },
                       {
                         "class":"fairwind::displays::DisplaySimpleSwitch",
                         "active":true,
-                        "layout":"4,1",
+                        "layout":"4,5",
+                        "value": "off",
                         "label": "Refrigerator",
                         "fullPath":"${self}.electrical.switches.refrigerator"
                       },
                       {
                         "class":"fairwind::displays::DisplaySimpleSwitch",
                         "active":true,
-                        "layout":"5,1",
+                        "layout":"5,5",
+                        "value": "off",
                         "label": "Water Pump",
                         "fullPath":"${self}.electrical.switches.waterPump"
                       },
                       {
-                        "class":"fairwind::displays::DisplaySimpleSwitch",
-                        "active":true,
-                        "layout":"6,1",
-                        "label": "Shower Pump",
-                        "fullPath":"${self}.electrical.switches.showerPump"
-                      },
-                      {
-                        "class":"fairwind::displays::DisplaySimpleSwitch",
-                        "active":true,
-                        "layout":"7,1",
-                        "label": "FairWind++",
-                        "fullPath":"${self}.electrical.switches.fairWindPlusPlus"
+                      "class":"fairwind::displays::DisplaySimpleSwitch",
+                      "active":true,
+                      "layout":"6,5",
+                        "value": "on",
+                      "label": "Shower Pump",
+                      "fullPath":"${self}.electrical.switches.showerPump"
                       },
                       {
                         "class":"fairwind::displays::DisplayGauge",
@@ -333,28 +442,31 @@
                         "class":"fairwind::displays::DisplayGauge",
                         "active":true,
                         "layout":"0,3,4,1",
-                        "maxValue": 60,
+                        "maxValue": 460,
                         "minValue": 0,
-                        "step": 10,
+                        "step": 40,
+                        "label": "Batteries Temp",
+                        "units": "K",
+                        "fullPath":"${self}.electrical.batteries.1.temperature"
+                      },
+                      {
+                        "class":"fairwind::displays::DisplayBarGauge",
+                        "active":true,
+                        "layout":"4,2,4,1",
+                        "maxValue": 300,
+                        "minValue": 0,
                         "fullPath":"${self}.electrical.batteries.1.current"
                       },
                       {
-                        "class":"fairwind::displays::DisplayVerticalBarGauge",
-                        "active":true,
-                        "layout":"4,2,4,1",
-                        "maxValue": 0,
-                        "minValue": 100,
-                        "step": 10,
-                        "fullPath":"${self}.tanks.fuel.1.currentLevel"
-                      },
-                      {
-                        "class":"fairwind::displays::DisplayVerticalBarGauge",
+                        "class":"fairwind::displays::DisplayBarGauge",
                         "active":true,
                         "layout":"4,3,4,1",
-                        "maxValue": 100,
+                        "label": "Fuel",
+                        "units": "%",
+                        "value": 72,
+                        "maxValue": 200,
                         "minValue": 0,
-                        "step": 10,
-                        "fullPath":"${self}.tanks.freshWater.1.currentLevel"
+                        "fullPath":"${self}.tanks.fuel.1.capacity"
                       }
                     ]
                   }

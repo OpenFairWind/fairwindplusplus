@@ -10,15 +10,17 @@
 #include "MainPage.hpp"
 
 
-void fairwind::apps::dashboard::Dashboard::onCreate() {}
+void fairwind::apps::dashboard::Dashboard::onCreate() { FairWindApp::onCreate(); }
 
-void fairwind::apps::dashboard::Dashboard::onResume()  {}
+void fairwind::apps::dashboard::Dashboard::onResume()  { FairWindApp::onResume(); }
 
-void fairwind::apps::dashboard::Dashboard::onPause()  {}
+void fairwind::apps::dashboard::Dashboard::onPause()  { FairWindApp::onPause(); }
 
-void fairwind::apps::dashboard::Dashboard::onStop()  {}
+void fairwind::apps::dashboard::Dashboard::onStop()  { FairWindApp::onStop(); }
 
-void fairwind::apps::dashboard::Dashboard::onDestroy()  {}
+void fairwind::apps::dashboard::Dashboard::onDestroy()  { FairWindApp::onDestroy(); }
+
+void fairwind::apps::dashboard::Dashboard::onConfigChanged()  { FairWindApp::onConfigChanged(); }
 
 void fairwind::apps::dashboard::Dashboard::onStart() {
     FairWindApp::onStart();
@@ -28,7 +30,7 @@ void fairwind::apps::dashboard::Dashboard::onStart() {
         route = "__home__";
     }
 
-    auto mainPage = new MainPage(nullptr, this);
+    auto mainPage = new MainPage();
 
     add(mainPage,route);
 

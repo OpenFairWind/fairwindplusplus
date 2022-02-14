@@ -26,6 +26,7 @@ namespace fairwind::apps::external {
         void onStop() override;
         void onDestroy() override;
 
+        void onConfigChanged() override;
     private:
 
     };

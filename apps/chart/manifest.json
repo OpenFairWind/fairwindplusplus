@@ -18,70 +18,98 @@
         "type": "object",
         "properties": {
           "Displays": {
-            "displayName": "Displays",
+            "title": "Displays",
+            "description": "The used displays",
             "type": "array",
-            "widgetClassName": "fairwind::ui::settings::DisplaysBrowser",
-            "widgetClassAttributes": ["add", "remove", "edit", "sort"],
-            "items": { "$ref": "#/definitions/display"}
+            "items": { "$ref": "#/definitions/display"},
+            "fairwind": {
+              "widget": "it.uniparthenope.fairwind.apps.chart::DisplaysSelector",
+              "canAdd": true,
+              "canRemove": true,
+              "canEdit": true,
+              "canSort": true
+            }
           },
           "Layers": {
-            "displayName": "Layers",
+            "title": "Layers",
+            "description": "The used layers",
             "type": "array",
-            "widgetClassName": "fairwind::ui::settings::LayersBrowser",
-            "widgetClassAttributes": ["add", "remove", "edit", "sort"],
             "items": {
               "$ref": "#/definitions/layer"
+            },
+            "fairwind": {
+              "widget": "fairwind::ui::settings::LayersSelector",
+              "canAdd": true,
+              "canRemove": true,
+              "canEdit": true,
+              "canSort": true
             }
           },
           "center_map": {
             "type": "boolean",
-            "defaultValue": true,
-            "displayName": "Center Map",
-            "domain": [
-              {
-                "key": "No",
-                "value": false
-              },
-              {
-                "key": "Yes",
-                "value": true
-              }
-            ],
-            "widgetClassName": "fairwind::ui::settings::FairComboBox"
+            "default": true,
+            "title": "Center Map",
+            "description": "If the map is centered, the self vessel is in the middle of the map and the map pans.",
+            "fairwind": {
+              "domain": [
+                {
+                  "key": "No",
+                  "value": false
+                },
+                {
+                  "key": "Yes",
+                  "value": true
+                }
+              ]
+            }
           },
           "orientation": {
             "type": "string",
-            "defaultValue": "north",
-            "displayName": "Orientation",
-            "domain": [
-              {
-                "key": "North Up",
-                "value": "north"
-              },
-              {
-                "key": "Course Up",
-                "value": "course"
-              }
-            ],
-            "widgetClassName": "fairwind::ui::settings::FairComboBox"
+            "default": "north",
+            "title": "Orientation",
+            "description": "If the orientation is Course Up, the chart Up is not North but the vessel heading.",
+            "fairwind": {
+              "domain": [
+                {
+                  "key": "North Up",
+                  "value": "north"
+                },
+                {
+                  "key": "Course Up",
+                  "value": "course"
+                }
+              ]
+            }
           },
           "position": {
             "type": "string",
-            "defaultValue": "${self}.navigation.position",
-            "displayName": "Position",
-            "widgetClassName": "fairwind::ui::settings::SignalKKey"
+            "default": "${self}.navigation.position",
+            "title": "Position",
+            "description": "The Signal K string for the navigation position value.",
+            "fairwind": {
+              "widget": "fairwind::ui::settings::SignalKBrowser",
+              "postfix": "(Signal K string)"
+            }
           },
           "heading": {
             "type": "string",
-            "defaultValue": "${self}.navigation.courseOverGroundMagnetic",
-            "displayName": "Heading",
-            "widgetClassName": "fairwind::ui::settings::SignalKKey"
+            "default": "${self}.navigation.courseOverGroundMagnetic",
+            "title": "Heading",
+            "description": "The Signal K string for the navigation course over ground (COG) value.",
+            "fairwind": {
+              "widget": "fairwind::ui::settings::SignalKBrowser",
+              "postfix": "(Signal K string)"
+            }
           },
           "speed": {
             "type": "string",
-            "defaultValue": "${self}.navigation.speedOverGround",
-            "displayName": "Speed",
-            "widgetClassName": "fairwind::ui::settings::SignalKKey"
+            "default": "${self}.navigation.speedOverGround",
+            "title": "Speed",
+            "description": "The Signal K string for the navigation speed over ground (SOG) value.",
+            "fairwind": {
+              "widget": "fairwind::ui::settings::SignalKBrowser",
+              "postfix": "(Signal K string)"
+            }
           }
         },
         "required": [
@@ -142,7 +170,7 @@
             "layout": "right"
           },
           {
-            "active": false,
+            "active": true,
             "class": "fairwind::displays::DisplaySingleText",
             "fullPath": "${self}.environment.water.temperature",
             "layout": "right"

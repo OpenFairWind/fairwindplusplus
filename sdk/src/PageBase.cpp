@@ -4,11 +4,74 @@
 
 #include "PageBase.hpp"
 
-fairwind::PageBase::PageBase(QWidget *parent, apps::FairWindApp *fairWindApp):
-        QWidget(parent) {
-    m_fairWindApp=fairWindApp;
-}
+namespace fairwind::apps {
+    PageBase::PageBase(QWidget *parent) :
+            QWidget(parent) {
+        m_fairWindApp = nullptr;
+    }
 
-fairwind::apps::FairWindApp *fairwind::PageBase::getFairWindApp() {
-    return m_fairWindApp;
+    FairWindApp *PageBase::getFairWindApp() {
+        if (m_fairWindApp == nullptr) {
+            qDebug() << "Page not already added to an application!";
+        }
+        return m_fairWindApp;
+    }
+
+    void PageBase::setFairWindApp(FairWindApp *fairWindApp) {
+        this->m_fairWindApp = fairWindApp;
+    }
+
+    void PageBase::onCreate() {
+
+    }
+
+    void PageBase::onStart() {
+
+    }
+
+    void PageBase::onResume() {
+
+    }
+
+    void PageBase::onPause() {
+
+    }
+
+    void PageBase::onStop() {
+
+    }
+
+    void PageBase::onDestroy() {
+
+    }
+
+    void PageBase::onConfigChanged() {
+
+    }
+
+    void PageBase::onShown() {
+
+    }
+
+    void PageBase::onShowing() {
+
+    }
+
+    void PageBase::onAdded() {
+
+    }
+
+
+
+    void PageBase::onAdding() {
+
+    }
+
+    void PageBase::onRemoving() {
+
+    }
+
+    void PageBase::onRemoved() {
+
+    }
 }

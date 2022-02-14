@@ -57,4 +57,11 @@ namespace __namespace__ {
         FairWindApp::onDestroy();
     }
 
+    // Called when the configuration file changed
+    void __Appname__::onConfigChanged() {
+
+        // Call the framework onConfigChanged()
+        FairWindApp::onConfigChanged();
+    }
+
 } // __namespace__

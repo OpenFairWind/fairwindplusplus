@@ -36,3 +36,7 @@ void fairwind::apps::sonar::Sonar::onStop() {
 void fairwind::apps::sonar::Sonar::onDestroy() {
     FairWindApp::onDestroy();
 }
+
+void fairwind::apps::sonar::Sonar::onConfigChanged() {
+    FairWindApp::onConfigChanged();
+}

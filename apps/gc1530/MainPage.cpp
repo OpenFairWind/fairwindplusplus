@@ -11,8 +11,8 @@
 
 
 namespace it::gov::guardiacostiera::gc1530 {
-    MainPage::MainPage(QWidget *parent, fairwind::apps::FairWindApp *fairWindApp) :
-            PageBase(parent, fairWindApp), ui(new Ui::MainPage) {
+    MainPage::MainPage(PageBase *parent) :
+            PageBase(parent), ui(new Ui::MainPage) {
 
         ui->setupUi((QWidget *)this);
 
@@ -21,6 +21,10 @@ namespace it::gov::guardiacostiera::gc1530 {
         ui->verticalLayout_WebView->addWidget(m_webView);
         connect(ui->pushButton_Home, &QPushButton::clicked, this, &::it::gov::guardiacostiera::gc1530::MainPage::toolButton_home_clicked);
 
+
+    }
+
+    void MainPage::onAdded() {
         m_webView->load(QUrl(((GC1530 *)getFairWindApp())->getHomeUrl()));
     }
 

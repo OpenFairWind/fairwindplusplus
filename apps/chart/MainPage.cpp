@@ -13,14 +13,24 @@
 #include "ui_MainPage.h"
 
 namespace fairwind::apps::chart {
-    MainPage::MainPage(QWidget *parent, FairWindApp *fairWindApp) :
-            PageBase(parent, fairWindApp), ui(new Ui::MainPage) {
+    MainPage::MainPage(QWidget *parent) :
+            PageBase(parent), ui(new Ui::MainPage) {
 
         ui->setupUi((QWidget *)this);
 
-        auto fairwind=FairWind::getInstance();
+
         
-        auto config = ((FairWindApp *)fairWindApp)->getConfig();
+
+
+        ui->verticalLayoutLeft->addStretch(1);
+        ui->verticalLayoutRight->addStretch(1);
+    }
+
+    void MainPage::onAdded() {
+        auto fairwind = FairWind::getInstance();
+
+        auto config = getFairWindApp()->getConfig();
+
         auto displayChart = new fairwind::displays::DisplayChart();
         QMap<QString, QVariant> params;
         params["config"]=config;
@@ -67,12 +77,11 @@ namespace fairwind::apps::chart {
                 }
             }
         }
-
-        ui->verticalLayoutLeft->addStretch(1);
-        ui->verticalLayoutRight->addStretch(1);
     }
 
     MainPage::~MainPage() {
         delete ui;
     }
+
+
 } // fairwind::apps::chart

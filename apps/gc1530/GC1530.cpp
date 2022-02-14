@@ -20,7 +20,7 @@ void it::gov::guardiacostiera::gc1530::GC1530::onStart() {
     // Set the home URL
     m_homeUrl="https://www.guardiacostiera.gov.it";
 
-    auto mainPage = new MainPage(nullptr, this);
+    auto mainPage = new MainPage();
     FairWindApp::add(mainPage);
 
     FairWindApp::show();
@@ -38,10 +38,11 @@ void it::gov::guardiacostiera::gc1530::GC1530::onCreate() {
 
 }
 
-void it::gov::guardiacostiera::gc1530::GC1530::onResume() {}
-void it::gov::guardiacostiera::gc1530::GC1530::onPause() {}
-void it::gov::guardiacostiera::gc1530::GC1530::onStop() {}
-void it::gov::guardiacostiera::gc1530::GC1530::onDestroy() {}
+void it::gov::guardiacostiera::gc1530::GC1530::onResume() { fairwind::apps::FairWindApp::onResume();}
+void it::gov::guardiacostiera::gc1530::GC1530::onPause() { fairwind::apps::FairWindApp::onPause();}
+void it::gov::guardiacostiera::gc1530::GC1530::onStop() {fairwind::apps::FairWindApp::onStop();}
+void it::gov::guardiacostiera::gc1530::GC1530::onDestroy() {fairwind::apps::FairWindApp::onDestroy();}
+void it::gov::guardiacostiera::gc1530::GC1530::onConfigChanged() {fairwind::apps::FairWindApp::onConfigChanged();}
 
 QString it::gov::guardiacostiera::gc1530::GC1530::getHomeUrl() {
     return m_homeUrl;

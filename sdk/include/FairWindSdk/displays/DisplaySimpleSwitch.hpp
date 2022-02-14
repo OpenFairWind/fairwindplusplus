@@ -9,6 +9,10 @@
 #include <FairWindSdk/FairWindSDK.hpp>
 #include <FairWindSdk/displays/DisplayBase.hpp>
 #include <FairWindSdk/IDisplay.hpp>
+#include <qcswitchwidget.hpp>
+#include <QNetworkAccessManager>
+#include <QUrlQuery>
+#include <QNetworkReply>
 
 
 namespace Ui {
@@ -34,15 +38,17 @@ namespace fairwind::displays {
         void setValue(QString value) override;
         void subscribe(QString fullPath) override;
 
-        void updateStatus();
 
         public slots:
         void update(const QJsonObject update) override;
-        void onRelease();
+        void slotOnClick(bool checked);
 
     private:
         Ui::DisplaySimpleSwitch *ui;
+        SwitchButton *sbtn = nullptr;
         bool status;
+        const QString _on= "on";
+        const QString _off= "off";
 
     };
 }

@@ -38,7 +38,7 @@ void fairwind::apps::web::Web::onStart() {
         route = "__home__";
     }
 
-    auto mainPage = new MainPage(nullptr, this);
+    auto mainPage = new MainPage();
 
     add(mainPage,route);
 
@@ -59,4 +59,8 @@ void fairwind::apps::web::Web::onStop() {
 
 void fairwind::apps::web::Web::onDestroy() {
     FairWindApp::onDestroy();
+}
+
+void fairwind::apps::web::Web::onConfigChanged() {
+    FairWindApp::onConfigChanged();
 }

@@ -14,17 +14,19 @@
 void fairwind::apps::entertainment::Entertainment::onStart() {
     FairWindApp::onStart();
 
-    auto mainPage = new MainPage(nullptr, this);
+    auto mainPage = new MainPage();
     add(mainPage);
     show();
 }
 
-void fairwind::apps::entertainment::Entertainment::onCreate() {}
+void fairwind::apps::entertainment::Entertainment::onCreate() { FairWindApp::onCreate();}
 
-void fairwind::apps::entertainment::Entertainment::onResume() {}
+void fairwind::apps::entertainment::Entertainment::onResume() { FairWindApp::onResume();}
 
-void fairwind::apps::entertainment::Entertainment::onPause() {}
+void fairwind::apps::entertainment::Entertainment::onPause() { FairWindApp::onPause();}
 
-void fairwind::apps::entertainment::Entertainment::onStop() {}
+void fairwind::apps::entertainment::Entertainment::onStop() { FairWindApp::onStop();}
 
-void fairwind::apps::entertainment::Entertainment::onDestroy() {}
+void fairwind::apps::entertainment::Entertainment::onDestroy() { FairWindApp::onDestroy();}
+
+void fairwind::apps::entertainment::Entertainment::onConfigChanged() { FairWindApp::onConfigChanged();}

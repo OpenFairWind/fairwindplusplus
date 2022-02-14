@@ -2,6 +2,9 @@
 Integrated multifunctional navigation system based on open technologies.
 
 ![The FairWind++ launcher.](figures/launcher01.jpeg)
+Trademarks are ownered by the related companies with no partner relationship with the FairWind Team,
+the Department of Science and Technologies, and the University of Naples "Parthenope".
+
 
 FairWind++ is a novel execution environment for marine electronics, automotive, and home automation.
 It serves as a graphical user interface in the DYNAMO ecosystem.
@@ -35,6 +38,11 @@ In FairWInd++ can run and co-exist 3 types of Apps:
   An example of FairWind App the Chart application. 
 
   ![The Chart App.](figures/chart01.jpeg)
+  The Char FairWind App uses diverse and different data sources organized as geographic
+  information system (GIS) layers. The georeferenced data can be static or updated in
+  realtime. At the current state of development the following layers are supported:
+  SignlK, Tiled Map Layer, Open Sea Map Layer. 
+
 
 - **Web Apps**
 
@@ -44,12 +52,12 @@ In FairWInd++ can run and co-exist 3 types of Apps:
 
   The FairWind app shows the web apps on the launcher as regular applications.
 
-  An example of web application are the
-  [Navionics Web App](https://webapp.navionics.com) and the [Signal K](http://signalk.org) Apps.
-
   ![The Navionics Web App (hosted on the Internet).](figures/webapp01.jpeg)
+  The [Navionics Web App](https://webapp.navionics.com) is freely available on-line for route planning.
+  Here it is shown an example of a FairWind Web App based on the embedded Chromium browser.
 
   ![A Signalk K App (hosted on board).](figures/webapp02.jpeg)
+  The [Signal K](http://signalk.org) Apps.
 
 - **External Apps**
 

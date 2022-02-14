@@ -36,5 +36,5 @@ fairwind.json
 
 /.idea
 /cmake-build-debug
-/build/
+/build
 /venv

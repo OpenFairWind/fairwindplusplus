@@ -18,6 +18,8 @@ FOREACH(subdir ${SUBDIRS})
     ADD_SUBDIRECTORY(${subdir})
 ENDFOREACH()
 
+#add_subdirectory("settings")
+#add_subdirectory("launcherax10m")
 #add_subdirectory("chandlery")
 #add_subdirectory("chart")
 #add_subdirectory("dashboard")

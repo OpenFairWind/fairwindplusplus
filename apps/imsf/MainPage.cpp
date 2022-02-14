@@ -12,8 +12,8 @@
 #include "Flag.hpp"
 
 namespace fairwind::apps::imsf {
-    MainPage::MainPage(QWidget *parent, fairwind::apps::IFairWindApp *fairWindApp) :
-            PageBase(parent, fairWindApp), ui(new Ui::MainPage) {
+    MainPage::MainPage(PageBase *parent) :
+            PageBase(parent), ui(new Ui::MainPage) {
 
         ui->setupUi((QWidget *)this);
 

@@ -27,6 +27,7 @@ namespace fairwind::apps::web {
         void onStop() override;
         void onDestroy() override;
 
+        void onConfigChanged() override;
     private:
         QWebEngineProfile *m_profile;
 

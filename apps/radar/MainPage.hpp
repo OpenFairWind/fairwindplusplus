@@ -20,11 +20,11 @@ namespace fairwind::apps::radar {
     namespace Ui { class MainPage; }
     QT_END_NAMESPACE
 
-    class MainPage : public fairwind::PageBase {
+    class MainPage : public fairwind::apps::PageBase {
     Q_OBJECT
 
     public:
-        explicit MainPage(QWidget *parent = nullptr, FairWindApp *fairWindApp = nullptr);
+        explicit MainPage(PageBase *parent = nullptr);
 
         ~MainPage() ;
 

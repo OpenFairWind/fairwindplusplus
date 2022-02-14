@@ -1,0 +1,7 @@
+<!DOCTYPE RCC><RCC version="1.0">
+    <qresource>
+        <file>resources/images/icons/launcherax10m_icon.png</file>
+        <file>resources/images/icons/toolbutton_left.png</file>
+        <file>resources/images/icons/toolbutton_right.png</file>
+    </qresource>
+</RCC>

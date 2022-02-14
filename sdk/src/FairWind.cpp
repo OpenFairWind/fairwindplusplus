@@ -17,9 +17,10 @@
 #include <FairWindSdk/displays/DisplaySingleText.hpp>
 #include <FairWindSdk/displays/DisplayDoubleText.hpp>
 #include <FairWindSdk/displays/DisplayGauge.hpp>
-#include <FairWindSdk/displays/DisplayVerticalBarGauge.hpp>
+#include <FairWindSdk/displays/DisplayBarGauge.hpp>
 #include <FairWindSdk/displays/DisplayChart.hpp>
 #include <FairWindSdk/displays/DisplaySimpleSwitch.hpp>
+#include <FairWindSdk/displays/DisplayToggleSwitch.hpp>
 #include <FairWindSdk/connections/SignalKWSClient.hpp>
 #include <FairWindSdk/connections/SignalKAPIClient.hpp>
 #include <FairWindSdk/layouts/GridLayout.hpp>
@@ -29,6 +30,11 @@
 #include <ILayout.hpp>
 #include <ISettingsTab.hpp>
 #include <FairWindSdk/FairWindApp.hpp>
+#include "settings/FairComboBox.hpp"
+#include "settings/FairLineEdit.hpp"
+#include "settings/FairCheckBox.hpp"
+#include "settings/DisplaysBrowser.hpp"
+#include "settings/LayersBrowser.hpp"
 
 /*
  * FairWind
@@ -37,6 +43,13 @@
  */
 fairwind::FairWind::FairWind() {
     qDebug() << "FairWind constructor";
+
+    // Register the settings widgets inside the FairWind singleton
+    registerSettings(new ui::settings::FairComboBox());
+    registerSettings(new ui::settings::FairLineEdit());
+    registerSettings(new ui::settings::FairCheckBox());
+    registerSettings(new ui::settings::DisplaysBrowser());
+    registerSettings(new ui::settings::LayersBrowser());
 
     // Register built-in chart layers
     registerLayer(new layers::OSMLayer());
@@ -49,10 +62,11 @@ fairwind::FairWind::FairWind() {
     registerDisplay(new displays::DisplaySingleText());
     registerDisplay(new displays::DisplayDoubleText());
     registerDisplay(new displays::DisplayGauge());
-    registerDisplay(new displays::DisplayVerticalBarGauge());
+    registerDisplay(new displays::DisplayBarGauge());
     registerDisplay(new displays::DisplayWindAngleGauge());
     registerDisplay(new displays::DisplayChart());
     registerDisplay(new displays::DisplaySimpleSwitch());
+    registerDisplay(new displays::DisplayToggleSwitch());
 
     // Register built-in connections
     registerConnection(new connections::SignalKAPIClient());
@@ -69,7 +83,11 @@ fairwind::FairWind::FairWind() {
  */
 fairwind::apps::IFairWindApp *fairwind::FairWind::getAppByExtensionId(const QString& id) {
     // Return the app pointer
-    return m_mapFairWindApps[id];
+    if (m_mapAppId2FairWindApp.contains(id)) {
+        return m_mapAppId2FairWindApp[id];
+    } else {
+        return nullptr;
+    }
 }
 
 /*
@@ -86,8 +104,20 @@ void fairwind::FairWind::setApplicationDirPath(QString applicationDirPath) {
  * Load the FairWind++ Apps as Qt5 Plugin
  */
 void fairwind::FairWind::loadApps() {
-    // Initialize the Qt managed settings
+    // Initialize the QT managed settings
     QSettings settings("fairwind.ini", QSettings::NativeFormat);
+
+    // Get the name of the FairWind++ configuration file
+    mSettingsFairWindAppId = settings.value("settingsFairWindAppId", "fairwind.apps.settings").toString();
+
+    // Store the configuration in the settings
+    settings.setValue("settingsFairWindAppId", mSettingsFairWindAppId);
+
+    // Get the name of the FairWind++ configuration file
+    mLauncherFairWindAppId = settings.value("launcherFairWindAppId", "fairwind.apps.launcherax10m").toString();
+
+    // Store the configuration in the settings
+    settings.setValue("launcherFairWindAppId", mLauncherFairWindAppId);
 
     // Is a virtual keyboard needed?
     bool useVirtualKeyboard = settings.value("useVirtualKeyboard", false).toBool();
@@ -222,18 +252,36 @@ void fairwind::FairWind::loadApps() {
                     }
 
                     // Check if the id is not empty and not already present
-                    if (!appId.isEmpty() && !m_mapFairWindApps.contains(appId)) {
+                    if (!appId.isEmpty() && !m_mapAppId2FairWindApp.contains(appId)) {
+
                         // Set the apps root in the metadata object
                         metaData["appsRoot"] = m_appsRoot.absolutePath();
 
                         // Set the data root in the metadata object
-                        metaData["dataRoot"] = m_dataRoot.absolutePath();
+                        metaData["dataRoot"] = m_dataRoot.absolutePath() + QDir::separator() + appId;
 
                         // Initialize the app with the plugin metadata
                         fairWindApp->init(&metaData);
 
-                        // Store the FairWind++ app pointer in the m_mapFairWindApps dictionary
-                        m_mapFairWindApps[fairWindApp->getId()] = fairWindApp;
+                        // Store the FairWind++ app pointer in the m_mapAppId2FairWindApp dictionary
+                        m_mapAppId2FairWindApp[fairWindApp->getId()] = fairWindApp;
+
+                        qDebug() << "m_mapAppId2FairWindApp[" << fairWindApp->getId() << "]=" << fairWindApp->getName();
+
+                        if (metaData.contains("Category") && metaData["Category"].isString()) {
+                            QString category = metaData["Category"].toString();
+
+                            if (category != "Apps") {
+                                // Create a new app item
+                                auto appItem = new AppItem(fairWindApp);
+
+                                // Store the app pointer in a dictionary indexed with a hash
+                                m_mapHash2AppItem[appItem->getHash()] = appItem;
+
+                                // Store the app id -> hash
+                                m_mapAppId2Hash[appId] = appItem->getHash();
+                            }
+                        }
 
                         // Starts the app lifecycle
                         fairWindApp->onCreate();
@@ -246,7 +294,7 @@ void fairwind::FairWind::loadApps() {
         }
     }
 
-    qDebug() << "fairwind::FairWind::loadApps :" << m_mapFairWindApps.keys();
+    qDebug() << "fairwind::FairWind::loadApps :" << m_mapAppId2FairWindApp.keys();
 }
 
 /*
@@ -254,34 +302,14 @@ void fairwind::FairWind::loadApps() {
  * Load the configuration from the fairwind.ini file where it is stored the name of the actual fairwind.json file
  */
 void fairwind::FairWind::loadConfig() {
-    // Initialize the QT managed settings
-    QSettings settings("fairwind.ini", QSettings::NativeFormat);
 
-    // Get the name of the FairWind++ configuration file
-    QString configFile = settings.value("configFile", "fairwind.json").toString();
-
-    // Store the name in the settings
-    settings.setValue("configFile", configFile);
-
-    // Create a QFile object to manage the configuration file
-    QFile jsonFile(configFile);
-
-    // Open the configuration file in read only mode
-    jsonFile.open(QFile::ReadOnly);
-
-    // Read all the text
-    QString jsonText = jsonFile.readAll();
-
-    // Create a QJsonDocument from the text file
-    QJsonDocument jsonConfig = QJsonDocument::fromJson(jsonText.toUtf8());
-
-    // Set the config object
-    m_config = jsonConfig.object();
+    // Get the actual configuration
+    QJsonObject configSettings = getConfig();
 
     // Check if the config object has a "SignalK" key
-    if (m_config.contains("SignalK") && m_config["SignalK"].isObject()) {
+    if (configSettings.contains("SignalK") && configSettings["SignalK"].isObject()) {
         // Get the "SignalK" json object
-        QJsonObject jsonSignalK = m_config["SignalK"].toObject();
+        QJsonObject jsonSignalK = configSettings["SignalK"].toObject();
 
         // Check if the "SignalK" json object has the "self" key
         if (jsonSignalK.contains("self") && jsonSignalK["self"].isString()) {
@@ -336,11 +364,10 @@ void fairwind::FairWind::loadConfig() {
         }
     }
 
-    // Check if the config file has the key "Extensions"
-    if (m_config.contains("Extensions") && m_config["Extensions"].isObject()) {
+    auto launcherFairWindApp = getAppByExtensionId(getLauncherFairWindAppId());
+    if (launcherFairWindApp) {
+        auto jsonExtensions = launcherFairWindApp->getConfig();
 
-        // Get the extensions json object
-        QJsonObject jsonExtensions = m_config["Extensions"].toObject();
 
         // Check if the extensions json object contains the key "Apps"
         if (jsonExtensions.contains("Apps") && jsonExtensions["Apps"].isArray()) {
@@ -373,7 +400,7 @@ void fairwind::FairWind::loadConfig() {
                     }
 
                     // Declare a pointer to an app and set it to the null pointer
-                    App *app = nullptr;
+                    AppItem *appItem = nullptr;
 
                     // Get the pointer to the app by the extension id
                     auto fairWindApp = getAppByExtensionId(appId);
@@ -434,28 +461,41 @@ void fairwind::FairWind::loadConfig() {
                         // Set the args
                         fairWindApp->setArgs(args);
 
+                        bool active = false;
+                        int order = 1;
+
+                        // Check if the json app object contains the key "Active"
+                        if (jsonAppObject.contains("Active") && jsonAppObject["Active"].isBool()) {
+
+                            // Get the app active attribute as a boolean
+                            active = jsonAppObject["Active"].toBool();
+                        }
+
+                        // Check if the json app object contains the key "Order"
+                        if (jsonAppObject.contains("Order") && jsonAppObject["Order"].isDouble()) {
+
+                            // Get the app active attribute as a boolean
+                            order = jsonAppObject["Order"].toInt();
+                        }
+
+
                         // Create a new app item
-                        app = new App(fairWindApp);
+                        appItem = new AppItem(fairWindApp, active, order);
                     }
 
                     // Check if the app has a valid pointer
-                    if (app != nullptr) {
+                    if (appItem != nullptr) {
 
                         // Store the app pointer in a dictionary indexed with an hash
-                        m_mapApps[app->getHash()] = app;
+                        m_mapHash2AppItem[appItem->getHash()] = appItem;
+
+                        // Store the app id -> hash
+                        m_mapAppId2Hash[appId] = appItem->getHash();
                     }
                 }
             }
         }
     }
-}
-
-/*
- * getApps
- * Returns a map containing hte loaded apps
- */
-QMap<QString, fairwind::App *> fairwind::FairWind::getApps() {
-    return m_mapApps;
 }
 
 /*
@@ -508,8 +548,23 @@ fairwind::layers::ILayer *fairwind::FairWind::instanceLayer(const QString &class
  * getConfig
  * Returns the configuration infos
  */
-QJsonObject &fairwind::FairWind::getConfig() {
-    return m_config;
+QJsonObject fairwind::FairWind::getConfig() {
+
+    // Define the object
+    QJsonObject config;
+
+    // Get the Settings FairWindApp
+    auto settingsFairWindApp = getAppByExtensionId(mSettingsFairWindAppId);
+
+    // Check if the app is avaiable
+    if (settingsFairWindApp) {
+
+        // Get the configuration object
+        config = settingsFairWindApp->getConfig();
+    }
+
+    // Return the config object
+    return config;
 }
 
 /*
@@ -698,3 +753,29 @@ void fairwind::FairWind::setMainWindow(QMainWindow *mainWindow) {
 QMainWindow * fairwind::FairWind::getMainWindow() {
     return m_mainWindow;
 }
+
+QString fairwind::FairWind::getSettingsFairWindAppId() {
+    return mSettingsFairWindAppId;
+}
+
+QString fairwind::FairWind::getLauncherFairWindAppId() {
+    return mLauncherFairWindAppId;
+}
+
+fairwind::AppItem *fairwind::FairWind::getAppItemByHash(QString hash) {
+    return m_mapHash2AppItem[hash];
+}
+
+QString fairwind::FairWind::getAppHashById(QString appId) {
+    return m_mapAppId2Hash[appId];
+}
+
+QList<QString> fairwind::FairWind::getExtensionsIds() {
+    return m_mapAppId2FairWindApp.keys();
+}
+
+QList<QString> fairwind::FairWind::getExtensionsHashes() {
+    return m_mapHash2AppItem.keys();
+}
+
+

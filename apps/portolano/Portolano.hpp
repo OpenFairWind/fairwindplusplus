@@ -9,6 +9,8 @@
 #include <FairWindSdk/FairWindApp.hpp>
 #include <FairWindSdk/IFairWindApp.hpp>
 
+#include <QSqlDatabase>
+
 
 namespace fairwind::apps::portolano {
     class Portolano : public IFairWindApp {
@@ -27,8 +29,13 @@ namespace fairwind::apps::portolano {
         void onStop() override;
         void onDestroy() override;
 
+        void onConfigChanged() override;
+
+        QSqlDatabase *getDb();
+
     private:
 
+        QSqlDatabase mDb;
     };
 }
 

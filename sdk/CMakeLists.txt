@@ -1,24 +1,13 @@
-find_package(Qt5 REQUIRED COMPONENTS
+set(QT_VERSION 5)
+
+find_package(Qt${QT_VERSION} REQUIRED COMPONENTS
         Core
         Gui
         Network
         Widgets
         WebSockets
+        Positioning
         )
-
-#ExternalProject_Add(marnav
-#        GIT_REPOSITORY https://github.com/mariokonrad/marnav.git
-#        CMAKE_ARGS -DENABLE_STATIC=OFF -DENABLE_EXAMPLES=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
-#        TIMEOUT 360
-#        )
-#set(LIBMARNAV ${EXTERNAL_INSTALL_LOCATION}/lib/libmarnav.so)
-#if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
-#    set(LIBMARNAV ${EXTERNAL_INSTALL_LOCATION}/lib/libmarnav.dll)
-#elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
-#    set(LIBMARNAV ${EXTERNAL_INSTALL_LOCATION}/lib/libmarnav.dylib)
-#endif()
-#set(LIBMARNAV ${LIBMARNAV} PARENT_SCOPE)
-
 
 
 ExternalProject_Add(QtJsonSchema
@@ -63,6 +52,27 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
 endif()
 set(LIBQCGAUGEWIDGET ${LIBQCGAUGEWIDGET} PARENT_SCOPE)
 
+ExternalProject_Add(QcSwitchWidget
+        GIT_REPOSITORY https://github.com/Fpepe943/Qt-custom-switch-widget.git
+        CMAKE_ARGS -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH} -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
+        TIMEOUT 360
+        )
+
+set(LIBQCSWITCHWIDGET ${EXTERNAL_INSTALL_LOCATION}/lib/libqcswitchwidget.so)
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    set(LIBQCSWITCHWIDGET ${EXTERNAL_INSTALL_LOCATION}/lib/static/qcswitchwidget.lib)
+    add_custom_command(
+            TARGET QcSwitchWidget
+            POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy
+            ${EXTERNAL_INSTALL_LOCATION}/bin/qcswitchwidget.dll
+            ${CMAKE_BINARY_DIR}
+    )
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+    set(LIBQCSWITCHWIDGET ${EXTERNAL_INSTALL_LOCATION}/lib/libqcswitchwidget.dylib)
+endif()
+set(LIBQCSWITCHWIDGET ${LIBQCSWITCHWIDGET} PARENT_SCOPE)
+
 ExternalProject_Add(QGeoView
         GIT_REPOSITORY https://github.com/zSelimReborn/QGeoView
         CMAKE_ARGS -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH} -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION} -DEXTERNAL_INSTALL_LOCATION=${EXTERNAL_INSTALL_LOCATION}
@@ -87,8 +97,10 @@ set(FAIRWINDSDK_RESOURCE resourcesSDK.qrc)
 qt5_add_resources(FAIRWINDSDK_RESOURCE_ADDED ${FAIRWINDSDK_RESOURCE})
 
 add_library(fairwindsdk SHARED
+        ${FAIRWINDSDK_RESOURCE_ADDED}
         include/FairWindSdk/FairWindSDK.hpp
         include/FairWindSdk/IFairWindApp.hpp
+        include/FairWindSdk/IFairWindLauncher.hpp
         include/FairWindSdk/ILayer.hpp
         include/FairWindSdk/IDisplay.hpp
         include/FairWindSdk/IConnection.hpp
@@ -96,15 +108,17 @@ add_library(fairwindsdk SHARED
         include/FairWindSdk/ISettingsTab.hpp
         include/FairWindSdk/FairWindApp.hpp
         include/FairWindSdk/PageBase.hpp
+        include/FairWindSdk/PanelBase.hpp
         include/FairWindSdk/SignalKDocument.hpp
         include/FairWindSdk/FairWind.hpp
-        include/FairWindSdk/App.hpp
+        include/FairWindSdk/AppItem.hpp
         include/FairWindSdk/displays/DisplayBase.hpp
         include/FairWindSdk/displays/DisplaySingleText.hpp
         include/FairWindSdk/displays/DisplayDoubleText.hpp
         include/FairWindSdk/displays/DisplayGauge.hpp
-        include/FairWindSdk/displays/DisplayVerticalBarGauge.hpp
+        include/FairWindSdk/displays/DisplayBarGauge.hpp
         include/FairWindSdk/displays/DisplaySimpleSwitch.hpp
+        include/FairWindSdk/displays/DisplayToggleSwitch.hpp
         include/FairWindSdk/displays/DisplayWindAngleGauge.hpp
         include/FairWindSdk/displays/DisplayChart.hpp
         include/FairWindSdk/layers/ItemVessel.hpp
@@ -135,7 +149,7 @@ add_library(fairwindsdk SHARED
         src/ui/Colophon.cpp include/FairWindSdk/ui/Colophon.hpp src/ui/Colophon.ui
 
         src/FairWind.cpp
-        src/App.cpp
+        src/AppItem.cpp
         src/FairWindApp.cpp
         src/PageBase.cpp
         src/SignalKDocument.cpp
@@ -143,8 +157,9 @@ add_library(fairwindsdk SHARED
         src/displays/base/singletext/DisplaySingleText.cpp
         src/displays/base/doubletext/DisplayDoubleText.cpp
         src/displays/base/gauge/DisplayGauge.cpp
-        src/displays/base/gauge/DisplayVerticalBarGauge.cpp
+        src/displays/base/gauge/DisplayBarGauge.cpp
         src/displays/base/switch/DisplaySimpleSwitch.cpp
+        src/displays/base/switch/DisplayToggleSwitch.cpp
         src/displays/wind/DisplayWindAngleGauge.cpp
         src/displays/chart/DisplayChart.cpp
         src/layers/ItemDefault.cpp
@@ -169,8 +184,10 @@ add_library(fairwindsdk SHARED
         src/settings/FairCheckBox.cpp
         src/settings/DisplaysBrowser.cpp
         src/settings/LayersBrowser.cpp
+        src/PanelBase.cpp
 
-        ${FAIRWINDSDK_RESOURCE_ADDED}  )
+        ${FAIRWINDSDK_RESOURCE_ADDED}
+        )
 
 target_include_directories(fairwindsdk
         PUBLIC
@@ -184,35 +201,22 @@ target_compile_definitions(fairwindsdk
         FAIRWINDSDK_EXPORT
         )
 
-#add_dependencies(fairwindsdk variant)
-#add_dependencies(fairwindsdk marnav)
 add_dependencies(fairwindsdk QtJsonSchema)
 add_dependencies(fairwindsdk QcGaugeWidget)
+add_dependencies(fairwindsdk QcSwitchWidget)
 add_dependencies(fairwindsdk QGeoView)
 
 target_link_libraries(fairwindsdk
         PRIVATE
-        Qt5::Core
-        Qt5::Network
-        Qt5::Gui
-        Qt5::Widgets
-        Qt5::WebSockets
-        #${LIBMARNAV}
+        Qt${QT_VERSION}::Core
+        Qt${QT_VERSION}::Network
+        Qt${QT_VERSION}::Gui
+        Qt${QT_VERSION}::Widgets
+        Qt${QT_VERSION}::WebSockets
         ${LIBQTJSONSCHEMA} ${LIBQCGAUGEWIDGET} ${LIBQGEOVIEW}
         )
 
-add_library(FairWindSdk ALIAS fairwindsdk )
-
-#install(TARGETS fairwindsdk LIBRARY
-#        RUNTIME DESTINATION bin
-#        LIBRARY DESTINATION lib
-#        ARCHIVE DESTINATION lib/static
-#        )
-#
-#install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/
-#        DESTINATION include
-#        FILES_MATCHING PATTERN "*.h*"
-#        )
+add_library(FairWindSdk ALIAS fairwindsdk)
 
 set(LIBFAIRWINDSDK ${EXTERNAL_INSTALL_LOCATION}/lib/libfairwindsdk.so)
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")

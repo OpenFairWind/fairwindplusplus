@@ -37,3 +37,7 @@ void fairwind::apps::weather::Weather::onStop() {
 void fairwind::apps::weather::Weather::onDestroy() {
     FairWindApp::onDestroy();
 }
+
+void fairwind::apps::weather::Weather::onConfigChanged() {
+    FairWindApp::onConfigChanged();
+}

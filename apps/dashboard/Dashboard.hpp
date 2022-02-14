@@ -27,6 +27,7 @@ namespace fairwind::apps::dashboard {
         void onStop() override;
         void onDestroy() override;
 
+        void onConfigChanged() override;
     private:
         QJsonObject m_config;
     };

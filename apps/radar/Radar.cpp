@@ -38,3 +38,7 @@ void fairwind::apps::radar::Radar::onStop() {
 void fairwind::apps::radar::Radar::onDestroy() {
     FairWindApp::onDestroy();
 }
+
+void fairwind::apps::radar::Radar::onConfigChanged() {
+    FairWindApp::onConfigChanged();
+}

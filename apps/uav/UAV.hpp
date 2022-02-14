@@ -28,6 +28,7 @@ namespace fairwind::apps::uav {
         void onStop() override;
         void onDestroy() override;
 
+        void onConfigChanged() override;
     private:
     };
 }
