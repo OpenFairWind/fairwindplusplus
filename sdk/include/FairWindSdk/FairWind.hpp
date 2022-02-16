@@ -76,8 +76,12 @@ namespace fairwind {
 
         QJsonObject getConfig();
 
-        QString getSettingsFairWindAppId();
+        QString getMyDataFairWindAppId();
+        QString getMOBFairWindAppId();
         QString getLauncherFairWindAppId();
+        QString getAlarmsFairWindAppId();
+        QString getSettingsFairWindAppId();
+
 
         void setMainWindow(QMainWindow *mainWindow);
         QMainWindow *getMainWindow();
@@ -85,8 +89,11 @@ namespace fairwind {
     private:
         QMainWindow *m_mainWindow;
 
-        QString mSettingsFairWindAppId;
+        QString mMyDataFairWindAppId;
+        QString mMOBFairWindAppId;
         QString mLauncherFairWindAppId;
+        QString mAlarmsFairWindAppId;
+        QString mSettingsFairWindAppId;
 
         SignalKDocument m_signalkDocument;
 
