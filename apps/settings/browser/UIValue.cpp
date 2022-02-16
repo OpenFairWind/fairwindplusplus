@@ -150,7 +150,7 @@ namespace fairwind::apps::settings::browser {
                 }
             } else if (m_ref.isDouble()) {
                 double value = m_ref.toDouble();
-                if (isnan(value) && setting.contains("default") && setting["default"].isDouble()){
+                if (std::isnan(value) && setting.contains("default") && setting["default"].isDouble()){
                     value = setting["default"].toDouble();
                 }
 
