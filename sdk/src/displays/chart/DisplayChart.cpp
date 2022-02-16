@@ -153,6 +153,7 @@ void fairwind::displays::DisplayChart::onInit(QMap <QString, QVariant> params) {
     widgetMeasure->setLineColor(lineColor);
     widgetMeasure->setLineWidth(lineWidth);
     widgetMeasure->setIconPinMovement(iconPinMovement);
+    widgetMeasure->setUnit(DistanceUnits::NauticalMiles);
 
     m_widgetMap->addWidget(widgetMeasure);
 
