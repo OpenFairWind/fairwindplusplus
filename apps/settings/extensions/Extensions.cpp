@@ -55,13 +55,13 @@ namespace fairwind::apps::settings::extensions {
         }
 
         for (const auto& extensionId:fairwind->getExtensionsIds()) {
-
+            qDebug() << "Extensions::showEvent: extensionId:" << extensionId;
             auto fairWindApp = fairwind->getAppByExtensionId(extensionId);
 
             if (fairWindApp) {
                 qDebug() << "Extensions::showEvent: " << fairWindApp->getId() << " :: " << fairWindApp->getName();
                 auto widget = new ExtensionItem(ui->list_Extensions, fairWindApp);
-                widget->setMinimumWidth(150);
+                widget->setMinimumWidth(100);
 
                 auto listWidgetItem = new QListWidgetItem();
                 listWidgetItem->setSizeHint(widget->sizeHint());
