@@ -57,7 +57,7 @@ color: rgb(250, 255, 255);</string>
         <string>My Data</string>
        </property>
        <property name="icon">
-        <iconset>
+        <iconset resource="../../resources.qrc">
          <normaloff>:/resources/images/icons/imagebutton_mydata.png</normaloff>:/resources/images/icons/imagebutton_mydata.png</iconset>
        </property>
        <property name="iconSize">
@@ -80,7 +80,7 @@ color: rgb(250, 255, 255);</string>
         <string>MOB</string>
        </property>
        <property name="icon">
-        <iconset>
+        <iconset resource="../../resources.qrc">
          <normaloff>:/resources/images/icons/imagebutton_mob.png</normaloff>:/resources/images/icons/imagebutton_mob.png</iconset>
        </property>
        <property name="iconSize">
@@ -103,7 +103,7 @@ color: rgb(250, 255, 255);</string>
         <string>Apps</string>
        </property>
        <property name="icon">
-        <iconset>
+        <iconset resource="../../resources.qrc">
          <normaloff>:/resources/images/icons/imagebutton_apps.png</normaloff>:/resources/images/icons/imagebutton_apps.png</iconset>
        </property>
        <property name="iconSize">
@@ -126,7 +126,7 @@ color: rgb(250, 255, 255);</string>
         <string>Alarms</string>
        </property>
        <property name="icon">
-        <iconset>
+        <iconset resource="../../resources.qrc">
          <normaloff>:/resources/images/icons/imagebutton_alarms.png</normaloff>:/resources/images/icons/imagebutton_alarms.png</iconset>
        </property>
        <property name="iconSize">
@@ -149,7 +149,7 @@ color: rgb(250, 255, 255);</string>
         <string>Settings</string>
        </property>
        <property name="icon">
-        <iconset>
+        <iconset resource="../../resources.qrc">
          <normaloff>:/resources/images/icons/imagebutton_settings.png</normaloff>:/resources/images/icons/imagebutton_settings.png</iconset>
        </property>
        <property name="iconSize">
@@ -180,6 +180,8 @@ color: rgb(250, 255, 255);</string>
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

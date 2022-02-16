@@ -121,6 +121,8 @@
    </property>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="../resourcesSettings.qrc"/>
+ </resources>
  <connections/>
 </ui>
