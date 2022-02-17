@@ -43,6 +43,8 @@ color: rgb(250, 255, 255);</string>
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../resourcesSettings.qrc"/>
+ </resources>
  <connections/>
 </ui>

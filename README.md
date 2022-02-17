@@ -125,56 +125,19 @@ make
 
 
 
-### Building on Raspberry Pi OS
+### Building on Raspberry Pi OS (32 and 64 bit)
 
-FairWind++ needs the QT 5.15.2.
-Although it is possible to build QT 5.15.2 using the guide here https://www.tal.org/tutorials/building-qt-515-raspberry-pi,
-it is warmly suggested to use a clean install of Raspberry Pi Os version 4 or later.
-Some apps need QT 5.15.2 MultimediaWidgets and WebEngineWidgets, but those packages are not included in the Rasberry Pi OS version 4.
-
-In order to walkaround this issue, it is possible using Debian Bulleyes packages (https://forums.raspberrypi.com/viewtopic.php?t=325552):
-
-- Login under the pi account.
-
-- Get the Debian key:
-```console
-wget https://ftp-master.debian.org/keys/archive-key-11.asc
+```diff
++ Starting from Raspberry Pi OS version of January 28th 2022 (32 and 64 bit) +
 ```
 
-- Add the Debian key:
-```console
-sudo apt-key add Downloads/archive-key-11.asc
-```
-- Edit the file /etc/apt/sources.list:
-```console
-sudo nano /etc/apt/sources.list
-```
-- Add the Trial Debian Repository:
-```console
-#Trial Debain repo
-deb http://deb.debian.org/debian bullseye main contrib non-free
-```
-- Edit the file /etc/apt/preferences:
-```console
-sudo nano /etc/apt/preferences
-```
-- Add the following text:
-```console
-Package: *
-Pin: origin raspbian.raspberrypi.org
-Pin-Priority: 800
-
-Package: *
-Pin: origin deb.debian.org
-Pin-Priority: 600
-```
 - Update the repository:
 ```console
 sudo apt update
 ```
 - Install the needed packages:
 ```console
-sudo apt-get install cmake libqt5webkit5-dev libqt5virtualkeyboard5-dev libqt5websockets5-dev libqt5widgets5 libqt5multimedia5 libqt5webenginewidgets5 libqt5webkit5-dev libqt5webview5-dev libqt5multimedia5-plugins libqt5webengine5 libqt5webengine-data qtwebengine5-dev qtmultimedia5-dev
+sudo apt-get install cmake libqt5webkit5-dev libqt5virtualkeyboard5-dev libqt5websockets5-dev libqt5widgets5 libqt5multimedia5 libqt5webenginewidgets5 libqt5webkit5-dev libqt5webview5-dev libqt5multimedia5-plugins libqt5webengine5 libqt5webengine-data qtwebengine5-dev qtmultimedia5-dev libsqlite3-dev
 ```
 - Create a development environment:
 ```console
