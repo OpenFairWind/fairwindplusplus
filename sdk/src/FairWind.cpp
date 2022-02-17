@@ -108,16 +108,34 @@ void fairwind::FairWind::loadApps() {
     QSettings settings("fairwind.ini", QSettings::NativeFormat);
 
     // Get the name of the FairWind++ configuration file
-    mSettingsFairWindAppId = settings.value("settingsFairWindAppId", "fairwind.apps.settings").toString();
+    mMyDataFairWindAppId = settings.value("myDataFairWindAppId", "fairwind.apps.mydata").toString();
 
     // Store the configuration in the settings
-    settings.setValue("settingsFairWindAppId", mSettingsFairWindAppId);
+    settings.setValue("myDataFairWindAppId", mMyDataFairWindAppId);
+
+    // Get the name of the FairWind++ configuration file
+    mMOBFairWindAppId = settings.value("mobFairWindAppId", "fairwind.apps.mob").toString();
+
+    // Store the configuration in the settings
+    settings.setValue("mobFairWindAppId", mMOBFairWindAppId);
 
     // Get the name of the FairWind++ configuration file
     mLauncherFairWindAppId = settings.value("launcherFairWindAppId", "fairwind.apps.launcherax10m").toString();
 
     // Store the configuration in the settings
     settings.setValue("launcherFairWindAppId", mLauncherFairWindAppId);
+
+    // Get the name of the FairWind++ configuration file
+    mAlarmsFairWindAppId = settings.value("alarmsFairWindAppId", "fairwind.apps.alarms").toString();
+
+    // Store the configuration in the settings
+    settings.setValue("alarmsFairWindAppId", mAlarmsFairWindAppId);
+
+    // Get the name of the FairWind++ configuration file
+    mSettingsFairWindAppId = settings.value("settingsFairWindAppId", "fairwind.apps.settings").toString();
+
+    // Store the configuration in the settings
+    settings.setValue("settingsFairWindAppId", mSettingsFairWindAppId);
 
     // Is a virtual keyboard needed?
     bool useVirtualKeyboard = settings.value("useVirtualKeyboard", false).toBool();
@@ -754,13 +772,27 @@ QMainWindow * fairwind::FairWind::getMainWindow() {
     return m_mainWindow;
 }
 
-QString fairwind::FairWind::getSettingsFairWindAppId() {
-    return mSettingsFairWindAppId;
+QString fairwind::FairWind::getMyDataFairWindAppId() {
+    return mMyDataFairWindAppId;
+}
+
+QString fairwind::FairWind::getMOBFairWindAppId() {
+    return mMOBFairWindAppId;
 }
 
 QString fairwind::FairWind::getLauncherFairWindAppId() {
     return mLauncherFairWindAppId;
 }
+
+QString fairwind::FairWind::getAlarmsFairWindAppId() {
+    return mAlarmsFairWindAppId;
+}
+
+QString fairwind::FairWind::getSettingsFairWindAppId() {
+    return mSettingsFairWindAppId;
+}
+
+
 
 fairwind::AppItem *fairwind::FairWind::getAppItemByHash(QString hash) {
     return m_mapHash2AppItem[hash];

@@ -21,11 +21,18 @@ namespace fairwind::ui::bottombar {
 
     public
         slots:
-                void settings_clicked();
+        void myData_clicked();
+        void mob_clicked();
         void apps_clicked();
+        void alarms_clicked();
+        void settings_clicked();
+
 
         signals:
+        void setMyData();
+        void setMOB();
                 void setApps();
+        void setAlarms();
         void setSettings();
 
     private:
