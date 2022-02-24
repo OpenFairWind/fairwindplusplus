@@ -33,9 +33,8 @@ namespace fairwind {
     public:
         static FairWind *getInstance();
 
+        void startConnections();
         void loadApps();
-
-
 
         void setApplicationDirPath(QString qString);
         void loadConfig();

@@ -19,8 +19,7 @@
 #include <FairWindSdk/displays/DisplayChart.hpp>
 #include <FairWindSdk/displays/DisplaySimpleSwitch.hpp>
 #include <FairWindSdk/displays/DisplayToggleSwitch.hpp>
-#include <FairWindSdk/connections/SignalKWSClient.hpp>
-#include <FairWindSdk/connections/SignalKAPIClient.hpp>
+#include <FairWindSdk/connections/SignalKClient.hpp>
 #include <FairWindSdk/layouts/GridLayout.hpp>
 #include <FairWindSdk/layouts/VHGLayout.hpp>
 #include <FairWind.hpp>
@@ -65,8 +64,7 @@ fairwind::FairWind::FairWind() {
     registerDisplay(new displays::DisplayToggleSwitch());
 
     // Register built-in connections
-    registerConnection(new connections::SignalKAPIClient());
-    registerConnection(new connections::SignalKWSClient());
+    registerConnection(new connections::SignalKClient());
 
     // Register built-in display layouts
     registerLayout(new layouts::GridLayout());
@@ -319,64 +317,6 @@ void fairwind::FairWind::loadConfig() {
 
     // Get the actual configuration
     QJsonObject configSettings = getConfig();
-
-    // Check if the config object has a "SignalK" key
-    if (configSettings.contains("SignalK") && configSettings["SignalK"].isObject()) {
-        // Get the "SignalK" json object
-        QJsonObject jsonSignalK = configSettings["SignalK"].toObject();
-
-        // Check if the "SignalK" json object has the "self" key
-        if (jsonSignalK.contains("self") && jsonSignalK["self"].isString()) {
-
-            // Get the value of the "self" key
-            QString self = jsonSignalK["self"].toString();
-
-            // Set the self key in the Signal K document
-            m_signalkDocument.setSelf(self);
-        }
-
-        // Check if the "SignalK" json object has the "connections" key
-        if (jsonSignalK.contains("connections") && jsonSignalK["connections"].isArray()) {
-            // Get the connections array
-            QJsonArray arrayConnections = jsonSignalK["connections"].toArray();
-
-            // For each item of the array...
-            for (auto item: arrayConnections) {
-                // Check if the item is an object
-                if (item.isObject()) {
-                    // Get the json object of the connection
-                    QJsonObject objectConnection = item.toObject();
-
-                    // Check if the json object contains the key "class"
-                    if (objectConnection.contains("class") && objectConnection["class"].isString()) {
-                        // Get the class name as a string
-                        QString className = objectConnection["class"].toString();
-
-                        // Get an instance of the connection class
-                        connections::IConnection *fairWindConnection = instanceConnection(className);
-
-                        // Check if the instance is valid
-                        if (fairWindConnection) {
-                            // Define a dictionary for the parameters
-                            QMap <QString, QVariant> params;
-
-                            // For each key in the object connection dictionary
-                            for (const auto& key: objectConnection.keys()) {
-
-                                // Save the key/value in the dictionary
-                                params[key] = objectConnection[key].toVariant();
-                            }
-
-                            // Invoke the onInit method passing the parameters
-                            fairWindConnection->onInit(params);
-
-                            m_listConnections.append(fairWindConnection);
-                        }
-                    }
-                }
-            }
-        }
-    }
 
     auto launcherFairWindApp = getAppByExtensionId(getLauncherFairWindAppId());
     if (launcherFairWindApp) {
@@ -804,6 +744,69 @@ QList<QString> fairwind::FairWind::getExtensionsIds() {
 
 QList<QString> fairwind::FairWind::getExtensionsHashes() {
     return m_mapHash2AppItem.keys();
+}
+
+void fairwind::FairWind::startConnections() {
+    // Get the actual configuration
+    QJsonObject configSettings = getConfig();
+
+    // Check if the config object has a "SignalK" key
+    if (configSettings.contains("SignalK") && configSettings["SignalK"].isObject()) {
+        // Get the "SignalK" json object
+        QJsonObject jsonSignalK = configSettings["SignalK"].toObject();
+
+        // Check if the "SignalK" json object has the "self" key
+        if (jsonSignalK.contains("self") && jsonSignalK["self"].isString()) {
+
+            // Get the value of the "self" key
+            QString self = jsonSignalK["self"].toString();
+
+            // Set the self key in the Signal K document
+            m_signalkDocument.setSelf(self);
+        }
+
+        // Check if the "SignalK" json object has the "connections" key
+        if (jsonSignalK.contains("connections") && jsonSignalK["connections"].isArray()) {
+            // Get the connections array
+            QJsonArray arrayConnections = jsonSignalK["connections"].toArray();
+
+            // For each item of the array...
+            for (auto item: arrayConnections) {
+                // Check if the item is an object
+                if (item.isObject()) {
+                    // Get the json object of the connection
+                    QJsonObject objectConnection = item.toObject();
+
+                    // Check if the json object contains the key "class"
+                    if (objectConnection.contains("class") && objectConnection["class"].isString()) {
+                        // Get the class name as a string
+                        QString className = objectConnection["class"].toString();
+
+                        // Get an instance of the connection class
+                        connections::IConnection *fairWindConnection = instanceConnection(className);
+
+                        // Check if the instance is valid
+                        if (fairWindConnection) {
+                            // Define a dictionary for the parameters
+                            QMap <QString, QVariant> params;
+
+                            // For each key in the object connection dictionary
+                            for (const auto& key: objectConnection.keys()) {
+
+                                // Save the key/value in the dictionary
+                                params[key] = objectConnection[key].toVariant();
+                            }
+
+                            // Invoke the onInit method passing the parameters
+                            fairWindConnection->onInit(params);
+
+                            m_listConnections.append(fairWindConnection);
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 
