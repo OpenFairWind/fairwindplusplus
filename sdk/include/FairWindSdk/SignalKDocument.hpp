@@ -7,7 +7,7 @@
 
 #include <QRegularExpression>
 #include <QJsonObject>
-
+#include <QGeoCoordinate>
 #include <QGeoView/QGVGlobal.h>
 
 #include "FairWindSDK.hpp"
@@ -15,6 +15,53 @@
 typedef void (*myfunc)();
 
 class SignalKDocument;
+
+class FAIRWINDSDK_LIB_DECL Waypoint: public QJsonObject {
+public:
+    Waypoint(const QString& id, const QString& name, const QString& description, const QString& type, const QGeoCoordinate& coordinate);
+
+    QString id();
+    QString name();
+    QString description();
+    QString type();
+    QGeoCoordinate coordinate();
+private:
+
+};
+
+class FAIRWINDSDK_LIB_DECL Note: public QJsonObject {
+public:
+    Note(const QString& title, const QString& description, const QGeoCoordinate& position);
+
+    QString title();
+    QString description();
+    QGeoCoordinate position();
+    QString region();
+    QString geohash();
+    QString mimeType();
+    QString group();
+    QString url();
+    QStringList authors();
+    QJsonObject properties();
+    QString source();
+    QDateTime timestamp();
+
+    void setTitle(QString value);
+    void setDescription(QString value);
+    void setPosition(QGeoCoordinate position);
+    void setRegion(QString value);
+    void setGeohash(QString value);
+    void setMimeType(QString value);
+    void setGroup(QString value);
+    void setUrl(QString value);
+    void setAuthors(QStringList authors);
+    void setProperties(QJsonObject properties);
+    void setSource(QString value);
+
+private:
+    QString getValueStringByKeyOrEmpty(QString key);
+    void setValueStringByKeyIfAny(QString key, QString value);
+};
 
 class FAIRWINDSDK_LIB_DECL Subscription  {
 public:
@@ -48,7 +95,11 @@ public:
 
     QJsonObject makeUpdate(const QString &fullPath);
     void update(QJsonObject &jsonObjectUpdate);
-    void insert(const QString& path, const QJsonValue& newValue);
+    void insert(const QString& path, const QJsonValue& newValue, int mode = 1);
+
+    void set(const QString& fullPath, const QJsonValue& newValue);
+    QJsonValue get(const QString& fullPath);
+
     QJsonValue subtree(const QString& path);
 
     QString getSelf();
@@ -58,8 +109,8 @@ public:
     QJsonObject getRoot();
     void setRoot(QJsonObject root);
 
-    QGV::GeoPos getNavigationPosition(const QString& uuid);
-    QGV::GeoPos getNavigationPosition();
+    QGeoCoordinate getNavigationPosition(const QString& uuid);
+    QGeoCoordinate getNavigationPosition();
 
     double getNavigationCourseOverGroundTrue(const QString& uuid);
     double getNavigationCourseOverGroundTrue();
@@ -74,11 +125,15 @@ public:
 
     static QString currentISO8601TimeUTC();
 
+    QString generateUUID();
+
 public slots:
     void unsubscribe(QObject *receiver);
 
 signals:
-    void updated(const QString &path);
+    void created(const QString &path, const QJsonValue &newValue);
+    void updated(const QString &path, const QJsonValue &newValue);
+    void changed(const QString &path);
     void updatedNavigationPosition();
     void updatedNavigationCourseOverGroundTrue();
     void updatedNavigationSpeedOverGround();
@@ -88,6 +143,7 @@ private:
     QList<Subscription> subscriptions;
 
     void modifyJsonValue(QJsonObject& obj, const QString& path, const QJsonValue& newValue);
+    void object2pathAndValue(QMap<QString, QJsonValue> &map, const QString &path, const QJsonValue value);
 };
 
 #endif //FAIRWIND_SIGNALKDOCUMENT_HPP

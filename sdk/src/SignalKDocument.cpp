@@ -55,22 +55,82 @@ void SignalKDocument::modifyJsonValue(QJsonObject &obj, const QString &path, con
     obj[propertyName] = subValue;
 }
 
-void SignalKDocument::insert(const QString &fullPath, const QJsonValue &newValue) {
-    modifyJsonValue(m_root, fullPath, newValue);
-
-    //qDebug() << "SignalKDocument::insert: " << fullPath;
-    emit updated(fullPath);
-
-    if (fullPath.indexOf(getSelf() + ".navigation.position") >= 0) {
-        emit updatedNavigationPosition();
-    } else if (fullPath.indexOf(getSelf() + "navigation.courseOverGroundTrue") >= 0) {
-        emit updatedNavigationCourseOverGroundTrue();
-    } else if (fullPath.indexOf(getSelf() + "navigation.speedOverGround") >= 0) {
-        emit updatedNavigationSpeedOverGround();
+void SignalKDocument::object2pathAndValue(QMap<QString, QJsonValue> &map, const QString &path, const QJsonValue value) {
+    QJsonValue result=value;
+    if (value.isObject()) {
+        auto object = value.toObject();
+        for (auto key:object.keys()) {
+            auto newPath = path;
+            if (!newPath.isEmpty()) {
+                newPath = newPath +".";
+            }
+            newPath = newPath + key;
+            if (object[key].isObject()) {
+                object2pathAndValue(map, newPath, object[key]);
+            } else {
+                map[newPath] = object[key];
+            }
+        }
     }
+}
 
-    for (auto subscription: subscriptions) {
-        subscription.match(this, fullPath);
+void SignalKDocument::set(const QString& fullPath, const QJsonValue& newValue) {
+    insert(fullPath, newValue, 2);
+}
+
+QJsonValue SignalKDocument::get(const QString& path) {
+    return QJsonValue();
+}
+
+void SignalKDocument::insert(const QString &fullPath, const QJsonValue &newValue, int mode) {
+
+    // Check if the full path is an empty string
+    if (fullPath.isEmpty()) {
+
+        // The full path is an empty string the newValue must be an object inserted in the root.
+
+        QMap<QString, QJsonValue> map;
+        object2pathAndValue(map,fullPath,newValue);
+        for(const auto& key:map.keys()) {
+            //qDebug() << key << " : " << map[key];
+            insert(key,map[key], mode);
+        }
+
+    } else {
+        QString processedFullPath = fullPath;
+        processedFullPath = processedFullPath.replace("${id}", QUuid::createUuid().toString(QUuid::WithoutBraces));
+        processedFullPath = processedFullPath.replace("${self}", getSelf());
+
+        auto previousValue = subtree(processedFullPath);
+
+        if (mode & 1) {
+            modifyJsonValue(m_root, processedFullPath, newValue);
+
+            //qDebug() << "SignalKDocument::insert: " << fullPath;
+            emit changed(processedFullPath);
+
+            if (processedFullPath.indexOf(getSelf() + ".navigation.position") >= 0) {
+                emit updatedNavigationPosition();
+            } else if (processedFullPath.indexOf(getSelf() + "navigation.courseOverGroundTrue") >= 0) {
+                emit updatedNavigationCourseOverGroundTrue();
+            } else if (processedFullPath.indexOf(getSelf() + "navigation.speedOverGround") >= 0) {
+                emit updatedNavigationSpeedOverGround();
+            }
+
+            for (auto subscription: subscriptions) {
+                subscription.match(this, processedFullPath);
+            }
+        }
+        if (mode & 2) {
+            if (previousValue.isNull()) {
+                emit created(processedFullPath, newValue);
+            } else {
+                emit updated(processedFullPath, newValue);
+            }
+        }
+
+
+
     }
 }
 
@@ -93,10 +153,14 @@ QString SignalKDocument::getVersion() {
 QJsonValue SignalKDocument::subtree(const QString &path) {
     QStringList parts = path.split(".");
     QJsonValue jsonValue = m_root;
-    for (auto part: parts) {
+    for (const auto& part: parts) {
         if (jsonValue.isObject()) {
             QJsonObject jsonObject = jsonValue.toObject();
-            jsonValue = jsonObject[part];
+            if (jsonObject.contains(part)) {
+                jsonValue = jsonObject[part];
+            } else {
+                return {};
+            }
         } else {
             break;
         }
@@ -140,7 +204,7 @@ void SignalKDocument::setSelf(QString self) {
  * getNavigationPosition
  * Helper method, calls the actual getNavigationPosition(QString) method
  */
-QGV::GeoPos SignalKDocument::getNavigationPosition() {
+QGeoCoordinate SignalKDocument::getNavigationPosition() {
     return getNavigationPosition(getSelf());
 }
 
@@ -148,16 +212,19 @@ QGV::GeoPos SignalKDocument::getNavigationPosition() {
  * getNavigationPosition
  * Returns the navigation information received from the SignalK settings in form of a QGV GeoPos object
  */
-QGV::GeoPos SignalKDocument::getNavigationPosition(const QString &uuid) {
-    QGV::GeoPos result;
+QGeoCoordinate SignalKDocument::getNavigationPosition(const QString &uuid) {
+    QGeoCoordinate result;
     QString path = uuid + ".navigation.position.value";
 
     QJsonValue positionValue = subtree(path);
     if (positionValue.isObject()) {
         double latitude = positionValue.toObject()["latitude"].toDouble();
         double longitude = positionValue.toObject()["longitude"].toDouble();
-        result.setLat(latitude);
-        result.setLon(longitude);
+        result.setLatitude(latitude);
+        result.setLongitude(longitude);
+        if (positionValue.toObject().contains("altitude")) {
+            result.setAltitude(positionValue.toObject()["altitude"].toDouble());
+        }
     }
     return result;
 }
@@ -323,6 +390,13 @@ QString SignalKDocument::getNavigationState() {
     return getNavigationState(getSelf());
 }
 
+QString SignalKDocument::generateUUID() {
+    auto uuid = QUuid::createUuid();
+    return "urn:mrn:signalk:uuid:"+uuid.toString(QUuid::WithoutBraces);
+}
+
+
+
 /*
  * Subscription - Public Constructor
  */
@@ -376,3 +450,168 @@ Subscription::Subscription(Subscription const &other) {
     this->receiver = other.receiver;
     this->memberName = other.memberName;
 }
+
+Waypoint::Waypoint(const QString& id, const QString& name, const QString& description, const QString& type, const QGeoCoordinate& coordinate) {
+    QJsonObject pos;
+    pos["latitude"] = coordinate.latitude();
+    pos["longitude"] = coordinate.longitude();
+    pos["altitude"] = coordinate.altitude();
+
+    QString featureString;
+    featureString = QString(
+            R"({"id": "%1","type": "Feature","properties": { "name": "%2", "description": "%3", "type":"%4"}, "geometry": { "type": "Point", "coordinates": [ %5, %6, %7 ] }})")
+            .arg(id)
+            .arg(name)
+            .arg(description)
+            .arg(type)
+            .arg(coordinate.longitude()).arg(coordinate.latitude()).arg(coordinate.altitude());
+
+
+    qDebug() << "Waypoint::Waypoint :" << featureString;
+    this->operator[]("feature") = QJsonDocument::fromJson(featureString.toLatin1()).object();
+    this->operator[]("position") = pos;
+}
+
+QString Waypoint::id() {
+    return this->operator[]("feature").toObject()["id"].toString();
+};
+
+QString Waypoint::name() {
+    return this->operator[]("feature").toObject()["name"].toString();
+};
+
+QString Waypoint::description() {
+    return this->operator[]("feature").toObject()["description"].toString();
+};
+
+QString Waypoint::type() {
+    return this->operator[]("feature").toObject()["type"].toString();
+};
+
+QGeoCoordinate Waypoint::coordinate() {
+    auto pos = this->operator[]("position").toObject();
+    return QGeoCoordinate(pos["latitude"].toDouble(), pos["longitude"].toDouble(), pos["altitude"].toDouble());
+};
+
+Note::Note(const QString &title, const QString &description, const QGeoCoordinate &position) {
+
+    setValueStringByKeyIfAny("title",title);
+    setValueStringByKeyIfAny("description",description);
+    setValueStringByKeyIfAny("mimeType","text/plain");
+    setValueStringByKeyIfAny("source","fairwind++");
+
+    QJsonObject jsonObjectPosition;
+    jsonObjectPosition["latitude"] = position.latitude();
+    jsonObjectPosition["longitude"] = position.longitude();
+    if (!std::isnan(position.altitude())) {
+        jsonObjectPosition["altitude"] = position.altitude();
+    }
+
+    this->operator[]("position") = jsonObjectPosition;
+
+    this->operator[]("timestamp") = SignalKDocument::currentISO8601TimeUTC();
+}
+
+QString Note::getValueStringByKeyOrEmpty(QString key) {
+    if (this->contains(key) && this->operator[](key).isString()) {
+        return this->operator[](key).toString();
+    }
+    return QString();
+}
+
+void Note::setValueStringByKeyIfAny(QString key, QString value) {
+    if (value!= nullptr && !value.isEmpty()) {
+        this->operator[](key) = value;
+    }
+}
+
+QString Note::title() { return getValueStringByKeyOrEmpty("title"); }
+QString Note::description() { return getValueStringByKeyOrEmpty("description"); }
+QString Note::region() { return getValueStringByKeyOrEmpty("region"); }
+QString Note::geohash() { return getValueStringByKeyOrEmpty("geohash"); }
+QString Note::mimeType() { return getValueStringByKeyOrEmpty("mimeType"); }
+QString Note::group() { return getValueStringByKeyOrEmpty("group"); }
+QString Note::url() { return getValueStringByKeyOrEmpty("url"); }
+QString Note::source() { return getValueStringByKeyOrEmpty("source"); }
+QDateTime Note::timestamp() { return QDateTime::fromString(getValueStringByKeyOrEmpty("timestamp"),"%FT%TZ");}
+
+QStringList Note::authors() {
+    QStringList authors;
+    if (this->contains("authors") && this->operator[]("authors").isArray()) {
+        for(auto item:this->operator[]("authors").toArray()) {
+            if (item.isString()) {
+                authors.append(item.toString());
+            }
+        }
+    }
+    return authors;
+}
+
+QJsonObject Note::properties() {
+    if (this->contains("properties") && this->operator[]("properties").isObject()) {
+        return this->operator[]("properties").toObject();
+    }
+    return {};
+}
+
+QGeoCoordinate Note::position() {
+    if (this->contains("position") && this->operator[]("position").isObject()) {
+        auto jsonObjectPosition = this->operator[]("position").toObject();
+        if (jsonObjectPosition.contains("latitude") && jsonObjectPosition.contains("longitude") && jsonObjectPosition.contains("altitude") &&
+                jsonObjectPosition["latitude"].isDouble() && jsonObjectPosition["longitude"].isDouble() && jsonObjectPosition["altitude"].isDouble()) {
+            return {
+                    jsonObjectPosition["latitude"].toDouble(),
+                    jsonObjectPosition["longitude"].toDouble(),
+                    jsonObjectPosition["altitude"].toDouble()};
+        } else if (jsonObjectPosition.contains("latitude") && jsonObjectPosition.contains("longitude") &&
+                   jsonObjectPosition["latitude"].isDouble() && jsonObjectPosition["longitude"].isDouble()) {
+            return {
+                    jsonObjectPosition["latitude"].toDouble(),
+                    jsonObjectPosition["longitude"].toDouble()};
+        }
+    }
+    return {};
+}
+
+void Note::setTitle(QString value) { setValueStringByKeyIfAny("title", value); }
+void Note::setDescription(QString value) { setValueStringByKeyIfAny("description", value); }
+void Note::setRegion(QString value) { setValueStringByKeyIfAny("region", value); }
+void Note::setGeohash(QString value) { setValueStringByKeyIfAny("geohash", value); }
+void Note::setMimeType(QString value) { setValueStringByKeyIfAny("mimeType", value); }
+void Note::setGroup(QString value) { setValueStringByKeyIfAny("group", value); }
+void Note::setUrl(QString value) { setValueStringByKeyIfAny("url", value); }
+void Note::setSource(QString value) { setValueStringByKeyIfAny("source", value); }
+
+void Note::setProperties(QJsonObject properties) {
+    this->operator[]("properties") = properties;
+}
+
+void Note::setAuthors(QStringList authors) {
+    if (authors.size()>0 ) {
+        QJsonArray jsonArrayAuthors;
+        for(auto author:authors) {
+            jsonArrayAuthors.append(author);
+        }
+
+        this->operator[]("authors") =jsonArrayAuthors;
+    }
+}
+
+void Note::setPosition(QGeoCoordinate position) {
+
+    if (position.isValid()) {
+        QJsonObject jsonObjectPosition;
+        jsonObjectPosition["latitude"] = position.latitude();
+        jsonObjectPosition["longitude"] = position.longitude();
+        if (!std::isnan(position.altitude())) {
+            jsonObjectPosition["altitude"] = position.altitude();
+        }
+    }
+}
+
+
+
+
+
+
+
