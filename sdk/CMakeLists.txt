@@ -134,8 +134,7 @@ add_library(fairwindsdk SHARED
         include/FairWindSdk/layouts/GridLayout.hpp
         include/FairWindSdk/util/Units.hpp
         include/FairWindSdk/util/ExtendedJsonSchema.hpp
-        include/FairWindSdk/connections/SignalKAPIClient.hpp
-        include/FairWindSdk/connections/SignalKWSClient.hpp
+        include/FairWindSdk/connections/SignalKClient.hpp
         include/FairWindSdk/ISettings.hpp
         include/FairWindSdk/settings/FairComboBox.hpp
         include/FairWindSdk/settings/FairLineEdit.hpp
@@ -173,8 +172,7 @@ add_library(fairwindsdk SHARED
         src/layouts/GridLayout.cpp
         src/util/Units.cpp
         src/util/ExtendedJsonSchema.cpp
-        src/connections/SignalKAPIClient.cpp
-        src/connections/SignalKWSClient.cpp
+        src/connections/SignalKClient.cpp
         src/settings/FairComboBox.cpp
         src/settings/FairLineEdit.cpp
         src/settings/FairCheckBox.cpp
@@ -209,6 +207,7 @@ target_link_libraries(fairwindsdk
         Qt${QT_VERSION}::Gui
         Qt${QT_VERSION}::Widgets
         Qt${QT_VERSION}::WebSockets
+        Qt${QT_VERSION}::Positioning
         ${LIBQTJSONSCHEMA} ${LIBQCGAUGEWIDGET} ${LIBQCSWITCHWIDGET} ${LIBQGEOVIEW}
         )
 

@@ -1,3 +1,17 @@
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
+
+set(QT_VERSION 5)
+
+find_package(Qt${QT_VERSION} REQUIRED COMPONENTS
+        Core
+        Gui
+        Network
+        Widgets
+        WebSockets
+        Positioning
+        )
 
 set(SETTINGS_RESOURCE resourcesSettings.qrc)
 qt5_add_resources(SETTINGS_RESOURCE_ADDED ${SETTINGS_RESOURCE})
@@ -19,7 +33,7 @@ add_library(Settings SHARED
         extensions/ExtensionItem.cpp extensions/ExtensionItem.hpp extensions/ExtensionItem.ui browser/Displays.cpp browser/Displays.hpp browser/Displays.ui)
 
 add_dependencies(Settings FairWindSdk)
-target_link_libraries(Settings PRIVATE Qt5::Widgets Qt5::Network  ${LIBFAIRWINDSDK})
+target_link_libraries(Settings PRIVATE Qt${QT_VERSION}::Widgets Qt${QT_VERSION}::Network Qt${QT_VERSION}::Positioning  ${LIBFAIRWINDSDK})
 target_compile_options(Settings PRIVATE ${COMPILE_OPTIONS})
 
 add_custom_command(
