@@ -30,6 +30,9 @@ namespace fairwind::apps::video {
 
         void onConfigChanged() override;
 
+        void onInstall() override;
+        void onUninstall() override;
+
     private:
     };
 }

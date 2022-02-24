@@ -6,38 +6,48 @@
 #include "UAV.hpp"
 #include "MainPage.hpp"
 
-
-void fairwind::apps::uav::UAV::onCreate() {
-    FairWindApp::onCreate();
-}
+namespace fairwind::apps::uav {
+    void UAV::onCreate() {
+        FairWindApp::onCreate();
+    }
 
 /*
  * Called by the FairWind framework when the app is invoked for the first time
  */
-void fairwind::apps::uav::UAV::onStart() {
-    FairWindApp::onStart();
+    void UAV::onStart() {
+        FairWindApp::onStart();
 
-    auto mainPage = new MainPage();
-    add(mainPage);
-    show();}
+        auto mainPage = new MainPage();
+        add(mainPage);
+        show();
+    }
 
 
-void fairwind::apps::uav::UAV::onResume() {
-    FairWindApp::onResume();
-}
+    void UAV::onResume() {
+        FairWindApp::onResume();
+    }
 
-void fairwind::apps::uav::UAV::onPause() {
-    FairWindApp::onPause();
-}
+    void UAV::onPause() {
+        FairWindApp::onPause();
+    }
 
-void fairwind::apps::uav::UAV::onStop() {
-    FairWindApp::onStop();
-}
+    void UAV::onStop() {
+        FairWindApp::onStop();
+    }
 
-void fairwind::apps::uav::UAV::onDestroy() {
-    FairWindApp::onDestroy();
-}
+    void UAV::onDestroy() {
+        FairWindApp::onDestroy();
+    }
 
-void fairwind::apps::uav::UAV::onConfigChanged() {
-    FairWindApp::onConfigChanged();
+    void UAV::onConfigChanged() {
+        FairWindApp::onConfigChanged();
+    }
+
+    void UAV::onInstall() {
+        FairWindApp::onInstall();
+    }
+
+    void UAV::onUninstall() {
+        FairWindApp::onUninstall();
+    }
 }

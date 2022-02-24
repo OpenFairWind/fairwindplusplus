@@ -17,50 +17,59 @@
 
 
 
+namespace fairwind::apps::web {
+    void Web::onCreate() {
+        FairWindApp::onCreate();
 
-void fairwind::apps::web::Web::onCreate() {
-    FairWindApp::onCreate();
-
-    QWebEngineSettings::defaultSettings()->setAttribute(QWebEngineSettings::PluginsEnabled, true);
+        QWebEngineSettings::defaultSettings()->setAttribute(QWebEngineSettings::PluginsEnabled, true);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
-    QWebEngineSettings::defaultSettings()->setAttribute(QWebEngineSettings::DnsPrefetchEnabled, true);
-    QWebEngineProfile::defaultProfile()->setUseForGlobalCertificateVerification();
+        QWebEngineSettings::defaultSettings()->setAttribute(QWebEngineSettings::DnsPrefetchEnabled, true);
+        QWebEngineProfile::defaultProfile()->setUseForGlobalCertificateVerification();
 #endif
-    m_profile = QWebEngineProfile::defaultProfile();
+        m_profile = QWebEngineProfile::defaultProfile();
 
-}
-
-void fairwind::apps::web::Web::onStart() {
-    FairWindApp::onStart();
-
-    QString route = getRoute();
-    if (route.isEmpty()) {
-        route = "__home__";
     }
 
-    auto mainPage = new MainPage();
+    void Web::onStart() {
+        FairWindApp::onStart();
 
-    add(mainPage,route);
+        QString route = getRoute();
+        if (route.isEmpty()) {
+            route = "__home__";
+        }
 
-    show(route);
-}
+        auto mainPage = new MainPage();
 
-void fairwind::apps::web::Web::onResume() {
-    FairWindApp::onResume();
-}
+        add(mainPage, route);
 
-void fairwind::apps::web::Web::onPause() {
-    FairWindApp::onPause();
-}
+        show(route);
+    }
 
-void fairwind::apps::web::Web::onStop() {
-    FairWindApp::onStop();
-}
+    void Web::onResume() {
+        FairWindApp::onResume();
+    }
 
-void fairwind::apps::web::Web::onDestroy() {
-    FairWindApp::onDestroy();
-}
+    void Web::onPause() {
+        FairWindApp::onPause();
+    }
 
-void fairwind::apps::web::Web::onConfigChanged() {
-    FairWindApp::onConfigChanged();
+    void Web::onStop() {
+        FairWindApp::onStop();
+    }
+
+    void Web::onDestroy() {
+        FairWindApp::onDestroy();
+    }
+
+    void Web::onConfigChanged() {
+        FairWindApp::onConfigChanged();
+    }
+
+    void Web::onInstall() {
+        FairWindApp::onInstall();
+    }
+
+    void Web::onUninstall() {
+        FairWindApp::onUninstall();
+    }
 }

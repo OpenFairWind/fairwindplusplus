@@ -27,6 +27,10 @@ namespace fairwind::apps::external {
         void onDestroy() override;
 
         void onConfigChanged() override;
+
+        void onInstall() override;
+        void onUninstall() override;
+
     private:
 
     };

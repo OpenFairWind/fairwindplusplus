@@ -28,6 +28,10 @@ namespace fairwind::apps::web {
         void onDestroy() override;
 
         void onConfigChanged() override;
+
+        void onInstall() override;
+        void onUninstall() override;
+
     private:
         QWebEngineProfile *m_profile;
 

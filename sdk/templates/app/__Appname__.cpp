@@ -11,6 +11,8 @@ namespace __namespace__ {
 
         // Call the framework onCreate()
         FairWindApp::onCreate();
+
+        // ToDo: add your code here:
     }
 
     //Called by the FairWind framework when the app is invoked for the first time
@@ -18,6 +20,8 @@ namespace __namespace__ {
 
         // Call the framework onCreate()
         FairWindApp::onStart();
+
+        // ToDo: add your code here:
 
         // Create the main page
         auto mainPage = new MainPage();
@@ -34,10 +38,13 @@ namespace __namespace__ {
 
         // Call the framework onResume()
         FairWindApp::onResume();
+
+        // ToDo: add your code here:
     }
 
     // Called when the app is going to be in background
     void __Appname__::onPause() {
+        // ToDo: add your code here:
 
         // Call the framework onPause()
         FairWindApp::onPause();
@@ -45,6 +52,7 @@ namespace __namespace__ {
 
     // Called when the app is going to be stopped
     void __Appname__::onStop() {
+        // ToDo: add your code here:
 
         // Call the framework on onStop()
         FairWindApp::onStop();
@@ -52,6 +60,7 @@ namespace __namespace__ {
 
     // Called when the app is going to be unloaded once and forever
     void __Appname__::onDestroy() {
+        // ToDo: add your code here:
 
         // Call the framework onDestroy()
         FairWindApp::onDestroy();
@@ -62,6 +71,26 @@ namespace __namespace__ {
 
         // Call the framework onConfigChanged()
         FairWindApp::onConfigChanged();
+
+        // ToDo: add your code here:
+    }
+
+    // Called when the app runs the very first time
+    void __Appname__::onInstall() {
+
+        // Call the framework onInstall()
+        FairWindApp::onInstall();
+
+        // ToDo: add your code here:
+    }
+
+    // Called when the configuration file changed
+    void __Appname__::onUninstall() {
+
+        // ToDo: add you code here:
+
+        // Call the framework onConfigChanged()
+        FairWindApp::onUninstall();
     }
 
 } // __namespace__

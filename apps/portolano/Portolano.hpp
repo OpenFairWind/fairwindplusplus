@@ -31,6 +31,9 @@ namespace fairwind::apps::portolano {
 
         void onConfigChanged() override;
 
+        void onInstall() override;
+        void onUninstall() override;
+
         QSqlDatabase *getDb();
 
     private:

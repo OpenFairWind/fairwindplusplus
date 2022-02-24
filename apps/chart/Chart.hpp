@@ -30,6 +30,9 @@ namespace fairwind::apps::chart {
         void onDestroy() override;
 
         void onConfigChanged() override;
+
+        void onInstall() override;
+        void onUninstall() override;
     public slots:
 
 

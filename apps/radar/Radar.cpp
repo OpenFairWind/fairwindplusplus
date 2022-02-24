@@ -6,39 +6,48 @@
 #include "Radar.hpp"
 #include "MainPage.hpp"
 
-
-void fairwind::apps::radar::Radar::onCreate() {
-    FairWindApp::onCreate();
-}
+namespace fairwind::apps::radar {
+    void Radar::onCreate() {
+        FairWindApp::onCreate();
+    }
 
 /*
  * Called by the FairWind framework when the app is invoked for the first time
  */
-void fairwind::apps::radar::Radar::onStart() {
-    FairWindApp::onStart();
+    void Radar::onStart() {
+        FairWindApp::onStart();
 
-    auto mainPage = new MainPage();
-    add(mainPage);
-    show();
-}
+        auto mainPage = new MainPage();
+        add(mainPage);
+        show();
+    }
 
 
-void fairwind::apps::radar::Radar::onResume() {
-    FairWindApp::onResume();
-}
+    void Radar::onResume() {
+        FairWindApp::onResume();
+    }
 
-void fairwind::apps::radar::Radar::onPause() {
-    FairWindApp::onPause();
-}
+    void Radar::onPause() {
+        FairWindApp::onPause();
+    }
 
-void fairwind::apps::radar::Radar::onStop() {
-    FairWindApp::onStop();
-}
+    void Radar::onStop() {
+        FairWindApp::onStop();
+    }
 
-void fairwind::apps::radar::Radar::onDestroy() {
-    FairWindApp::onDestroy();
-}
+    void Radar::onDestroy() {
+        FairWindApp::onDestroy();
+    }
 
-void fairwind::apps::radar::Radar::onConfigChanged() {
-    FairWindApp::onConfigChanged();
+    void Radar::onConfigChanged() {
+        FairWindApp::onConfigChanged();
+    }
+
+    void Radar::onInstall() {
+        FairWindApp::onInstall();
+    }
+
+    void Radar::onUninstall() {
+        FairWindApp::onUninstall();
+    }
 }

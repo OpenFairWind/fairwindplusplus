@@ -6,38 +6,47 @@
 #include "Video.hpp"
 #include "MainPage.hpp"
 
-
-void fairwind::apps::video::Video::onCreate() {
-    FairWindApp::onCreate();
-}
+namespace fairwind::apps::video {
+    void Video::onCreate() {
+        FairWindApp::onCreate();
+    }
 
 /*
  * Called by the FairWind framework when the app is invoked for the first time
  */
-void fairwind::apps::video::Video::onStart() {
-    FairWindApp::onStart();
+    void Video::onStart() {
+        FairWindApp::onStart();
 
-    auto mainPage = new MainPage();
-    add(mainPage);
-    show();
-}
+        auto mainPage = new MainPage();
+        add(mainPage);
+        show();
+    }
 
-void fairwind::apps::video::Video::onResume() {
-    FairWindApp::onResume();
-}
+    void Video::onResume() {
+        FairWindApp::onResume();
+    }
 
-void fairwind::apps::video::Video::onPause() {
-    FairWindApp::onPause();
-}
+    void Video::onPause() {
+        FairWindApp::onPause();
+    }
 
-void fairwind::apps::video::Video::onStop() {
-    FairWindApp::onStop();
-}
+    void Video::onStop() {
+        FairWindApp::onStop();
+    }
 
-void fairwind::apps::video::Video::onDestroy() {
-    FairWindApp::onDestroy();
-}
+    void Video::onDestroy() {
+        FairWindApp::onDestroy();
+    }
 
-void fairwind::apps::video::Video::onConfigChanged() {
-    FairWindApp::onConfigChanged();
+    void Video::onConfigChanged() {
+        FairWindApp::onConfigChanged();
+    }
+
+    void Video::onInstall() {
+        FairWindApp::onInstall();
+    }
+
+    void Video::onUninstall() {
+        FairWindApp::onUninstall();
+    }
 }

@@ -6,38 +6,44 @@
 #include "Weather.hpp"
 #include "MainPage.hpp"
 
-void fairwind::apps::weather::Weather::onCreate() {
-    FairWindApp::onCreate();
-}
+namespace fairwind::apps::weather {
+    void Weather::onCreate() {
+        FairWindApp::onCreate();
+    }
 
 /*
  * Called by the FairWind framework when the app is invoked for the first time
  */
-void fairwind::apps::weather::Weather::onStart() {
-    FairWindApp::onStart();
+    void Weather::onStart() {
+        FairWindApp::onStart();
 
-    auto mainPage = new MainPage();
-    add(mainPage);
-    show();
+        auto mainPage = new MainPage();
+        add(mainPage);
+        show();
 
-}
+    }
 
-void fairwind::apps::weather::Weather::onResume() {
-    FairWindApp::onResume();
-}
+    void Weather::onResume() {
+        FairWindApp::onResume();
+    }
 
-void fairwind::apps::weather::Weather::onPause() {
-    FairWindApp::onPause();
-}
+    void Weather::onPause() {
+        FairWindApp::onPause();
+    }
 
-void fairwind::apps::weather::Weather::onStop() {
-    FairWindApp::onStop();
-}
+    void Weather::onStop() {
+        FairWindApp::onStop();
+    }
 
-void fairwind::apps::weather::Weather::onDestroy() {
-    FairWindApp::onDestroy();
-}
+    void Weather::onDestroy() {
+        FairWindApp::onDestroy();
+    }
 
-void fairwind::apps::weather::Weather::onConfigChanged() {
-    FairWindApp::onConfigChanged();
+    void Weather::onConfigChanged() {
+        FairWindApp::onConfigChanged();
+    }
+
+    void Weather::onInstall() {
+        FairWindApp::onUninstall();
+    }
 }

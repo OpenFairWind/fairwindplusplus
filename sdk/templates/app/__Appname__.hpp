@@ -28,6 +28,10 @@ namespace __namespace__ {
         void onDestroy() override;
 
         void onConfigChanged() override;
+
+        void onInstall() override;
+        void onUninstall() override;
+
     private:
 
     };

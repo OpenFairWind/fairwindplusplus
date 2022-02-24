@@ -360,6 +360,12 @@ namespace fairwind::apps {
         }
     }
 
+    void FairWindApp::onInstall() {
+    }
+
+    void FairWindApp::onUninstall() {
+    }
+
     QWidget *FairWindApp::getWidget() {
         return m_widget;
     }

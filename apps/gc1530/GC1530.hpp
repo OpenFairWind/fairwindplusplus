@@ -31,6 +31,9 @@ namespace it::gov::guardiacostiera::gc1530 {
 
         void onConfigChanged() override;
 
+        void onInstall() override;
+        void onUninstall() override;
+
         QString getHomeUrl();
 
     private:

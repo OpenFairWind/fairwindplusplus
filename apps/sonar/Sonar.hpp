@@ -29,6 +29,9 @@ namespace fairwind::apps::sonar {
 
         void onConfigChanged() override;
 
+        void onInstall() override;
+        void onUninstall() override;
+
     private:
 
     };

@@ -17,6 +17,44 @@ namespace fairwind::apps::portolano {
     void Portolano::onCreate() {
         FairWindApp::onCreate();
 
+
+    }
+    /*
+     * Called by the FairWind framework when the app is invoked for the first time
+     */
+    void Portolano::onStart() {
+        FairWindApp::onStart();
+
+        auto mainPage = new MainPage();
+        add(mainPage);
+        show();
+    }
+
+    void Portolano::onResume() {
+        FairWindApp::onResume();
+    }
+
+    void Portolano::onPause() {
+        FairWindApp::onPause();
+    }
+
+    void Portolano::onStop() {
+        FairWindApp::onStop();
+    }
+
+    void Portolano::onDestroy() {
+
+        mDb.close();
+        FairWindApp::onDestroy();
+    }
+
+    void Portolano::onConfigChanged() {
+        FairWindApp::onConfigChanged();
+    }
+
+    void Portolano::onInstall() {
+        FairWindApp::onInstall();
+
         auto fairwind = FairWind::getInstance();
         auto signalKDocument = fairwind->getSignalKDocument();
 
@@ -131,37 +169,9 @@ namespace fairwind::apps::portolano {
             }
         }
     }
-    /*
-     * Called by the FairWind framework when the app is invoked for the first time
-     */
-    void Portolano::onStart() {
-        FairWindApp::onStart();
 
-        auto mainPage = new MainPage();
-        add(mainPage);
-        show();
-    }
-
-    void Portolano::onResume() {
-        FairWindApp::onResume();
-    }
-
-    void Portolano::onPause() {
-        FairWindApp::onPause();
-    }
-
-    void Portolano::onStop() {
-        FairWindApp::onStop();
-    }
-
-    void Portolano::onDestroy() {
-
-        mDb.close();
-        FairWindApp::onDestroy();
-    }
-
-    void Portolano::onConfigChanged() {
-        FairWindApp::onConfigChanged();
+    void Portolano::onUninstall() {
+        FairWindApp::onUninstall();
     }
 
     QSqlDatabase *Portolano::getDb() {

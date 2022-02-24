@@ -70,6 +70,16 @@ namespace fairwind::apps::launcherax10m {
         FairWindApp::onConfigChanged();
     }
 
+    void LauncherAx10m::onInstall() {
 
+        // Call the framework onDestroy()
+        FairWindApp::onInstall();
+    }
+
+    void LauncherAx10m::onUninstall() {
+
+        // Call the framework onDestroy()
+        FairWindApp::onUninstall();
+    }
 
 } // fairwind::apps::launcherax10m

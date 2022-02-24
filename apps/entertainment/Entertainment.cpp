@@ -7,11 +7,11 @@
 #include "Entertainment.hpp"
 #include "MainPage.hpp"
 
-
+namespace fairwind::apps::entertainment {
 /*
  * Called by the FairWind framework when the app is invoked for the first time
  */
-void fairwind::apps::entertainment::Entertainment::onStart() {
+void Entertainment::onStart() {
     FairWindApp::onStart();
 
     auto mainPage = new MainPage();
@@ -19,14 +19,20 @@ void fairwind::apps::entertainment::Entertainment::onStart() {
     show();
 }
 
-void fairwind::apps::entertainment::Entertainment::onCreate() { FairWindApp::onCreate();}
+void Entertainment::onCreate() { FairWindApp::onCreate();}
 
-void fairwind::apps::entertainment::Entertainment::onResume() { FairWindApp::onResume();}
+void Entertainment::onResume() { FairWindApp::onResume();}
 
-void fairwind::apps::entertainment::Entertainment::onPause() { FairWindApp::onPause();}
+void Entertainment::onPause() { FairWindApp::onPause();}
 
-void fairwind::apps::entertainment::Entertainment::onStop() { FairWindApp::onStop();}
+void Entertainment::onStop() { FairWindApp::onStop();}
 
-void fairwind::apps::entertainment::Entertainment::onDestroy() { FairWindApp::onDestroy();}
+void Entertainment::onDestroy() { FairWindApp::onDestroy();}
 
-void fairwind::apps::entertainment::Entertainment::onConfigChanged() { FairWindApp::onConfigChanged();}
+void Entertainment::onConfigChanged() { FairWindApp::onConfigChanged();}
+
+void Entertainment::onInstall()  { FairWindApp::onInstall();}
+
+void Entertainment::onUninstall() { FairWindApp::onUninstall();}
+
+}

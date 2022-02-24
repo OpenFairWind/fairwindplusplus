@@ -66,6 +66,12 @@ namespace fairwind::apps {
         // Called when config is set
         virtual void onConfigChanged();
 
+        // Called when the app runs the first time ever
+        virtual void onInstall() = 0;
+
+        // Called when the app runs its last time
+        virtual void onUninstall() = 0;
+
         // Get the config.json content
         virtual QJsonObject getConfig();
 
