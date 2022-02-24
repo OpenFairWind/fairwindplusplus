@@ -379,7 +379,7 @@
                       "units"
                     ]
                   },
-                  "navigation.magneticVarition": {
+                  "navigation.magneticVariation": {
                     "type": "object",
                     "properties": {
                       "fieldWidth": {
@@ -480,7 +480,7 @@
                   "navigation.courseOverGroundTrue",
                   "navigation.headingMagnetic",
                   "navigation.headingTrue",
-                  "navigation.magneticVarition",
+                  "navigation.magneticVariation",
                   "navigation.speedOverGround",
                   "navigation.speedThroughWater"
                 ]
@@ -509,15 +509,12 @@
         "SignalK":{
           "connections":[
             {
-              "class":"fairwind::connections::SignalKAPIClient",
+              "class":"fairwind::connections::SignalKClient",
               "active":true,
-              "url":"http://demo.signalk.org/signalk/v1/api",
-              "restore":true
-            },
-            {
-              "class":"fairwind::connections::SignalKWSClient",
-              "active":true,
-              "url":"ws://demo.signalk.org/signalk/v1/stream"
+              "url":"http://localhost:3000/signalk",
+              "version": "v1",
+              "restore":true,
+              "debug": true
             }
           ],
           "keys":{
