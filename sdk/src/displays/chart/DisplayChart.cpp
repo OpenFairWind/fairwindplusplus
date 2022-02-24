@@ -204,9 +204,9 @@ void fairwind::displays::DisplayChart::onInit(QMap <QString, QVariant> params) {
     signalKDocument->subscribe(self + ".navigation.position.value", this, SLOT(DisplayChart::updateNavigationPosition));
 
     // Get the navigation position
-    QGV::GeoPos geoPos = signalKDocument->getNavigationPosition();
+    auto coordinate = signalKDocument->getNavigationPosition();
     // Move the camera to the new position in order to center the screen on the display
-    m_widgetMap->cameraTo(QGVCameraActions(m_widgetMap).moveTo(geoPos));
+    m_widgetMap->cameraTo(QGVCameraActions(m_widgetMap).moveTo(QGV::GeoPos(coordinate.latitude(),coordinate.longitude()) ));
 }
 
 void fairwind::displays::DisplayChart::updateNavigationPosition(const QJsonObject update) {

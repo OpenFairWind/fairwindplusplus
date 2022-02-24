@@ -46,7 +46,7 @@ void ItemSignalK::update(const QJsonObject update) {
     // Get the signalkdocument from the FairWind singleton itself
     auto signalKDocument = fairWind->getSignalKDocument();
     // Get the navigation infos from the document
-    QGV::GeoPos geoPos = signalKDocument->getNavigationPosition(m_context);
+    auto coordnate = signalKDocument->getNavigationPosition(m_context);
     double courseOverGroundTrue=signalKDocument->getNavigationCourseOverGroundTrue(m_context);
     double speedOverGround=signalKDocument->getNavigationSpeedOverGround(m_context);
 
@@ -58,7 +58,7 @@ void ItemSignalK::update(const QJsonObject update) {
     QPoint anchor=QPoint(size.width()/2,size.height()/2);
 
     loadImage(imageVessel.transformed(rot.rotate(courseOverGroundTrue * 57.2958)));
-    setGeometry(geoPos, size, anchor);
+    setGeometry(QGV::GeoPos(coordnate.latitude(),coordnate.longitude()), size, anchor);
 
     //qDebug() << "QGVItemSignalK::update:" << m_context << " geoPos: " << geoPos;
 }
