@@ -17,6 +17,9 @@ namespace fairwind::apps::portolano {
     void Portolano::onCreate() {
         FairWindApp::onCreate();
 
+        auto fairwind = FairWind::getInstance();
+        auto signalKDocument = fairwind->getSignalKDocument();
+
         mDb =  QSqlDatabase::addDatabase("QSQLITE");
 
 
@@ -89,6 +92,12 @@ namespace fairwind::apps::portolano {
                                                             jsonObjectProperties["name"].isString()) {
                                                             auto name = jsonObjectProperties["name"].toString();
 
+                                                            QString description="";
+                                                            if (jsonObjectProperties.contains("description") &&
+                                                                jsonObjectProperties["description"].isString()) {
+                                                                description = jsonObjectProperties["description"].toString();
+                                                            }
+
                                                             QJsonDocument doc(jsonObjectFeature);
                                                             QString strJsonFeature(doc.toJson(QJsonDocument::Compact));
 
@@ -105,6 +114,9 @@ namespace fairwind::apps::portolano {
                                                                 qDebug() << "Query failed: " << query.lastError();
                                                                 qDebug() << "            : " << query.lastQuery();
                                                             }
+
+                                                            Waypoint waypoint("WPT_"+QString::number(id),name,description,"harbour", QGeoCoordinate(lat,lon, 0));
+                                                            signalKDocument->set("resources.waypoints."+waypoint.id(),waypoint);
                                                         }
                                                     }
                                                 }
