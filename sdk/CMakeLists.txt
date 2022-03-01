@@ -109,7 +109,6 @@ add_library(fairwindsdk SHARED
         include/FairWindSdk/FairWindApp.hpp
         include/FairWindSdk/PageBase.hpp
         include/FairWindSdk/PanelBase.hpp
-        include/FairWindSdk/SignalKDocument.hpp
         include/FairWindSdk/FairWind.hpp
         include/FairWindSdk/AppItem.hpp
         include/FairWindSdk/displays/DisplayBase.hpp
@@ -142,6 +141,11 @@ add_library(fairwindsdk SHARED
         include/FairWindSdk/settings/DisplaysBrowser.hpp
         include/FairWindSdk/settings/LayersBrowser.hpp
 
+        include/FairWindSdk/signalk/Document.hpp
+        include/FairWindSdk/signalk/Waypoint.hpp
+        include/FairWindSdk/signalk/Note.hpp
+        include/FairWindSdk/signalk/Subscription.hpp
+
         src/ui/Warning.cpp include/FairWindSdk/ui/Warning.hpp src/ui/Warning.ui
         src/ui/Colophon.cpp include/FairWindSdk/ui/Colophon.hpp src/ui/Colophon.ui
 
@@ -149,7 +153,6 @@ add_library(fairwindsdk SHARED
         src/AppItem.cpp
         src/FairWindApp.cpp
         src/PageBase.cpp
-        src/SignalKDocument.cpp
         src/displays/base/DisplayBase.cpp
         src/displays/base/singletext/DisplaySingleText.cpp
         src/displays/base/doubletext/DisplayDoubleText.cpp
@@ -179,7 +182,10 @@ add_library(fairwindsdk SHARED
         src/settings/DisplaysBrowser.cpp
         src/settings/LayersBrowser.cpp
         src/PanelBase.cpp
-
+        src/signalk/Document.cpp
+        src/signalk/Waypoint.cpp
+        src/signalk/Note.cpp
+        src/signalk/Subscription.cpp
         ${FAIRWINDSDK_RESOURCE_ADDED}
         )
 
