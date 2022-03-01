@@ -53,6 +53,9 @@ int main(int argc, char *argv[]) {
     // Start the connections
     fairWind->startConnections();
 
+    // Install new applications
+    fairWind->installNewApps();
+
     // Update splash message
     splash.showMessage("Loading Settings...", 500, Qt::white);
 
