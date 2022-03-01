@@ -30,6 +30,6 @@ namespace fairwind::apps::external {
     void External::onStop() { FairWindApp::onStop();}
     void External::onDestroy() { FairWindApp::onDestroy();}
     void External::onConfigChanged() { FairWindApp::onConfigChanged();}
-    void External::onInstall() { FairWindApp::onInstall();}
-    void External::onUninstall() { FairWindApp::onUninstall();}
+    bool External::onInstall() { FairWindApp::onInstall(); return true;}
+    bool External::onUninstall() { FairWindApp::onUninstall(); return true;}
 }

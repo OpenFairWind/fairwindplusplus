@@ -43,7 +43,13 @@ namespace fairwind::apps::weather {
         FairWindApp::onConfigChanged();
     }
 
-    void Weather::onInstall() {
+    bool Weather::onInstall() {
         FairWindApp::onUninstall();
+        return true;
+    }
+
+    bool Weather::onUninstall() {
+        FairWindApp::onUninstall();
+        return true;
     }
 }

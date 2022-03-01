@@ -19,20 +19,20 @@ void Entertainment::onStart() {
     show();
 }
 
-void Entertainment::onCreate() { FairWindApp::onCreate();}
+    void Entertainment::onCreate() { FairWindApp::onCreate();}
 
-void Entertainment::onResume() { FairWindApp::onResume();}
+    void Entertainment::onResume() { FairWindApp::onResume();}
 
-void Entertainment::onPause() { FairWindApp::onPause();}
+    void Entertainment::onPause() { FairWindApp::onPause();}
 
-void Entertainment::onStop() { FairWindApp::onStop();}
+    void Entertainment::onStop() { FairWindApp::onStop();}
 
-void Entertainment::onDestroy() { FairWindApp::onDestroy();}
+    void Entertainment::onDestroy() { FairWindApp::onDestroy();}
 
-void Entertainment::onConfigChanged() { FairWindApp::onConfigChanged();}
+    void Entertainment::onConfigChanged() { FairWindApp::onConfigChanged();}
 
-void Entertainment::onInstall()  { FairWindApp::onInstall();}
+    bool Entertainment::onInstall()  { FairWindApp::onInstall(); return true;}
 
-void Entertainment::onUninstall() { FairWindApp::onUninstall();}
+    bool Entertainment::onUninstall() { FairWindApp::onUninstall(); return true;}
 
 }

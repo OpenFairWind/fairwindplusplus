@@ -42,12 +42,14 @@ namespace fairwind::apps::sonar {
         FairWindApp::onConfigChanged();
     }
 
-    void Sonar::onInstall() {
+    bool Sonar::onInstall() {
         FairWindApp::onInstall();
+        return true;
     }
 
-    void Sonar::onUninstall() {
+    bool Sonar::onUninstall() {
         FairWindApp::onUninstall();
+        return true;
     }
 }
 

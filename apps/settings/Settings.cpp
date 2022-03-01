@@ -82,7 +82,7 @@ namespace fairwind::apps::settings {
         FairWindApp::onConfigChanged();
     }
 
-    void Settings::onInstall() { FairWindApp::onInstall(); }
-    void Settings::onUninstall() { FairWindApp::onUninstall(); }
+    bool Settings::onInstall() { FairWindApp::onInstall(); return true;}
+    bool Settings::onUninstall() { FairWindApp::onUninstall(); return true;}
 
 } // fairwind::apps::settings

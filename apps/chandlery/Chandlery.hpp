@@ -31,8 +31,8 @@ namespace fairwind::apps::chandlery {
 
         void onConfigChanged() override;
 
-        void onInstall() override;
-        void onUninstall() override;
+        bool onInstall() override;
+        bool onUninstall() override;
 
     private:
 

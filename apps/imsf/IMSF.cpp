@@ -33,9 +33,9 @@ namespace fairwind::apps::imsf {
 
     void IMSF::onConfigChanged() { FairWindApp::onConfigChanged(); }
 
-    void IMSF::onInstall() { FairWindApp::onInstall(); }
+    bool IMSF::onInstall() { FairWindApp::onInstall(); return true;}
 
-    void IMSF::onUninstall() { FairWindApp::onUninstall(); }
+    bool IMSF::onUninstall() { FairWindApp::onUninstall(); return true;}
 
 }
 

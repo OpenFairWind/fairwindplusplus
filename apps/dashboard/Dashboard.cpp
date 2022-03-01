@@ -22,12 +22,16 @@ namespace fairwind::apps::dashboard {
 
     void Dashboard::onConfigChanged() { FairWindApp::onConfigChanged(); }
 
-    void Dashboard::onInstall() {
+    bool Dashboard::onInstall() {
         FairWindApp::onInstall();
+
+        return true;
     }
 
-    void Dashboard::onUninstall() {
+    bool Dashboard::onUninstall() {
         FairWindApp::onUninstall();
+
+        return true;
     }
 
     void Dashboard::onStart() {

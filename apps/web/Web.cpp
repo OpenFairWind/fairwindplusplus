@@ -65,11 +65,13 @@ namespace fairwind::apps::web {
         FairWindApp::onConfigChanged();
     }
 
-    void Web::onInstall() {
+    bool Web::onInstall() {
         FairWindApp::onInstall();
+        return true;
     }
 
-    void Web::onUninstall() {
+    bool Web::onUninstall() {
         FairWindApp::onUninstall();
+        return true;
     }
 }

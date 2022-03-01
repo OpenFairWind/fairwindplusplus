@@ -43,11 +43,13 @@ namespace fairwind::apps::radar {
         FairWindApp::onConfigChanged();
     }
 
-    void Radar::onInstall() {
+    bool Radar::onInstall() {
         FairWindApp::onInstall();
+        return true;
     }
 
-    void Radar::onUninstall() {
+    bool Radar::onUninstall() {
         FairWindApp::onUninstall();
+        return true;
     }
 }

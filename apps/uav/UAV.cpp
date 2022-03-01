@@ -43,11 +43,13 @@ namespace fairwind::apps::uav {
         FairWindApp::onConfigChanged();
     }
 
-    void UAV::onInstall() {
+    bool UAV::onInstall() {
         FairWindApp::onInstall();
+        return true;
     }
 
-    void UAV::onUninstall() {
+    bool UAV::onUninstall() {
         FairWindApp::onUninstall();
+        return true;
     }
 }

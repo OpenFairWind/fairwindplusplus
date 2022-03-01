@@ -50,11 +50,15 @@ namespace fairwind::apps::chart {
         FairWindApp::onConfigChanged();
     }
 
-    void Chart::onInstall() {
+    bool Chart::onInstall() {
         FairWindApp::onInstall();
+
+        return true;
     }
 
-    void Chart::onUninstall() {
+    bool Chart::onUninstall() {
         FairWindApp::onUninstall();
+
+        return true;
     }
 }

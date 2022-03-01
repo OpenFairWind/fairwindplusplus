@@ -29,8 +29,8 @@ namespace __namespace__ {
 
         void onConfigChanged() override;
 
-        void onInstall() override;
-        void onUninstall() override;
+        bool onInstall() override;
+        bool onUninstall() override;
 
     private:
 

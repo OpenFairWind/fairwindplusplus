@@ -42,11 +42,13 @@ namespace fairwind::apps::video {
         FairWindApp::onConfigChanged();
     }
 
-    void Video::onInstall() {
+    bool Video::onInstall() {
         FairWindApp::onInstall();
+        return true;
     }
 
-    void Video::onUninstall() {
+    bool Video::onUninstall() {
         FairWindApp::onUninstall();
+        return true;
     }
 }

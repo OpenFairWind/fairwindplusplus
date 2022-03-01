@@ -10,6 +10,9 @@
 #include <QSqlError>
 #include <QJsonArray>
 
+#include <FairWindSdk/signalk/Document.hpp>
+#include <FairWindSdk/signalk/Waypoint.hpp>
+
 #include "Portolano.hpp"
 #include "MainPage.hpp"
 
@@ -52,7 +55,8 @@ namespace fairwind::apps::portolano {
         FairWindApp::onConfigChanged();
     }
 
-    void Portolano::onInstall() {
+    bool Portolano::onInstall() {
+        bool result = false;
         FairWindApp::onInstall();
 
         auto fairwind = FairWind::getInstance();
@@ -153,8 +157,8 @@ namespace fairwind::apps::portolano {
                                                                 qDebug() << "            : " << query.lastQuery();
                                                             }
 
-                                                            Waypoint waypoint("WPT_"+QString::number(id),name,description,"harbour", QGeoCoordinate(lat,lon, 0));
-                                                            signalKDocument->set("resources.waypoints."+waypoint.id(),waypoint);
+                                                            signalk::Waypoint waypoint("WPT_"+QString::number(id),name,description,"harbour", QGeoCoordinate(lat,lon, 0));
+                                                            signalKDocument->set("resources.waypoints",waypoint);
                                                         }
                                                     }
                                                 }
@@ -165,13 +169,21 @@ namespace fairwind::apps::portolano {
                             }
                         }
                     }
+
+                    result = true;
                 }
             }
         }
+
+        return result;
     }
 
-    void Portolano::onUninstall() {
+    bool Portolano::onUninstall() {
+        bool result = false;
+
         FairWindApp::onUninstall();
+
+        return result;
     }
 
     QSqlDatabase *Portolano::getDb() {

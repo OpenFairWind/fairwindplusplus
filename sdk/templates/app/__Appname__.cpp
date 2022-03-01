@@ -76,21 +76,32 @@ namespace __namespace__ {
     }
 
     // Called when the app runs the very first time
-    void __Appname__::onInstall() {
+    bool __Appname__::onInstall() {
+        // Define the result value as false by default
+        bool result = false;
 
         // Call the framework onInstall()
         FairWindApp::onInstall();
 
+
         // ToDo: add your code here:
+
+        // Return the result to the caller
+        return result;
     }
 
     // Called when the configuration file changed
-    void __Appname__::onUninstall() {
+    bool __Appname__::onUninstall() {
+        // Define the result value as false by default
+        bool result = false;
 
         // ToDo: add you code here:
 
-        // Call the framework onConfigChanged()
+
+        // Call the framework onUnistall()
         FairWindApp::onUninstall();
+
+        return result;
     }
 
 } // __namespace__

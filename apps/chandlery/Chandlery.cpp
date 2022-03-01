@@ -45,12 +45,14 @@ namespace fairwind::apps::chandlery {
         FairWindApp::onConfigChanged();
     }
 
-    void Chandlery::onInstall() {
+    bool Chandlery::onInstall() {
         FairWindApp::onInstall();
+        return true;
     }
 
-    void Chandlery::onUninstall() {
+    bool Chandlery::onUninstall() {
         FairWindApp::onUninstall();
+        return true;
     }
 
 }

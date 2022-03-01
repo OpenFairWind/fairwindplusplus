@@ -49,9 +49,9 @@ namespace it::gov::guardiacostiera::gc1530 {
 
     void GC1530::onConfigChanged() { fairwind::apps::FairWindApp::onConfigChanged(); }
 
-    void GC1530::onInstall() { fairwind::apps::FairWindApp::onInstall(); }
+    bool GC1530::onInstall() { fairwind::apps::FairWindApp::onInstall(); return true;}
 
-    void GC1530::onUninstall() { fairwind::apps::FairWindApp::onUninstall(); }
+    bool GC1530::onUninstall() { fairwind::apps::FairWindApp::onUninstall(); return true;}
 
     QString GC1530::getHomeUrl() {
         return m_homeUrl;
