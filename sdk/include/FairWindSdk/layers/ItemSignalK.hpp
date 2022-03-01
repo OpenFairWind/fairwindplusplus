@@ -8,7 +8,7 @@
 #include <QGeoView/QGVImage.h>
 
 #include <FairWindSDK.hpp>
-#include <SignalKDocument.hpp>
+#include <FairWindSdk/signalk/Document.hpp>
 
 class FAIRWINDSDK_LIB_DECL ItemSignalK: public QGVImage {
 Q_OBJECT

@@ -57,8 +57,9 @@ namespace fairwind::connections {
         auto fairWind = fairwind::FairWind::getInstance();
         auto signalKDocument = fairWind->getSignalKDocument();
 
-        connect(signalKDocument, &SignalKDocument::created, this, &SignalKClient::onCreated);
-        connect(signalKDocument, &SignalKDocument::updated, this, &SignalKClient::onUpdated);
+        connect(signalKDocument, &signalk::Document::created, this, &SignalKClient::onCreated);
+        connect(signalKDocument, &signalk::Document::updated, this, &SignalKClient::onUpdated);
+        connect(signalKDocument, &signalk::Document::fetched, this, &SignalKClient::onFetched);
 
         connect(&mWebSocket, &QWebSocket::connected, this, &SignalKClient::onConnected);
         connect(&mWebSocket, &QWebSocket::disconnected, this, &SignalKClient::onDisconnected);
@@ -183,16 +184,22 @@ namespace fairwind::connections {
         return mLabel;
     }
 
-    void SignalKClient::onCreated(const QString &path, const QJsonValue &newValue) {
+    QJsonValue SignalKClient::onCreated(const QString &path, const QJsonValue &newValue) {
         QString processedPath = path;
         processedPath = processedPath.replace(".","/");
-        signalkPost(http()+processedPath,newValue.toObject());
+        return signalkPost(http()+processedPath,newValue.toObject());
     }
 
-    void SignalKClient::onUpdated(const QString &path, const QJsonValue &newValue) {
+    QJsonValue SignalKClient::onUpdated(const QString &path, const QJsonValue &newValue) {
         QString processedPath = path;
         processedPath = processedPath.replace(".","/");
-        signalkPut(http()+processedPath,newValue.toObject());
+        return signalkPut(http()+processedPath,newValue.toObject());
+    }
+
+    QJsonValue SignalKClient::onFetched(const QString &path) {
+        QString processedPath = path;
+        processedPath = processedPath.replace(".","/");
+        return signalkGet(http()+processedPath);
     }
 
     QJsonObject SignalKClient::signalkGet(QString url) {

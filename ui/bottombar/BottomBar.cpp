@@ -6,8 +6,8 @@
 #include <FairWindSdk/FairWind.hpp>
 #include <QGeoLocation>
 #include <QGeoCoordinate>
-#include <FairWindSdk/SignalKDocument.hpp>
-
+#include <FairWindSdk/signalk/Document.hpp>
+#include <FairWindSdk/signalk/Note.hpp>
 #include "BottomBar.hpp"
 
 /*
@@ -94,8 +94,8 @@ void fairwind::ui::bottombar::BottomBar::apps_clicked() {
     auto fairWind = fairwind::FairWind::getInstance();
     auto signalKDocument = fairWind->getSignalKDocument();
 
-    Note note1("Note1", "This is my note1", QGeoCoordinate(40,14));
-    Note note2("Note2", "This is my note2", QGeoCoordinate(40.56,14.28));
+    signalk::Note note1("Note1", "This is my note1", QGeoCoordinate(40,14));
+    signalk::Note note2("Note2", "This is my note2", QGeoCoordinate(40.56,14.28));
 
     signalKDocument->set("resources.notes", note1);
     signalKDocument->set("resources.notes", note2);

@@ -51,8 +51,9 @@ namespace fairwind::connections {
         void onDisconnected();
         void onTextMessageReceived(QString message);
 
-        void onCreated(const QString &path, const QJsonValue &newValue);
-        void onUpdated(const QString &path, const QJsonValue &newValue);
+        QJsonValue onCreated(const QString &path, const QJsonValue &newValue);
+        QJsonValue onUpdated(const QString &path, const QJsonValue &newValue);
+        QJsonValue onFetched(const QString &path);
 
     private:
         QString mUsername;

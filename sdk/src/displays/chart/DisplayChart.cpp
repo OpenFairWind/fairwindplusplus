@@ -22,7 +22,7 @@
 #include <QDir>
 #include <QGuiApplication>
 
-#include <FairWindSdk/SignalKDocument.hpp>
+#include <FairWindSdk/signalk/Document.hpp>
 #include <FairWind.hpp>
 #include <FairWindSdk/layers/SignalKLayer.hpp>
 #include <FairWindSdk/displays//DisplayChart.hpp>
