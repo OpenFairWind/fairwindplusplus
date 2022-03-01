@@ -8,7 +8,7 @@
 #include <QJsonObject>
 #include <FairWindSdk/FairWindSDK.hpp>
 #include <FairWindSdk/util/ExtendedJsonSchema.hpp>
-
+#include <FairWindSdk/signalk/Document.hpp>
 
 
 namespace fairwind::apps {
@@ -67,10 +67,10 @@ namespace fairwind::apps {
         virtual void onConfigChanged();
 
         // Called when the app runs the first time ever
-        virtual void onInstall() = 0;
+        virtual bool onInstall() = 0;
 
         // Called when the app runs its last time
-        virtual void onUninstall() = 0;
+        virtual bool onUninstall() = 0;
 
         // Get the config.json content
         virtual QJsonObject getConfig();
