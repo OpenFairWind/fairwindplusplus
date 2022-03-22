@@ -46,7 +46,7 @@ namespace fairwind::apps::portolano {
 
         QGeoCoordinate mPosition;
 
-        QGeoCoordinate oldPosition;
+        QGeoCoordinate mOldPosition;
 
         double radius;
 

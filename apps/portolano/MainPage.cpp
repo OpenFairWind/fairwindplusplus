@@ -23,23 +23,38 @@ namespace fairwind::apps::portolano {
 
         ui->setupUi((QWidget *)this);
 
+        // Set the initial latitude
+        mOldPosition.setLatitude(0.0);
+
+        // SEt the initial longitude
+        mOldPosition.setLongitude(0.0);
+
         // Get the FairWind singleton
         auto fairWind = fairwind::FairWind::getInstance();
 
-        // Get the signalk document from the FairWind singleton itself
-        auto signalKDocument = fairWind->getSignalKDocument();
+        // Get the configuration object
+        auto config = fairWind->getConfig();
 
+        // Check if the configuration object has the key Options
+        if (config.contains("Options") && config["Options"].isObject()) {
 
+            // Get the Options object
+            auto jsonObjectOptions = config["Options"].toObject();
 
-        oldPosition.setLatitude(0.0);
-        oldPosition.setLongitude(0.0);
+            // Check if the Options object has tHe Position key and if it is a string
+            if (jsonObjectOptions.contains("Position") && jsonObjectOptions["Position"].isString()) {
 
-        // Get the signalk document's string
-        QString self = signalKDocument->getSelf();
+                // Get the position SignalK key
+                auto positionSignalK = jsonObjectOptions["Position"].toString();
 
-        // Subscribe to signalk and make sure that navigation infos are updated accordingly
-        signalKDocument->subscribe(self + ".navigation.position.value", this, SLOT(fairwind::apps::portolano::updateNavigationPosition));
+                // Get the signalk document from the FairWind singleton itself
+                auto signalKDocument = fairWind->getSignalKDocument();
 
+                // Subscribe to signalk and make sure that navigation infos are updated accordingly
+                signalKDocument->subscribe(positionSignalK, this,
+                                           SLOT(MainPage::updateNavigationPosition));
+            }
+        }
         connect(ui->comboBox_Search, &QComboBox::editTextChanged,this, &MainPage::onEditTextChanged);
         connect(ui->checkBox_Range, &QCheckBox::stateChanged, this, &MainPage::onBoolChanged);
         connect(ui->doubleSpinBox_Range, &QDoubleSpinBox::textChanged, this, &MainPage::onNumberTextChanged);
@@ -70,8 +85,8 @@ namespace fairwind::apps::portolano {
         config["range"] = text.toDouble();
         getFairWindApp()->setConfig(config);
 
-        oldPosition.setLatitude(0.0);
-        oldPosition.setLongitude(0.0);
+        mOldPosition.setLatitude(0.0);
+        mOldPosition.setLongitude(0.0);
     }
 
     void MainPage::onNumberSelectChanged(double value) {
@@ -81,8 +96,8 @@ namespace fairwind::apps::portolano {
         config["range"] = value;
         getFairWindApp()->setConfig(config);
 
-        oldPosition.setLatitude(0.0);
-        oldPosition.setLongitude(0.0);
+        mOldPosition.setLatitude(0.0);
+        mOldPosition.setLongitude(0.0);
     }
 
     void MainPage::onBoolChanged(int state) {
@@ -160,7 +175,7 @@ namespace fairwind::apps::portolano {
             mPosition.setLatitude(update["updates"][0]["values"][0]["value"].toObject()["latitude"].toDouble());
             mPosition.setLongitude(update["updates"][0]["values"][0]["value"].toObject()["longitude"].toDouble());
 
-            if (getDistanceBetweenTwoPoints(oldPosition, mPosition) >= (ui->doubleSpinBox_Range->value()) * mNm2m /2){
+            if (getDistanceBetweenTwoPoints(mOldPosition, mPosition) >= (ui->doubleSpinBox_Range->value()) * mNm2m /2){
                 radius = ui->doubleSpinBox_Range->value() * mNm2m; // m
                 double mult = 1.1;
                 auto p1 = calculateDerivedPosition(mPosition, mult * radius, 0);
@@ -181,7 +196,7 @@ namespace fairwind::apps::portolano {
                     insertIntoList(query);
                 }
 
-                oldPosition = mPosition;
+                mOldPosition = mPosition;
             }
         }
     }
