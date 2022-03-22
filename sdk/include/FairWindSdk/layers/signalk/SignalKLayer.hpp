@@ -10,14 +10,14 @@
 
 #include <QGeoView/QGVLayer.h>
 
-namespace fairwind::layers {
+namespace fairwind::layers::signalk {
     /*
      * SignalKLayer
      * Basic layer holding signalk elements
      */
     class FAIRWINDSDK_LIB_DECL SignalKLayer : public QGVLayer, public fairwind::layers::ILayer {
     Q_OBJECT
-        //Q_INTERFACES(fairwind::layers::IFairWindLayer)
+
 
     public:
         explicit SignalKLayer();
