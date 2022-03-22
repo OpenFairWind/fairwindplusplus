@@ -28,5 +28,7 @@
         <file>resources/images/switches/toggle_on.png</file>
         <file>resources/schemas/display.json</file>
         <file>resources/schemas/layer.json</file>
+
+        <file>resources/images/symbols/symbol_marina.png</file>
     </qresource>
 </RCC>
