@@ -9,7 +9,7 @@
 #include <utility>
 #include <QJsonArray>
 
-#include <FairWindSdk/layers/SignalKLayer.hpp>
+#include <FairWindSdk/layers/signalk/SignalKLayer.hpp>
 #include <FairWindSdk/layers/OSMLayer.hpp>
 #include <FairWindSdk/layers/TiledLayer.hpp>
 #include <FairWindSdk/displays/DisplaySingleText.hpp>
@@ -52,7 +52,7 @@ FairWind::FairWind() {
     // Register built-in chart layers
     registerLayer(new layers::OSMLayer());
     registerLayer(new layers::TiledLayer());
-    registerLayer(new layers::SignalKLayer());
+    registerLayer(new layers::signalk::SignalKLayer());
 
     // Register built-in displays
     registerDisplay(new displays::DisplaySingleText());
@@ -824,8 +824,11 @@ void FairWind::installNewApps() {
         QFile metadataFile(dataPath.absolutePath()+QDir::separator()+"metadata.json");
         if (!metadataFile.exists()) {
             if (fairWindApp->onInstall()) {
-                QString metadata = "{ \"installationDate\": " + signalk::Document::currentISO8601TimeUTC() + "}";
-                QJsonDocument jsonDocument = QJsonDocument::fromJson(metadata.toLatin1());
+
+                auto jsonObjectMetadata = QJsonObject();
+                jsonObjectMetadata["installationDate"] = signalk::Document::currentISO8601TimeUTC();
+                QJsonDocument jsonDocument = QJsonDocument();
+                jsonDocument.setObject(jsonObjectMetadata);
                 metadataFile.open(QFile::OpenModeFlag::WriteOnly);
                 if (metadataFile.isOpen()) {
                     metadataFile.write(jsonDocument.toJson());
