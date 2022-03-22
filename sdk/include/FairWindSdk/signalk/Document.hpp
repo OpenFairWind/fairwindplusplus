@@ -10,8 +10,7 @@
 #include <QGeoCoordinate>
 #include <QGeoView/QGVGlobal.h>
 
-#include <FairWindSDK/FairWindSDK.hpp>
-//#include <FairWindSdk/signalk/Subscription.hpp>
+#include "../FairWindSDK.hpp"
 
 typedef void (*myfunc)();
 

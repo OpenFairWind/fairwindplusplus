@@ -7,8 +7,8 @@
 
 #include <QRegularExpression>
 #include <QJsonObject>
-#include <FairWindSDK/FairWindSDK.hpp>
-#include <FairWindSdk/signalk/Document.hpp>
+#include "../FairWindSDK.hpp"
+#include "Document.hpp"
 
 
 namespace fairwind::signalk {

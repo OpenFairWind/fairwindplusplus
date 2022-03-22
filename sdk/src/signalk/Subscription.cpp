@@ -3,6 +3,7 @@
 //
 
 #include <FairWindSdk/signalk/Subscription.hpp>
+#include "FairWind.hpp"
 
 
 namespace fairwind::signalk {
@@ -10,17 +11,27 @@ namespace fairwind::signalk {
  * Subscription - Public Constructor
  */
     Subscription::Subscription(const QString &fullPath, QObject *receiver, const char *member) {
-        //qDebug() << "fullPath: " << fullPath << " receiver: " << receiver->metaObject()->className() << " member:" << member;
-        QString re = QString(fullPath).replace(".", "[.]").replace(":", "[:]").replace("*", ".*");
-        regularExpression = QRegularExpression(fullPath);
+
+        auto fairWind = FairWind::getInstance();
+        auto signalK = fairWind->getSignalKDocument();
+        auto self = signalK->getSelf();
+
+        QString fullPathEx = QString(fullPath).replace("${self}",self);
+        QString re = QString(fullPathEx).replace(".", "[.]").replace(":", "[:]").replace("*", ".*");
+        //qDebug() << "Subscription::Subscription re: " << re;
+        regularExpression = QRegularExpression(re);
         this->receiver = receiver;
         memberName = QString(member);
+
+
         int pos = memberName.lastIndexOf("::");
         memberName = memberName.right(memberName.length() - pos - 2);
-        //QString className=QString(receiver->metaObject()->className());
-        //int pos=memberName.indexOf(className)+className.length()+2;
-        //memberName= memberName.right(memberName.length()-pos);
-        //qDebug() << "regularExpression: " << regularExpression << " receiver: " << receiver->metaObject()->className() << " member:" << memberName;
+
+        // Get the initial value invoking the SignalK API
+        auto initialValue = signalK->get(fullPathEx);
+
+        // Inject the value in the local document
+        signalK->insert(fullPathEx,initialValue);
     }
 
 /*
@@ -38,14 +49,16 @@ namespace fairwind::signalk {
     }
 
     bool Subscription::match(Document *document, const QString &fullPath) {
+        //qDebug() << "Subscription::match : " << regularExpression << " ? " << fullPath;
         if (regularExpression.match(fullPath).hasMatch()) {
-            //qDebug() << "Subscription::match("  << fullPath << ") :" << memberName;
+            //qDebug() << "Subscription::match : " << regularExpression << " = " << fullPath << " !!!";
             QJsonObject updateObject = document->makeUpdate(fullPath);
+            //qDebug() << "Subscription::match invokeMethod: " << memberName.toStdString().c_str();
+            bool invokeResult = QMetaObject::invokeMethod(
+                    receiver, memberName.toStdString().c_str(),
+                    Qt::AutoConnection,Q_ARG(QJsonObject, updateObject));
 
-            QMetaObject::invokeMethod(receiver, memberName.toStdString().c_str(), Qt::AutoConnection,
-                                      Q_ARG(QJsonObject, updateObject));
-            //qDebug() << "Done!";
-            return true;
+            return invokeResult;
         }
 
         return false;

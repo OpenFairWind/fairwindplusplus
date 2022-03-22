@@ -2,6 +2,7 @@
 // Created by Raffaele Montella on 01/03/22.
 //
 
+#include <math.h>
 #include <FairWindSdk/signalk/Document.hpp>
 #include <FairWindSdk/signalk/Note.hpp>
 
@@ -19,7 +20,7 @@ namespace fairwind::signalk {
         QJsonObject jsonObjectPosition;
         jsonObjectPosition["latitude"] = position.latitude();
         jsonObjectPosition["longitude"] = position.longitude();
-        if (!std::isnan(position.altitude())) {
+        if (!isnan(position.altitude())) {
             jsonObjectPosition["altitude"] = position.altitude();
         }
 
@@ -136,7 +137,7 @@ namespace fairwind::signalk {
             QJsonObject jsonObjectPosition;
             jsonObjectPosition["latitude"] = position.latitude();
             jsonObjectPosition["longitude"] = position.longitude();
-            if (!std::isnan(position.altitude())) {
+            if (!isnan(position.altitude())) {
                 jsonObjectPosition["altitude"] = position.altitude();
             }
         }

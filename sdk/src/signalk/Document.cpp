@@ -29,10 +29,11 @@ namespace fairwind::signalk {
             for (auto valueItem: values) {
                 QString fullPath = context + "." + valueItem.toObject()["path"].toString();
                 QJsonValue value = valueItem.toObject()["value"];
-                insert(fullPath + ".value", value);
-                insert(fullPath + ".source", source);
-                insert(fullPath + ".timestamp", timeStamp);
-
+                QJsonObject jsonObject;
+                jsonObject["value"] = value;
+                jsonObject["source"] = source;
+                jsonObject["timestamp"] = timeStamp;
+                insert(fullPath,jsonObject);
             }
         }
         //qDebug() << m_jsonDocument.toJson();
@@ -57,8 +58,7 @@ namespace fairwind::signalk {
         obj[propertyName] = subValue;
     }
 
-    void
-    Document::object2pathAndValue(QMap<QString, QJsonValue> &map, const QString &path, const QJsonValue value) {
+    void Document::object2pathAndValue(QMap<QString, QJsonValue> &map, const QString &path, const QJsonValue value) {
         QJsonValue result = value;
         if (value.isObject()) {
             auto object = value.toObject();
@@ -82,7 +82,7 @@ namespace fairwind::signalk {
     }
 
     QJsonValue Document::get(const QString &path) {
-        return QJsonValue();
+        return emit fetched(path);
     }
 
     QJsonValue Document::insert(const QString &fullPath, const QJsonValue &newValue, int mode) {

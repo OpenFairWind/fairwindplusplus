@@ -8,7 +8,7 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QGeoCoordinate>
-#include <FairWindSDK/FairWindSDK.hpp>
+#include "../FairWindSDK.hpp"
 
 namespace fairwind::signalk {
 
