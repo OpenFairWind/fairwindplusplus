@@ -120,12 +120,16 @@ add_library(fairwindsdk SHARED
         include/FairWindSdk/displays/DisplayToggleSwitch.hpp
         include/FairWindSdk/displays/DisplayWindAngleGauge.hpp
         include/FairWindSdk/displays/DisplayChart.hpp
-        include/FairWindSdk/layers/ItemVessel.hpp
-        include/FairWindSdk/layers/ItemAton.hpp
-        include/FairWindSdk/layers/ItemShoreBasestations.hpp
-        include/FairWindSdk/layers/ItemSignalK.hpp
-        include/FairWindSdk/layers/ItemDefault.hpp
-        include/FairWindSdk/layers/SignalKLayer.hpp
+        include/FairWindSdk/displays/DisplaySimpleTimeSeries.hpp
+        include/FairWindSdk/layers/signalk/ItemVessel.hpp
+        include/FairWindSdk/layers/signalk/ItemAton.hpp
+        include/FairWindSdk/layers/signalk/ItemShoreBasestations.hpp
+        include/FairWindSdk/layers/signalk/ItemWaypoint.hpp
+        include/FairWindSdk/layers/signalk/ItemNote.hpp
+        include/FairWindSdk/layers/signalk/ItemRegion.hpp
+        include/FairWindSdk/layers/signalk/ItemSignalK.hpp
+        include/FairWindSdk/layers/signalk/ItemDefault.hpp
+        include/FairWindSdk/layers/signalk/SignalKLayer.hpp
         include/FairWindSdk/layers/OSMLayer.hpp
         include/FairWindSdk/layers/TiledLayer.hpp
         include/FairWindSdk/layouts/LayoutBase.hpp
@@ -162,12 +166,16 @@ add_library(fairwindsdk SHARED
         src/displays/base/switch/DisplayToggleSwitch.cpp
         src/displays/wind/DisplayWindAngleGauge.cpp
         src/displays/chart/DisplayChart.cpp
-        src/layers/ItemDefault.cpp
-        src/layers/ItemVessel.cpp
-        src/layers/ItemAton.cpp
-        src/layers/ItemShoreBasestations.cpp
-        src/layers/ItemSignalK.cpp
-        src/layers/SignalKLayer.cpp
+        src/displays/data/DisplaySimpleTimeSeries.cpp
+        src/layers/signalk/ItemDefault.cpp
+        src/layers/signalk/ItemVessel.cpp
+        src/layers/signalk/ItemAton.cpp
+        src/layers/signalk/ItemShoreBasestations.cpp
+        src/layers/signalk/ItemWaypoint.cpp
+        src/layers/signalk/ItemNote.cpp
+        src/layers/signalk/ItemRegion.cpp
+        src/layers/signalk/ItemSignalK.cpp
+        src/layers/signalk/SignalKLayer.cpp
         src/layers/OSMLayer.cpp
         src/layers/TiledLayer.cpp
         src/layouts/LayoutBase.cpp
