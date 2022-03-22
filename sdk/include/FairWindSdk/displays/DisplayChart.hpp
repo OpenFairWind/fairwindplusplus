@@ -8,10 +8,11 @@
 #include <QWidget>
 #include <QNetworkDiskCache>
 
-#include "QGeoView/QGVLayer.h"
-
 #include <FairWindSdk/FairWindSDK.hpp>
 #include <FairWindSdk/IDisplay.hpp>
+#include <QNetworkAccessManager>
+
+#include <QGeoView/QGVMap.h>
 
 namespace Ui {
     class DisplayChart;
@@ -34,13 +35,12 @@ namespace fairwind::displays {
         void onInit(QMap<QString, QVariant> params) override;
         IDisplay *getNewInstance() override;
         QWidget *onSettings() override;
-        /*
-        bool smaller() override;
-        bool bigger() override;
-         */
+
 
     public slots:
-        void updateNavigationPosition(const QJsonObject update);
+        void updateNavigationPosition(const QJsonObject& update);
+        void updateNavigationCourseOverGroundTrue(const QJsonObject& update);
+        void updateNavigationSpeedOverGround(const QJsonObject& update);
 
     private:
         Ui::DisplayChart *ui;

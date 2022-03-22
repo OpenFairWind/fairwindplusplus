@@ -8,137 +8,144 @@
 #include <FairWindSdk/displays/DisplayBase.hpp>
 #include <FairWindSdk/displays/DisplayBarGauge.hpp>
 
-fairwind::displays::DisplayBarGauge::DisplayBarGauge(QWidget *parent) :
-        QWidget(parent),
-        DisplayBase(),
-        ui(new Ui::DisplayBarGauge) {
+namespace fairwind::displays {
 
-    ui->setupUi(this);
-    _currentValue=0;
-    _precision = 1;
-    _shortStep= 10;
-    _longStep = 50;
-}
-void fairwind::displays::DisplayBarGauge::onInit(QMap<QString, QVariant> params) {
 
-    qDebug() << "fairwind::displays::DisplayBarGauge::onInit: " << params;
-    if (params.contains("minValue")) {
-        _minValue = (float)params["minValue"].toDouble();
+    DisplayBarGauge::DisplayBarGauge(QWidget *parent) :
+            QWidget(parent),
+            DisplayBase(),
+            ui(new Ui::DisplayBarGauge) {
+
+        ui->setupUi(this);
+        _currentValue = 0;
+        _precision = 1;
+        _shortStep = 10;
+        _longStep = 50;
     }
-    if (params.contains("maxValue")) {
-        _maxValue = (float)params["maxValue"].toDouble();
-    }
-    if (params.contains("shortStep")) {
-        _shortStep = (float)params["shortStep"].toDouble();
-    }
-    if (params.contains("longStep")) {
-        _longStep = (float)params["longStep"].toDouble();
-    }
+
+    void DisplayBarGauge::onInit(QMap<QString, QVariant> params) {
+
+        qDebug() << "DisplayBarGauge::onInit: " << params;
+        if (params.contains("minValue")) {
+            _minValue = (float) params["minValue"].toDouble();
+        }
+        if (params.contains("maxValue")) {
+            _maxValue = (float) params["maxValue"].toDouble();
+        }
+        if (params.contains("shortStep")) {
+            _shortStep = (float) params["shortStep"].toDouble();
+        }
+        if (params.contains("longStep")) {
+            _longStep = (float) params["longStep"].toDouble();
+        }
 // Create the Bargauge widget
-    vbar = new QcBar;
-    vbar->setDirection(QcBar::DirectionEnum::Vertical);
-    vbar->setBgColor(Qt::darkGray);
-    vbar->setProgressColor(Qt::darkBlue);
-    vbar->setLineColor(Qt::white);
-    vbar->setRange(_minValue,_maxValue);
-    vbar->setCurrentValue(_currentValue);
-    vbar->setPrecision(_precision);
-    vbar->setShortStep(_shortStep);
-    vbar->setLongStep(_longStep);
-    vbar->setRulerRight(true);
-    vbar->setRulerLeft(true);
+        vbar = new QcBar;
+        vbar->setDirection(QcBar::DirectionEnum::Vertical);
+        vbar->setBgColor(Qt::darkGray);
+        vbar->setProgressColor(Qt::darkBlue);
+        vbar->setLineColor(Qt::white);
+        vbar->setRange(_minValue, _maxValue);
+        vbar->setCurrentValue(_currentValue);
+        vbar->setPrecision(_precision);
+        vbar->setShortStep(_shortStep);
+        vbar->setLongStep(_longStep);
+        vbar->setRulerRight(true);
+        vbar->setRulerLeft(true);
 
-    float h = this->height();
-    float labelHeight = h*0.15;
+        float h = this->height();
+        float labelHeight = h * 0.15;
 
-    hLayout = new QHBoxLayout();
+        hLayout = new QHBoxLayout();
 
-    mLabel=new QLabel();
-    mLabel->setMaximumHeight(labelHeight);
-    mLabel->setAlignment(Qt::AlignLeft);
-    mLabel->setStyleSheet("QLabel {color: darkGrey;}");
+        mLabel = new QLabel();
+        mLabel->setMaximumHeight(labelHeight);
+        mLabel->setAlignment(Qt::AlignLeft);
+        mLabel->setStyleSheet("QLabel {color: darkGrey;}");
 
-    mValue = new QLabel();
-    mValue->setMaximumHeight(labelHeight);
-    mValue->setAlignment(Qt::AlignCenter);
-    mValue->setStyleSheet("QLabel {color: darkGrey;}");
+        mValue = new QLabel();
+        mValue->setMaximumHeight(labelHeight);
+        mValue->setAlignment(Qt::AlignCenter);
+        mValue->setStyleSheet("QLabel {color: darkGrey;}");
 
-    mUnits = new QLabel();
-    mUnits->setMaximumHeight(labelHeight);
-    mUnits->setAlignment(Qt::AlignLeft);
-    mUnits->setStyleSheet("QLabel {color: darkGrey;}");
+        mUnits = new QLabel();
+        mUnits->setMaximumHeight(labelHeight);
+        mUnits->setAlignment(Qt::AlignLeft);
+        mUnits->setStyleSheet("QLabel {color: darkGrey;}");
 
-    // Setup parameters
+        // Setup parameters
 
-    if (params.contains("fullPath")) {
-        subscribe(params["fullPath"].toString());
+        if (params.contains("fullPath")) {
+            subscribe(params["fullPath"].toString());
+        }
+        if (params.contains("label")) {
+            setLabel(params["label"].toString());
+        }
+        if (params.contains("description")) {
+            setToolTip(params["description"].toString());
+        }
+        if (params.contains("units")) {
+            setUnits(params["units"].toString());
+        }
+        if (params.contains("value")) {
+            setValue(params["value"].toString());
+        }
+
+        ui->verticalLayout->addWidget(vbar);
+        hLayout->addWidget(mLabel);
+        hLayout->addWidget(mValue);
+        hLayout->addWidget(mUnits);
+        ui->verticalLayout->addLayout(hLayout);
+
+
+        //ui->verticalLayout->addWidget(mLabel);
     }
-    if (params.contains("label")) {
-        setLabel(params["label"].toString());
-    }
-    if (params.contains("description")) {
-        setToolTip(params["description"].toString());
-    }
-    if (params.contains("units")) {
-        setUnits(params["units"].toString());
-    }
-    if (params.contains("value")) {
-        setValue(params["value"].toString());
+
+    DisplayBarGauge::~DisplayBarGauge() {
+        delete ui;
     }
 
-    ui->verticalLayout->addWidget(vbar);
-    hLayout->addWidget(mLabel);
-    hLayout->addWidget(mValue);
-    hLayout->addWidget(mUnits);
-    ui->verticalLayout->addLayout(hLayout);
+    QImage DisplayBarGauge::getIcon() const {
+        return QImage(":resources/images/icons/display_gauge_icon.png");
+    }
 
+    QWidget *DisplayBarGauge::onSettings() {
+        return nullptr;
+    }
 
-    //ui->verticalLayout->addWidget(mLabel);
-}
+    IDisplay *DisplayBarGauge::getNewInstance() {
+        return static_cast<IDisplay *>(new DisplayBarGauge());
+    }
 
-fairwind::displays::DisplayBarGauge::~DisplayBarGauge() {
-    delete ui;
-}
+    QString DisplayBarGauge::getClassName() const {
+        return this->metaObject()->className();
+    }
 
-QImage fairwind::displays::DisplayBarGauge::getIcon() const {
-    return QImage(":resources/images/icons/display_gauge_icon.png");
-}
+    void DisplayBarGauge::update(const QJsonObject update) {
+        DisplayBase::update(update);
+    }
 
-QWidget *fairwind::displays::DisplayBarGauge::onSettings() {
-    return nullptr;
-}
+    void DisplayBarGauge::subscribe(QString fullPath) {
+        auto fairWind = fairwind::FairWind::getInstance();
+        auto signalKDocument = fairWind->getSignalKDocument();
 
-fairwind::displays::IDisplay *fairwind::displays::DisplayBarGauge::getNewInstance() {
-    return static_cast<IDisplay *>(new DisplayBarGauge());
-}
+        DisplayBase::subscribe(fullPath);
 
-QString fairwind::displays::DisplayBarGauge::getClassName() const {
-    return this->metaObject()->className();
-}
-void fairwind::displays::DisplayBarGauge::update(const QJsonObject update) {
-   DisplayBase::update(update);
-}
-void fairwind::displays::DisplayBarGauge::subscribe(QString fullPath) {
-    auto fairWind = fairwind::FairWind::getInstance();
-    auto signalKDocument = fairWind->getSignalKDocument();
+        setToolTip(getDescription());
+        signalKDocument->subscribe(getFullPath(),
+                                   this, SLOT(fairwind::displays::DisplayBarGauge::update));
+    }
 
-    DisplayBase::subscribe(fullPath);
+    void DisplayBarGauge::setLabel(QString label) {
+        mLabel->setText(label);
+    }
 
-    setToolTip(getDescription());
-    signalKDocument->subscribe( getFullPath(),
-                                this,SLOT(DisplayBarGauge::update));
-}
+    void DisplayBarGauge::setUnits(QString units) {
+        mUnits->setText(units);
+    }
 
-void fairwind::displays::DisplayBarGauge::setLabel(QString label) {
-       mLabel->setText(label);
-}
-
-void fairwind::displays::DisplayBarGauge::setUnits(QString units) {
-    mUnits->setText(units);
-}
-
-void fairwind::displays::DisplayBarGauge::setValue(QString text) {
-    mValue->setText(text);
-    double value=text.toDouble();
-    vbar->setCurrentValue(value);
+    void DisplayBarGauge::setValue(QString text) {
+        mValue->setText(text);
+        double value = text.toDouble();
+        vbar->setCurrentValue(value);
+    }
 }
