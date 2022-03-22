@@ -28,11 +28,9 @@ namespace fairwind::ui::topbar {
 
     public slots:
 
-        void updateNavigationPosition(const QJsonObject update);
-
-        void updateNavigationCourseOverGroundTrue(const QJsonObject update);
-
-        void updateNavigationSpeedOverGround(const QJsonObject update);
+        void updateNavigationPosition(const QJsonObject& update);
+        void updateNavigationCourseOverGroundTrue(const QJsonObject& update);
+        void updateNavigationSpeedOverGround(const QJsonObject& update);
 
         void updateTime();
 
