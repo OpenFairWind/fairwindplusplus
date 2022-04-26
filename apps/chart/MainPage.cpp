@@ -8,7 +8,6 @@
 #include <QJsonArray>
 #include <FairWindSdk/displays/DisplayChart.hpp>
 #include <FairWindSdk/FairWind.hpp>
-#include <FairWindSdk/FairWindApp.hpp>
 #include "MainPage.hpp"
 #include "ui_MainPage.h"
 
@@ -17,10 +16,6 @@ namespace fairwind::apps::chart {
             PageBase(parent), ui(new Ui::MainPage) {
 
         ui->setupUi((QWidget *)this);
-
-
-        
-
 
         ui->verticalLayoutLeft->addStretch(1);
         ui->verticalLayoutRight->addStretch(1);
@@ -35,7 +30,7 @@ namespace fairwind::apps::chart {
         QMap<QString, QVariant> params;
         params["config"]=config;
         displayChart->onInit(params);
-        ui->horizontalLayout->addWidget(displayChart);
+        ui->horizontalLayout->addWidget((QWidget *)displayChart);
 
         QMap<QString, QLayout *> layouts;
         layouts["left"]=ui->verticalLayoutLeft;

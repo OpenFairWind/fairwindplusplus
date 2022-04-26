@@ -12,16 +12,16 @@
 
 #include <QGeoView/QGVLayer.h>
 
-#include "FairWindSDK.hpp"
-#include "IFairWindApp.hpp"
-#include "ILayer.hpp"
-#include "SignalKDocument.hpp"
-#include "AppItem.hpp"
-#include "IDisplay.hpp"
-#include "IConnection.hpp"
-#include "ILayout.hpp"
-#include "ISettings.hpp"
-#include "ISettingsTab.hpp"
+#include <FairWindSdk/FairWindSDK.hpp>
+#include <FairWindSdk/IFairWindApp.hpp>
+#include <FairWindSdk/ILayer.hpp>
+#include <FairWindSdk/signalk/Document.hpp>
+#include <FairWindSdk/AppItem.hpp>
+#include <FairWindSdk/IDisplay.hpp>
+#include <FairWindSdk/IConnection.hpp>
+#include <FairWindSdk/ILayout.hpp>
+#include <FairWindSdk/ISettings.hpp>
+#include <FairWindSdk/ISettingsTab.hpp>
 
 namespace fairwind {
     /*
@@ -34,13 +34,14 @@ namespace fairwind {
         static FairWind *getInstance();
 
         void loadApps();
-
-
-
-        void setApplicationDirPath(QString qString);
+        void startConnections();
+        void installNewApps();
         void loadConfig();
 
-        SignalKDocument *getSignalKDocument();
+        void setApplicationDirPath(QString qString);
+
+
+        signalk::Document *getSignalKDocument();
 
         apps::IFairWindApp *getAppByExtensionId(const QString& id);
         QList<QString> getExtensionsIds();
@@ -95,7 +96,7 @@ namespace fairwind {
         QString mAlarmsFairWindAppId;
         QString mSettingsFairWindAppId;
 
-        SignalKDocument m_signalkDocument;
+        signalk::Document m_signalkDocument;
 
         QMap<QString, fairwind::apps::IFairWindApp *> m_mapAppId2FairWindApp;
         QMap<QString, AppItem *> m_mapHash2AppItem;

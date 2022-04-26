@@ -28,6 +28,10 @@ namespace fairwind::apps::dashboard {
         void onDestroy() override;
 
         void onConfigChanged() override;
+
+        bool onInstall() override;
+        bool onUninstall() override;
+
     private:
         QJsonObject m_config;
     };

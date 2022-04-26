@@ -8,24 +8,28 @@
 #include <QFile>
 #include <QProcess>
 
-void fairwind::apps::external::External::onStart() {
-    FairWindApp::onStart();
-
-    QMap<QString, QVariant> args = getArgs();
-
-    if (args.contains("Command")) {
-        QString command=args["Command"].toString();
-        QStringList commandArgs;
-        commandArgs.empty();
-        QProcess::startDetached(command/*,commandArgs*/);
-        auto mainWindow = FairWind::getInstance()->getMainWindow();
-        mainWindow->showMinimized();
+namespace fairwind::apps::external {
+    void External::onStart() {
+        FairWindApp::onStart();
+    
+        QMap<QString, QVariant> args = getArgs();
+    
+        if (args.contains("Command")) {
+            QString command=args["Command"].toString();
+            QStringList commandArgs;
+            commandArgs.empty();
+            QProcess::startDetached(command/*,commandArgs*/);
+            auto mainWindow = FairWind::getInstance()->getMainWindow();
+            mainWindow->showMinimized();
+        }
     }
+    
+    void External::onCreate() { FairWindApp::onCreate();}
+    void External::onResume() { FairWindApp::onResume();}
+    void External::onPause() { FairWindApp::onPause();}
+    void External::onStop() { FairWindApp::onStop();}
+    void External::onDestroy() { FairWindApp::onDestroy();}
+    void External::onConfigChanged() { FairWindApp::onConfigChanged();}
+    bool External::onInstall() { FairWindApp::onInstall(); return true;}
+    bool External::onUninstall() { FairWindApp::onUninstall(); return true;}
 }
-
-void fairwind::apps::external::External::onCreate() { FairWindApp::onCreate();}
-void fairwind::apps::external::External::onResume() { FairWindApp::onResume();}
-void fairwind::apps::external::External::onPause() { FairWindApp::onPause();}
-void fairwind::apps::external::External::onStop() { FairWindApp::onStop();}
-void fairwind::apps::external::External::onDestroy() { FairWindApp::onDestroy();}
-void fairwind::apps::external::External::onConfigChanged() { FairWindApp::onConfigChanged();}

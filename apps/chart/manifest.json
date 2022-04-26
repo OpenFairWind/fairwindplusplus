@@ -44,88 +44,17 @@
               "canEdit": true,
               "canSort": true
             }
-          },
-          "center_map": {
-            "type": "boolean",
-            "default": true,
-            "title": "Center Map",
-            "description": "If the map is centered, the self vessel is in the middle of the map and the map pans.",
-            "fairwind": {
-              "domain": [
-                {
-                  "key": "No",
-                  "value": false
-                },
-                {
-                  "key": "Yes",
-                  "value": true
-                }
-              ]
-            }
-          },
-          "orientation": {
-            "type": "string",
-            "default": "north",
-            "title": "Orientation",
-            "description": "If the orientation is Course Up, the chart Up is not North but the vessel heading.",
-            "fairwind": {
-              "domain": [
-                {
-                  "key": "North Up",
-                  "value": "north"
-                },
-                {
-                  "key": "Course Up",
-                  "value": "course"
-                }
-              ]
-            }
-          },
-          "position": {
-            "type": "string",
-            "default": "${self}.navigation.position",
-            "title": "Position",
-            "description": "The Signal K string for the navigation position value.",
-            "fairwind": {
-              "widget": "fairwind::ui::settings::SignalKBrowser",
-              "postfix": "(Signal K string)"
-            }
-          },
-          "heading": {
-            "type": "string",
-            "default": "${self}.navigation.courseOverGroundMagnetic",
-            "title": "Heading",
-            "description": "The Signal K string for the navigation course over ground (COG) value.",
-            "fairwind": {
-              "widget": "fairwind::ui::settings::SignalKBrowser",
-              "postfix": "(Signal K string)"
-            }
-          },
-          "speed": {
-            "type": "string",
-            "default": "${self}.navigation.speedOverGround",
-            "title": "Speed",
-            "description": "The Signal K string for the navigation speed over ground (SOG) value.",
-            "fairwind": {
-              "widget": "fairwind::ui::settings::SignalKBrowser",
-              "postfix": "(Signal K string)"
-            }
           }
         },
         "required": [
           "Displays",
-          "Layers",
-          "center_map",
-          "orientation",
-          "position",
-          "heading",
-          "speed"
+          "Layers"
         ]
       },
       "Config": {
         "Displays": [
           {
-            "active": true,
+            "active": false,
             "class": "fairwind::displays::DisplayGauge",
             "fullPath": "${self}.navigation.speedOverGround",
             "layout": "left",
@@ -134,55 +63,55 @@
             "step": 1
           },
           {
-            "active": true,
+            "active": false,
             "class": "fairwind::displays::DisplaySingleText",
             "fullPath": "${self}.navigation.speedOverGround",
             "layout": "left"
           },
           {
-            "active": true,
+            "active": false,
             "class": "fairwind::displays::DisplaySingleText",
             "fullPath": "${self}.navigation.courseOverGroundTrue",
             "layout": "left"
           },
           {
-            "active": true,
+            "active": false,
             "class": "fairwind::displays::DisplaySingleText",
             "fullPath": "${self}.navigation.speedThroughWater",
             "layout": "left"
           },
           {
-            "active": true,
+            "active": false,
             "class": "fairwind::displays::DisplaySingleText",
             "fullPath": "${self}.navigation.headingTrue",
             "layout": "left"
           },
           {
-            "active": true,
+            "active": false,
             "class": "fairwind::displays::DisplaySingleText",
             "fullPath": "${self}.environment.wind.speedApparent",
             "layout": "right"
           },
           {
-            "active": true,
+            "active": false,
             "class": "fairwind::displays::DisplaySingleText",
             "fullPath": "${self}.environment.wind.angleApparent",
             "layout": "right"
           },
           {
-            "active": true,
+            "active": false,
             "class": "fairwind::displays::DisplaySingleText",
             "fullPath": "${self}.environment.water.temperature",
             "layout": "right"
           },
           {
-            "active": true,
+            "active": false,
             "class": "fairwind::displays::DisplaySingleText",
             "fullPath": "${self}.environment.depth.belowTransducer",
             "layout": "left"
           },
           {
-            "active": true,
+            "active": false,
             "class": "fairwind::displays::DisplayWindAngleGauge",
             "context": "${self}",
             "layout": "right",
@@ -210,28 +139,49 @@
           },
           {
             "active": true,
-            "class": "fairwind::layers::SignalKLayer",
+            "class": "fairwind::layers::signalk::SignalKLayer",
             "description": "Shore base stations.",
             "fullPath": "shore.basestations",
             "name": "Base Stations"
           },
           {
             "active": true,
-            "class": "fairwind::layers::SignalKLayer",
+            "class": "fairwind::layers::signalk::SignalKLayer",
+            "description": "Saved waypoints.",
+            "fullPath": "resources.waypoints",
+            "name": "Waypoints"
+          },
+          {
+            "active": true,
+            "class": "fairwind::layers::signalk::SignalKLayer",
+            "description": "Saved regions.",
+            "fullPath": "resources.regions",
+            "name": "Regions"
+          },
+          {
+            "active": true,
+            "class": "fairwind::layers::signalk::SignalKLayer",
+            "description": "Saved notes.",
+            "fullPath": "resources.notes",
+            "name": "Notes"
+          },
+          {
+            "active": true,
+            "class": "fairwind::layers::signalk::SignalKLayer",
             "description": "Aids to navigation.",
             "fullPath": "atons",
             "name": "ATONs"
           },
           {
             "active": true,
-            "class": "fairwind::layers::SignalKLayer",
+            "class": "fairwind::layers::signalk::SignalKLayer",
             "description": "All the other vessels in the range.",
             "fullPath": "vessels",
             "name": "Vessels"
           },
           {
             "active": true,
-            "class": "fairwind::layers::SignalKLayer",
+            "class": "fairwind::layers::signalk::SignalKLayer",
             "description": "The Vessel.",
             "name": "Self"
           },
@@ -266,12 +216,7 @@
             "shapefile": ":/resources/POLYGON.shp",
             "shxfile": ":/resources/POLYGON.shx"
           }
-        ],
-        "center_map": "Yes",
-        "orientation": "North Up",
-        "position":"${self}.navigation.position",
-        "heading":"${self}.navigation.courseOverGroundMagnetic",
-        "speed":"${self}.navigation.speedOverGround"
+        ]
       }
     }
   }

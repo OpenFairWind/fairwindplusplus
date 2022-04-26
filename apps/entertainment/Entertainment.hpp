@@ -31,6 +31,9 @@ namespace fairwind::apps::entertainment {
         void onDestroy() override;
 
         void onConfigChanged() override;
+
+        bool onInstall() override;
+        bool onUninstall() override;
     };
 }
 

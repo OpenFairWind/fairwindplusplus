@@ -10,152 +10,155 @@
 
 #include "FairWindSdk/displays/DisplayBase.hpp"
 
+namespace fairwind::displays {
 /*
  * DisplayBase - Public Constructor
  */
-fairwind::displays::DisplayBase::DisplayBase() {
-    mFormat = QChar('f');
-    mFillChar = QChar('0');
-    mPrecision = 1;
-    mFieldWidth = 3;
-    mDstUnits = "";
-}
+    DisplayBase::DisplayBase() {
+        mFormat = QChar('f');
+        mFillChar = QChar('0');
+        mPrecision = 1;
+        mFieldWidth = 3;
+        mDstUnits = "";
+    }
 
 /*
  * ~DisplayBase - Destructor
  */
-fairwind::displays::DisplayBase::~DisplayBase() {}
+    DisplayBase::~DisplayBase() {}
 
 /*
  * subscribe
  * Subscribe the new display to the SignalK document, in order to update its details when needed
  */
-void fairwind::displays::DisplayBase::subscribe(QString fullPath) {
-    // Get the FairWind singleton
-    auto fairWind = fairwind::FairWind::getInstance();
-    // Get the SignalK document
-    auto signalKDocument = fairWind->getSignalKDocument();
+    void DisplayBase::subscribe(QString fullPath) {
+        // Get the FairWind singleton
+        auto fairWind = fairwind::FairWind::getInstance();
+        // Get the SignalK document
+        auto signalKDocument = fairWind->getSignalKDocument();
 
-    // Update the full path with the new self key
-    mFullPath = fullPath.replace("${self}", signalKDocument->getSelf());
-    qDebug() << "DisplayBase::subscribe: " << mFullPath;
+        // Update the full path with the new self key
+        mFullPath = fullPath.replace("${self}", signalKDocument->getSelf());
+        qDebug() << "DisplayBase::subscribe: " << mFullPath;
 
-    // Get the information from the SignalK document
-    QJsonValue jsonValue = signalKDocument->subtree(mFullPath);
-    // Check if the information are valid
-    if (jsonValue.isObject()) {
-        QJsonObject jsonObject = jsonValue.toObject();
-        // Check if the information contain a meta key
-        if (jsonObject.contains("meta") && jsonObject["meta"].isObject()) {
-            // Load metadata: units and description
-            QJsonObject objectMeta = jsonObject["meta"].toObject();
-            if (objectMeta.contains("units") && objectMeta["units"].isString()) {
-                mSrcUnits = objectMeta["units"].toString();
+        // Get the information from the SignalK document
+        QJsonValue jsonValue = signalKDocument->subtree(mFullPath);
+        // Check if the information are valid
+        if (jsonValue.isObject()) {
+            QJsonObject jsonObject = jsonValue.toObject();
+            // Check if the information contain a meta key
+            if (jsonObject.contains("meta") && jsonObject["meta"].isObject()) {
+                // Load metadata: units and description
+                QJsonObject objectMeta = jsonObject["meta"].toObject();
+                if (objectMeta.contains("units") && objectMeta["units"].isString()) {
+                    mSrcUnits = objectMeta["units"].toString();
+                }
+                if (objectMeta.contains("description") && objectMeta["description"].isString()) {
+                    mDescription = objectMeta["description"].toString();
+                }
             }
-            if (objectMeta.contains("description") && objectMeta["description"].isString()) {
-                mDescription = objectMeta["description"].toString();
-            }
-        }
-        auto parts = mFullPath.split(".");
-        parts.removeFirst();
-        parts.removeFirst();
-        auto key = parts.join(".");
+            auto parts = mFullPath.split(".");
+            parts.removeFirst();
+            parts.removeFirst();
+            auto key = parts.join(".");
 
-        qDebug() << "DisplaySingleText::subscribe: key" << key;
-        // Get the configuration from the FairWind singleton itself
-        auto config = fairWind->getConfig();
-        // Check if a SignalK configuration is present
-        if (config.contains("SignalK") && config["SignalK"].isObject()) {
-            // Load the SignalK document keys and their details
-            QJsonObject objectSignalK = config["SignalK"].toObject();
-            if (objectSignalK.contains("keys") && objectSignalK["keys"].isObject()) {
-                QJsonObject objectKeys = objectSignalK["keys"].toObject();
-                if (objectKeys.contains(key) && objectKeys[key].isObject()) {
-                    QJsonObject objectKey = objectKeys[key].toObject();
-                    if (objectKey.contains("label") && objectKey["label"].isString()) {
-                        setLabel(objectKey["label"].toString());
-                    }
-                    if (objectKey.contains("format") && objectKey["format"].isString()) {
-                        mFormat = objectKey["format"].toString().at(0);
-                    }
-                    if (objectKey.contains("precision") && objectKey["precision"].isDouble()) {
-                        mPrecision = objectKey["precision"].toDouble();
-                    }
-                    if (objectKey.contains("fieldWidth") && objectKey["fieldWidth"].isDouble()) {
-                        mFieldWidth = objectKey["fieldWidth"].toDouble();
-                        QString text = "";
-                        for (int i = 0; i < mFieldWidth; i++) {
-                            text = text + "0";
+            qDebug() << "DisplaySingleText::subscribe: key" << key;
+            // Get the configuration from the FairWind singleton itself
+            auto config = fairWind->getConfig();
+            // Check if a SignalK configuration is present
+            if (config.contains("SignalK") && config["SignalK"].isObject()) {
+                // Load the SignalK document keys and their details
+                QJsonObject objectSignalK = config["SignalK"].toObject();
+                if (objectSignalK.contains("keys") && objectSignalK["keys"].isObject()) {
+                    QJsonObject objectKeys = objectSignalK["keys"].toObject();
+                    if (objectKeys.contains(key) && objectKeys[key].isObject()) {
+                        QJsonObject objectKey = objectKeys[key].toObject();
+                        if (objectKey.contains("label") && objectKey["label"].isString()) {
+                            setLabel(objectKey["label"].toString());
                         }
-                        setValue(text);
-                    }
-                    if (objectKey.contains("fillChar") && objectKey["fillChar"].isString()) {
-                        mFillChar = objectKey["fillChar"].toString().at(0);
-                    }
-                    if (objectKey.contains("units") && objectKey["units"].isString()) {
-                        mDstUnits = objectKey["units"].toString();
-                        setUnits(fairwind::Units::getInstance()->getLabel(mDstUnits));
+                        if (objectKey.contains("format") && objectKey["format"].isString()) {
+                            mFormat = objectKey["format"].toString().at(0);
+                        }
+                        if (objectKey.contains("precision") && objectKey["precision"].isDouble()) {
+                            mPrecision = objectKey["precision"].toDouble();
+                        }
+                        if (objectKey.contains("fieldWidth") && objectKey["fieldWidth"].isDouble()) {
+                            mFieldWidth = objectKey["fieldWidth"].toDouble();
+                            QString text = "";
+                            for (int i = 0; i < mFieldWidth; i++) {
+                                text = text + "0";
+                            }
+                            setValue(text);
+                        }
+                        if (objectKey.contains("fillChar") && objectKey["fillChar"].isString()) {
+                            mFillChar = objectKey["fillChar"].toString().at(0);
+                        }
+                        if (objectKey.contains("units") && objectKey["units"].isString()) {
+                            mDstUnits = objectKey["units"].toString();
+                            setUnits(fairwind::Units::getInstance()->getLabel(mDstUnits));
+                        }
                     }
                 }
             }
-        }
 
-        if (jsonObject.contains("value") && jsonObject["value"].isDouble()) {
-            QString text = "__.__";
-            if (jsonObject["value"].isDouble()) {
-                double value = fairwind::Units::getInstance()->convert(
-                        mSrcUnits, mDstUnits,
-                        jsonObject["value"].toDouble());
+            if (jsonObject.contains("value") && jsonObject["value"].isDouble()) {
+                QString text = "__.__";
+                if (jsonObject["value"].isDouble()) {
+                    double value = fairwind::Units::getInstance()->convert(
+                            mSrcUnits, mDstUnits,
+                            jsonObject["value"].toDouble());
 
-                text = QString{"%1"}.arg(value,
-                                         mFieldWidth,
-                                         mFormat.toLatin1(),
-                                         mPrecision,
-                                         mFillChar);
+                    text = QString{"%1"}.arg(value,
+                                             mFieldWidth,
+                                             mFormat.toLatin1(),
+                                             mPrecision,
+                                             mFillChar);
 
-            } else if (jsonObject["value"].isString()) {
-                text = jsonObject["value"].toString();
+                } else if (jsonObject["value"].isString()) {
+                    text = jsonObject["value"].toString();
+                }
+                setValue(text);
             }
-            setValue(text);
         }
     }
-}
 
-void fairwind::displays::DisplayBase::update(const QJsonObject update) {
-    if (update.contains("updates") && update["updates"].isArray()) {
-        QJsonArray arrayUpdates = update["updates"].toArray();
-        if (arrayUpdates.size() == 1) {
-            QJsonValue arrayUpdatesItem = arrayUpdates[0];
-            if (arrayUpdatesItem.isObject()) {
-                QJsonObject arrayUpdatesItemObject = arrayUpdatesItem.toObject();
-                if (arrayUpdatesItemObject.contains("values") && arrayUpdatesItemObject["values"].isArray()) {
-                    QJsonArray arrayValues = arrayUpdatesItemObject["values"].toArray();
-                    for (auto arrayValuesItem: arrayValues) {
-                        if (arrayValuesItem.isObject()) {
-                            QJsonObject arrayValuesItemObject = arrayValuesItem.toObject();
-                            if (arrayValuesItemObject.contains("path") && arrayValuesItemObject["path"].isString()) {
-                                QString path = arrayValuesItemObject["path"].toString();
+    void DisplayBase::update(const QJsonObject update) {
+        if (update.contains("updates") && update["updates"].isArray()) {
+            QJsonArray arrayUpdates = update["updates"].toArray();
+            if (arrayUpdates.size() == 1) {
+                QJsonValue arrayUpdatesItem = arrayUpdates[0];
+                if (arrayUpdatesItem.isObject()) {
+                    QJsonObject arrayUpdatesItemObject = arrayUpdatesItem.toObject();
+                    if (arrayUpdatesItemObject.contains("values") && arrayUpdatesItemObject["values"].isArray()) {
+                        QJsonArray arrayValues = arrayUpdatesItemObject["values"].toArray();
+                        for (auto arrayValuesItem: arrayValues) {
+                            if (arrayValuesItem.isObject()) {
+                                QJsonObject arrayValuesItemObject = arrayValuesItem.toObject();
+                                if (arrayValuesItemObject.contains("path") &&
+                                    arrayValuesItemObject["path"].isString()) {
+                                    QString path = arrayValuesItemObject["path"].toString();
 
-                                if (mFullPath.endsWith(path)) {
-                                    //qDebug() << "DisplaySingleText::path:" << path;
-                                    if (arrayValuesItemObject.contains("value")) {
+                                    if (mFullPath.endsWith(path)) {
+                                        //qDebug() << "DisplaySingleText::path:" << path;
+                                        if (arrayValuesItemObject.contains("value")) {
 
-                                        QString text = "__.__";
-                                        if (arrayValuesItemObject["value"].isDouble()) {
-                                            double value = fairwind::Units::getInstance()->convert(
-                                                    mSrcUnits, mDstUnits,
-                                                    arrayValuesItemObject["value"].toDouble());
+                                            QString text = "__.__";
+                                            if (arrayValuesItemObject["value"].isDouble()) {
+                                                double value = fairwind::Units::getInstance()->convert(
+                                                        mSrcUnits, mDstUnits,
+                                                        arrayValuesItemObject["value"].toDouble());
 
-                                            text = QString{"%1"}.arg(value,
-                                                                     mFieldWidth,
-                                                                     mFormat.toLatin1(),
-                                                                     mPrecision,
-                                                                     mFillChar);
+                                                text = QString{"%1"}.arg(value,
+                                                                         mFieldWidth,
+                                                                         mFormat.toLatin1(),
+                                                                         mPrecision,
+                                                                         mFillChar);
 
-                                        } else if (arrayValuesItemObject["value"].isString()) {
-                                            text = arrayValuesItemObject["value"].toString();
+                                            } else if (arrayValuesItemObject["value"].isString()) {
+                                                text = arrayValuesItemObject["value"].toString();
+                                            }
+                                            setValue(text);
                                         }
-                                        setValue(text);
                                     }
                                 }
                             }
@@ -165,124 +168,124 @@ void fairwind::displays::DisplayBase::update(const QJsonObject update) {
             }
         }
     }
-}
 
 /*
  * getDstUnits
  * Returns the destination units
  */
-QString fairwind::displays::DisplayBase::getDstUnits() const {
-    return mDstUnits;
-}
+    QString DisplayBase::getDstUnits() const {
+        return mDstUnits;
+    }
 
 /*
  * getSrcUnits
  * Returns the source units
  */
-QString fairwind::displays::DisplayBase::getSrcUnits() const {
-    return mSrcUnits;
-}
+    QString DisplayBase::getSrcUnits() const {
+        return mSrcUnits;
+    }
 
 /*
  * getFullPath
  * Returns the full path
  */
-QString fairwind::displays::DisplayBase::getFullPath() const {
-    return mFullPath;
-}
+    QString DisplayBase::getFullPath() const {
+        return mFullPath;
+    }
 
 /*
  * getDescription
  * Returns the description
  */
-QString fairwind::displays::DisplayBase::getDescription() const {
-    return mDescription;
-}
+    QString DisplayBase::getDescription() const {
+        return mDescription;
+    }
 
 /*
  * getFillChar
  * Returns the fill char
  */
-QChar fairwind::displays::DisplayBase::getFillChar() const {
-    return mFillChar;
-}
+    QChar DisplayBase::getFillChar() const {
+        return mFillChar;
+    }
 
 /*
  * getFormat
  * Returns the format
  */
-QChar fairwind::displays::DisplayBase::getFormat() const {
-    return mFormat;
-}
+    QChar DisplayBase::getFormat() const {
+        return mFormat;
+    }
 
 /*
  * getPrecision
  * Get the used precision
  */
-int fairwind::displays::DisplayBase::getPrecision() const {
-    return mPrecision;
-}
+    int DisplayBase::getPrecision() const {
+        return mPrecision;
+    }
 
 /*
  * getFieldWidth
  * Get the display's width
  */
-int fairwind::displays::DisplayBase::getFieldWidth() const {
-    return mFieldWidth;
-}
+    int DisplayBase::getFieldWidth() const {
+        return mFieldWidth;
+    }
 
 /*
  * setDstUnits
  * Sets the destination units
  */
-void fairwind::displays::DisplayBase::setDstUnits(QString &dstUnits) {
-    mDstUnits = dstUnits;
-}
+    void DisplayBase::setDstUnits(QString &dstUnits) {
+        mDstUnits = dstUnits;
+    }
 
 /*
  * setSrcUnits
  * Sets the source units
  */
-void fairwind::displays::DisplayBase::setSrcUnits(QString &srcUnits) {
-    mSrcUnits = srcUnits;
-}
+    void DisplayBase::setSrcUnits(QString &srcUnits) {
+        mSrcUnits = srcUnits;
+    }
 
 /*
  * setDescription
  * Sets the description
  */
-void fairwind::displays::DisplayBase::setDescription(QString &description) {
-    mDescription = description;
-}
+    void DisplayBase::setDescription(QString &description) {
+        mDescription = description;
+    }
 
 /*
  * setFillChar
  * Sets the fill char
  */
-void fairwind::displays::DisplayBase::setFillChar(QChar fillChar) {
-    mFillChar = fillChar;
-}
+    void DisplayBase::setFillChar(QChar fillChar) {
+        mFillChar = fillChar;
+    }
 
 /*
  * setFormat
  * Sets th format
  */
-void fairwind::displays::DisplayBase::setFormat(QChar format) {
-    mFormat = format;
-}
+    void DisplayBase::setFormat(QChar format) {
+        mFormat = format;
+    }
 
 /*
  * setPrecision
  * Sets the precision
  */
-void fairwind::displays::DisplayBase::setPrecision(int precision) {
-    mPrecision = precision;
-}
+    void DisplayBase::setPrecision(int precision) {
+        mPrecision = precision;
+    }
 
 /*
  * setFieldWidth
  * Sets the display's width
  */
-void fairwind::displays::DisplayBase::setFieldWidth(int fieldWidth) {
-    mFieldWidth = fieldWidth;
+    void DisplayBase::setFieldWidth(int fieldWidth) {
+        mFieldWidth = fieldWidth;
+    }
 }

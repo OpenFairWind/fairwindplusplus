@@ -1,10 +1,22 @@
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
+
+set(QT_VERSION 5)
+
+find_package(Qt${QT_VERSION} REQUIRED COMPONENTS
+        Core
+        Gui
+        Network
+        Widgets
+        WebSockets
+        Positioning
+        Sql
+        )
 
 find_package (SQLite3)
 
 include_directories(${SQLite3_INCLUDE_DIRS})
-
-
-find_package(Qt5 REQUIRED COMPONENTS Widgets Network Sql Positioning)
 
 set(PORTOLANO_RESOURCE resourcesPortolano.qrc)
 qt5_add_resources(PORTOLANO_RESOURCE_ADDED ${PORTOLANO_RESOURCE})
@@ -16,7 +28,7 @@ add_library(Portolano SHARED
         MainPage.cpp MainPage.hpp MainPage.ui ResultItem.cpp ResultItem.hpp ResultItem.ui)
 
 add_dependencies(Portolano FairWindSdk)
-target_link_libraries(Portolano PRIVATE Qt5::Widgets Qt5::Network Qt5::Sql Qt5::Positioning ${LIBFAIRWINDSDK} ${SQLite3_LIBRARIES})
+target_link_libraries(Portolano PRIVATE Qt${QT_VERSION}::Widgets Qt${QT_VERSION}::Network Qt${QT_VERSION}::Sql Qt${QT_VERSION}::Positioning ${LIBFAIRWINDSDK} ${SQLite3_LIBRARIES})
 target_compile_options(Portolano PRIVATE ${COMPILE_OPTIONS})
 
 add_custom_command(

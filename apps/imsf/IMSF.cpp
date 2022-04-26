@@ -7,29 +7,35 @@
 #include "IMSF.hpp"
 #include "MainPage.hpp"
 
-
+namespace fairwind::apps::imsf {
 
 /*
  * Called by the FairWind framework when the app is invoked for the first time
  */
-void fairwind::apps::imsf::IMSF::onStart() {
-    FairWindApp::onStart();
+    void IMSF::onStart() {
+        FairWindApp::onStart();
 
-    auto mainPage = new MainPage();
-    add(mainPage);
-    show();
+        auto mainPage = new MainPage();
+        add(mainPage);
+        show();
+    }
+
+
+    void IMSF::onCreate() { FairWindApp::onCreate(); }
+
+    void IMSF::onResume() { FairWindApp::onResume(); }
+
+    void IMSF::onPause() { FairWindApp::onPause(); }
+
+    void IMSF::onStop() { FairWindApp::onStop(); }
+
+    void IMSF::onDestroy() { FairWindApp::onDestroy(); }
+
+    void IMSF::onConfigChanged() { FairWindApp::onConfigChanged(); }
+
+    bool IMSF::onInstall() { FairWindApp::onInstall(); return true;}
+
+    bool IMSF::onUninstall() { FairWindApp::onUninstall(); return true;}
+
 }
-
-
-void fairwind::apps::imsf::IMSF::onCreate() { FairWindApp::onCreate(); }
-
-void fairwind::apps::imsf::IMSF::onResume() { FairWindApp::onResume(); }
-
-void fairwind::apps::imsf::IMSF::onPause() { FairWindApp::onPause(); }
-
-void fairwind::apps::imsf::IMSF::onStop() { FairWindApp::onStop(); }
-
-void fairwind::apps::imsf::IMSF::onDestroy() { FairWindApp::onDestroy();}
-
-void fairwind::apps::imsf::IMSF::onConfigChanged() {FairWindApp::onConfigChanged();}
 

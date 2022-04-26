@@ -6,37 +6,51 @@
 #include "Sonar.hpp"
 #include "MainPage.hpp"
 
-void fairwind::apps::sonar::Sonar::onCreate() {
-    FairWindApp::onCreate();
-}
+namespace fairwind::apps::sonar {
+    void Sonar::onCreate() {
+        FairWindApp::onCreate();
+    }
 
 /*
  * Called by the FairWind framework when the app is invoked for the first time
  */
-void fairwind::apps::sonar::Sonar::onStart() {
-    FairWindApp::onStart();
+    void Sonar::onStart() {
+        FairWindApp::onStart();
 
-    auto mainPage = new MainPage();
-    add(mainPage);
-    show();
+        auto mainPage = new MainPage();
+        add(mainPage);
+        show();
+    }
+
+    void Sonar::onResume() {
+        FairWindApp::onResume();
+    }
+
+    void Sonar::onPause() {
+        FairWindApp::onPause();
+    }
+
+    void Sonar::onStop() {
+        FairWindApp::onStop();
+    }
+
+    void Sonar::onDestroy() {
+        FairWindApp::onDestroy();
+    }
+
+    void Sonar::onConfigChanged() {
+        FairWindApp::onConfigChanged();
+    }
+
+    bool Sonar::onInstall() {
+        FairWindApp::onInstall();
+        return true;
+    }
+
+    bool Sonar::onUninstall() {
+        FairWindApp::onUninstall();
+        return true;
+    }
 }
 
-void fairwind::apps::sonar::Sonar::onResume() {
-    FairWindApp::onResume();
-}
 
-void fairwind::apps::sonar::Sonar::onPause() {
-    FairWindApp::onPause();
-}
-
-void fairwind::apps::sonar::Sonar::onStop() {
-    FairWindApp::onStop();
-}
-
-void fairwind::apps::sonar::Sonar::onDestroy() {
-    FairWindApp::onDestroy();
-}
-
-void fairwind::apps::sonar::Sonar::onConfigChanged() {
-    FairWindApp::onConfigChanged();
-}

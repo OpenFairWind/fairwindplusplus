@@ -9,33 +9,46 @@
 #include <FairWindSdk/ILayout.hpp>
 #include "MainPage.hpp"
 
+namespace fairwind::apps::dashboard {
+    void Dashboard::onCreate() { FairWindApp::onCreate(); }
 
-void fairwind::apps::dashboard::Dashboard::onCreate() { FairWindApp::onCreate(); }
+    void Dashboard::onResume() { FairWindApp::onResume(); }
 
-void fairwind::apps::dashboard::Dashboard::onResume()  { FairWindApp::onResume(); }
+    void Dashboard::onPause() { FairWindApp::onPause(); }
 
-void fairwind::apps::dashboard::Dashboard::onPause()  { FairWindApp::onPause(); }
+    void Dashboard::onStop() { FairWindApp::onStop(); }
 
-void fairwind::apps::dashboard::Dashboard::onStop()  { FairWindApp::onStop(); }
+    void Dashboard::onDestroy() { FairWindApp::onDestroy(); }
 
-void fairwind::apps::dashboard::Dashboard::onDestroy()  { FairWindApp::onDestroy(); }
+    void Dashboard::onConfigChanged() { FairWindApp::onConfigChanged(); }
 
-void fairwind::apps::dashboard::Dashboard::onConfigChanged()  { FairWindApp::onConfigChanged(); }
+    bool Dashboard::onInstall() {
+        FairWindApp::onInstall();
 
-void fairwind::apps::dashboard::Dashboard::onStart() {
-    FairWindApp::onStart();
-
-    QString route = getRoute();
-    if (route.isEmpty()) {
-        route = "__home__";
+        return true;
     }
 
-    auto mainPage = new MainPage();
+    bool Dashboard::onUninstall() {
+        FairWindApp::onUninstall();
 
-    add(mainPage,route);
+        return true;
+    }
 
-    show(route);
-}
+    void Dashboard::onStart() {
+        FairWindApp::onStart();
 
-fairwind::apps::dashboard::Dashboard::~Dashboard() {
+        QString route = getRoute();
+        if (route.isEmpty()) {
+            route = "__home__";
+        }
+
+        auto mainPage = new MainPage();
+
+        add(mainPage, route);
+
+        show(route);
+    }
+
+    Dashboard::~Dashboard() {
+    }
 }

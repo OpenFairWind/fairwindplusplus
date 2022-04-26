@@ -30,6 +30,9 @@ namespace fairwind::apps::imsf {
 
         void onConfigChanged() override;
 
+        bool onInstall() override;
+        bool onUninstall() override;
+
     private:
 
 

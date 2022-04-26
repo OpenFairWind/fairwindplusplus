@@ -9,11 +9,9 @@
 #include <utility>
 #include <QJsonArray>
 
-#include <FairWindSdk/layers/SignalKLayer.hpp>
+#include <FairWindSdk/layers/signalk/SignalKLayer.hpp>
 #include <FairWindSdk/layers/OSMLayer.hpp>
 #include <FairWindSdk/layers/TiledLayer.hpp>
-#include <FairWindSdk/layers/GeoJsonLayer.hpp>
-#include <FairWindSdk/layers/ESRILayer.hpp>
 #include <FairWindSdk/displays/DisplaySingleText.hpp>
 #include <FairWindSdk/displays/DisplayDoubleText.hpp>
 #include <FairWindSdk/displays/DisplayGauge.hpp>
@@ -21,8 +19,7 @@
 #include <FairWindSdk/displays/DisplayChart.hpp>
 #include <FairWindSdk/displays/DisplaySimpleSwitch.hpp>
 #include <FairWindSdk/displays/DisplayToggleSwitch.hpp>
-#include <FairWindSdk/connections/SignalKWSClient.hpp>
-#include <FairWindSdk/connections/SignalKAPIClient.hpp>
+#include <FairWindSdk/connections/SignalKClient.hpp>
 #include <FairWindSdk/layouts/GridLayout.hpp>
 #include <FairWindSdk/layouts/VHGLayout.hpp>
 #include <FairWind.hpp>
@@ -36,12 +33,13 @@
 #include "settings/DisplaysBrowser.hpp"
 #include "settings/LayersBrowser.hpp"
 
+namespace fairwind {
 /*
  * FairWind
  * Private constructor - called by getInstance in order to ensure
  * the singleton design pattern
  */
-fairwind::FairWind::FairWind() {
+FairWind::FairWind() {
     qDebug() << "FairWind constructor";
 
     // Register the settings widgets inside the FairWind singleton
@@ -54,9 +52,7 @@ fairwind::FairWind::FairWind() {
     // Register built-in chart layers
     registerLayer(new layers::OSMLayer());
     registerLayer(new layers::TiledLayer());
-    registerLayer(new layers::SignalKLayer());
-    registerLayer(new layers::GeoJsonLayer());
-    registerLayer(new layers::ESRILayer());
+    registerLayer(new layers::signalk::SignalKLayer());
 
     // Register built-in displays
     registerDisplay(new displays::DisplaySingleText());
@@ -69,8 +65,7 @@ fairwind::FairWind::FairWind() {
     registerDisplay(new displays::DisplayToggleSwitch());
 
     // Register built-in connections
-    registerConnection(new connections::SignalKAPIClient());
-    registerConnection(new connections::SignalKWSClient());
+    registerConnection(new connections::SignalKClient());
 
     // Register built-in display layouts
     registerLayout(new layouts::GridLayout());
@@ -81,7 +76,7 @@ fairwind::FairWind::FairWind() {
  * getAppByExtensionId
  * Return the pointer to a FairWind++ app given the id
  */
-fairwind::apps::IFairWindApp *fairwind::FairWind::getAppByExtensionId(const QString& id) {
+apps::IFairWindApp *FairWind::getAppByExtensionId(const QString& id) {
     // Return the app pointer
     if (m_mapAppId2FairWindApp.contains(id)) {
         return m_mapAppId2FairWindApp[id];
@@ -94,7 +89,7 @@ fairwind::apps::IFairWindApp *fairwind::FairWind::getAppByExtensionId(const QStr
  * setApplicationDirPath
  * Set the application directory path
  */
-void fairwind::FairWind::setApplicationDirPath(QString applicationDirPath) {
+void FairWind::setApplicationDirPath(QString applicationDirPath) {
     // Set the path
     m_applicationDirPath = std::move(applicationDirPath);
 }
@@ -103,7 +98,7 @@ void fairwind::FairWind::setApplicationDirPath(QString applicationDirPath) {
  * loadApps
  * Load the FairWind++ Apps as Qt5 Plugin
  */
-void fairwind::FairWind::loadApps() {
+void FairWind::loadApps() {
     // Initialize the QT managed settings
     QSettings settings("fairwind.ini", QSettings::NativeFormat);
 
@@ -241,7 +236,7 @@ void fairwind::FairWind::loadApps() {
             if (iid == IID_FAIRWIND_APPS) {
 
                 // Handle the plugin as FairWind++
-                fairwind::apps::IFairWindApp *fairWindApp = qobject_cast<fairwind::apps::IFairWindApp *>(plugin);
+                apps::IFairWindApp *fairWindApp = qobject_cast<apps::IFairWindApp *>(plugin);
 
                 // Check if it is possible handling the plugin as a FairWind++ app
                 if (fairWindApp) {
@@ -312,75 +307,17 @@ void fairwind::FairWind::loadApps() {
         }
     }
 
-    qDebug() << "fairwind::FairWind::loadApps :" << m_mapAppId2FairWindApp.keys();
+    qDebug() << "FairWind::loadApps :" << m_mapAppId2FairWindApp.keys();
 }
 
 /*
  * loadConfig
  * Load the configuration from the fairwind.ini file where it is stored the name of the actual fairwind.json file
  */
-void fairwind::FairWind::loadConfig() {
+void FairWind::loadConfig() {
 
     // Get the actual configuration
     QJsonObject configSettings = getConfig();
-
-    // Check if the config object has a "SignalK" key
-    if (configSettings.contains("SignalK") && configSettings["SignalK"].isObject()) {
-        // Get the "SignalK" json object
-        QJsonObject jsonSignalK = configSettings["SignalK"].toObject();
-
-        // Check if the "SignalK" json object has the "self" key
-        if (jsonSignalK.contains("self") && jsonSignalK["self"].isString()) {
-
-            // Get the value of the "self" key
-            QString self = jsonSignalK["self"].toString();
-
-            // Set the self key in the Signal K document
-            m_signalkDocument.setSelf(self);
-        }
-
-        // Check if the "SignalK" json object has the "connections" key
-        if (jsonSignalK.contains("connections") && jsonSignalK["connections"].isArray()) {
-            // Get the connections array
-            QJsonArray arrayConnections = jsonSignalK["connections"].toArray();
-
-            // For each item of the array...
-            for (auto item: arrayConnections) {
-                // Check if the item is an object
-                if (item.isObject()) {
-                    // Get the json object of the connection
-                    QJsonObject objectConnection = item.toObject();
-
-                    // Check if the json object contains the key "class"
-                    if (objectConnection.contains("class") && objectConnection["class"].isString()) {
-                        // Get the class name as a string
-                        QString className = objectConnection["class"].toString();
-
-                        // Get an instance of the connection class
-                        connections::IConnection *fairWindConnection = instanceConnection(className);
-
-                        // Check if the instance is valid
-                        if (fairWindConnection) {
-                            // Define a dictionary for the parameters
-                            QMap <QString, QVariant> params;
-
-                            // For each key in the object connection dictionary
-                            for (const auto& key: objectConnection.keys()) {
-
-                                // Save the key/value in the dictionary
-                                params[key] = objectConnection[key].toVariant();
-                            }
-
-                            // Invoke the onInit method passing the parameters
-                            fairWindConnection->onInit(params);
-
-                            m_listConnections.append(fairWindConnection);
-                        }
-                    }
-                }
-            }
-        }
-    }
 
     auto launcherFairWindApp = getAppByExtensionId(getLauncherFairWindAppId());
     if (launcherFairWindApp) {
@@ -443,7 +380,7 @@ void fairwind::FairWind::loadConfig() {
                             }
                         } else if (!route.isEmpty()) {
                             // Get the app config
-                            QJsonObject jsonConfigObject=((fairwind::apps::FairWindApp *)fairWindApp)->getConfig();
+                            QJsonObject jsonConfigObject=((apps::FairWindApp *)fairWindApp)->getConfig();
 
                             // Check if the app config contains the "Routes" key
                             if (jsonConfigObject.contains("Routes") && jsonConfigObject["Routes"].isArray()) {
@@ -520,7 +457,7 @@ void fairwind::FairWind::loadConfig() {
  * getInstance
  * Either returns the available instance or creates a new one
  */
-fairwind::FairWind *fairwind::FairWind::getInstance() {
+FairWind *FairWind::getInstance() {
     if (m_instance == nullptr) {
         m_instance = new FairWind();
     }
@@ -531,7 +468,7 @@ fairwind::FairWind *fairwind::FairWind::getInstance() {
  * getSignalKDocument
  * Returns the SignalK document
  */
-SignalKDocument *fairwind::FairWind::getSignalKDocument() {
+signalk::Document *FairWind::getSignalKDocument() {
     return &m_signalkDocument;
 }
 
@@ -539,11 +476,11 @@ SignalKDocument *fairwind::FairWind::getSignalKDocument() {
  * registerLayer
  * Registers a layer inside FairWind
  */
-bool fairwind::FairWind::registerLayer(fairwind::layers::ILayer *dummy) {
+bool FairWind::registerLayer(layers::ILayer *dummy) {
     bool result = false;
     QString className = dummy->getClassName();
     if (!m_registeredLayers.contains(className)) {
-        qDebug() << "fairwind::FairWind::registerLayer:" << className;
+        qDebug() << "FairWind::registerLayer:" << className;
         m_registeredLayers[className] = dummy;
 
     }
@@ -554,9 +491,9 @@ bool fairwind::FairWind::registerLayer(fairwind::layers::ILayer *dummy) {
  * instanceLayer
  * Returns one the registered layers that matches the provided classname, if any exists
  */
-fairwind::layers::ILayer *fairwind::FairWind::instanceLayer(const QString &className) {
+layers::ILayer *FairWind::instanceLayer(const QString &className) {
     if (m_registeredLayers.contains(className)) {
-        qDebug() << "fairwind::FairWind::instanceLayer:" << className;
+        qDebug() << "FairWind::instanceLayer:" << className;
         return m_registeredLayers[className]->getNewInstance();
     }
     return nullptr;
@@ -566,7 +503,7 @@ fairwind::layers::ILayer *fairwind::FairWind::instanceLayer(const QString &class
  * getConfig
  * Returns the configuration infos
  */
-QJsonObject fairwind::FairWind::getConfig() {
+QJsonObject FairWind::getConfig() {
 
     // Define the object
     QJsonObject config;
@@ -589,7 +526,7 @@ QJsonObject fairwind::FairWind::getConfig() {
  * instanceDisplay
  * Returns one the registered displays that matches the provided classname, if any exists
  */
-fairwind::displays::IDisplay *fairwind::FairWind::instanceDisplay(const QString &className) {
+displays::IDisplay *FairWind::instanceDisplay(const QString &className) {
     if (m_registeredDisplays.contains(className)) {
         return m_registeredDisplays[className]->getNewInstance();
     }
@@ -600,7 +537,7 @@ fairwind::displays::IDisplay *fairwind::FairWind::instanceDisplay(const QString 
  * registerDisplay
  * Registers a new display inside FairWind
  */
-bool fairwind::FairWind::registerDisplay(fairwind::displays::IDisplay *dummy) {
+bool FairWind::registerDisplay(displays::IDisplay *dummy) {
     bool result = false;
     QString className = dummy->getClassName();
     if (!m_registeredDisplays.contains(className)) {
@@ -614,7 +551,7 @@ bool fairwind::FairWind::registerDisplay(fairwind::displays::IDisplay *dummy) {
  * instanceConnection
  * Returns one the registered connections that matches the provided classname, if any exists
  */
-fairwind::connections::IConnection *fairwind::FairWind::instanceConnection(const QString &className) {
+connections::IConnection *FairWind::instanceConnection(const QString &className) {
     if (m_registeredConnections.contains(className)) {
         return m_registeredConnections[className]->getNewInstance();
     }
@@ -625,11 +562,11 @@ fairwind::connections::IConnection *fairwind::FairWind::instanceConnection(const
  * registerConnection
  * Registers a new connection inside FairWind
  */
-bool fairwind::FairWind::registerConnection(fairwind::connections::IConnection *dummy) {
+bool FairWind::registerConnection(connections::IConnection *dummy) {
     bool result = false;
     QString className = dummy->getClassName();
     if (!m_registeredConnections.contains(className)) {
-        //qDebug() << "fairwind::FairWind::registerConnection: " << className;
+        //qDebug() << "FairWind::registerConnection: " << className;
         m_registeredConnections[className] = dummy;
 
     }
@@ -640,7 +577,7 @@ bool fairwind::FairWind::registerConnection(fairwind::connections::IConnection *
  * instanceLayout
  * Returns one the registered layouts that matches the provided classname, if any exists
  */
-fairwind::layouts::ILayout *fairwind::FairWind::instanceLayout(const QString &className) {
+layouts::ILayout *FairWind::instanceLayout(const QString &className) {
     if (m_registeredLayouts.contains(className)) {
         return m_registeredLayouts[className]->getNewInstance();
     }
@@ -651,14 +588,14 @@ fairwind::layouts::ILayout *fairwind::FairWind::instanceLayout(const QString &cl
  * instanceSettings
  * Returns one the registered settings that matches the provided classname, if any exists
  */
-fairwind::ui::settings::ISettingsTab *fairwind::FairWind::instanceSettingsTab(const QString &className) {
+ui::settings::ISettingsTab *FairWind::instanceSettingsTab(const QString &className) {
     if (m_registeredSettingsTab.contains(className)) {
         return m_registeredSettingsTab[className]->getNewInstance();
     }
     return nullptr;
 }
 
-fairwind::ui::settings::ISettings *fairwind::FairWind::instanceSettings(const QString& className) {
+ui::settings::ISettings *FairWind::instanceSettings(const QString& className) {
     if (m_registeredSettings.contains(className)) {
         return m_registeredSettings[className]->getNewInstance();
     }
@@ -669,7 +606,7 @@ fairwind::ui::settings::ISettings *fairwind::FairWind::instanceSettings(const QS
  * registerLayout
  * Registers a new layout inside FairWind
  */
-bool fairwind::FairWind::registerLayout(fairwind::layouts::ILayout *dummy) {
+bool FairWind::registerLayout(layouts::ILayout *dummy) {
     bool result = false;
     QString className = dummy->getClassName();
     if (m_registeredLayouts.contains(className) == false) {
@@ -683,11 +620,11 @@ bool fairwind::FairWind::registerLayout(fairwind::layouts::ILayout *dummy) {
  * registerSetting
  * Registers a new setting inside FairWind
  */
-bool fairwind::FairWind::registerSettingsTab(fairwind::ui::settings::ISettingsTab *dummy) {
+bool FairWind::registerSettingsTab(ui::settings::ISettingsTab *dummy) {
     bool result = false;
     QString className = dummy->getClassName();
     if (!m_registeredSettingsTab.contains(className)) {
-        qDebug() << "fairwind::FairWind::registerSettingsTab: " << className;
+        qDebug() << "FairWind::registerSettingsTab: " << className;
         m_registeredSettingsTab[className] = dummy;
         m_listSettings.append(dummy);
         result = true;
@@ -695,13 +632,13 @@ bool fairwind::FairWind::registerSettingsTab(fairwind::ui::settings::ISettingsTa
     return result;
 }
 
-bool fairwind::FairWind::registerSettings(fairwind::ui::settings::ISettings *dummy) {
+bool FairWind::registerSettings(ui::settings::ISettings *dummy) {
     qDebug() << "1";
     bool result = false;
     QString className = dummy->getClassName();
     qDebug() << "2";
     if (!m_registeredSettings.contains(className)) {
-        qDebug() << "fairwind::FairWind::registerSettings: " << className;
+        qDebug() << "FairWind::registerSettings: " << className;
         m_registeredSettings[className] = dummy;
         result = true;
     }
@@ -712,7 +649,7 @@ bool fairwind::FairWind::registerSettings(fairwind::ui::settings::ISettings *dum
  * getConnections
  * Returns all the registered connections
  */
-QMap<QString, fairwind::connections::IConnection *> *fairwind::FairWind::getConnections() {
+QMap<QString, connections::IConnection *> *FairWind::getConnections() {
     return &m_registeredConnections;
 }
 
@@ -720,7 +657,7 @@ QMap<QString, fairwind::connections::IConnection *> *fairwind::FairWind::getConn
  * getLayouts
  * Returns alla the registered layouts
  */
-QMap<QString, fairwind::layouts::ILayout *> *fairwind::FairWind::getLayouts() {
+QMap<QString, layouts::ILayout *> *FairWind::getLayouts() {
     return &m_registeredLayouts;
 }
 
@@ -728,7 +665,7 @@ QMap<QString, fairwind::layouts::ILayout *> *fairwind::FairWind::getLayouts() {
  * getDisplays
  * Returns all the registered displays
  */
-QMap<QString, fairwind::displays::IDisplay *> *fairwind::FairWind::getDisplays() {
+QMap<QString, displays::IDisplay *> *FairWind::getDisplays() {
     return &m_registeredDisplays;
 }
 
@@ -736,7 +673,7 @@ QMap<QString, fairwind::displays::IDisplay *> *fairwind::FairWind::getDisplays()
  * getLayers
  * Returns all th registered layers
  */
-QMap<QString, fairwind::layers::ILayer *> *fairwind::FairWind::getLayers() {
+QMap<QString, layers::ILayer *> *FairWind::getLayers() {
     return &m_registeredLayers;
 }
 
@@ -744,7 +681,7 @@ QMap<QString, fairwind::layers::ILayer *> *fairwind::FairWind::getLayers() {
  * getSettings
  * Returns all the registered settings
  */
-QMap<QString, fairwind::ui::settings::ISettingsTab *> *fairwind::FairWind::getSettings() {
+QMap<QString, ui::settings::ISettingsTab *> *FairWind::getSettings() {
     return &m_registeredSettingsTab;
 }
 
@@ -752,7 +689,7 @@ QMap<QString, fairwind::ui::settings::ISettingsTab *> *fairwind::FairWind::getSe
  * getConnectionsList
  * Returns all the registered connections in form of list
  */
-QList<fairwind::connections::IConnection *> *fairwind::FairWind::getConnectionsList() {
+QList<connections::IConnection *> *FairWind::getConnectionsList() {
     return &m_listConnections;
 }
 
@@ -760,54 +697,147 @@ QList<fairwind::connections::IConnection *> *fairwind::FairWind::getConnectionsL
  * getSettingsList
  * Returns all the registered settings in form of list
  */
-QList<fairwind::ui::settings::ISettingsTab *> *fairwind::FairWind::getSettingsList() {
+QList<ui::settings::ISettingsTab *> *FairWind::getSettingsList() {
     return &m_listSettings;
 }
 
-void fairwind::FairWind::setMainWindow(QMainWindow *mainWindow) {
+void FairWind::setMainWindow(QMainWindow *mainWindow) {
     m_mainWindow = mainWindow;
 }
 
-QMainWindow * fairwind::FairWind::getMainWindow() {
+QMainWindow * FairWind::getMainWindow() {
     return m_mainWindow;
 }
 
-QString fairwind::FairWind::getMyDataFairWindAppId() {
+QString FairWind::getMyDataFairWindAppId() {
     return mMyDataFairWindAppId;
 }
 
-QString fairwind::FairWind::getMOBFairWindAppId() {
+QString FairWind::getMOBFairWindAppId() {
     return mMOBFairWindAppId;
 }
 
-QString fairwind::FairWind::getLauncherFairWindAppId() {
+QString FairWind::getLauncherFairWindAppId() {
     return mLauncherFairWindAppId;
 }
 
-QString fairwind::FairWind::getAlarmsFairWindAppId() {
+QString FairWind::getAlarmsFairWindAppId() {
     return mAlarmsFairWindAppId;
 }
 
-QString fairwind::FairWind::getSettingsFairWindAppId() {
+QString FairWind::getSettingsFairWindAppId() {
     return mSettingsFairWindAppId;
 }
 
 
 
-fairwind::AppItem *fairwind::FairWind::getAppItemByHash(QString hash) {
+AppItem *FairWind::getAppItemByHash(QString hash) {
     return m_mapHash2AppItem[hash];
 }
 
-QString fairwind::FairWind::getAppHashById(QString appId) {
+QString FairWind::getAppHashById(QString appId) {
     return m_mapAppId2Hash[appId];
 }
 
-QList<QString> fairwind::FairWind::getExtensionsIds() {
+QList<QString> FairWind::getExtensionsIds() {
     return m_mapAppId2FairWindApp.keys();
 }
 
-QList<QString> fairwind::FairWind::getExtensionsHashes() {
+QList<QString> FairWind::getExtensionsHashes() {
     return m_mapHash2AppItem.keys();
 }
 
+void FairWind::startConnections() {
+    // Get the actual configuration
+    QJsonObject configSettings = getConfig();
+
+    // Check if the config object has a "SignalK" key
+    if (configSettings.contains("SignalK") && configSettings["SignalK"].isObject()) {
+        // Get the "SignalK" json object
+        QJsonObject jsonSignalK = configSettings["SignalK"].toObject();
+
+        // Check if the "SignalK" json object has the "self" key
+        if (jsonSignalK.contains("self") && jsonSignalK["self"].isString()) {
+
+            // Get the value of the "self" key
+            QString self = jsonSignalK["self"].toString();
+
+            // Set the self key in the Signal K document
+            m_signalkDocument.setSelf(self);
+        }
+
+        // Check if the "SignalK" json object has the "connections" key
+        if (jsonSignalK.contains("connections") && jsonSignalK["connections"].isArray()) {
+            // Get the connections array
+            QJsonArray arrayConnections = jsonSignalK["connections"].toArray();
+
+            // For each item of the array...
+            for (auto item: arrayConnections) {
+                // Check if the item is an object
+                if (item.isObject()) {
+                    // Get the json object of the connection
+                    QJsonObject objectConnection = item.toObject();
+
+                    // Check if the json object contains the key "class"
+                    if (objectConnection.contains("class") && objectConnection["class"].isString()) {
+                        // Get the class name as a string
+                        QString className = objectConnection["class"].toString();
+
+                        // Get an instance of the connection class
+                        connections::IConnection *fairWindConnection = instanceConnection(className);
+
+                        // Check if the instance is valid
+                        if (fairWindConnection) {
+                            // Define a dictionary for the parameters
+                            QMap <QString, QVariant> params;
+
+                            // For each key in the object connection dictionary
+                            for (const auto& key: objectConnection.keys()) {
+
+                                // Save the key/value in the dictionary
+                                params[key] = objectConnection[key].toVariant();
+                            }
+
+                            // Invoke the onInit method passing the parameters
+                            fairWindConnection->onInit(params);
+
+                            m_listConnections.append(fairWindConnection);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+void FairWind::installNewApps() {
+    for (const auto fairWindApp:m_mapAppId2FairWindApp) {
+        qDebug() << "Installing: " << fairWindApp->getName();
+        qDebug() << fairWindApp->getDataPath();
+
+        // Set the application data path
+        QDir dataPath(fairWindApp->getDataPath());
+
+        // Navigate to the application path
+        dataPath.cdUp();
+
+        QFile metadataFile(dataPath.absolutePath()+QDir::separator()+"metadata.json");
+        if (!metadataFile.exists()) {
+            if (fairWindApp->onInstall()) {
+
+                auto jsonObjectMetadata = QJsonObject();
+                jsonObjectMetadata["installationDate"] = signalk::Document::currentISO8601TimeUTC();
+                QJsonDocument jsonDocument = QJsonDocument();
+                jsonDocument.setObject(jsonObjectMetadata);
+                metadataFile.open(QFile::OpenModeFlag::WriteOnly);
+                if (metadataFile.isOpen()) {
+                    metadataFile.write(jsonDocument.toJson());
+                    metadataFile.flush();
+                    metadataFile.close();
+                }
+            }
+        }
+    }
+}
+}
 

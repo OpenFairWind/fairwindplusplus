@@ -30,6 +30,9 @@ namespace fairwind::apps::weather {
 
         void onConfigChanged() override;
 
+        bool onInstall() override;
+        bool onUninstall() override;
+
     private:
 
     };

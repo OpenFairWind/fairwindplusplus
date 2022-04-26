@@ -1,6 +1,21 @@
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
+
 set(QT_VERSION 5)
-find_package(Qt5 COMPONENTS Multimedia MultimediaWidgets)
-if (Qt5Multimedia_FOUND AND Qt5MultimediaWidgets_FOUND)
+
+find_package(Qt${QT_VERSION} REQUIRED COMPONENTS
+		Core
+		Gui
+		Network
+		Widgets
+		WebSockets
+		Positioning
+		Multimedia
+		MultimediaWidgets
+		)
+
+if (Qt${QT_VERSION}Multimedia_FOUND AND Qt${QT_VERSION}MultimediaWidgets_FOUND)
 
 	set(ENTERTAINMENT_RESOURCE resourcesEntertainment.qrc)
 	qt5_add_resources(ENTERTAINMENT_RESOURCE_ADDED ${ENTERTAINMENT_RESOURCE})
@@ -17,7 +32,7 @@ if (Qt5Multimedia_FOUND AND Qt5MultimediaWidgets_FOUND)
             )
 
 	add_dependencies(Entertainment FairWindSdk)
-	target_link_libraries(Entertainment PRIVATE Qt5::Widgets Qt5::Multimedia Qt5::MultimediaWidgets Qt5::Network Qt5::Xml  ${LIBFAIRWINDSDK})
+	target_link_libraries(Entertainment PRIVATE Qt${QT_VERSION}::Widgets Qt${QT_VERSION}::Multimedia Qt${QT_VERSION}::MultimediaWidgets Qt${QT_VERSION}::Network Qt${QT_VERSION}::Xml Qt${QT_VERSION}::Positioning ${LIBFAIRWINDSDK})
 	target_compile_options(Entertainment PRIVATE ${COMPILE_OPTIONS})
 
 	add_custom_command(

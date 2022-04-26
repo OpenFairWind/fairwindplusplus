@@ -8,16 +8,19 @@
 #include <FairWindSDK.hpp>
 #include "ItemSignalK.hpp"
 
+namespace fairwind::layers::signalk {
 /*
  * ItemDefault
  * Basic item widget for FairWind
  */
-class FAIRWINDSDK_LIB_DECL ItemDefault: public ItemSignalK {
-Q_OBJECT
-public:
-    explicit ItemDefault(QString &typeUuid);
-    QImage getImage() const override;
-private:
-};
+    class FAIRWINDSDK_LIB_DECL ItemDefault : public ItemSignalK {
+    Q_OBJECT
+    public:
+        explicit ItemDefault(QString &typeUuid);
 
+        QImage getImage() const override;
+
+    private:
+    };
+}
 #endif //FAIRWIND_ITEMDEFAULT_HPP

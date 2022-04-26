@@ -21,19 +21,24 @@
             "type": "object",
             "properties": {
               "Anchor": {
-                "type": "string"
+                "type": "string",
+                "default": "fairwind.apps.anchor"
               },
               "Launcher": {
-                "type": "string"
+                "type": "string",
+                "default": "fairwind.apps.launcher"
               },
               "MOB": {
-                "type": "string"
+                "type": "string",
+                "default": "fairwind.apps.mob"
               },
               "MyData": {
-                "type": "string"
+                "type": "string",
+                "default": "fairwind.apps.mydata"
               },
               "Settings": {
-                "type": "string"
+                "type": "string",
+                "default": "fairwind.apps.settings"
               }
             },
             "required": [
@@ -48,25 +53,76 @@
             "type": "object",
             "properties": {
               "CenterMap": {
-                "type": "boolean"
+                "type": "boolean",
+                "default": true,
+                "title": "Center Map",
+                "description": "If the map is centered, the self vessel is in the middle of the map and the map pans.",
+                "fairwind": {
+                  "domain": [
+                    {
+                      "key": "No",
+                      "value": false
+                    },
+                    {
+                      "key": "Yes",
+                      "value": true
+                    }
+                  ]
+                }
+              },
+              "CourseUp": {
+                "type": "boolean",
+                "default": false,
+                "title": "Course Up",
+                "description": "The map is orientated in the same direction of the vessel (useful when approaching an unknown harbour/bay",
+                "fairwind": {
+                  "domain": [
+                    {
+                      "key": "No",
+                      "value": false
+                    },
+                    {
+                      "key": "Yes",
+                      "value": true
+                    }
+                  ]
+                }
               },
               "Heading": {
-                "type": "string"
-              },
-              "Orientation": {
-                "type": "string"
+                "type": "string",
+                "default": "${self}.navigation.courseOverGroundMagnetic",
+                "title": "Heading",
+                "description": "The Signal K string for the navigation course over ground (COG) value.",
+                "fairwind": {
+                  "widget": "fairwind::ui::settings::SignalKBrowser",
+                  "postfix": "(Signal K string)"
+                }
               },
               "Position": {
-                "type": "string"
+                "type": "string",
+                "default": "${self}.navigation.position",
+                "title": "Position",
+                "description": "The Signal K string for the navigation position value.",
+                "fairwind": {
+                  "widget": "fairwind::ui::settings::SignalKBrowser",
+                  "postfix": "(Signal K string)"
+                }
               },
               "Speed": {
-                "type": "string"
+                "type": "string",
+                "default": "${self}.navigation.speedOverGround",
+                "title": "Speed",
+                "description": "The Signal K string for the navigation speed over ground (SOG) value.",
+                "fairwind": {
+                  "widget": "fairwind::ui::settings::SignalKBrowser",
+                  "postfix": "(Signal K string)"
+                }
               }
             },
             "required": [
               "CenterMap",
+              "CourseUp",
               "Heading",
-              "Orientation",
               "Position",
               "Speed"
             ]
@@ -379,7 +435,7 @@
                       "units"
                     ]
                   },
-                  "navigation.magneticVarition": {
+                  "navigation.magneticVariation": {
                     "type": "object",
                     "properties": {
                       "fieldWidth": {
@@ -480,7 +536,7 @@
                   "navigation.courseOverGroundTrue",
                   "navigation.headingMagnetic",
                   "navigation.headingTrue",
-                  "navigation.magneticVarition",
+                  "navigation.magneticVariation",
                   "navigation.speedOverGround",
                   "navigation.speedThroughWater"
                 ]
@@ -501,23 +557,20 @@
       "Config": {
         "Options": {
           "Position": "${self}.navigation.position",
-          "Heading": "${self}.navigation.courseOverGroundMagnetic",
+          "Heading": "${self}.navigation.courseOverGroundTrue",
           "Speed": "${self}.navigation.speedOverGround",
-          "Orientation":"north_up",
-          "CenterMap":false
+          "CourseUp":false,
+          "CenterMap":true
         },
         "SignalK":{
           "connections":[
             {
-              "class":"fairwind::connections::SignalKAPIClient",
+              "class":"fairwind::connections::SignalKClient",
               "active":true,
-              "url":"http://demo.signalk.org/signalk/v1/api",
-              "restore":true
-            },
-            {
-              "class":"fairwind::connections::SignalKWSClient",
-              "active":true,
-              "url":"ws://demo.signalk.org/signalk/v1/stream"
+              "url":"http://localhost:3000/signalk",
+              "version": "v1",
+              "restore":true,
+              "debug": true
             }
           ],
           "keys":{

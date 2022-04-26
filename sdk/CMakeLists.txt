@@ -109,7 +109,6 @@ add_library(fairwindsdk SHARED
         include/FairWindSdk/FairWindApp.hpp
         include/FairWindSdk/PageBase.hpp
         include/FairWindSdk/PanelBase.hpp
-        include/FairWindSdk/SignalKDocument.hpp
         include/FairWindSdk/FairWind.hpp
         include/FairWindSdk/AppItem.hpp
         include/FairWindSdk/displays/DisplayBase.hpp
@@ -121,12 +120,16 @@ add_library(fairwindsdk SHARED
         include/FairWindSdk/displays/DisplayToggleSwitch.hpp
         include/FairWindSdk/displays/DisplayWindAngleGauge.hpp
         include/FairWindSdk/displays/DisplayChart.hpp
-        include/FairWindSdk/layers/ItemVessel.hpp
-        include/FairWindSdk/layers/ItemAton.hpp
-        include/FairWindSdk/layers/ItemShoreBasestations.hpp
-        include/FairWindSdk/layers/ItemSignalK.hpp
-        include/FairWindSdk/layers/ItemDefault.hpp
-        include/FairWindSdk/layers/SignalKLayer.hpp
+        include/FairWindSdk/displays/DisplaySimpleTimeSeries.hpp
+        include/FairWindSdk/layers/signalk/ItemVessel.hpp
+        include/FairWindSdk/layers/signalk/ItemAton.hpp
+        include/FairWindSdk/layers/signalk/ItemShoreBasestations.hpp
+        include/FairWindSdk/layers/signalk/ItemWaypoint.hpp
+        include/FairWindSdk/layers/signalk/ItemNote.hpp
+        include/FairWindSdk/layers/signalk/ItemRegion.hpp
+        include/FairWindSdk/layers/signalk/ItemSignalK.hpp
+        include/FairWindSdk/layers/signalk/ItemDefault.hpp
+        include/FairWindSdk/layers/signalk/SignalKLayer.hpp
         include/FairWindSdk/layers/OSMLayer.hpp
         include/FairWindSdk/layers/TiledLayer.hpp
         include/FairWindSdk/layers/GeoJsonLayer.hpp
@@ -136,14 +139,18 @@ add_library(fairwindsdk SHARED
         include/FairWindSdk/layouts/GridLayout.hpp
         include/FairWindSdk/util/Units.hpp
         include/FairWindSdk/util/ExtendedJsonSchema.hpp
-        include/FairWindSdk/connections/SignalKAPIClient.hpp
-        include/FairWindSdk/connections/SignalKWSClient.hpp
+        include/FairWindSdk/connections/SignalKClient.hpp
         include/FairWindSdk/ISettings.hpp
         include/FairWindSdk/settings/FairComboBox.hpp
         include/FairWindSdk/settings/FairLineEdit.hpp
         include/FairWindSdk/settings/FairCheckBox.hpp
         include/FairWindSdk/settings/DisplaysBrowser.hpp
         include/FairWindSdk/settings/LayersBrowser.hpp
+
+        include/FairWindSdk/signalk/Document.hpp
+        include/FairWindSdk/signalk/Waypoint.hpp
+        include/FairWindSdk/signalk/Note.hpp
+        include/FairWindSdk/signalk/Subscription.hpp
 
         src/ui/Warning.cpp include/FairWindSdk/ui/Warning.hpp src/ui/Warning.ui
         src/ui/Colophon.cpp include/FairWindSdk/ui/Colophon.hpp src/ui/Colophon.ui
@@ -152,7 +159,6 @@ add_library(fairwindsdk SHARED
         src/AppItem.cpp
         src/FairWindApp.cpp
         src/PageBase.cpp
-        src/SignalKDocument.cpp
         src/displays/base/DisplayBase.cpp
         src/displays/base/singletext/DisplaySingleText.cpp
         src/displays/base/doubletext/DisplayDoubleText.cpp
@@ -162,12 +168,16 @@ add_library(fairwindsdk SHARED
         src/displays/base/switch/DisplayToggleSwitch.cpp
         src/displays/wind/DisplayWindAngleGauge.cpp
         src/displays/chart/DisplayChart.cpp
-        src/layers/ItemDefault.cpp
-        src/layers/ItemVessel.cpp
-        src/layers/ItemAton.cpp
-        src/layers/ItemShoreBasestations.cpp
-        src/layers/ItemSignalK.cpp
-        src/layers/SignalKLayer.cpp
+        src/displays/data/DisplaySimpleTimeSeries.cpp
+        src/layers/signalk/ItemDefault.cpp
+        src/layers/signalk/ItemVessel.cpp
+        src/layers/signalk/ItemAton.cpp
+        src/layers/signalk/ItemShoreBasestations.cpp
+        src/layers/signalk/ItemWaypoint.cpp
+        src/layers/signalk/ItemNote.cpp
+        src/layers/signalk/ItemRegion.cpp
+        src/layers/signalk/ItemSignalK.cpp
+        src/layers/signalk/SignalKLayer.cpp
         src/layers/OSMLayer.cpp
         src/layers/TiledLayer.cpp
         src/layers/GeoJsonLayer.cpp
@@ -177,15 +187,17 @@ add_library(fairwindsdk SHARED
         src/layouts/GridLayout.cpp
         src/util/Units.cpp
         src/util/ExtendedJsonSchema.cpp
-        src/connections/SignalKAPIClient.cpp
-        src/connections/SignalKWSClient.cpp
+        src/connections/SignalKClient.cpp
         src/settings/FairComboBox.cpp
         src/settings/FairLineEdit.cpp
         src/settings/FairCheckBox.cpp
         src/settings/DisplaysBrowser.cpp
         src/settings/LayersBrowser.cpp
         src/PanelBase.cpp
-
+        src/signalk/Document.cpp
+        src/signalk/Waypoint.cpp
+        src/signalk/Note.cpp
+        src/signalk/Subscription.cpp
         ${FAIRWINDSDK_RESOURCE_ADDED}
         )
 
@@ -213,6 +225,7 @@ target_link_libraries(fairwindsdk
         Qt${QT_VERSION}::Gui
         Qt${QT_VERSION}::Widgets
         Qt${QT_VERSION}::WebSockets
+        Qt${QT_VERSION}::Positioning
         ${LIBQTJSONSCHEMA} ${LIBQCGAUGEWIDGET} ${LIBQCSWITCHWIDGET} ${LIBQGEOVIEW}
         )
 

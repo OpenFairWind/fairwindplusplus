@@ -29,6 +29,10 @@ namespace fairwind::apps::radar {
         void onDestroy() override;
 
         void onConfigChanged() override;
+
+        bool onInstall() override;
+        bool onUninstall() override;
+
     private:
 
     };

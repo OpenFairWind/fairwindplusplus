@@ -29,6 +29,9 @@ namespace fairwind::apps::settings {
 
         void onConfigChanged() override;
 
+        bool onInstall() override;
+        bool onUninstall() override;
+
     private:
 
     };

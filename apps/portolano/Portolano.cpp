@@ -10,12 +10,57 @@
 #include <QSqlError>
 #include <QJsonArray>
 
+#include <FairWindSdk/signalk/Document.hpp>
+#include <FairWindSdk/signalk/Waypoint.hpp>
+
 #include "Portolano.hpp"
 #include "MainPage.hpp"
 
 namespace fairwind::apps::portolano {
     void Portolano::onCreate() {
         FairWindApp::onCreate();
+
+
+    }
+    /*
+     * Called by the FairWind framework when the app is invoked for the first time
+     */
+    void Portolano::onStart() {
+        FairWindApp::onStart();
+
+        auto mainPage = new MainPage();
+        add(mainPage);
+        show();
+    }
+
+    void Portolano::onResume() {
+        FairWindApp::onResume();
+    }
+
+    void Portolano::onPause() {
+        FairWindApp::onPause();
+    }
+
+    void Portolano::onStop() {
+        FairWindApp::onStop();
+    }
+
+    void Portolano::onDestroy() {
+
+        mDb.close();
+        FairWindApp::onDestroy();
+    }
+
+    void Portolano::onConfigChanged() {
+        FairWindApp::onConfigChanged();
+    }
+
+    bool Portolano::onInstall() {
+        bool result = false;
+        FairWindApp::onInstall();
+
+        auto fairwind = FairWind::getInstance();
+        auto signalKDocument = fairwind->getSignalKDocument();
 
         mDb =  QSqlDatabase::addDatabase("QSQLITE");
 
@@ -89,6 +134,12 @@ namespace fairwind::apps::portolano {
                                                             jsonObjectProperties["name"].isString()) {
                                                             auto name = jsonObjectProperties["name"].toString();
 
+                                                            QString description="";
+                                                            if (jsonObjectProperties.contains("description") &&
+                                                                jsonObjectProperties["description"].isString()) {
+                                                                description = jsonObjectProperties["description"].toString();
+                                                            }
+
                                                             QJsonDocument doc(jsonObjectFeature);
                                                             QString strJsonFeature(doc.toJson(QJsonDocument::Compact));
 
@@ -105,6 +156,9 @@ namespace fairwind::apps::portolano {
                                                                 qDebug() << "Query failed: " << query.lastError();
                                                                 qDebug() << "            : " << query.lastQuery();
                                                             }
+
+                                                            signalk::Waypoint waypoint("WPT_"+QString::number(id),name,description,"harbour", QGeoCoordinate(lat,lon, 0));
+                                                            signalKDocument->set("resources.waypoints",waypoint);
                                                         }
                                                     }
                                                 }
@@ -115,41 +169,21 @@ namespace fairwind::apps::portolano {
                             }
                         }
                     }
+
+                    result = true;
                 }
             }
         }
-    }
-    /*
-     * Called by the FairWind framework when the app is invoked for the first time
-     */
-    void Portolano::onStart() {
-        FairWindApp::onStart();
 
-        auto mainPage = new MainPage();
-        add(mainPage);
-        show();
+        return result;
     }
 
-    void Portolano::onResume() {
-        FairWindApp::onResume();
-    }
+    bool Portolano::onUninstall() {
+        bool result = false;
 
-    void Portolano::onPause() {
-        FairWindApp::onPause();
-    }
+        FairWindApp::onUninstall();
 
-    void Portolano::onStop() {
-        FairWindApp::onStop();
-    }
-
-    void Portolano::onDestroy() {
-
-        mDb.close();
-        FairWindApp::onDestroy();
-    }
-
-    void Portolano::onConfigChanged() {
-        FairWindApp::onConfigChanged();
+        return result;
     }
 
     QSqlDatabase *Portolano::getDb() {

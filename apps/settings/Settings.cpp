@@ -81,4 +81,8 @@ namespace fairwind::apps::settings {
         // Call the framework onDestroy()
         FairWindApp::onConfigChanged();
     }
+
+    bool Settings::onInstall() { FairWindApp::onInstall(); return true;}
+    bool Settings::onUninstall() { FairWindApp::onUninstall(); return true;}
+
 } // fairwind::apps::settings

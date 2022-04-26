@@ -23,26 +23,41 @@ int main(int argc, char *argv[]) {
     QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
 
     // Create the application
-
     QApplication app(argc, argv);
+
     // Get the splash screen logo
     QPixmap pixmap(":/resources/images/other/splash_logo.png");
+
     // Create a splash screen containing the logo
     QSplashScreen splash(pixmap);
+
     // Show the logo
     splash.show();
 
     // Get the FairWind singleton
     auto fairWind = fairwind::FairWind::getInstance();
 
-    splash.showMessage("Loading Applications ...", 500, Qt::white);
+    splash.showMessage("Loading Applications...", 500, Qt::white);
 
     // Set apps path
     fairWind->setApplicationDirPath(QApplication::applicationDirPath().left(1));
+
+
+
     // Load the apps inside the FairWind singleton itself
     fairWind->loadApps();
 
-    splash.showMessage("Loading Settings ...", 500, Qt::white);
+    // Update splash message
+    splash.showMessage("Starting Connections...", 500, Qt::white);
+
+    // Start the connections
+    fairWind->startConnections();
+
+    // Install new applications
+    fairWind->installNewApps();
+
+    // Update splash message
+    splash.showMessage("Loading Settings...", 500, Qt::white);
 
     // Load the configuration inside the FairWind singleton itself
     fairWind->loadConfig();

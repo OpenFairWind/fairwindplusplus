@@ -43,6 +43,12 @@ namespace fairwind::apps {
 
         // Called when settings are set
         virtual void onConfigChanged() = 0;
+
+        // Called when the app runs the first time ever
+        virtual bool onInstall() = 0;
+
+        // Called when the app runs its last time
+        virtual bool onUninstall() = 0;
     };
 }
 

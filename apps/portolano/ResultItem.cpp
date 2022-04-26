@@ -7,7 +7,7 @@
 #include <QJsonArray>
 #include <QDir>
 #include <FairWindSdk/FairWind.hpp>
-#include <FairWindSdk/SignalKDocument.hpp>
+#include <FairWindSdk/signalk/Document.hpp>
 #include <QGeoCoordinate>
 #include "ResultItem.hpp"
 #include "ui_ResultItem.h"
