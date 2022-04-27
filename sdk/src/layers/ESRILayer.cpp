@@ -1,5 +1,7 @@
 #include "layers/ESRILayer.hpp"
 
+#include "QGeoView/QGVLayerFile.h"
+
 #include <QTemporaryDir>
 
 fairwind::layers::ESRILayer::ESRILayer() :
@@ -34,15 +36,16 @@ void fairwind::layers::ESRILayer::onInit(QMap<QString, QVariant> params)
 
     const auto shapeFile = params.value("shapefile").toString();
     const auto shxPath = params.value("shxfile").toString();
-    // Shapefile extension accepts only absolute path, not qt resource files
-    const auto sourcePath = getRealPathToSource(shapeFile, shxPath);
 
-    if (sourcePath.isEmpty()) {
-        return;
+    QString sourcePath{}, shxSource{};
+    if (QGVLayerFile::resourceToDisk(shapeFile, sourcePath) &&
+            QGVLayerFile::resourceToDisk(shxPath, shxSource)) {
+        qDebug() << "ESRILayer loading" << sourcePath;
+        setSourceFileName(sourcePath);
+        activate();
+    } else {
+        qDebug() << "ESRILayer unable to load" << shapeFile;
     }
-
-    setSourceFileName(sourcePath);
-    activate();
 }
 
 fairwind::layers::ILayer *fairwind::layers::ESRILayer::getNewInstance()
@@ -63,30 +66,4 @@ QWidget *fairwind::layers::ESRILayer::onSettings()
 QString fairwind::layers::ESRILayer::getClassName() const
 {
     return this->metaObject()->className();
-}
-
-QString fairwind::layers::ESRILayer::getRealPathToSource(const QString& shpFile, const QString& shxFile)
-{
-    QTemporaryDir tempDir;
-    if (!tempDir.isValid()) {
-        return "";
-    }
-
-    QFileInfo shapeFileInfo(shpFile), shxFileInfo(shxFile);
-    if (!shapeFileInfo.exists() || !shxFileInfo.exists()) {
-        return "";
-    }
-
-    const QString shapeFileName = shapeFileInfo.fileName();
-    const QString shxFileName = shxFileInfo.fileName();
-
-    const QString tempShapeFileName = tempDir.path() + shapeFileName;
-    const QString tempShxFileName = tempDir.path() + shxFileName;
-
-    if (QFile::copy(shpFile, tempShapeFileName) &&
-            QFile::copy(shxFile, tempShxFileName)) {
-        return tempShapeFileName;
-    }
-
-    return "";
 }

@@ -1,18 +1,20 @@
-#ifndef ESRILAYER_HPP
-#define ESRILAYER_HPP
+#ifndef TIFFLAYER_HPP
+#define TIFFLAYER_HPP
+
+#ifdef USE_GDAL_FEATURES
 
 #include <FairWindSdk/FairWindSDK.hpp>
-#include <QGeoView/QGVLayerESRI.h>
+#include <QGeoView/QGVRasterLayer.h>
 #include <FairWindSdk/ILayer.hpp>
 
 namespace fairwind::layers {
-    class FAIRWINDSDK_LIB_DECL ESRILayer : public QGVLayerESRI, public fairwind::layers::ILayer {
+    class FAIRWINDSDK_LIB_DECL TiffLayer : public QGVRasterLayer, public fairwind::layers::ILayer {
     Q_OBJECT
 
     public:
-        explicit ESRILayer();
+        explicit TiffLayer();
 
-        ~ESRILayer();
+        ~TiffLayer();
 
         QString getClassName() const override;
 
@@ -25,7 +27,13 @@ namespace fairwind::layers {
         QWidget *onLegenda() override;
 
         QWidget *onSettings() override;
+
+    private:
+
+
     };
 }
 
-#endif // ESRILAYER_HPP
+#endif
+
+#endif // TIFFLAYER_HPP

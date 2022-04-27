@@ -1,18 +1,18 @@
-#ifndef ESRILAYER_HPP
-#define ESRILAYER_HPP
+#ifndef MVTTILESLAYER_HPP
+#define MVTTILESLAYER_HPP
 
 #include <FairWindSdk/FairWindSDK.hpp>
-#include <QGeoView/QGVLayerESRI.h>
+#include <QGeoView/QGVMvtLayerTiles.h>
 #include <FairWindSdk/ILayer.hpp>
 
 namespace fairwind::layers {
-    class FAIRWINDSDK_LIB_DECL ESRILayer : public QGVLayerESRI, public fairwind::layers::ILayer {
+    class FAIRWINDSDK_LIB_DECL MvtTilesLayer : public QGVMvtLayerTiles, public fairwind::layers::ILayer {
     Q_OBJECT
 
     public:
-        explicit ESRILayer();
+        explicit MvtTilesLayer();
 
-        ~ESRILayer();
+        ~MvtTilesLayer();
 
         QString getClassName() const override;
 
@@ -25,7 +25,11 @@ namespace fairwind::layers {
         QWidget *onLegenda() override;
 
         QWidget *onSettings() override;
+
+    private:
+
+
     };
 }
 
-#endif // ESRILAYER_HPP
+#endif // MVTTILESLAYER_HPP
