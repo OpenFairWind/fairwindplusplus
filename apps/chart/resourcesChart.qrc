@@ -1,5 +1,7 @@
-<!DOCTYPE RCC><RCC version="1.0">
-    <qresource>
+<RCC>
+    <qresource prefix="/">
         <file>resources/images/icons/chart_icon.png</file>
+        <file>resources/layers/italy.geojson</file>
+        <file>resources/layers/venice.tif</file>
     </qresource>
 </RCC>

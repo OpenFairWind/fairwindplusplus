@@ -7,7 +7,7 @@
 
 #include <QGeoView/QGVImage.h>
 
-#include <FairWindSDK/FairWindSDK.hpp>
+#include <FairWindSDK.hpp>
 #include <FairWindSdk/signalk/Document.hpp>
 
 namespace fairwind::layers::signalk {

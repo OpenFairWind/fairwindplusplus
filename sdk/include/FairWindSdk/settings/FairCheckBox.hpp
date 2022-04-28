@@ -5,6 +5,8 @@
 #ifndef FAIRWIND_FAIRCHECKBOX_HPP
 #define FAIRWIND_FAIRCHECKBOX_HPP
 
+#include <FairWindSdk/FairWindSDK.hpp>
+
 #include <FairWindSdk/ISettings.hpp>
 #include <FairWindSdk/IFairWindApp.hpp>
 #include <QCheckBox>

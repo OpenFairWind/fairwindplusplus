@@ -16,6 +16,8 @@
 #include "ui_UIValue.h"
 #include "UIArray.hpp"
 
+#include <math.h>
+
 namespace fairwind::apps::settings::browser {
     UIValue::UIValue(QWidget *parent, ExtendedJsonSchema *settings, QJsonValueRef ref, QString path) :
         QWidget(parent), ui(new Ui::UIValue), m_ref(ref) {

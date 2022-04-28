@@ -5,6 +5,8 @@
 #ifndef FAIRWIND_FAIRCOMBOBOX_HPP
 #define FAIRWIND_FAIRCOMBOBOX_HPP
 
+#include <FairWindSdk/FairWindSDK.hpp>
+
 #include <FairWindSdk/ISettings.hpp>
 #include <FairWindSdk/IFairWindApp.hpp>
 #include <QComboBox>

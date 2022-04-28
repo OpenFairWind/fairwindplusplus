@@ -53,7 +53,7 @@ endif()
 set(LIBQCGAUGEWIDGET ${LIBQCGAUGEWIDGET} PARENT_SCOPE)
 
 ExternalProject_Add(QcSwitchWidget
-        GIT_REPOSITORY https://github.com/Fpepe943/Qt-custom-switch-widget.git
+        GIT_REPOSITORY https://github.com/zSelimReborn/Qt-custom-switch-widget.git
         CMAKE_ARGS -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH} -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
         TIMEOUT 360
         )
@@ -74,8 +74,8 @@ endif()
 set(LIBQCSWITCHWIDGET ${LIBQCSWITCHWIDGET} PARENT_SCOPE)
 
 ExternalProject_Add(QGeoView
-        GIT_REPOSITORY https://github.com/OpenFairWind/QGeoView.git
-        CMAKE_ARGS -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH} -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
+        GIT_REPOSITORY https://github.com/zSelimReborn/QGeoView
+        CMAKE_ARGS -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH} -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION} -DEXTERNAL_INSTALL_LOCATION=${EXTERNAL_INSTALL_LOCATION} -DUSE_GDAL_FEATURES=ON
         TIMEOUT 360
         )
 set(LIBQGEOVIEW ${EXTERNAL_INSTALL_LOCATION}/lib/libqgeoview.so)
@@ -92,6 +92,9 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
     set(LIBQGEOVIEW ${EXTERNAL_INSTALL_LOCATION}/lib/libqgeoview.dylib)
 endif()
 set(LIBQGEOVIEW ${LIBQGEOVIEW} PARENT_SCOPE)
+
+#Comment this to disable GDAL features
+add_definitions(-DUSE_GDAL_FEATURES)
 
 set(FAIRWINDSDK_RESOURCE resourcesSDK.qrc)
 qt5_add_resources(FAIRWINDSDK_RESOURCE_ADDED ${FAIRWINDSDK_RESOURCE})
@@ -132,6 +135,11 @@ add_library(fairwindsdk SHARED
         include/FairWindSdk/layers/signalk/SignalKLayer.hpp
         include/FairWindSdk/layers/OSMLayer.hpp
         include/FairWindSdk/layers/TiledLayer.hpp
+        include/FairWindSdk/layers/GeoJsonLayer.hpp
+        include/FairWindSdk/layers/JsonTilesLayer.hpp
+        include/FairWindSdk/layers/MvtTilesLayer.hpp
+        include/FairWindSdk/layers/TiffLayer.hpp
+        include/FairWindSdk/layers/ESRILayer.hpp
         include/FairWindSdk/layouts/LayoutBase.hpp
         include/FairWindSdk/layouts/VHGLayout.hpp
         include/FairWindSdk/layouts/GridLayout.hpp
@@ -178,6 +186,11 @@ add_library(fairwindsdk SHARED
         src/layers/signalk/SignalKLayer.cpp
         src/layers/OSMLayer.cpp
         src/layers/TiledLayer.cpp
+        src/layers/GeoJsonLayer.cpp
+        src/layers/JsonTilesLayer.cpp
+        src/layers/MvtTilesLayer.cpp
+        src/layers/TiffLayer.cpp
+        src/layers/ESRILayer.cpp
         src/layouts/LayoutBase.cpp
         src/layouts/VHGLayout.cpp
         src/layouts/GridLayout.cpp

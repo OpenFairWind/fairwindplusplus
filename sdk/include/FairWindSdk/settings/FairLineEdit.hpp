@@ -5,6 +5,8 @@
 #ifndef FAIRWIND_FAIRLINEEDIT_HPP
 #define FAIRWIND_FAIRLINEEDIT_HPP
 
+#include <FairWindSdk/FairWindSDK.hpp>
+
 #include <FairWindSdk/ISettings.hpp>
 #include <FairWindSdk/IFairWindApp.hpp>
 #include <QLineEdit>

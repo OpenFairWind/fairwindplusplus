@@ -184,6 +184,56 @@
             "class": "fairwind::layers::signalk::SignalKLayer",
             "description": "The Vessel.",
             "name": "Self"
+          },
+          {
+            "active": true,
+            "class": "fairwind::layers::GeoJsonLayer",
+            "description": "Generic json layer.",
+            "name": "Points, Polyline and Polygons in JSON",
+            "sourcepath": ":/resources/layers/italy.geojson"
+          },
+          {
+            "active": true,
+            "class": "fairwind::layers::ESRILayer",
+            "description": "Generic ESRI layer with points.",
+            "name": "Points ESRI Shapefile",
+            "shapefile": ":/resources/POINT.shp",
+            "shxfile": ":/resources/POINT.shx"
+          },
+          {
+            "active": true,
+            "class": "fairwind::layers::ESRILayer",
+            "description": "Generic ESRI layer with polylines.",
+            "name": "Polylines ESRI Shapefile",
+            "shapefile": ":/resources/POLYLINE.shp",
+            "shxfile": ":/resources/POLYLINE.shx"
+          },
+          {
+            "active": true,
+            "class": "fairwind::layers::ESRILayer",
+            "description": "Generic ESRI layer with polygons.",
+            "name": "Polygons ESRI Shapefile",
+            "shapefile": ":/resources/POLYGON.shp",
+            "shxfile": ":/resources/POLYGON.shx"
+          },
+          {
+            "active": true,
+            "class": "fairwind::layers::JsonTilesLayer",
+            "api_url": "https://tile.nextzen.org/tilezen/vector/v1/${tilesize}/all/${z}/${x}/${y}.json?api_key=${api_key}",
+            "api_key": "*****",
+            "tile_type": "roads"
+          },
+          {
+            "active": true,
+            "class": "fairwind::layers::MvtTilesLayer",
+            "api_url": "https://tile.nextzen.org/tilezen/vector/v1/${tilesize}/all/${z}/${x}/${y}.mvt?api_key=${api_key}",
+            "api_key":  "*****",
+            "tile_type": "boundaries"
+          },
+          {
+            "active": true,
+            "class": "fairwind::layers::TiffLayer",
+            "sourcepath": ":/resources/layers/venice.tif"
           }
         ]
       }

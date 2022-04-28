@@ -12,6 +12,14 @@
 #include <FairWindSdk/layers/signalk/SignalKLayer.hpp>
 #include <FairWindSdk/layers/OSMLayer.hpp>
 #include <FairWindSdk/layers/TiledLayer.hpp>
+
+// QGeoView Layers
+#include "FairWindSdk/layers/ESRILayer.hpp"
+#include "FairWindSdk/layers/GeoJsonLayer.hpp"
+#include "FairWindSdk/layers/JsonTilesLayer.hpp"
+#include "FairWindSdk/layers/MvtTilesLayer.hpp"
+#include "FairWindSdk/layers/TiffLayer.hpp"
+
 #include <FairWindSdk/displays/DisplaySingleText.hpp>
 #include <FairWindSdk/displays/DisplayDoubleText.hpp>
 #include <FairWindSdk/displays/DisplayGauge.hpp>
@@ -53,6 +61,15 @@ FairWind::FairWind() {
     registerLayer(new layers::OSMLayer());
     registerLayer(new layers::TiledLayer());
     registerLayer(new layers::signalk::SignalKLayer());
+
+    // Register QGeoView layers
+    registerLayer(new layers::ESRILayer());
+    registerLayer(new layers::GeoJsonLayer());
+    registerLayer(new layers::JsonTilesLayer());
+    registerLayer(new layers::MvtTilesLayer());
+#ifdef USE_GDAL_FEATURES
+    registerLayer(new layers::TiffLayer());
+#endif
 
     // Register built-in displays
     registerDisplay(new displays::DisplaySingleText());
