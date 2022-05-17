@@ -91,6 +91,7 @@ void fairwind::ui::bottombar::BottomBar::mob_clicked() {
 void fairwind::ui::bottombar::BottomBar::apps_clicked() {
     // Emit the signal to tell the MainWindow to update the UI and show the apps screen
     emit setApps();
+    /*
     auto fairWind = fairwind::FairWind::getInstance();
     auto signalKDocument = fairWind->getSignalKDocument();
 
@@ -100,6 +101,7 @@ void fairwind::ui::bottombar::BottomBar::apps_clicked() {
     signalKDocument->set("resources.notes", note1);
     signalKDocument->set("resources.notes", note2);
     signalKDocument->save("signalkmodel.json");
+     */
 }
 
 /*
