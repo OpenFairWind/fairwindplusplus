@@ -20,7 +20,14 @@ namespace fairwind::apps::portolano {
     void Portolano::onCreate() {
         FairWindApp::onCreate();
 
-
+        auto databaseFileName =  getDataPath()+QDir::separator()+"ports.sqlite";
+        mDb =  QSqlDatabase::addDatabase("QSQLITE");
+        mDb.setDatabaseName(databaseFileName);
+        if (mDb.open()) {
+            QSqlQuery query(mDb);
+            query.exec("PRAGMA case_sensitive_like = false;");
+            mDb.close();
+        }
     }
     /*
      * Called by the FairWind framework when the app is invoked for the first time
@@ -46,8 +53,9 @@ namespace fairwind::apps::portolano {
     }
 
     void Portolano::onDestroy() {
-
-        mDb.close();
+        if (mDb.isOpen()) {
+            mDb.close();
+        }
         FairWindApp::onDestroy();
     }
 
@@ -62,18 +70,16 @@ namespace fairwind::apps::portolano {
         auto fairwind = FairWind::getInstance();
         auto signalKDocument = fairwind->getSignalKDocument();
 
-        mDb =  QSqlDatabase::addDatabase("QSQLITE");
-
-
-
         auto geoJsonFileName = getDataPath()+QDir::separator()+"ports.json";
+
         auto databaseFileName =  getDataPath()+QDir::separator()+"ports.sqlite";
+        auto db =  QSqlDatabase::addDatabase("QSQLITE");
+        db.setDatabaseName(databaseFileName);
 
-        mDb.setDatabaseName(databaseFileName);
-        if (mDb.open()) {
+        if (db.open()) {
 
-            QSqlQuery query(mDb);
-            query.exec("PRAGMA case_sensitive_like = true;");
+            QSqlQuery query(db);
+            query.exec("PRAGMA case_sensitive_like = false;");
 
             auto filePorts = QFile(geoJsonFileName);
             if (!filePorts.exists()) {
