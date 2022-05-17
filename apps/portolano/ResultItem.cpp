@@ -161,44 +161,7 @@ namespace fairwind::apps::portolano {
  * Method called in accordance to signalk to update the navigation course over ground
  */
     void ResultItem::updateNavigationPosition(const QJsonObject update) {
-        // Get the FairWind singleton
-        auto fairWind = fairwind::FairWind::getInstance();
-
-        // Get the signalk document from the FairWind singleton itself
-        auto signalKDocument = fairWind->getSignalKDocument();
-
-        // Set the search path
-        QString path = signalKDocument->getSelf() + ".navigation.position.value";
-
-        // Get the position value
-        QJsonValue positionValue = signalKDocument->subtree(path);
-
-        // Check if the value is valid
-        if (positionValue.isObject()) {
-
-            // Get latitude
-            double latitude = positionValue.toObject()["latitude"].toDouble();
-
-            // Get longitude
-            double longitude = positionValue.toObject()["longitude"].toDouble();
-
-            QGeoCoordinate vesselPosition = QGeoCoordinate(latitude,longitude);
-
-            if (vesselPosition.isValid() && mPosition.isValid()) {
-
-                ui->label_DTG_value->setText(
-                    QString{"%1"}.arg(vesselPosition.distanceTo(mPosition)/1852, 3, 'f', 1, '0')
-                );
-
-                ui->label_BTG_value->setText(
-                        QString{"%1"}.arg(vesselPosition.azimuthTo(mPosition), 3, 'f', 0, '0')
-                        );
-            } else {
-                ui->label_DTG_value->setText("n/a");
-                ui->label_BTG_value->setText("n/a");
-            }
-
-        }
+        updateNavigationData(update);
     }
 
     /*
@@ -206,22 +169,36 @@ namespace fairwind::apps::portolano {
  * Method called in accordance to signalk to update the navigation speed over ground
  */
     void ResultItem::updateNavigationSpeedOverGround(const QJsonObject update) {
+        updateNavigationData(update);
+    }
+
+    void ResultItem::updateNavigationData(const QJsonObject update) {
         // Get the FairWind singleton
         auto fairWind = fairwind::FairWind::getInstance();
+
         // Get the signalk document from the FairWind singleton itself
         auto signalKDocument = fairWind->getSignalKDocument();
-        // Set the search path
-        QString path = signalKDocument->getSelf() + ".navigation.speedOverGround";
 
-        // Get the position value
-        QJsonValue positionValue = signalKDocument->subtree(path);
-        // Check if the value is valid
-        if (positionValue.isObject()) {
-            // Get the speed value
-            double speedverGround = positionValue.toObject()["value"].toDouble() * 1.94384;
+        // Get current position
+        auto navigationPosition = signalKDocument->getNavigationPosition();
 
-            double distanceTo = ui->label_DTG_value->text().toDouble();
-            double timeTo = 3600*distanceTo/speedverGround;
+        // Check if the port waypoint and the current position are both valid
+        if (navigationPosition.isValid() && mPosition.isValid()) {
+
+            auto distanceTo = navigationPosition.distanceTo(mPosition);
+
+            ui->label_DTG_value->setText(
+                    QString{"%1"}.arg(distanceTo/1852, 3, 'f', 1, '0')
+            );
+
+            ui->label_BTG_value->setText(
+                    QString{"%1"}.arg(distanceTo, 3, 'f', 0, '0')
+            );
+
+            // Get the speed over ground
+            auto speedOverGround = signalKDocument->getNavigationSpeedOverGround() ;
+
+            double timeTo = distanceTo/speedOverGround;
 
             int hours = timeTo / 3600;
             int minutes = (timeTo-hours)/60;
@@ -233,6 +210,10 @@ namespace fairwind::apps::portolano {
 
             ui->label_TTG_value->setText(ttg.toString());
             ui->label_ETA_value->setText(eta.toString());
+
+        } else {
+            ui->label_DTG_value->setText("n/a");
+            ui->label_BTG_value->setText("n/a");
         }
     }
 } // fairwind::apps::portolano
