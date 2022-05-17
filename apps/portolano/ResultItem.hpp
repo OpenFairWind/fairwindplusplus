@@ -21,7 +21,6 @@ namespace fairwind::apps::portolano {
 
         ~ResultItem() override;
 
-
     public slots:
 
         void updateNavigationPosition(const QJsonObject update);
@@ -31,6 +30,8 @@ namespace fairwind::apps::portolano {
         Ui::ResultItem *ui;
         QGeoCoordinate mPosition;
         QJsonObject mFeature;
+
+        void updateNavigationData(const QJsonObject update);
     };
 } // fairwind::apps::portolano
 
