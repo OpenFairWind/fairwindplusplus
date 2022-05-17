@@ -39,30 +39,20 @@ namespace fairwind::apps::portolano {
 
         void onNumberSelectChanged(double value);
 
-        void updateNavigationPosition(const QJsonObject update);
+        void updateNavigationPosition(const QJsonObject& update);
 
     private:
         Ui::MainPage *ui;
 
-        QGeoCoordinate mPosition;
+        QGeoCoordinate mPreviousNavigationPosition;
 
-        QGeoCoordinate mOldPosition;
-
-        double radius;
+        //double mRangeInMeters;
 
         const double mNm2m = 1852;
 
-        QGeoCoordinate calculateDerivedPosition(QGeoCoordinate point, double range, double bearing);
-
-        double degreeToRadians(double degree);
-
-        double radiansToDegree(double radians);
-
         void insertIntoList(QSqlQuery query);
 
-        bool pointIsInCircle(QGeoCoordinate p1, QGeoCoordinate p2);
-
-        double getDistanceBetweenTwoPoints(QGeoCoordinate p1, QGeoCoordinate p2);
+        void spatialQuery(double range);
     };
 } // fairwind::appls::portolano
 
