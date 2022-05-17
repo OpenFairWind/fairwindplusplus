@@ -17,7 +17,7 @@
         "$schema": "http://json-schema.org/draft-04/schema#",
         "type": "object",
         "properties": {
-          "userRange": {
+          "useRange": {
             "title": "Use Range",
             "description": "User range filter or (if not selected), just search",
             "default": false,
@@ -26,7 +26,7 @@
           "range": {
             "title": "Range",
             "description": "The range in selected distance measure unit (i.e. nautical miles)",
-            "default": 6.5,
+            "default": 18520.0,
             "type": "number"
           },
           "lastSearched": {
