@@ -1,4 +1,4 @@
-#ifdef USE_GDAL_FEATURES
+
 
 #include "layers/TiffLayer.hpp"
 
@@ -7,15 +7,15 @@
 fairwind::layers::TiffLayer::TiffLayer() :
     QGVRasterLayer(nullptr, "")
 {
-    setName("Geo Json Layer");
-    setDescription("Integrates a geojson layer on the map.");
+    setName("GeoTiff Layer");
+    setDescription("Implements GeoTiff layer on the map.");
 }
 
 fairwind::layers::TiffLayer::~TiffLayer() {}
 
 QImage fairwind::layers::TiffLayer::getIcon() const
 {
-    return QImage(":/resources/images/icons/layer-geojson-icon.png");;
+    return QImage(":/resources/images/icons/layer-geotiff-icon.png");;
 }
 
 void fairwind::layers::TiffLayer::onInit(QMap<QString, QVariant> params)
@@ -66,4 +66,4 @@ QString fairwind::layers::TiffLayer::getClassName() const
     return this->metaObject()->className();
 }
 
-#endif
+

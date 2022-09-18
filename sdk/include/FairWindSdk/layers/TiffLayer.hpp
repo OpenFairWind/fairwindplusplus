@@ -1,7 +1,7 @@
 #ifndef TIFFLAYER_HPP
 #define TIFFLAYER_HPP
 
-#ifdef USE_GDAL_FEATURES
+
 
 #include <FairWindSdk/FairWindSDK.hpp>
 #include <QGeoView/QGVRasterLayer.h>
@@ -33,7 +33,5 @@ namespace fairwind::layers {
 
     };
 }
-
-#endif
 
 #endif // TIFFLAYER_HPP
