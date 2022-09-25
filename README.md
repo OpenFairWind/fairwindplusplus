@@ -77,7 +77,7 @@ The following list is an incomplete set of tested working conditions:
 - MacOs, Apple Silicon
 - Ubuntu Linux, ARM64
 - Ubuntu Linux, X86_64
-- Raspberry Pi OS, ARM32
+- Raspberry Pi OS, ARM32, ARM64
 - Windows 10, Intel
 
 ### Prerequisites
@@ -137,7 +137,7 @@ sudo apt update
 ```
 - Install the needed packages:
 ```console
-sudo apt-get install cmake libqt5webkit5-dev libqt5virtualkeyboard5-dev libqt5websockets5-dev libqt5widgets5 libqt5multimedia5 libqt5webenginewidgets5 libqt5webkit5-dev libqt5webview5-dev libqt5multimedia5-plugins libqt5webengine5 libqt5webengine-data qtwebengine5-dev qtmultimedia5-dev libsqlite3-dev
+sudo apt-get install cmake libqt5webkit5-dev libqt5virtualkeyboard5-dev libqt5websockets5-dev libqt5widgets5 libqt5multimedia5 libqt5webenginewidgets5 libqt5webkit5-dev libqt5webview5-dev libqt5multimedia5-plugins libqt5webengine5 libqt5webengine-data qtwebengine5-dev qtmultimedia5-dev libsqlite3-dev gdal-bin libgdal-dev
 ```
 - Create a development environment:
 ```console
